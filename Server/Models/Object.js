@@ -6,6 +6,10 @@ const ObjectSchema = new Schema ({
     name: String,
     iconPath: String,
     type: String,
+    description: String,
+    location: String,
+    sub_type: String,
+    owner: String,
 })
 
 const object = mongoose.model('object', ObjectSchema)
