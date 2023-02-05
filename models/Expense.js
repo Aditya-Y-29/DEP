@@ -11,6 +11,6 @@ const ExpenseSchema = new Schema ({
     billImagePath: String
 })
 
-const Expenses = mongoose.model('Expenses', ExpenseSchema)
+const Expense = mongoose.model('Expense', ExpenseSchema)
 
-module.exports = Expenses
+module.exports = Expense

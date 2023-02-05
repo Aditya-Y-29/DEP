@@ -3,10 +3,10 @@ const Schema = mongoose.Schema
 
 const ServiceSchema = new Schema ({
     objectId: String,
-    Description: String,
+    description: String,
     dueDate: new Date()  
 })
 
-const Services = mongoose.model('Services', ServiceSchema)
+const Service = mongoose.model('Service', ServiceSchema)
 
-module.exports = Services
+module.exports = Service

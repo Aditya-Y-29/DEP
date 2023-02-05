@@ -8,6 +8,6 @@ const UserSchema = new Schema ({
     inCommunities: []
 })
 
-const User = mongoose.model('Users', UserSchema)
+const User = mongoose.model('User', UserSchema)
 
 module.exports = User
