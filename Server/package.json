@@ -4,7 +4,8 @@
   "description": "Server for Development Engineering Project ( CP301 ) in IIT Ropar . Our Project is making a utility app.",
   "main": "main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon root.js"
   },
   "author": "T04",
   "license": "ISC",

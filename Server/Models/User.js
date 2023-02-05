@@ -5,7 +5,6 @@ const UserSchema = new Schema ({
     userName: String,
     email: String,
     phone: String,
-    inCommunities: []
 })
 
 const User = mongoose.model('User', UserSchema)

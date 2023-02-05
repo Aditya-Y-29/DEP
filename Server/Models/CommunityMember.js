@@ -3,7 +3,7 @@ const Schema = mongoose.Schema
 
 const CommunityMemberSchema = new Schema ({
     communityID: String,
-    userID: string
+    userID: String
 })
 
 const communityMember = mongoose.model('CommunityMember', CommunityMemberSchema)
