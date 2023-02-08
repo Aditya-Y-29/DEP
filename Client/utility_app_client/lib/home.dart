@@ -10,9 +10,11 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Home'),
+        title: const Text('Utility App'),
       ),
-      body: Row(
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           ElevatedButton(
             onPressed: () {
@@ -20,6 +22,13 @@ class _HomeScreenState extends State<HomeScreen> {
             },
             child: const Text('Go to Login'),
           ),
+          const SizedBox(height: 10),
+          ElevatedButton(
+              onPressed: () {
+                Navigator.pushNamed(context, '/signup');
+              },
+              child: const Text('Go to Signup')),
+          const SizedBox(height: 10),
           ElevatedButton(
             onPressed: () {
               Navigator.pushNamed(context, '/settings');
