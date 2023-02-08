@@ -14,7 +14,10 @@ app.use(cors());
 
 const userRoutes = require('./Routes/UserRoutes');
 
+app.use('/api/auth', authRoutes);
 app.use('/api/user', userRoutes);
+app.use('/api/communites', communityRoutes);
+app.use('/api/objects', objectRoutes);
 
 // Connect to DB
 

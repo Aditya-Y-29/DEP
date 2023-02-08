@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class LoginPage extends StatefulWidget {
+class SignUpPage extends StatefulWidget {
   @override
-  _LoginPageState createState() => _LoginPageState();
+  _SignUpPageState createState() => _SignUpPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _SignUpPageState extends State<SignUpPage> {
   final _formKey = GlobalKey<FormState>();
-  late String _email, _password;
+  late String _name, _phone, _email, _password;
 
   @override
   Widget build(BuildContext context) {
@@ -21,6 +21,26 @@ class _LoginPageState extends State<LoginPage> {
           key: _formKey,
           child: Column(
             children: <Widget>[
+              TextFormField(
+                decoration: const InputDecoration(labelText: 'Name'),
+                validator: (String? value) {
+                  if (value != null && value.isEmpty) {
+                    return 'Please enter a valid Name';
+                  }
+                  return null;
+                },
+                onSaved: (value) => _name = value ?? "",
+              ),
+              TextFormField(
+                decoration: const InputDecoration(labelText: 'PhoneNum'),
+                validator: (String? value) {
+                  if (value != null && value.isEmpty) {
+                    return 'Please enter a valid PhoneNum';
+                  }
+                  return null;
+                },
+                onSaved: (value) => _phone = value ?? "",
+              ),
               TextFormField(
                 decoration: const InputDecoration(labelText: 'Email'),
                 validator: (String? value) {
@@ -49,7 +69,7 @@ class _LoginPageState extends State<LoginPage> {
                     _loginUser();
                   }
                 },
-                child: const Text('Login'),
+                child: const Text('Signup'),
               ),
             ],
           ),
@@ -59,6 +79,7 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void _loginUser() async {
-    print("Login function called");
+    print("Signup function called");
+    // print(_email);
   }
 }
