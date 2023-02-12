@@ -19,12 +19,12 @@ class _CommunityState extends State<Community> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 125,
+      height: 75,
       margin: const EdgeInsets.all(5.0),
-      padding: const EdgeInsets.all(20.0),
+      padding: const EdgeInsets.all(10.0),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10.0),
-        color: Colors.red[400],
+        borderRadius: BorderRadius.circular(5.0),
+        color: const Color.fromARGB(255, 225, 135, 18),
         // boxShadow: const [
         //   BoxShadow(
         //     color: Colors.grey,
@@ -47,7 +47,7 @@ class _CommunityState extends State<Community> {
                 widget.name,
                 style: const TextStyle(
                   color: Colors.white,
-                  fontSize: 22,
+                  fontSize: 20,
                 ),
               ),
             ),
