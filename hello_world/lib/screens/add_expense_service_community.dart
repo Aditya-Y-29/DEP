@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:hello_world/community.dart';
 
-class AddExpenseService extends StatelessWidget {
-  const AddExpenseService({Key? key}) : super(key: key);
+class AddExpenseServiceCommunity extends StatefulWidget {
+  const AddExpenseServiceCommunity({Key? key}) : super(key: key);
+
+  @override
+  State<AddExpenseServiceCommunity> createState() => _AddExpenseServiceCommunityData();
+
+
+}
+
+class _AddExpenseServiceCommunityData extends State<AddExpenseServiceCommunity> {
 
   @override
   Widget build(BuildContext context) {
