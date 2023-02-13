@@ -1,44 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'community.dart';
 import 'add_expense_service_community.dart';
-// import 'package:flex_color_scheme/flex_color_scheme.dart';
-
-// class Home extends StatelessWidget {
-//   const Home({Key? key}) : super(key: key);
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: const Text('Utility App'),
-//         centerTitle: true,
-//         backgroundColor: Colors.red,
-//       ),
-//       body: GridView.count(
-//         crossAxisCount: 2,
-//         children: const <Community>[
-//           Community(name: 'Home'),
-//           Community(name: 'College'),
-//           Community(name: 'Office'),
-//         ],
-//       ),  
-//       floatingActionButton: FloatingActionButton(
-//         onPressed: () {
-//           Navigator.push(
-//             context,
-//             MaterialPageRoute(builder: (context) => const AddCommunity()),
-//           );
-//         },
-//         backgroundColor: Colors.red,
-//         child: const Text(
-//           '+',
-//           style: TextStyle(
-//             fontSize: 30
-//           )
-//         )
-//     ),
-//     );
-//   }
-// }
+import '../provider/community_data_provider.dart';
 
 class MyHomePage extends StatefulWidget {
   @override
@@ -54,13 +18,18 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: const Text("Your Communities"),
       ),
-      body: GridView.count(
-        crossAxisCount: 2,
-        childAspectRatio:  3,
-        children: List.generate(items.length, (index) {
-          return Community(name: items[index],);
-        }),
+      body: Consumer<CommunityDataProvider>(
+        builder: (context, communityDataProvider, child) {
+          return GridView.count(
+            crossAxisCount: 2,
+            childAspectRatio:  3,
+            children: List.generate(communityDataProvider.len, (index) {
+              return  Community(name: communityDataProvider.communities[index].toString(),);
+            }),
+          );
+        },
       ),
+
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.push(

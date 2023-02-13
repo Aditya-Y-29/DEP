@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../provider/community_data_provider.dart';
 
 class AddExpenseServiceCommunity extends StatefulWidget {
   const AddExpenseServiceCommunity({Key? key}) : super(key: key);
@@ -163,6 +164,8 @@ class CommunityData extends State<CommunityScreen> {
 
   final _formKey = GlobalKey<FormState>();
 
+  TextEditingController communityName = TextEditingController();
+  final communityDataProvider = Provider.of<CommunityDataProvider>(context, listen: false);
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -175,6 +178,7 @@ class CommunityData extends State<CommunityScreen> {
               icon: Icon(Icons.home),
               hintText: 'Enter the Community Name',
             ),
+            controller: communityName,
           ),
           TextFormField(
             decoration: const InputDecoration(
