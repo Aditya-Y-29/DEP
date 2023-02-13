@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import '../provider/community_data_provider.dart';
+import 'package:provider/provider.dart';
 
 class AddExpenseServiceCommunity extends StatefulWidget {
   const AddExpenseServiceCommunity({Key? key}) : super(key: key);
 
   @override
   State<AddExpenseServiceCommunity> createState() => _AddExpenseServiceCommunityData();
-
-
 }
 
 class _AddExpenseServiceCommunityData extends State<AddExpenseServiceCommunity> {
@@ -55,19 +54,36 @@ class ExpenseData extends State<ExpenseScreen> {
 
   final _formKey = GlobalKey<FormState>();
 
+
   @override
   Widget build(BuildContext context) {
+
+    final providerCommunity = Provider.of<CommunityDataProvider>(context, listen: false);
+    String communityDropDown=providerCommunity.communities[0];
+
     return Form(
       key: _formKey,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          TextFormField(
-            decoration: const InputDecoration(
-              icon: Icon(Icons.home),
-              hintText: 'Enter the Community Name',
-            ),
+
+          DropdownButton<String>(
+            value : communityDropDown,
+
+            items: providerCommunity.communities.map<DropdownMenuItem<String>>((String chosenValue) {
+              return DropdownMenuItem<String>(
+                value: chosenValue,
+                child: Text(chosenValue),
+              );
+            }).toList(),
+
+            onChanged: (String? newValue) {
+              setState(() {
+                communityDropDown = newValue!;
+              });
+            },
           ),
+
           TextFormField(
             decoration: const InputDecoration(
               icon: Icon(Icons.home),
@@ -112,17 +128,34 @@ class ServiceData extends State<ServiceScreen> {
   
   @override
   Widget build(BuildContext context) {
+
+    final providerCommunity = Provider.of<CommunityDataProvider>(context, listen: false);
+    String communityDropDown=providerCommunity.communities[0];
+    
     return Form(
       key: _formKey,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          TextFormField(
-            decoration: const InputDecoration(
-              icon: Icon(Icons.home),
-              hintText: 'Enter the Community Name',
-            ),
+
+          DropdownButton<String>(
+            value : communityDropDown,
+
+            items: providerCommunity.communities.map<DropdownMenuItem<String>>((String chosenValue) {
+              return DropdownMenuItem<String>(
+                value: chosenValue,
+                child: Text(chosenValue),
+              );
+            }).toList(),
+
+            onChanged: (String? newValue) {
+              setState(() {
+                communityDropDown = newValue!;
+              });
+            },
           ),
+
+
           TextFormField(
             decoration: const InputDecoration(
               icon: Icon(Icons.home),
@@ -165,9 +198,11 @@ class CommunityData extends State<CommunityScreen> {
   final _formKey = GlobalKey<FormState>();
 
   TextEditingController communityName = TextEditingController();
-  final communityDataProvider = Provider.of<CommunityDataProvider>(context, listen: false);
+
   @override
   Widget build(BuildContext context) {
+
+    final providerCommunity = Provider.of<CommunityDataProvider>(context, listen: false);
     return Form(
       key: _formKey,
       child: Column(
@@ -189,7 +224,9 @@ class CommunityData extends State<CommunityScreen> {
           Container(
               padding: const EdgeInsets.only(left: 150.0, top: 40.0),
               child: FloatingActionButton(
-                onPressed: null,
+                onPressed: (){
+                  providerCommunity.addCommunity(communityName.text);
+                },
                 backgroundColor: Colors.red[400],
                 child: const Text('Create'),
               )

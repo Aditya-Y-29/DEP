@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 
 class CommunityDataProvider extends ChangeNotifier{
@@ -9,4 +10,5 @@ class CommunityDataProvider extends ChangeNotifier{
         len+=1;
         notifyListeners();
       }
+
 }
