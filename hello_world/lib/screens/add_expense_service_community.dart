@@ -60,9 +60,11 @@ class ExpenseData extends State<ExpenseScreen> {
   @override
   Widget build(BuildContext context) {
 
-    final providerCommunity = Provider.of<CommunityDataProvider>(context, listen: false);
-    communityDropDown=providerCommunity.communities[0];
-    // objectDropDown=providerCommunity.communityObjectMap[communityDropDown]![0];
+    final providerCommunity = Provider.of<CommunityDataProvider>(context, listen: true);
+
+    communityDropDown=providerCommunity.communities[providerCommunity.communities_index];
+
+    objectDropDown=providerCommunity.communityObjectMap[communityDropDown]![0];
 
     return Form(
       key: _formKey,
@@ -82,36 +84,35 @@ class ExpenseData extends State<ExpenseScreen> {
             onChanged: (String? newValue) {
               setState(() {
                 communityDropDown = newValue!;
-                print(communityDropDown);
+                objectDropDown=providerCommunity.communityObjectMap[communityDropDown]![0];
+                providerCommunity.dolistening(communityDropDown);
               });
-            
             },
           ),
 
+      
+          DropdownButtonFormField<String>(
+            value : objectDropDown,
+            items: providerCommunity.communityObjectMap[communityDropDown]?.map<DropdownMenuItem<String>>((String chosenValue) {
+              return DropdownMenuItem<String>(
+                value: chosenValue,
+                child: Text(chosenValue),
+              );
+            }).toList(),
 
-          // DropdownButtonFormField<String>(
-          //   value : objectDropDown,
-          //   items: providerCommunity.communities.map<DropdownMenuItem<String>>((String chosenValue) {
-          //     return DropdownMenuItem<String>(
-          //       value: chosenValue,
-          //       child: Text(chosenValue),
-          //     );
-          //   }).toList(),
-
-          //   onChanged: (String? newValue) {
-          //     setState(() {
-          //       objectDropDown = newValue!;
-          //       print(objectDropDown);
-          //     });
-            
-          //   },
-          // ),
+            onChanged: (String? newValue) {
+              setState(() {
+                objectDropDown = newValue!;
+              });
+            },
+          ),
 
           TextFormField(
             decoration: const InputDecoration(
               icon: Icon(Icons.home),
               hintText: 'Amount',
             ),
+            keyboardType: TextInputType.number,
           ),
           TextFormField(
             decoration: const InputDecoration(
@@ -148,15 +149,18 @@ class ServiceScreen extends StatefulWidget {
 class ServiceData extends State<ServiceScreen> {
 
   final _formKey = GlobalKey<FormState>();
-  
+
   String communityDropDown='';
+  String objectDropDown='';
 
   @override
   Widget build(BuildContext context) {
 
-    final providerCommunity = Provider.of<CommunityDataProvider>(context, listen: false);
-    communityDropDown=providerCommunity.communities[0];
+    final providerCommunity = Provider.of<CommunityDataProvider>(context, listen: true);
 
+    communityDropDown=providerCommunity.communities[providerCommunity.communities_index];
+
+    objectDropDown=providerCommunity.communityObjectMap[communityDropDown]![0];
 
     return Form(
       key: _formKey,
@@ -176,9 +180,26 @@ class ServiceData extends State<ServiceScreen> {
             onChanged: (String? newValue) {
               setState(() {
                 communityDropDown = newValue!;
-                print(communityDropDown);
+                objectDropDown=providerCommunity.communityObjectMap[communityDropDown]![0];
+                providerCommunity.dolistening(communityDropDown);
               });
-            
+            },
+          ),
+
+      
+          DropdownButtonFormField<String>(
+            value : objectDropDown,
+            items: providerCommunity.communityObjectMap[communityDropDown]?.map<DropdownMenuItem<String>>((String chosenValue) {
+              return DropdownMenuItem<String>(
+                value: chosenValue,
+                child: Text(chosenValue),
+              );
+            }).toList(),
+
+            onChanged: (String? newValue) {
+              setState(() {
+                objectDropDown = newValue!;
+              });
             },
           ),
 

@@ -25,17 +25,6 @@ class _CommunityState extends State<Community> {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(5.0),
         color: const Color.fromARGB(255, 225, 135, 18),
-        // boxShadow: const [
-        //   BoxShadow(
-        //     color: Colors.grey,
-        //     blurRadius: 15.0, // soften the shadow
-        //     spreadRadius: 5.0, //extend the shadow
-        //     offset: Offset(
-        //       1.0, // Move to right 5  horizontally
-        //       1.0, // Move to bottom 5 Vertically
-        //     ),
-        //   )
-        // ],
       ),
       child: Row(
           mainAxisSize: MainAxisSize.max,

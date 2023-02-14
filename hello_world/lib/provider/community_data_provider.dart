@@ -5,16 +5,23 @@ class CommunityDataProvider extends ChangeNotifier{
       List<String> communities = ["Home", "Office","Work"];
       int len=3; 
 
+      int communities_index=0;
+
       Map<String, List<String>> communityObjectMap = {
-        "Home": ["Obj_Home_1", "Obj_Home_1", "Obj_Home_1"],
-        "Office": ["Obj_Office_1", "Obj_Office_1", "Obj_Office_1"],
-        "Work": ["Obj_Work_1", "Obj_Work_1", "Obj_Work_1"],
+        "Home": ["Obj_Home_1", "Obj_Home_2", "Obj_Home_3"],
+        "Office": ["Obj_Office_1", "Obj_Office_2", "Obj_Office_3"],
+        "Work": ["Obj_Work_1", "Obj_Work_2", "Obj_Work_3"],
       };
+    
+      void dolistening( String communityName){
+        communities_index=communities.indexOf(communityName);
+        notifyListeners();
+      }
 
       void addCommunity(String communityName){
         communities.add(communityName);
         len+=1;
-        communityObjectMap[communityName] = [];
+        communityObjectMap[communityName] = ["Obj_"+communityName+"_1", "Obj_"+communityName+"_2", "Obj_"+communityName+"_3"];
         notifyListeners();
       }
 
