@@ -54,12 +54,15 @@ class ExpenseData extends State<ExpenseScreen> {
 
   final _formKey = GlobalKey<FormState>();
 
+  String communityDropDown='';
+  String objectDropDown='';
 
   @override
   Widget build(BuildContext context) {
 
     final providerCommunity = Provider.of<CommunityDataProvider>(context, listen: false);
-    String communityDropDown=providerCommunity.communities[0];
+    communityDropDown=providerCommunity.communities[0];
+    // objectDropDown=providerCommunity.communityObjectMap[communityDropDown]![0];
 
     return Form(
       key: _formKey,
@@ -67,9 +70,8 @@ class ExpenseData extends State<ExpenseScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
 
-          DropdownButton<String>(
+          DropdownButtonFormField<String>(
             value : communityDropDown,
-
             items: providerCommunity.communities.map<DropdownMenuItem<String>>((String chosenValue) {
               return DropdownMenuItem<String>(
                 value: chosenValue,
@@ -80,9 +82,30 @@ class ExpenseData extends State<ExpenseScreen> {
             onChanged: (String? newValue) {
               setState(() {
                 communityDropDown = newValue!;
+                print(communityDropDown);
               });
+            
             },
           ),
+
+
+          // DropdownButtonFormField<String>(
+          //   value : objectDropDown,
+          //   items: providerCommunity.communities.map<DropdownMenuItem<String>>((String chosenValue) {
+          //     return DropdownMenuItem<String>(
+          //       value: chosenValue,
+          //       child: Text(chosenValue),
+          //     );
+          //   }).toList(),
+
+          //   onChanged: (String? newValue) {
+          //     setState(() {
+          //       objectDropDown = newValue!;
+          //       print(objectDropDown);
+          //     });
+            
+          //   },
+          // ),
 
           TextFormField(
             decoration: const InputDecoration(
@@ -126,21 +149,23 @@ class ServiceData extends State<ServiceScreen> {
 
   final _formKey = GlobalKey<FormState>();
   
+  String communityDropDown='';
+
   @override
   Widget build(BuildContext context) {
 
     final providerCommunity = Provider.of<CommunityDataProvider>(context, listen: false);
-    String communityDropDown=providerCommunity.communities[0];
-    
+    communityDropDown=providerCommunity.communities[0];
+
+
     return Form(
       key: _formKey,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
 
-          DropdownButton<String>(
+          DropdownButtonFormField<String>(
             value : communityDropDown,
-
             items: providerCommunity.communities.map<DropdownMenuItem<String>>((String chosenValue) {
               return DropdownMenuItem<String>(
                 value: chosenValue,
@@ -151,7 +176,9 @@ class ServiceData extends State<ServiceScreen> {
             onChanged: (String? newValue) {
               setState(() {
                 communityDropDown = newValue!;
+                print(communityDropDown);
               });
+            
             },
           ),
 
