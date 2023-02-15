@@ -46,7 +46,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  List<String> items = ["Home", "Office"];
+  List<String> items = ["Home", "Office", "Lab", "Hostel", "Apartment"];
 
   @override
   Widget build(BuildContext context) {
@@ -56,12 +56,20 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: GridView.count(
         crossAxisCount: 2,
-        childAspectRatio:  3,
+        // childAspectRatio:  3,
         children: List.generate(items.length, (index) {
-          return Community(name: items[index],);
+          return Align(
+          child: Container(
+            height: 500.0,
+            padding: EdgeInsets.fromLTRB(5.0, 10.0, 5.0, 10.0),
+            // color: Colors.red,
+            child: Community(name: items[index],),
+          ),
+          );
         }),
       ),
       floatingActionButton: FloatingActionButton(
+        heroTag: "Home_Btn",
         onPressed: () {
           Navigator.push(
             context,
