@@ -1,31 +1,25 @@
 import 'package:flutter/material.dart';
-import 'screens/home.dart';
-import 'provider/community_data_provider.dart';
+import 'Pages/home_page.dart';
+import 'provider/data_provider.dart';
 import 'package:provider/provider.dart';
-// import 'package:flex_color_scheme/flex_color_scheme.dart';
 
 void main() {
-  runApp(  
-    // theme: FlexColorScheme.light(scheme: FlexScheme.bahamaBlue).toTheme,
-    // themeMode: ThemeMode.system,
-    MyApp());
+  runApp(const MyApp());
 }
 
-
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (context) => CommunityDataProvider(),
+      create: (context) => DataProvider(),
       child: MaterialApp(
-        title: 'Flutter Demo',
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: MyHomePage(),
+        home: const MyHomePage(),
       ),
-      // theme: FlexColorScheme.light(scheme: FlexScheme.bahamaBlue).toTheme,
-      // themeMode: ThemeMode.system,
     );
   }
 }
