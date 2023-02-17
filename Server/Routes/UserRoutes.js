@@ -4,12 +4,14 @@ const router = express.Router()
 
 const {
     addUser,
-    addCommunity,
-    joinCommunity
+    joinCommunity,
+    getuserprofile,
+    getusercommunity,
 } = require('../Controllers/UserControllers')
 
 router.route('/adduser').post(addUser)
-router.route('/addcommunity').post(addCommunity)
 router.route('/joincommunity').post(joinCommunity)
+router.route('/getuserprofile').get(getuserprofile)
+router.route('/getusercommunity').get(getusercommunity)
 
 module.exports = router

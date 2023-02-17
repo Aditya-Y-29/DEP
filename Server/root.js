@@ -13,15 +13,19 @@ app.use(cors());
 // Routes
 
 const userRoutes = require('./Routes/UserRoutes');
-const 
-app.use('/api/auth', authRoutes);
-app.use('/api/user', userRoutes);
-app.use('/api/communites', communityRoutes);
-app.use('/api/objects', objectRoutes);
+const communityRoutes = require('./Routes/CommunityRoutes');
+const objectRoutes = require('./Routes/ObjectsRoutes');
 
-// Connect to DB
+
+app.use('/api/user', userRoutes);
+app.use('/api/community', communityRoutes);
+app.use('/api/object', objectRoutes);
+
+
+
 
 mongoose.set("strictQuery", false);
+
 mongoose.connect(process.env.MONGO_URI)
     .then(result => {
         app.listen(process.env.PORT, () => {

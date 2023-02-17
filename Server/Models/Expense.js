@@ -24,14 +24,8 @@ const ExpenseSchema = new Schema ({
         maxlength: 100,
         required: [true, 'Description is required']
     },
-    // still thinking for this
-    expenseDate: new Date(),
-    expenseTime: new Time(),
-    billImagePath:{
-        type: String,
-        required: [true,' Icon path is required'],
-        trim: true,
-    }
+    expenseDate: Date,
+    expenseTime: Date,
 })
 
 const Expense = mongoose.model('Expense', ExpenseSchema)

@@ -4,70 +4,60 @@ const user = require('../Models/User');
 
 
 
-// LOGIN RELATED FUNCTION
-
-
-
-
-
-// COMMUNITY RELATED FUNCTIONS
-
-
 const addUser = async (req, res) => {
-
-    const {userName,email,phone} = req.body;
-
-    const newUser = await user.insertMany({
-        userName: userName,
-        email: email,
-        phone: phone,
-    });
-
-    console.log(newUser[0]._id.toString());
-
-    res.status(200).json({
-        Status: "User Added Successfully"
-
-    });
+    const {name, userName, email, phone} = req.body;
+    try {
+        const newUser = new user({
+            name,
+            userName,
+            email,
+            phone
+        })
+        const savedUser = await newUser.save();
+        res.status(200).json(savedUser);
+    } catch (error) {
+        res.status(500).json(error);
+    }
 }
-
-
-
-const addCommunity = async (req, res) => {
-    const {userID,communityName} = req.body;
-
-    const newCommunity = await community.insertMany({
-        communityName: communityName,
-        ownerID: userID,
-    });
-
-    const newCommunityMember = await communityMember.insertMany({
-        communityID: communityID,
-        userID: userID,
-    });
-
-    res.status(200).json({
-        message: "Community Added Successfully"
-    });
-}
-
-
 
 const joinCommunity = async (req, res) => {
-    const {userID,communityID} = req.body;
-
-    const newCommunityMember = await communityMember.insertMany({
-        communityID: communityID,
-        userID: userID,
-    });
-    
-    res.status(200).json({
-        message: "Community Joined Successfully"
-    });
+    const {communityId, userId} = req.body;
+    try {
+        const communityMember = new communityMember({
+            communityId,
+            userId
+        })
+        const savedCommunityMember = await communityMember.save();
+        res.status(200).json(savedCommunityMember);
+    } catch (error) {
+        res.status(500).json(error);
+    }
 }
+
+const getuserprofile = async (req, res) => {
+    const {userId} = req.body;
+    try {
+        const user = await user.findById(userId);
+        res.status(200).json(user);
+    } catch (error) {
+        res.status(500).json(error);
+    }
+}
+
+const getusercommunity = async (req, res) => {
+    const {userId} = req.body;
+    try {
+        const userCommunities= await communityMember.find({userId: userId});
+        res.status(200).json(userCommunities);
+    } catch (error) {
+        res.status(500).json(error);
+    }
+}
+
 
 module.exports = {
     addUser,
-    addCommunity,
-    joinCommunity
+    joinCommunity,
+    getuserprofile,
+    getusercommunity
 }

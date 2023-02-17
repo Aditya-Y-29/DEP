@@ -13,32 +13,14 @@ const ObjectSchema = new Schema ({
         trim: true,
         unique: true,
     },
-    iconPath:{
-        type: String,
-        trim: true,
-        //set some default path is not choosen
-        //default: "/abc/"
-    },
-    objectType:{
-        type: String,
-        trim: true,
-    },
     description:{
-        type: String,
-        trim: true,
-    },
-    location:{
-        type: String,
-        trim: true,
-    },
-    sub_type:{
         type: String,
         trim: true,
     },
     owner:{
         type: String,
         trim: true,
-    },
+    }
 })
 
 const object = mongoose.model('object', ObjectSchema)

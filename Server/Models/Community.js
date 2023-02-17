@@ -11,12 +11,6 @@ const CommunitySchema = new Schema ({
         type: String,
         required: [true,' Owner Id is required'],
         trim: true,
-    },
-    iconPath:{
-        type: String,
-        trim: true,
-        //set some default path is not choosen
-        //default: "/abc/"
     }
 })
 
