@@ -4,16 +4,15 @@ const router = express.Router()
 
 const {
     addExpense,
+    getExpenses,
     addService,
-    deleteExpense,
-    deleteService,
-    viewExpenses,
-    viewServices,
-    viewInfo
-} = require('../Controllers/UserControllers')
+    getServices,
+} = require('../Controllers/ObjectsControllers')
 
-router.route('/adduser').post(addUser)
-router.route('/addcommunity').post(addCommunity)
-router.route('/joincommunity').post(joinCommunity)
+
+router.route('/addExpense').post(addExpense)
+router.route('/getExpenses').get(getExpenses)
+router.route('/addService').post(addService)
+router.route('/getServices').get(getServices)
 
 module.exports = router

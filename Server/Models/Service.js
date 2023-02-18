@@ -7,6 +7,11 @@ const ServiceSchema = new Schema ({
         trim: true,
         required: [true, 'Object ID is required']
     },
+    userID:{
+        type: String,
+        required: [true,' Community name is required'],
+        trim: true,
+    },
     description:{
         type: String,
         trim: true,
@@ -14,8 +19,7 @@ const ServiceSchema = new Schema ({
         maxlength: 100,
         required: [true, 'Description is required']
     },
-    // still thinking for this
-    dueDate: new Date()  
+    servicedate: Date
 })
 
 const Service = mongoose.model('Service', ServiceSchema)
