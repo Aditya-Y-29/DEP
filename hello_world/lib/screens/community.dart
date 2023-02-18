@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:hello_world/screens/add_expense_service_community.dart';
+import 'package:hello_world/screens/add_community.dart';
+import 'package:hello_world/screens/add_service.dart';
 import 'package:hello_world/screens/community_page.dart';
+
+import 'add_expense.dart';
 
 class Community extends StatefulWidget {
   final String name;
@@ -28,7 +31,7 @@ class _CommunityState extends State<Community> {
         );
       },
       child: Container(
-        margin: const EdgeInsets.all(5.0),
+        margin: const EdgeInsets.all(2.0),
         padding: const EdgeInsets.only(left: 10.0),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(5.0),
@@ -56,7 +59,7 @@ class _CommunityState extends State<Community> {
                 widget.name,
                 style: const TextStyle(
                   color: Colors.white,
-                  fontSize: 20,
+                  fontSize: 15,
                 ),
               ),
               PopupMenuButton<Choice>(
@@ -74,7 +77,7 @@ class _CommunityState extends State<Community> {
                     print("pressed add expense");
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => const AddExpenseServiceCommunity()),
+                      MaterialPageRoute(builder: (context) => const ExpenseScreen()),
                     );
                   }
                   else if (value.name == "Add Service")
@@ -82,7 +85,7 @@ class _CommunityState extends State<Community> {
                     print("pressed add service");
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => const AddExpenseServiceCommunity()),
+                      MaterialPageRoute(builder: (context) => const ServiceScreen()),
                     );
                   }
                 },
@@ -93,14 +96,14 @@ class _CommunityState extends State<Community> {
             Align(
               alignment: Alignment.bottomRight,
               child: Container(
-              height: 25.0,
-              width: 25.0,
+              height: 15.0,
+              width: 15.0,
               child: FloatingActionButton(
                 heroTag: "Comm_Btn",
                 onPressed: (){
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const AddExpenseServiceCommunity()),
+                    MaterialPageRoute(builder: (context) => const CommunityScreen()),
                   );
                 },
                 child: const  Text(
