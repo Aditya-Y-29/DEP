@@ -2,14 +2,14 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 const ExpenseSchema = new Schema ({
-    objectId:{
+    objectID:{
         type: String,
-        required: [true,' Community name is required'],
+        required: [true,' Object name is required'],
         trim: true,
     },
     userID:{
         type: String,
-        required: [true,' Community name is required'],
+        required: [true,' User name is required'],
         trim: true,
     },
     amount:{
@@ -25,7 +25,6 @@ const ExpenseSchema = new Schema ({
         required: [true, 'Description is required']
     },
     expenseDate: Date,
-    expenseTime: Date,
 })
 
 const Expense = mongoose.model('Expense', ExpenseSchema)

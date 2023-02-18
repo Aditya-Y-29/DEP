@@ -22,8 +22,6 @@ const addUser = async (req, res) => {
 
 const joinCommunity = async (req, res) => {
     const {communityID, userID} = req.body;
-    // console.log(userID);
-    // console.log(communityID);
     try {
         const newcommunityMember = new communityMember({
             communityID,
