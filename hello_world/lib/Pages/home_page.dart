@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../screens/community.dart';
+import '../components/community.dart';
 import 'add_home_page_floating_button.dart';
 import '../provider/data_provider.dart';
 
@@ -24,7 +24,7 @@ class _MyHomePageState extends State<MyHomePage> {
         builder: (context, communityDataProvider, child) {
           return GridView.count(
             crossAxisCount: 2,
-            childAspectRatio:  3,
+            // childAspectRatio:  3,
             children: List.generate(communityDataProvider.len, (index) {
               return  Community(name: communityDataProvider.communities[index].toString(),);
             }),

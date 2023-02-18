@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:hello_world/screens/add_expense_service_community.dart';
-import 'package:hello_world/screens/community_page.dart';
+import 'package:hello_world/Pages/community_page.dart';
+import '../Pages/add_home_page_floating_button.dart';
 
 class Community extends StatefulWidget {
   final String name;
