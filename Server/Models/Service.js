@@ -19,7 +19,7 @@ const ServiceSchema = new Schema ({
         maxlength: 100,
         required: [true, 'Description is required']
     },
-    servicedate: Date
+    serviceDate: Date
 })
 
 const Service = mongoose.model('Service', ServiceSchema)
