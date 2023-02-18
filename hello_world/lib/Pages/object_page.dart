@@ -17,7 +17,7 @@ class _ObjectPageState extends State<ObjectPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(100.0),
+        preferredSize: const Size.fromHeight(100.0),
       child: AppBar(
         leading: IconButton(
           icon: Icon(Icons.menu, size: 40.0),
@@ -28,7 +28,7 @@ class _ObjectPageState extends State<ObjectPage> {
           Icon(Icons.person_2_outlined, size: 40.0)
         ],
         bottom: PreferredSize(
-          preferredSize: Size.fromHeight(50.0),
+          preferredSize: const Size.fromHeight(50.0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
@@ -51,7 +51,7 @@ class _ObjectPageState extends State<ObjectPage> {
         length: 2,
         child: Scaffold(
           appBar: PreferredSize(
-            preferredSize: Size.fromHeight(50.0),
+            preferredSize: const Size.fromHeight(50.0),
             child: AppBar(
             bottom: const TabBar(
               tabs: [
@@ -61,7 +61,8 @@ class _ObjectPageState extends State<ObjectPage> {
               indicatorColor: Colors.white,
             ),
             backgroundColor: const Color.fromARGB(255, 225, 135, 18),
-          ),),
+          ),
+          ),
           body: const TabBarView(
             children: [
               ObjectExpenseScreen(),
@@ -78,7 +79,6 @@ class _ObjectPageState extends State<ObjectPage> {
           );
         },
         child: const Icon(Icons.add),
-        backgroundColor: const Color.fromARGB(255, 225, 135, 18),
       ),
     );
   }

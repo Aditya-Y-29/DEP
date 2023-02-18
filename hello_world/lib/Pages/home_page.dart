@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hello_world/Pages/community_page.dart';
 import 'package:provider/provider.dart';
 import '../components/community.dart';
 import 'add_home_page_floating_button.dart';
@@ -26,7 +27,20 @@ class _MyHomePageState extends State<MyHomePage> {
             crossAxisCount: 2,
             // childAspectRatio:  3,
             children: List.generate(communityDataProvider.len, (index) {
-              return  Community(name: communityDataProvider.communities[index].toString(),);
+              return  GestureDetector(
+                  onTap: (){
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const CommunityPage()),
+                    );
+                  },
+                  child: Container(
+                    height: 500.0,
+                    padding: const EdgeInsets.fromLTRB(5.0, 10.0, 5.0, 10.0),
+                    // color: Colors.red,
+                    child: Community(name: communityDataProvider.communities[index].toString(),),
+                  ),
+              );
             }),
           );
         },
