@@ -1,6 +1,7 @@
 //create a page for an object that consists of two screens in two separate tabs; namely Expenses and Services
 import 'package:flutter/material.dart';
 import 'package:hello_world/screens/object_expense.dart';
+import 'package:hello_world/screens/object_service.dart';
 
 import 'add_home_page_floating_button.dart';
 
@@ -64,7 +65,7 @@ class _ObjectPageState extends State<ObjectPage> {
           body: const TabBarView(
             children: [
               ObjectExpenseScreen(),
-              Text("Services"),
+              ObjectServiceScreen(),
             ],
           ),
         ),
