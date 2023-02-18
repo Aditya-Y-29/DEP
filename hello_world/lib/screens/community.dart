@@ -75,18 +75,18 @@ class _CommunityState extends State<Community> {
                   if(value.name == "Add Expense")
                   {
                     print("pressed add expense");
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const ExpenseScreen()),
-                    );
+                    // Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(builder: (context) => const ExpenseScreen()),
+                    // );
                   }
                   else if (value.name == "Add Service")
                   {
                     print("pressed add service");
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const ServiceScreen()),
-                    );
+                    // Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(builder: (context) => const ServiceScreen()),
+                    // );
                   }
                 },
                 color: Colors.white,
@@ -101,10 +101,10 @@ class _CommunityState extends State<Community> {
               child: FloatingActionButton(
                 heroTag: "Comm_Btn",
                 onPressed: (){
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const CommunityScreen()),
-                  );
+                  // Navigator.push(
+                  //   context,
+                  //   MaterialPageRoute(builder: (context) => const CommunityScreen()),
+                  // );
                 },
                 child: const  Text(
                     "+"

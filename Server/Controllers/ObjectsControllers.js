@@ -2,33 +2,32 @@ const objects = require('../Models/Objects');
 const expense=require('../Models/Expense');
 const service=require('../Models/Service');
 
-//HAVE TO CHECK THE WHOLE FILE AGAIN, WILL DO AFTER THE FLUTTER PART IS DONE
 
 const addExpense = async (req, res) => {
-    const {objectId,userId,amount,description,expenseDate,expenseTime} = req.body;
+    const {objectID,userID,amount,description,expenseDate} = req.body;
     try {
         const newExpense = new expense({
-            objectId,
-            userId,
+            objectID,
+            userID,
             amount,
             description,
             expenseDate,
-            expenseTime
         })
         const savedExpense = await newExpense.save();
         res.status(200).json(savedExpense);
     }
     catch (error) {
+        console.log(error);
         res.status(500).json(error);
     }
 }
 
 const addService = async (req, res) => {
-    const {objectId,userId,amount,description,serviceDate,serviceTime} = req.body;
+    const {objectID,userID,description,serviceDate} = req.body;
     try {
         const newService = new service({
-            objectId,
-            userId,
+            objectID,
+            userID,
             description,
             serviceDate,
         })
@@ -42,9 +41,9 @@ const addService = async (req, res) => {
 
 
 const getExpenses = async (req, res) => {
-    const {objectId} = req.body;
+    const {objectID} = req.body;
     try {
-        const expenses = await expense.find({objectId: objectId});
+        const expenses = await expense.find({objectID: objectID});
         res.status(200).json(expenses);
     }
     catch (error) {
@@ -53,9 +52,9 @@ const getExpenses = async (req, res) => {
 }
 
 const getServices = async (req, res) => {
-    const {objectId} = req.body;
+    const {objectID} = req.body;
     try {
-        const services = await service.find({objectId: objectId});
+        const services = await service.find({objectID: objectID});
         res.status(200).json(services);
     }
     catch (error) {

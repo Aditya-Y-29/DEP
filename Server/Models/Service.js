@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 const ServiceSchema = new Schema ({
-    objectId:{
+    objectID:{
         type: String,
         trim: true,
         required: [true, 'Object ID is required']
