@@ -3,6 +3,11 @@ const validatorPackage = require('validator')
 const Schema = mongoose.Schema
 
 const UserSchema = new Schema ({
+    name:{
+        type: String,
+        required: [true,' Name is required'],
+        trim: true,
+    },
     userName:{
         type: String,
         required: [true,' UserName is required'],
@@ -25,7 +30,7 @@ const UserSchema = new Schema ({
         required: [true,' Phone nunber is required'],
         min: [0, 'Please enter a valid Phone number'],
         max: [9999999999, 'please enter a valid phone number'],
-    }    
+    },
 })
 
 const User = mongoose.model('User', UserSchema)
