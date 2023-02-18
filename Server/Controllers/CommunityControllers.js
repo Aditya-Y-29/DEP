@@ -4,11 +4,11 @@ const objects = require('../Models/Objects');
 
 
 const createCommunity = async (req, res) => {
-    const {name, userId} = req.body;
+    const {communityName, ownerID} = req.body;
     try {
         const newCommunity = new community({
-            name,
-            ownerID: userId
+            communityName,
+            ownerID
         })
         const savedCommunity = await newCommunity.save();
         res.status(200).json(savedCommunity);
@@ -18,13 +18,13 @@ const createCommunity = async (req, res) => {
 }
 
 const createObject = async (req, res) => {
-    const {name, description, communityId,owner} = req.body;
+    const {name, description, communityID,ownerID} = req.body;
     try {
         const newObject = new objects({
             name,
             description,
-            communityId,
-            owner
+            communityID,
+            ownerID
         })
         const savedObject = await newObject.save();
         res.status(200).json(savedObject);
@@ -33,14 +33,14 @@ const createObject = async (req, res) => {
     }
 }
 
-
 const getObjects = async (req, res) => {
-    const {communityId} = req.body;
+    const {communityID} = req.body;
     try {
-        const communityobjects=objects.findById(communityId);
+        const communityobjects=await objects.find({communityID: communityID});
         res.status(200).json(communityobjects);
     }
     catch (error) {
+        console.log(error);
         res.status(500).json(error);
     }
 }

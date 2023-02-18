@@ -17,7 +17,7 @@ const ObjectSchema = new Schema ({
         type: String,
         trim: true,
     },
-    owner:{
+    ownerID:{
         type: String,
         trim: true,
     }

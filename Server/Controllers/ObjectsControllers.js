@@ -2,6 +2,7 @@ const objects = require('../Models/Objects');
 const expense=require('../Models/Expense');
 const service=require('../Models/Service');
 
+//HAVE TO CHECK THE WHOLE FILE AGAIN, WILL DO AFTER THE FLUTTER PART IS DONE
 
 const addExpense = async (req, res) => {
     const {objectId,userId,amount,description,expenseDate,expenseTime} = req.body;

@@ -10,6 +10,6 @@ const {
 
 router.route('/createCommunity').post(createCommunity)
 router.route('/createobject').post(createObject)
-router.route('/getObjects').get(getObjects)
+router.route('/getobjects').get(getObjects)
 
 module.exports=router

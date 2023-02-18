@@ -21,33 +21,37 @@ const addUser = async (req, res) => {
 }
 
 const joinCommunity = async (req, res) => {
-    const {communityId, userId} = req.body;
+    const {communityID, userID} = req.body;
+    // console.log(userID);
+    // console.log(communityID);
     try {
-        const communityMember = new communityMember({
-            communityId,
-            userId
-        })
-        const savedCommunityMember = await communityMember.save();
+        const newcommunityMember = new communityMember({
+            communityID,
+            userID
+        });
+        const savedCommunityMember = await newcommunityMember.save();
         res.status(200).json(savedCommunityMember);
     } catch (error) {
-        res.status(500).json(error);
+        console.log(error);
+        res.status(400).json(error);
     }
 }
 
 const getuserprofile = async (req, res) => {
-    const {userId} = req.body;
+    const {userID} = req.body;
     try {
-        const user = await user.findById(userId);
-        res.status(200).json(user);
+        const userprofile = await user.findById(userID);
+        res.status(200).json(userprofile);
     } catch (error) {
         res.status(500).json(error);
     }
 }
 
 const getusercommunity = async (req, res) => {
-    const {userId} = req.body;
+    const {userID} = req.body;
     try {
-        const userCommunities= await communityMember.find({userId: userId});
+        const userCommunities= await communityMember.find({userID: userID});
+        console.log(userCommunities);
         res.status(200).json(userCommunities);
     } catch (error) {
         res.status(500).json(error);
