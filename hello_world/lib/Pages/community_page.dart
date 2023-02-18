@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import './community.dart';
+import 'package:hello_world/Pages/object_page.dart';
+import '../components/community.dart';
 
 class CommunityPage extends StatefulWidget {
   const CommunityPage({Key? key}) : super(key: key);
@@ -9,24 +10,24 @@ class CommunityPage extends StatefulWidget {
 }
 
 class _CommunityPageState extends State<CommunityPage> {
-  List<String> items = ["PC", "Television", "Microwave", "Fridge"];
+  List<String> items = ["PC", "TV", "Microwave", "Fridge"];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(100.0),
+        preferredSize: const Size.fromHeight(100.0),
       child: AppBar(
         leading: IconButton(
-          icon: Icon(Icons.menu, size: 40.0),
+          icon: const Icon(Icons.menu, size: 40.0),
           onPressed: (){},
         ),
-        title: Text("Utility Application"),
+        title: const Text("Utility Application"),
         actions: const [
           Icon(Icons.person_2_outlined, size: 40.0)
         ],
         bottom: PreferredSize(
-          preferredSize: Size.fromHeight(50.0),
+          preferredSize: const Size.fromHeight(50.0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
@@ -53,15 +54,26 @@ class _CommunityPageState extends State<CommunityPage> {
         // childAspectRatio:  3,
         children: List.generate(items.length, (index) {
           return Align(
-            child: Container(
-              height: 500.0,
-              padding: EdgeInsets.fromLTRB(5.0, 10.0, 5.0, 10.0),
-              // color: Colors.red,
-              child: Community(name: items[index],),
-            ),
+            child: GestureDetector(
+                onTap: (){
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const ObjectPage()),
+                  );
+                },
+                child: Container(
+                  height: 500.0,
+                  padding: const EdgeInsets.fromLTRB(5.0, 10.0, 5.0, 10.0),
+                  // color: Colors.red,
+                  child: Community(name: items[index],),
+                )),
           );
         }),
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        child: const Icon(Icons.add),
+      )
     );
   }
 }

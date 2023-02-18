@@ -25,6 +25,7 @@ class _AddExpenseServiceCommunityData extends State<AddExpenseServiceCommunity> 
               Tab(text: 'Service',),
               Tab(text: 'Community',),
             ],
+            indicatorColor: Colors.white,
           ),
           backgroundColor: const Color.fromARGB(255, 225, 135, 18),
         ),
