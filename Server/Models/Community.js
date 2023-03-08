@@ -7,7 +7,7 @@ const CommunitySchema = new Schema ({
         required: [true,' Community name is required'],
         trim: true,
     },
-    ownerID: {
+    creatorID: {
         type: String,
         required: [true,' Owner Id is required'],
         trim: true,

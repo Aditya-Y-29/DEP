@@ -3,15 +3,15 @@ const router = express.Router()
 
 
 const {
-    addUser,
-    joinCommunity,
+    createUser,
+    createCommunity,
     getuserprofile,
-    getusercommunity,
+    addUserCommunity,
 } = require('../Controllers/UserControllers')
 
-router.route('/adduser').post(addUser)
-router.route('/joincommunity').post(joinCommunity)
-router.route('/getuserprofile').get(getuserprofile)
-router.route('/getusercommunity').get(getusercommunity)
+router.route('/createUser').post(createUser);
+router.route('/createCommunity').post(createCommunity);
+router.route('/addUserCommunity').post(addUserCommunity);
+router.route('/getUserProfile').get(getuserprofile)
 
 module.exports = router

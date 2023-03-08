@@ -7,19 +7,28 @@ const ServiceSchema = new Schema ({
         trim: true,
         required: [true, 'Object ID is required']
     },
-    userID:{
+    name:{
         type: String,
-        required: [true,' Community name is required'],
+        required: [true,' Name is required'],
+        trim: true,
+    },
+    creatorID:{
+        type: String,
+        required: [true,'Creator ID is required'],
         trim: true,
     },
     description:{
         type: String,
         trim: true,
         minlength: 1,
-        maxlength: 100,
         required: [true, 'Description is required']
     },
-    serviceDate: Date
+    serviceDate: Date,
+    serviceTime: Time,
+    resolverID:{
+        type: String,
+        trim: true,
+    }
 })
 
 const Service = mongoose.model('Service', ServiceSchema)

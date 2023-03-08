@@ -1,10 +1,9 @@
-const community = require('../Models/Community');
 const communityMember = require('../Models/CommunityMember');
 const user = require('../Models/User');
 
 
 
-const addUser = async (req, res) => {
+const createUser = async (req, res) => {
     const {name, userName, email, phone} = req.body;
     try {
         const newUser = new user({
@@ -14,38 +13,43 @@ const addUser = async (req, res) => {
             phone
         })
         const savedUser = await newUser.save();
-        res.status(200).json(savedUser);
+        const id= savedUser._id;
+        res.status(200).json({
+            message:"User Created",
+            userID: id
+        });
     } catch (error) {
-        res.status(500).json(error);
+        res.status(400).json({
+            message:"User Creation Failed",
+            data:error
+        });
     }
 }
 
-const joinCommunity = async (req, res) => {
-    const {communityID, userID} = req.body;
+
+
+const createCommunity = async (req, res) => {
+    const {communityName, userID} = req.body;
     try {
         const newcommunityMember = new communityMember({
-            communityID,
+            communityName,
             userID
         });
         const savedCommunityMember = await newcommunityMember.save();
-        res.status(200).json(savedCommunityMember);
+        const id= savedCommunityMember._id;
+        res.status(200).json({
+            message:"Community Created",
+            communityID: id
+        });
     } catch (error) {
-        console.log(error);
-        res.status(400).json(error);
+        res.status(400).json({
+            message:"Community Creation Failed",
+            data:error
+        });
     }
 }
 
-const getuserprofile = async (req, res) => {
-    const {userID} = req.body;
-    try {
-        const userprofile = await user.findById(userID);
-        res.status(200).json(userprofile);
-    } catch (error) {
-        res.status(500).json(error);
-    }
-}
-
-const getusercommunity = async (req, res) => {
+const addUserCommunity = async (req, res) => {
     const {userID} = req.body;
     try {
         const userCommunities= await communityMember.find({userID: userID});
@@ -56,10 +60,24 @@ const getusercommunity = async (req, res) => {
     }
 }
 
+const getuserprofile = async (req, res) => {
+    const {userID} = req.body;
+    try {
+        const userprofile = await user.findById(userID);
+        res.status(200).json({
+            message:"User Profile Fetched Successfully",
+            data: userprofile
+        });
+    } catch (error) {
+        res.status(500).json(error);
+    }
+}
+
+
 
 module.exports = {
-    addUser,
-    joinCommunity,
+    createUser,
+    createCommunity,
     getuserprofile,
-    getusercommunity
+    addUserCommunity
 }
