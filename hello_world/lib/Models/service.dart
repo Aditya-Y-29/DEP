@@ -1,26 +1,33 @@
-class Service{
-  String? objectID;
-  String? userID;
-  String? description;
-  DateTime? date;
+class Expense{
+  String serviceID;
+  String name;
+  String objectID;
+  String creatorID;
+  String description;
+  DateTime dateTimeInfo;
+  String resolverid;
 
-  Service({this.objectID, this.userID, this.description, this.date});
+  Expense({required this.serviceID,required this.name, required this.objectID ,required this.creatorID,required this.description,required this.dateTimeInfo, required this.resolverid});
 
-  factory Service.fromMap(Map<String, dynamic> json) {
-    return Service(
+  factory Expense.fromJson(Map<String, dynamic> json){
+    return Expense(
+      serviceID: json['_id'],
+      name: json['name'],
       objectID: json['objectID'],
-      userID: json['userID'],
+      creatorID: json['creatorID'],
       description: json['description'],
-      date: DateTime.parse(json['serviceDate']),
+      dateTimeInfo: DateTime.parse(json['dateTimeInfo']), 
+      resolverid: json['resolverid'],
     );
   }
 
-  Map<String,dynamic> toMap() {
-    return <String, dynamic>{
-      'objectID': objectID,
-      'userID': userID,
-      'description': description,
-      'serviceDate': date!.toIso8601String()
-    };
-  }
+  Map<String, dynamic> toJson() => {
+    '_id': serviceID,
+    'name': name,
+    'objectID': objectID,
+    'creatorID': creatorID,
+    'description': description,
+    'date_time_info': dateTimeInfo,
+    'resolverid': resolverid,
+  };
 }

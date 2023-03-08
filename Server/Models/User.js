@@ -17,7 +17,6 @@ const UserSchema = new Schema ({
     email:{
         type: String,
         unique: true,
-        lowercase: true,
         required: [true, 'Email address is required'],
         validate: {
           validator: validatorPackage.isEmail,
@@ -25,11 +24,9 @@ const UserSchema = new Schema ({
         },
     },
     phone:{
-        type: Number,
+        type: String,
         unique: true,
         required: [true,' Phone nunber is required'],
-        min: [0, 'Please enter a valid Phone number'],
-        max: [9999999999, 'please enter a valid phone number'],
     },
 })
 

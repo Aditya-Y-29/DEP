@@ -7,15 +7,19 @@ const ExpenseSchema = new Schema ({
         required: [true,' Object name is required'],
         trim: true,
     },
-    userID:{
+    name:{
         type: String,
-        required: [true,' User name is required'],
+        required: [true,' Name is required'],
+        trim: true,
+    },
+    creatorID:{
+        type: String,
+        required: [true,'Creator ID is required'],
         trim: true,
     },
     amount:{
         type: Number,
         required: [true,' Amount is required'],
-        min: [0,'Amount must be positive']
     },
     description:{
         type: String,
@@ -25,6 +29,11 @@ const ExpenseSchema = new Schema ({
         required: [true, 'Description is required']
     },
     expenseDate: Date,
+    expenseTime: Time,
+    resolverID:{
+        type: String,
+        trim: true,
+    }
 })
 
 const Expense = mongoose.model('Expense', ExpenseSchema)
