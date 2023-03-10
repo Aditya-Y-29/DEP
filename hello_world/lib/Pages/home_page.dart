@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hello_world/Pages/community_page.dart';
 import 'package:provider/provider.dart';
 import '../components/community.dart';
+import '../screens/add_community.dart';
 import 'add_home_page_floating_button.dart';
 import '../provider/data_provider.dart';
 
@@ -71,7 +72,14 @@ class _MyHomePageState extends State<MyHomePage> {
                             height: 50,
                             width: 50,
                             child: FloatingActionButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => AddExpenseServiceCommunity(selectedPage: 2),
+                                  ),
+                                );
+                              },
                               child: const Icon(Icons.home_work),
                             ),
                           ),
@@ -92,7 +100,14 @@ class _MyHomePageState extends State<MyHomePage> {
                             height: 50,
                             width: 50,
                             child: FloatingActionButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => AddExpenseServiceCommunity(selectedPage: 0),
+                                  ),
+                                );
+                              },
                               child: const Icon(Icons.monetization_on_sharp),
                             ),
                           ),
@@ -113,7 +128,14 @@ class _MyHomePageState extends State<MyHomePage> {
                             height: 50,
                             width: 50,
                             child: FloatingActionButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => AddExpenseServiceCommunity(selectedPage: 1),
+                                  ),
+                                );
+                              },
                               child: const Icon(Icons.home_repair_service),
                             ),
                           ),

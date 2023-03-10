@@ -79,7 +79,7 @@ class _ObjectState extends State<Object> {
                   onPressed: (){
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => const AddExpenseServiceCommunity()),
+                      MaterialPageRoute(builder: (context) => AddExpenseServiceCommunity(selectedPage: 0)),
                     );
                   },
                   child: const  Text(

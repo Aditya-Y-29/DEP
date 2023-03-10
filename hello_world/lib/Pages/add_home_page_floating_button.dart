@@ -5,7 +5,8 @@ import '../screens/add_service.dart';
 
 
 class AddExpenseServiceCommunity extends StatefulWidget {
-  const AddExpenseServiceCommunity({Key? key}) : super(key: key);
+  int selectedPage = 0;
+  AddExpenseServiceCommunity({Key? key, required this.selectedPage}) : super(key: key);
 
   @override
   State<AddExpenseServiceCommunity> createState() => _AddExpenseServiceCommunityData();
@@ -17,6 +18,7 @@ class _AddExpenseServiceCommunityData extends State<AddExpenseServiceCommunity> 
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: 3,
+      initialIndex: widget.selectedPage,
       child: Scaffold(
         appBar: AppBar(
           bottom: const TabBar(
@@ -27,7 +29,6 @@ class _AddExpenseServiceCommunityData extends State<AddExpenseServiceCommunity> 
             ],
             indicatorColor: Colors.white,
           ),
-          backgroundColor: const Color.fromARGB(255, 225, 135, 18),
         ),
         body: const TabBarView(
           children: [
