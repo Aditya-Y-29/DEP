@@ -1,4 +1,4 @@
-//create a page for an object that consists of two screens in two separate tabs; namely Expenses and Services
+//create a page for an object.dart that consists of two screens in two separate tabs; namely Expenses and Services
 import 'package:flutter/material.dart';
 import 'package:hello_world/screens/object_expense.dart';
 import 'package:hello_world/screens/object_service.dart';

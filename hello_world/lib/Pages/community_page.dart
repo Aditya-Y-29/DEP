@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hello_world/Pages/object_page.dart';
-import '../components/community.dart';
+import 'package:provider/provider.dart';
+import '../components/object.dart';
+import '../provider/data_provider.dart';
 
 class CommunityPage extends StatefulWidget {
   const CommunityPage({Key? key}) : super(key: key);
@@ -10,70 +12,165 @@ class CommunityPage extends StatefulWidget {
 }
 
 class _CommunityPageState extends State<CommunityPage> {
-  List<String> items = ["PC", "TV", "Microwave", "Fridge"];
+  List<String> items = ["PC", "TV", "Oven", "Fridge"];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(100.0),
-      child: AppBar(
+      appBar: AppBar(
         leading: IconButton(
-          icon: const Icon(Icons.menu, size: 40.0),
-          onPressed: (){},
+          icon: const Icon(Icons.menu, size: 30,),
+          onPressed: () {},
         ),
-        title: const Text("Utility Application"),
-        actions: const [
-          Icon(Icons.person_2_outlined, size: 40.0)
+        title: const Text("Home"),
+        actions:  [
+          Container(
+            margin: const EdgeInsets.all(5),
+            padding: const EdgeInsets.all(1),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(100),
+              border: Border.all(
+                color: Colors.white,
+                width: 2,
+              ),
+            ),
+            child: Icon(Icons.person_2_outlined, size: 30,),
+          )
         ],
-        bottom: PreferredSize(
-          preferredSize: const Size.fromHeight(50.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              const Icon(Icons.person_add, size: 40.0, color: Colors.white,),
-              Row(
-                children:  <Widget>[
-                  Icon(Icons.home, size: 40.0, color: Colors.lightBlue[100],),
-                  Text(
-                    "Home",
-                    style: TextStyle(
-                    color: Colors.lightBlue[100],
-                    fontWeight: FontWeight.bold,
-                    fontSize: 40.0,
-                  ),
+      ),
+      body: Consumer<DataProvider>(
+        builder: (context, objectDataProvider, child) {
+          return Column(
+            // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container(
+                height: 100,
+                margin: const EdgeInsets.all(10),
+                padding: const EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: Colors.white,
+                  boxShadow: const [
+                    BoxShadow(
+                      color: Colors.black26,
+                      blurRadius: 10,
+                      spreadRadius: 1,
+                      offset: Offset(0, 2),
+                    ),
+                  ],
                 ),
-            ]),
-            const Icon(Icons.search, size: 40.0, color: Colors.white,)
-          ])
-        ),
-      ),
-      ),
-      body: GridView.count(
-        crossAxisCount: 2,
-        // childAspectRatio:  3,
-        children: List.generate(items.length, (index) {
-          return Align(
-            child: GestureDetector(
-                onTap: (){
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const ObjectPage()),
-                  );
-                },
-                child: Container(
-                  height: 500.0,
-                  padding: const EdgeInsets.fromLTRB(5.0, 10.0, 5.0, 10.0),
-                  // color: Colors.red,
-                  child: Community(name: items[index],),
-                )),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Container(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Container(
+                            height: 50,
+                            width: 50,
+                            child: FloatingActionButton(
+                              onPressed: () {},
+                              child: const Icon(Icons.check_circle_outline),
+                            ),
+                          ),
+                          const Text(
+                            "Resolve",
+                            style: TextStyle(
+                              fontSize: 12,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Container(
+                            height: 50,
+                            width: 50,
+                            child: FloatingActionButton(
+                              onPressed: () {},
+                              child: const Icon(Icons.monetization_on_sharp),
+                            ),
+                          ),
+                          const Text(
+                            "Expense",
+                            style: TextStyle(
+                              fontSize: 12,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Container(
+                            height: 50,
+                            width: 50,
+                            child: FloatingActionButton(
+                              onPressed: () {},
+                              child: const Icon(Icons.home_repair_service),
+                            ),
+                          ),
+                          const Text(
+                            "Service",
+                            style: TextStyle(
+                              fontSize: 12,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Container(
+                            height: 50,
+                            width: 50,
+                            child: FloatingActionButton(
+                              onPressed: () {},
+                              child: const Icon(Icons.data_object),
+                            ),
+                          ),
+                          const Text(
+                            "Object",
+                            style: TextStyle(
+                              fontSize: 12,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Wrap(
+                  spacing: 8,
+                  runSpacing: 4,
+                  children: [
+                    Object(
+                      name: objectDataProvider.objects[0],
+                    ),
+                    Object(
+                      name: objectDataProvider.objects[1],
+                    ),
+                    Object(
+                      name: objectDataProvider.objects[2],
+                    ),
+                    Object(
+                      name: objectDataProvider.objects[3],
+                    ),
+                  ]
+              ),
+            ],
           );
-        }),
+        },
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        child: const Icon(Icons.add),
-      )
     );
   }
 }

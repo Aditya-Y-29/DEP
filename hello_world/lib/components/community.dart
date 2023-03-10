@@ -20,12 +20,23 @@ class _CommunityState extends State<Community> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => CommunityPage()
+            )
+        );
+      },
+      child: Container(
+      width: 150,
+      height: 100,
       margin: const EdgeInsets.all(5.0),
-      padding: const EdgeInsets.only(left: 10.0),
+      padding: const EdgeInsets.only(left: 20.0),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(5.0),
-        color: const Color.fromARGB(255, 225, 135, 18),
+        borderRadius: BorderRadius.circular(35.0),
+        color: Colors.white,
         boxShadow: const [
           BoxShadow(
             color: Colors.grey,
@@ -48,7 +59,7 @@ class _CommunityState extends State<Community> {
                 Text(
                   widget.name,
                   style: const TextStyle(
-                    color: Colors.white,
+                    color: Colors.black,
                     fontSize: 20,
                   ),
                 ),
@@ -79,7 +90,7 @@ class _CommunityState extends State<Community> {
                       );
                     }
                   },
-                  color: Colors.white,
+                  // color: Colors.black,
                 ),
               ]
           ),
@@ -100,9 +111,11 @@ class _CommunityState extends State<Community> {
                     "+"
                 ),
               ),
-            ),)
+            ),
+          )
         ],
       ),
+    )
     );
   }
 }
