@@ -30,7 +30,22 @@ class _LoginPageState extends State<LoginPage> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
               TextFormField(
-                decoration: const InputDecoration(labelText: 'Phone number'),
+                decoration: InputDecoration(
+                    labelText: 'Phone number',
+                    labelStyle: TextStyle(color: Colors.grey),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: const BorderSide(
+                        color: Colors.blue,
+                        width: 2,
+                      ),
+                    ),
+                    filled: true,
+                    fillColor: Colors.white,
+                    prefixIcon: const Icon(
+                      Icons.phone,
+                      color: Colors.blue,
+                    ),),
                 keyboardType: TextInputType.phone,
                 validator: (value) {
                   if (value?.isEmpty ?? true) {
@@ -45,14 +60,38 @@ class _LoginPageState extends State<LoginPage> {
 
 
               if (_counter == 0)
-                ElevatedButton(
-                  child: const Text('Send OTP'),
-                  onPressed: () {
-                    setState(() {
-                      _counter++;
-                    });
-                  },
+                Container(
+                  margin: EdgeInsets.all(5),
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color.fromARGB(255, 225, 135, 18),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      minimumSize: Size(0, 50),
+                      padding: EdgeInsets.symmetric(vertical: 16),
+                      fixedSize: Size(80, 50),
+                    ),
+                    child: const Text(
+                      'Send OTP',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        _counter++;
+                      });
+                    },
+                  ),
                 ),
+
+
+
+
+
 
 
 
@@ -73,27 +112,66 @@ class _LoginPageState extends State<LoginPage> {
 
 
 
-              if (_counter != 0)     
-                ElevatedButton(
-                  child: const Text('Login'),
-                  onPressed: () {
-                    _counter = 0;
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const MyHomePage()),
-                    );
-                  },
+              if (_counter != 0)
+                Container(
+                  margin: EdgeInsets.all(5),
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color.fromARGB(255, 225, 135, 18),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      minimumSize: Size(0, 50),
+                      padding: EdgeInsets.symmetric(vertical: 16),
+                      fixedSize: Size(120, 50),
+                    ),
+                    child: const Text(
+                      'Login',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    onPressed: () {
+                      _counter = 0;
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const MyHomePage()),
+                      );
+                    },
+                  ),
                 ),
 
 
-              ElevatedButton(
-                child: const Text('Create an account'),
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const SignupPage()),
-                  );
-                },
+
+              Container(
+                margin: EdgeInsets.all(5),
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color.fromARGB(255, 225, 135, 18),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    minimumSize: Size(0, 50),
+                    padding: EdgeInsets.symmetric(vertical: 16),
+                    fixedSize: Size(200, 50),
+                  ),
+                  child: Text(
+                    'Create an account',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const SignupPage()),
+                    );
+                  },
+                ),
               ),
             ],
           ),
