@@ -3,6 +3,10 @@ import 'package:hello_world/Pages/object_page.dart';
 import 'package:provider/provider.dart';
 import '../components/object.dart';
 import '../provider/data_provider.dart';
+import '../components/community.dart';
+import 'package:hello_world/Pages/object_page.dart';
+import 'package:hello_world/Pages/profile_page.dart';
+
 
 class CommunityPage extends StatefulWidget {
   const CommunityPage({Key? key}) : super(key: key);
@@ -171,6 +175,15 @@ class _CommunityPageState extends State<CommunityPage> {
           );
         },
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const ProfilePage()),
+          );
+        },
+        child: const Icon(Icons.add),
+      )
     );
   }
 }

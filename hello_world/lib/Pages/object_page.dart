@@ -27,6 +27,9 @@ class _ObjectPageState extends State<ObjectPage> {
         actions: const [
           Icon(Icons.person_2_outlined, size: 40.0)
         ],
+
+
+
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(50.0),
           child: Row(
@@ -73,10 +76,7 @@ class _ObjectPageState extends State<ObjectPage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => const AddExpenseServiceCommunity()),
-          );
+
         },
         child: const Icon(Icons.add),
       ),

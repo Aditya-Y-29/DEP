@@ -3,7 +3,7 @@ import 'Pages/login_page.dart';
 import 'provider/data_provider.dart';
 import 'package:provider/provider.dart';
 
-import './Pages/landing_page.dart';
+import './Pages/login_page.dart';
 
 void main() {
   runApp(const MyApp());
