@@ -153,7 +153,7 @@ class ServiceData extends State<ServiceScreen> {
                       margin: const EdgeInsets.only(top: 20.0),
                       child: const FloatingActionButton(
                         onPressed: null,
-                        child: Text('Add'),
+                        child: Icon(Icons.check),
                       )),
                 ],
               ),

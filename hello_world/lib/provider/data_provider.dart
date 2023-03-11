@@ -165,4 +165,10 @@ class DataProvider extends ChangeNotifier{
         notifyListeners();
       }
 
+      void addExpense(String objectName, String creator, int amount, String description)
+      {
+        objectUnresolvedExpenseMap[objectName]?.add(Expense(creator: creator, amount: amount, description: description, isPaid: false));
+        notifyListeners();
+      }
+
 }

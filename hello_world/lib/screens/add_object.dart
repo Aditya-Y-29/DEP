@@ -103,7 +103,7 @@ class ObjectData extends State<ObjectScreen> {
                           providerCommunity.communityObjectMap[communityDropDown]!.add(objectName.text);
                           Navigator.pop(context);
                         },
-                        child: Text('Add'),
+                        child: const Icon(Icons.check),
                       )),
                 ],
               ),

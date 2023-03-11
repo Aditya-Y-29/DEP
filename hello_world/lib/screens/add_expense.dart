@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import '../provider/data_provider.dart';
 import 'package:provider/provider.dart';
@@ -17,6 +19,9 @@ class ExpenseData extends State<ExpenseScreen> {
 
   String communityDropDown='';
   String objectDropDown='';
+  late int amount;
+  TextEditingController amountInvolved = TextEditingController();
+  TextEditingController description = TextEditingController();
 
 
   @override
@@ -114,6 +119,7 @@ class ExpenseData extends State<ExpenseScreen> {
                     ),
                   ),
                   keyboardType: TextInputType.number,
+                  controller: amountInvolved,
                 ),
 
                 SizedBox(height: 10,),
@@ -160,12 +166,16 @@ class ExpenseData extends State<ExpenseScreen> {
                     icon: Icon(Icons.edit),
                     hintText: 'Description',
                   ),
+                  controller: description,
                 ),
                 Container(
                   margin: const EdgeInsets.only(top: 20.0),
-                    child: const FloatingActionButton(
-                      onPressed: null,
-                      child: Text('Add'),
+                    child: FloatingActionButton(
+                      onPressed: () {
+                        providerCommunity.addExpense(objectDropDown, "Creator", int.parse(amountInvolved.toString()), description.toString());
+                        Navigator.pop(context);
+                      },
+                      child: const Icon(Icons.check),
                     )),
               ],
             ),

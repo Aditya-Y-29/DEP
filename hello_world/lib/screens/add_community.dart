@@ -63,7 +63,7 @@ class CommunityData extends State<CommunityScreen> {
                     providerCommunity.addCommunity(communityName.text);
                     Navigator.pop(context);
                   },
-                  child: const Text('Create'),
+                  child: const Icon(Icons.check),
                 )
             ),
           ],
