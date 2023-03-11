@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hello_world/Pages/community_page.dart';
+import 'package:hello_world/Pages/profile_page.dart';
 import 'package:provider/provider.dart';
 import '../components/community.dart';
 import '../screens/add_community.dart';
@@ -26,17 +27,28 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
         title: const Text("Your Communities"),
         actions:  [
-          Container(
-            margin: const EdgeInsets.all(5),
-            padding: const EdgeInsets.all(1),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(100),
-              border: Border.all(
-                color: Colors.white,
-                width: 2,
-              ),
-            ),
-            child: Icon(Icons.person_2_outlined, size: 30,),
+          GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const ProfilePage(),
+                ),
+              );
+            },
+            child:
+              Container(
+                margin: const EdgeInsets.all(5),
+                padding: const EdgeInsets.all(1),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(100),
+                  border: Border.all(
+                    color: Colors.white,
+                    width: 2,
+                  ),
+                ),
+                child: Icon(Icons.person_2_outlined, size: 30,),
+              )
           )
         ],
       ),
@@ -108,7 +120,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                   ),
                                 );
                               },
-                              child: const Icon(Icons.monetization_on_sharp),
+                              child: const Icon(Icons.currency_rupee_outlined),
                             ),
                           ),
                           const Text(
@@ -156,7 +168,14 @@ class _MyHomePageState extends State<MyHomePage> {
                             height: 50,
                             width: 50,
                             child: FloatingActionButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => AddExpenseServiceCommunity(selectedPage: 3),
+                                  ),
+                                );
+                              },
                               child: const Icon(Icons.data_object),
                             ),
                           ),
