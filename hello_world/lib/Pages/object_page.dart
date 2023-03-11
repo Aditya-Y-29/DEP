@@ -1,12 +1,14 @@
 //create a page for an object.dart that consists of two screens in two separate tabs; namely Expenses and Services
 import 'package:flutter/material.dart';
+import 'package:hello_world/Pages/profile_page.dart';
 import 'package:hello_world/screens/object_expense.dart';
 import 'package:hello_world/screens/object_service.dart';
 
 import 'add_home_page_floating_button.dart';
 
 class ObjectPage extends StatefulWidget {
-  const ObjectPage({Key? key}) : super(key: key);
+  final String objectName;
+  const ObjectPage({Key? key, required this.objectName}) : super(key: key);
 
   @override
   State<ObjectPage> createState() => _ObjectPageState();
@@ -16,60 +18,59 @@ class _ObjectPageState extends State<ObjectPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(100.0),
-      child: AppBar(
-        leading: IconButton(
-          icon: Icon(Icons.menu, size: 40.0),
-          onPressed: (){},
-        ),
-        title: const Text("Utility Application"),
-        actions: const [
-          Icon(Icons.person_2_outlined, size: 40.0)
-        ],
-
-
-
-        bottom: PreferredSize(
-          preferredSize: const Size.fromHeight(50.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Row(
-                children:  <Widget>[
-                  Icon(Icons.tv, size: 40.0, color: Colors.lightBlue[100],),
-                  Text(
-                    " TV",
-                    style: TextStyle(
-                      color: Colors.lightBlue[100],
-                      fontWeight: FontWeight.bold,
-                      fontSize: 40.0,
+      appBar: AppBar(
+          leading: IconButton(
+            icon: const Icon(Icons.menu, size: 30.0),
+            onPressed: (){},
+          ),
+          title: Text(
+            widget.objectName
+          ),
+          actions: [
+            GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const ProfilePage(),
+                    ),
+                  );
+                },
+                child:
+                Container(
+                  margin: const EdgeInsets.all(5),
+                  padding: const EdgeInsets.all(1),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(100),
+                    border: Border.all(
+                      color: Colors.white,
+                      width: 2,
                     ),
                   ),
-                ]),
-          ])
+                  child: const Icon(Icons.person_2_outlined, size: 30,),
+                )
+            )
+          ],
         ),
-      ),),
       body: DefaultTabController(
         length: 2,
         child: Scaffold(
           appBar: PreferredSize(
             preferredSize: const Size.fromHeight(50.0),
             child: AppBar(
-            bottom: const TabBar(
+              bottom: const TabBar(
               tabs: [
-                Tab(text: 'Expenses'),
-                Tab(text: 'Services',),
+                Tab(icon: Icon(Icons.currency_rupee_outlined),),
+                Tab(icon: Icon(Icons.home_repair_service),),
               ],
               indicatorColor: Colors.white,
             ),
-            backgroundColor: const Color.fromARGB(255, 225, 135, 18),
           ),
           ),
-          body: const TabBarView(
+          body: TabBarView(
             children: [
-              ObjectExpenseScreen(),
-              ObjectServiceScreen(),
+              ObjectExpenseScreen(objectName: widget.objectName,),
+              ObjectServiceScreen(objectName: widget.objectName,),
             ],
           ),
         ),

@@ -89,7 +89,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (context) => AddExpenseServiceCommunity(selectedPage: 0),
+                                        builder: (context) => AddFromHomePage(selectedPage: 0),
                                       ),
                                     );
                                   },
@@ -117,7 +117,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (context) => AddExpenseServiceCommunity(selectedPage: 1),
+                                        builder: (context) => AddFromHomePage(selectedPage: 1),
                                       ),
                                     );
                                   },
@@ -145,7 +145,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (context) => AddExpenseServiceCommunity(selectedPage: 2),
+                                        builder: (context) => AddFromHomePage(selectedPage: 2),
                                       ),
                                     );
                                   },
@@ -173,7 +173,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (context) => AddExpenseServiceCommunity(selectedPage: 3),
+                                        builder: (context) => AddFromHomePage(selectedPage: 3),
                                       ),
                                     );
                                   },

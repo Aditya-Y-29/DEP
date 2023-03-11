@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:hello_world/components/service.dart';
+import 'package:hello_world/provider/data_provider.dart';
+import 'package:provider/provider.dart';
 
 class ObjectServiceScreen extends StatefulWidget {
-  const ObjectServiceScreen({Key? key}) : super(key: key);
+  const ObjectServiceScreen({Key? key, required this.objectName}) : super(key: key);
+  final String objectName;
 
   @override
   State<ObjectServiceScreen> createState() => _ObjectServiceScreenState();
@@ -11,24 +14,34 @@ class ObjectServiceScreen extends StatefulWidget {
 class _ObjectServiceScreenState extends State<ObjectServiceScreen> {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        Service(creator: "Pranav", description: "Service", isResolved: false),
-        Service(creator: "Akshat", description: "Repair", isResolved: false),
-        Service(creator: "Deepika", description: "Speaker", isResolved: false),
-        Container(
-          margin: const EdgeInsets.all(5),
-          child: Text(
-            "Resolved Services",
-            style: const TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.normal,
-            ),
-          ),
-        ),
-        Service(creator: "Aditya", description: "Display", isResolved: true),
-      ],
+    return Consumer<DataProvider>(
+      builder: (context, objectDataProvider, child) {
+        return Column(
+            children: [
+              Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: List.of(objectDataProvider.objectUnresolvedServices[widget.objectName] as Iterable<Widget>)
+              ),
+              Container (
+                padding: const EdgeInsets.only(left: 10, top: 10, bottom: 10),
+                child: const Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    "Resolved Services",
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.normal,
+                    ),
+                  ),
+                ),
+              ),
+              Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: List.of(objectDataProvider.objectResolvedServices[widget.objectName] as Iterable<Widget>)
+              ),
+            ]
+        );
+      },
     );
   }
 }

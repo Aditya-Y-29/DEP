@@ -7,6 +7,8 @@ import '../components/community.dart';
 import 'package:hello_world/Pages/object_page.dart';
 import 'package:hello_world/Pages/profile_page.dart';
 
+import 'add_from_community_page.dart';
+
 
 class CommunityPage extends StatefulWidget {
   const CommunityPage({Key? key, required this.communityName}) : super(key: key);
@@ -83,7 +85,14 @@ class _CommunityPageState extends State<CommunityPage> {
                             height: 50,
                             width: 50,
                             child: FloatingActionButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => AddFromCommunityPage(selectedPage: 0, communityName: widget.communityName),
+                                  ),
+                                );
+                              },
                               child: const Icon(Icons.check_circle_outline),
                             ),
                           ),
@@ -104,7 +113,14 @@ class _CommunityPageState extends State<CommunityPage> {
                             height: 50,
                             width: 50,
                             child: FloatingActionButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => AddFromCommunityPage(selectedPage: 1, communityName: widget.communityName),
+                                  ),
+                                );
+                              },
                               child: const Icon(Icons.currency_rupee_outlined),
                             ),
                           ),
@@ -125,7 +141,14 @@ class _CommunityPageState extends State<CommunityPage> {
                             height: 50,
                             width: 50,
                             child: FloatingActionButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => AddFromCommunityPage(selectedPage: 2, communityName: widget.communityName),
+                                  ),
+                                );
+                              },
                               child: const Icon(Icons.home_repair_service),
                             ),
                           ),
@@ -146,7 +169,14 @@ class _CommunityPageState extends State<CommunityPage> {
                             height: 50,
                             width: 50,
                             child: FloatingActionButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => AddFromCommunityPage(selectedPage: 3, communityName: widget.communityName)
+                                  ),
+                                );
+                              },
                               child: const Icon(Icons.data_object),
                             ),
                           ),

@@ -85,7 +85,7 @@ class _CommunityState extends State<Community> {
                       print("pressed add expense");
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => AddExpenseServiceCommunity(selectedPage: 0)),
+                        MaterialPageRoute(builder: (context) => AddFromHomePage(selectedPage: 0)),
                       );
                     }
                     else if (value.name == "Add Service")
@@ -93,7 +93,7 @@ class _CommunityState extends State<Community> {
                       print("pressed add service");
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => AddExpenseServiceCommunity(selectedPage: 1)),
+                        MaterialPageRoute(builder: (context) => AddFromHomePage(selectedPage: 1)),
                       );
                     }
                   },
@@ -111,7 +111,7 @@ class _CommunityState extends State<Community> {
                 onPressed: (){
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => AddExpenseServiceCommunity(selectedPage: 0)),
+                    MaterialPageRoute(builder: (context) => AddFromHomePage(selectedPage: 0)),
                   );
                 },
                 child: const  Text(
