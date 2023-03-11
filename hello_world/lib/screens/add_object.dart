@@ -50,7 +50,7 @@ class ObjectData extends State<ObjectScreen> {
 
                   DropdownButtonFormField<String>(
                     decoration: const InputDecoration(
-                      icon: Icon(Icons.home),
+                      icon: Icon(Icons.home_work),
                       hintText: 'Community',
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(10.0)),
@@ -79,8 +79,8 @@ class ObjectData extends State<ObjectScreen> {
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(10.0)),
                       ),
-                      icon: Icon(Icons.home_work),
-                      hintText: 'Enter the Community Name',
+                      icon: Icon(Icons.data_object),
+                      hintText: 'Enter the Object Name',
                     ),
                     controller: objectName,
                   ),
