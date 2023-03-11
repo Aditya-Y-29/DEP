@@ -54,7 +54,7 @@ class ServiceData extends State<ServiceScreen> {
 
                   DropdownButtonFormField<String>(
                     decoration: const InputDecoration(
-                      icon: Icon(Icons.home_work),
+                      icon: Icon(Icons.home),
                       hintText: 'Community',
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(10.0)),

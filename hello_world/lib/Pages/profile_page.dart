@@ -35,26 +35,72 @@ class ProfilePageState extends State<ProfilePage> {
           ),
       body: ListView(
         children: <Widget>[
-          ListTile(
-            leading: Icon(Icons.person),
-            title: Text('Name'),
-            subtitle: Text('UserName'),//from database
+          Container(
+            margin: EdgeInsets.only(left: 5.0, top: 5,right: 5.0),
+            padding:EdgeInsets.symmetric(horizontal: 2.0, vertical: 0.0),
+            decoration: BoxDecoration(
+              border: Border.all(
+                color: Colors.grey,
+                width: 2.0,
+              ),
+              borderRadius: BorderRadius.all(Radius.circular(8.0)),
+            ),
+            child: ListTile(
+              leading: Icon(Icons.person),
+              title: Text('Name'),
+              subtitle: Text('UserName'),//from database
+            ),
           ),
-          ListTile(
-            leading: Icon(Icons.email),
-            title: Text('Email'),
-            subtitle: Text('user@email.com'),//from database
+          Container(
+            margin: EdgeInsets.only(left: 5.0, top: 5,right: 5.0),
+            padding:EdgeInsets.symmetric(horizontal: 2.0, vertical: 0.0),
+            decoration: BoxDecoration(
+              border: Border.all(
+                color: Colors.grey,
+                width: 2.0,
+              ),
+              borderRadius: BorderRadius.all(Radius.circular(8.0)),
+            ),
+            child: ListTile(
+              leading: Icon(Icons.email),
+              title: Text('Email'),
+              subtitle: Text('user@email.com'),//from database
+            ),
           ),
-          ListTile(
-            leading: Icon(Icons.phone_android),
-            title: Text('Mobile Number'),
-            subtitle: Text('123'),//from database
+          Container(
+            margin: EdgeInsets.only(left: 5.0, top: 5,right: 5.0),
+            padding:EdgeInsets.symmetric(horizontal: 2.0, vertical: 0.0),
+            decoration: BoxDecoration(
+              border: Border.all(
+                color: Colors.grey,
+                width: 2.0,
+              ),
+              borderRadius: BorderRadius.all(Radius.circular(8.0)),
+            ),
+            child: ListTile(
+              leading: Icon(Icons.phone_android),
+              title: Text('Mobile Number'),
+              subtitle: Text('123'),//from database
+            ),
           ),
-          ListTile(
-            leading: Icon(Icons.photo),
-            title: Text('Details'),
-            subtitle: Text('About'),
+          Container(
+            margin: EdgeInsets.only(left: 5.0, top: 5,right: 5.0),
+            padding:EdgeInsets.symmetric(horizontal: 2.0, vertical: 0.0),
+            decoration: BoxDecoration(
+              border: Border.all(
+                color: Colors.grey,
+                width: 2.0,
+              ),
+              borderRadius: BorderRadius.all(Radius.circular(8.0)),
+            ),
+            child: ListTile(
+              leading: Icon(Icons.details),
+              title: Text('Details'),
+              subtitle: Text('About'),//from database
+            ),
           ),
+
+
         ],
       )
 

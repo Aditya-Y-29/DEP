@@ -26,38 +26,76 @@ class EditProfilePageState extends State<EditProfilePage> {
         ),
         body: ListView(
           children: <Widget>[
-            TextField(
-              onChanged: (value) {
-                setState(() {
-                  _userName = value;
-                });
-              },
-              decoration: InputDecoration(
-                hintText: '  userName',
+            SizedBox(height: 10),
+            Container(
+              margin: EdgeInsets.only(left: 5.0, top: 5,right: 5.0),
+              padding:EdgeInsets.symmetric(horizontal: 15.0, vertical: 0.0),
+              decoration: BoxDecoration(
+                border: Border.all(
+                  color: Colors.grey,
+                  width: 2.0,
+                ),
+                borderRadius: BorderRadius.all(Radius.circular(8.0)),
+              ),
+              child:  TextField(
+                onChanged: (value) {
+                  setState(() {
+                    _userName = value;
+                  });
+                },
+                decoration: InputDecoration(
+                  hintText: 'userName',
+                ),
               ),
             ),
-            SizedBox(height: 20),
-            TextField(
-              onChanged: (value) {
-                setState(() {
-                  _userMail = value;
-                });
-              },
-              decoration: InputDecoration(
-                hintText: '  userMail',
+
+
+            SizedBox(height: 10),
+            Container(
+              margin: EdgeInsets.only(left: 5.0, top: 5,right: 5.0),
+              padding:EdgeInsets.symmetric(horizontal: 15.0, vertical: 0.0),
+              decoration: BoxDecoration(
+                border: Border.all(
+                  color: Colors.grey,
+                  width: 2.0,
+                ),
+                borderRadius: BorderRadius.all(Radius.circular(8.0)),
+              ),
+              child:  TextField(
+                onChanged: (value) {
+                  setState(() {
+                    _userMail = value;
+                  });
+                },
+                decoration: InputDecoration(
+                  hintText: 'userMail',
+                ),
               ),
             ),
-            SizedBox(height: 20),
-            TextField(
-              onChanged: (value) {
-                setState(() {
-                  _userContact = value;
-                });
-              },
-              decoration: InputDecoration(
-                hintText: '  userContact',
+
+            SizedBox(height: 10),
+            Container(
+              margin: EdgeInsets.only(left: 5.0, top: 5,right: 5.0),
+              padding:EdgeInsets.symmetric(horizontal: 15.0, vertical: 0.0),
+              decoration: BoxDecoration(
+                border: Border.all(
+                  color: Colors.grey,
+                  width: 2.0,
+                ),
+                borderRadius: BorderRadius.all(Radius.circular(8.0)),
+              ),
+              child:  TextField(
+                onChanged: (value) {
+                  setState(() {
+                    _userContact = value;
+                  });
+                },
+                decoration: InputDecoration(
+                  hintText: 'userContact',
+                ),
               ),
             ),
+
             SizedBox(height: 20),
 
 
@@ -67,8 +105,10 @@ class EditProfilePageState extends State<EditProfilePage> {
         onPressed: () {
 
     },
-    child: const Icon(Icons.save_as),
+          child: Text('Save'),
+          tooltip: 'Save',
     ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 }

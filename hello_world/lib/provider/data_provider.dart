@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 
 class DataProvider extends ChangeNotifier{
-      List<String> communities = ["Home", "Office", "Work", "Lab"];
+      List<String> communities = ["Home", "Office","Work"];
       List<String> objects = ["Oven", "PC", "TV", "Fridge"];
       int community_len=3;
       int object_len=4;
@@ -10,7 +10,7 @@ class DataProvider extends ChangeNotifier{
       int communitiesindex=0;
 
       Map<String, List<String>> communityObjectMap = {
-        "Home": ["Oven", "PC", "TV", "Fridge"],
+        "Home": ["Obj_Home_1", "Obj_Home_2", "Obj_Home_3"],
         "Office": ["Obj_Office_1", "Obj_Office_2", "Obj_Office_3"],
         "Work": ["Obj_Work_1", "Obj_Work_2", "Obj_Work_3"],
       };
