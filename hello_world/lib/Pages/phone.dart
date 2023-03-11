@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'verify.dart';
 
 class MyPhone extends StatefulWidget {
   const MyPhone({Key? key}) : super(key: key);
@@ -116,7 +117,10 @@ class _MyPhoneState extends State<MyPhone> {
                         verificationFailed: (FirebaseAuthException e) {},
                         codeSent: (String verificationId, int? resendToken) {
                           MyPhone.verify=verificationId;
-                          Navigator.pushNamed(context, 'verify');
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => const MyVerify()),
+                          );
                         },
                         codeAutoRetrievalTimeout: (String verificationId) {},
                       );
