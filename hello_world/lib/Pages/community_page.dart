@@ -28,18 +28,27 @@ class _CommunityPageState extends State<CommunityPage> {
         ),
         title: const Text("Home"),
         actions:  [
-          Container(
-            margin: const EdgeInsets.all(5),
-            padding: const EdgeInsets.all(1),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(100),
-              border: Border.all(
-                color: Colors.white,
-                width: 2,
-              ),
-            ),
-            child: Icon(Icons.person_2_outlined, size: 30,),
-          )
+          GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const ProfilePage()),
+              );
+            },
+            child:
+              Container(
+                margin: const EdgeInsets.all(5),
+                padding: const EdgeInsets.all(1),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(100),
+                  border: Border.all(
+                    color: Colors.white,
+                    width: 2,
+                  ),
+                ),
+                child: Icon(Icons.person_2_outlined, size: 30,),
+              )
+          ),
         ],
       ),
       body: Consumer<DataProvider>(
@@ -96,7 +105,7 @@ class _CommunityPageState extends State<CommunityPage> {
                             width: 50,
                             child: FloatingActionButton(
                               onPressed: () {},
-                              child: const Icon(Icons.monetization_on_sharp),
+                              child: const Icon(Icons.currency_rupee_outlined),
                             ),
                           ),
                           const Text(
@@ -175,15 +184,6 @@ class _CommunityPageState extends State<CommunityPage> {
           );
         },
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => const ProfilePage()),
-          );
-        },
-        child: const Icon(Icons.add),
-      )
     );
   }
 }

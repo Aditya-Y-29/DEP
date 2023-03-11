@@ -22,34 +22,53 @@ class CommunityData extends State<CommunityScreen> {
     final providerCommunity = Provider.of<DataProvider>(context, listen: false);
     return Form(
       key: _formKey,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          TextFormField(
-            decoration: const InputDecoration(
-              icon: Icon(Icons.home),
-              hintText: 'Enter the Community Name',
+      child: Container(
+        padding: const EdgeInsets.all(16.0),
+        child:
+        Column(
+          children: <Widget>[
+            const Text(
+              'Add Community',
+              style: TextStyle(
+                fontSize: 30,
+                fontWeight: FontWeight.bold,
+              ),
             ),
-            controller: communityName,
-          ),
-          TextFormField(
-            decoration: const InputDecoration(
-              icon: Icon(Icons.home),
-              hintText: 'Description',
+
+            SizedBox(height: 10,),
+
+            TextFormField(
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                ),
+                icon: Icon(Icons.home_work),
+                hintText: 'Enter the Community Name',
+              ),
+              controller: communityName,
             ),
-          ),
-          Container(
-              padding: const EdgeInsets.only(left: 150.0, top: 40.0),
-              child: FloatingActionButton(
-                onPressed: (){
-                  providerCommunity.addCommunity(communityName.text);
-                },
-                backgroundColor: Colors.red[400],
-                child: const Text('Create'),
-              )
-          ),
-        ],
-      ),
+
+            SizedBox(height: 10,),
+
+            TextFormField(
+              decoration: const InputDecoration(
+                icon: Icon(Icons.edit),
+                hintText: 'Description',
+              ),
+            ),
+            Container(
+                margin: const EdgeInsets.only(top: 20.0),
+                child: FloatingActionButton(
+                  onPressed: (){
+                    providerCommunity.addCommunity(communityName.text);
+                    Navigator.pop(context);
+                  },
+                  child: const Text('Create'),
+                )
+            ),
+          ],
+        ),
+      )
     );
   }
 }
