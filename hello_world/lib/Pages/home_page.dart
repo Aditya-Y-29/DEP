@@ -47,7 +47,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     width: 2,
                   ),
                 ),
-                child: Icon(Icons.person_2_outlined, size: 30,),
+                child: const Icon(Icons.person_2_outlined, size: 30,),
               )
           )
         ],

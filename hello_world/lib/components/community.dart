@@ -25,7 +25,7 @@ class _CommunityState extends State<Community> {
         Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => CommunityPage()
+                builder: (context) => CommunityPage(communityName: widget.name,)
             )
         );
       },
@@ -56,12 +56,19 @@ class _CommunityState extends State<Community> {
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                Text(
-                  widget.name,
-                  style: const TextStyle(
-                    color: Colors.black,
-                    fontSize: 20,
-                  ),
+                Flexible(
+                  child:
+                    Container(
+                      child:
+                        Text(
+                          widget.name,
+                          style: const TextStyle(
+                            color: Colors.black,
+                            fontSize: 20,
+                          ),
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                    )
                 ),
                 PopupMenuButton<Choice>(
                   itemBuilder: (BuildContext context) {
@@ -127,7 +134,7 @@ class Choice {
 }
 
 const List<Choice> choices = <Choice> [
-  Choice(name: 'Add Expense'),
-  Choice(name: 'Add Service')
+  Choice(name: 'Add to Favourites'),
+  Choice(name: 'Delete Community')
 ];
 

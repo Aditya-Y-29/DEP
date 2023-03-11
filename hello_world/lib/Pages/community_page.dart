@@ -9,14 +9,14 @@ import 'package:hello_world/Pages/profile_page.dart';
 
 
 class CommunityPage extends StatefulWidget {
-  const CommunityPage({Key? key}) : super(key: key);
+  const CommunityPage({Key? key, required this.communityName}) : super(key: key);
+  final String communityName;
 
   @override
   State<CommunityPage> createState() => _CommunityPageState();
 }
 
 class _CommunityPageState extends State<CommunityPage> {
-  List<String> items = ["PC", "TV", "Oven", "Fridge"];
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +26,7 @@ class _CommunityPageState extends State<CommunityPage> {
           icon: const Icon(Icons.menu, size: 30,),
           onPressed: () {},
         ),
-        title: const Text("Home"),
+        title: Text(widget.communityName),
         actions:  [
           GestureDetector(
             onTap: () {
@@ -165,20 +165,7 @@ class _CommunityPageState extends State<CommunityPage> {
               Wrap(
                   spacing: 8,
                   runSpacing: 4,
-                  children: [
-                    Object(
-                      name: objectDataProvider.objects[0],
-                    ),
-                    Object(
-                      name: objectDataProvider.objects[1],
-                    ),
-                    Object(
-                      name: objectDataProvider.objects[2],
-                    ),
-                    Object(
-                      name: objectDataProvider.objects[3],
-                    ),
-                  ]
+                  children: List.of(objectDataProvider.communityObjectMap[widget.communityName]!.map((e) => Object(name: e,)))
               ),
             ],
           );

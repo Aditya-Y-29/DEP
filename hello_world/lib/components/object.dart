@@ -51,11 +51,17 @@ class _ObjectState extends State<Object> {
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Text(
-                    widget.name,
-                    style: const TextStyle(
-                      fontSize: 20,
-                    ),
+                  Flexible(
+                    child: Container(
+                      child:
+                        Text(
+                          widget.name,
+                          style: const TextStyle(
+                            fontSize: 20,
+                          ),
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                    )
                   ),
                   PopupMenuButton<Choice>(
                     itemBuilder: (BuildContext context) {

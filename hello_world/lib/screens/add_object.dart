@@ -98,8 +98,11 @@ class ObjectData extends State<ObjectScreen> {
                   ),
                   Container(
                       margin: const EdgeInsets.only(top: 20.0),
-                      child: const FloatingActionButton(
-                        onPressed: null,
+                      child: FloatingActionButton(
+                        onPressed: () {
+                          providerCommunity.communityObjectMap[communityDropDown]!.add(objectName.text);
+                          Navigator.pop(context);
+                        },
                         child: Text('Add'),
                       )),
                 ],

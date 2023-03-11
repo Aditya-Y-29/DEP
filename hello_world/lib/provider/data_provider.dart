@@ -2,17 +2,13 @@
 import 'package:flutter/material.dart';
 
 class DataProvider extends ChangeNotifier{
-      List<String> communities = ["Home", "Office", "Work", "Lab"];
-      List<String> objects = ["Oven", "PC", "TV", "Fridge"];
-      int community_len=3;
-      int object_len=4;
-
+      List<String> communities = ["Home", "Office", "Apartment"];
       int communitiesindex=0;
 
       Map<String, List<String>> communityObjectMap = {
         "Home": ["Oven", "PC", "TV", "Fridge"],
-        "Office": ["Obj_Office_1", "Obj_Office_2", "Obj_Office_3"],
-        "Work": ["Obj_Work_1", "Obj_Work_2", "Obj_Work_3"],
+        "Office": ["Chairs", "Books", "Speaker"],
+        "Apartment": ["Car", "Computer", "TV"],
       };
     
       void dolistening( String communityName){
@@ -22,7 +18,6 @@ class DataProvider extends ChangeNotifier{
 
       void addCommunity(String communityName){
         communities.add(communityName);
-        community_len+=1;
         communityObjectMap[communityName] = ["Obj_${communityName}_1", "Obj_${communityName}_2", "Obj_${communityName}_3"];
         notifyListeners();
       }
