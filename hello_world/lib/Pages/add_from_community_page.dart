@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:hello_world/screens/resolve_expense_service.dart';
-import '../screens/add_community.dart';
 import '../screens/add_expense.dart';
 import '../screens/add_service.dart';
 import '../screens/add_object.dart';
@@ -36,9 +35,9 @@ class _AddFromCommunityPageData extends State<AddFromCommunityPage> {
         ),
         body: TabBarView(
           children: [
-            ResolveScreen(communityName: widget.communityName),
-            ExpenseScreen(isFromCommunityPage: true, isFromObjectPage: false, communityName: widget.communityName,),
-            ServiceScreen(isFromCommunityPage: true, isFromObjectPage: false, communityName: widget.communityName,),
+            ResolveScreen(isFromObjectPage: false, communityName: widget.communityName, objectName: "",),
+            ExpenseScreen(isFromCommunityPage: true, isFromObjectPage: false, communityName: widget.communityName, objectName: "",),
+            ServiceScreen(isFromCommunityPage: true, isFromObjectPage: false, communityName: widget.communityName, objectName: "",),
             ObjectScreen(isFromCommunityPage: true, communityName: widget.communityName),
           ],
         ),

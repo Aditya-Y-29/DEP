@@ -6,8 +6,10 @@ import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
 
 class ResolveScreen extends StatefulWidget {
-  const ResolveScreen({Key? key, required this.communityName}) : super(key: key);
+  const ResolveScreen({Key? key, required this.isFromObjectPage, required this.communityName, required this.objectName}) : super(key: key);
+  final bool isFromObjectPage;
   final String communityName;
+  final String objectName;
 
   @override
   State<ResolveScreen> createState() => ResolveData();
@@ -30,7 +32,11 @@ class ResolveData extends State<ResolveScreen> {
   Widget build(BuildContext context) {
 
     final providerCommunity = Provider.of<DataProvider>(context, listen: true);
-    objectDropDown=providerCommunity.communityObjectMap[widget.communityName]![0];
+    if(widget.isFromObjectPage){
+        objectDropDown=widget.objectName;
+      } else {
+      objectDropDown=providerCommunity.communityObjectMap[widget.communityName]![providerCommunity.objectIndex];
+    }
     Expense expense = providerCommunity.objectUnresolvedExpenseMap[objectDropDown]![0];
     resolveExpenseDropDown="${expense.creator} ₹${expense.amount} ${expense.description}";
     Service service = providerCommunity.objectUnresolvedServices[objectDropDown]![0];
@@ -55,6 +61,7 @@ class ResolveData extends State<ResolveScreen> {
                   ),
                   SizedBox(height: 10,),
 
+                  if(!widget.isFromObjectPage)
                   DropdownButtonFormField<String>(
                     decoration: const InputDecoration(
                       icon: Icon(Icons.data_object),

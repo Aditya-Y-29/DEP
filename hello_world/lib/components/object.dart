@@ -6,7 +6,8 @@ import 'community.dart';
 
 class Object extends StatefulWidget {
   final String name;
-  const Object({Key? key, required this.name}) : super(key: key);
+  final String communityName;
+  const Object({Key? key, required this.name, required this.communityName}) : super(key: key);
 
   @override
   State<Object> createState() => _ObjectState();
@@ -20,7 +21,7 @@ class _ObjectState extends State<Object> {
         Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => ObjectPage(objectName: widget.name)
+                builder: (context) => ObjectPage(objectName: widget.name, communityName: widget.communityName,)
             )
         );
       },

@@ -4,10 +4,11 @@ import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
 
 class ServiceScreen extends StatefulWidget {
-  const ServiceScreen({Key? key, required this.isFromCommunityPage, required this.isFromObjectPage, required this.communityName}) : super(key: key);
+  const ServiceScreen({Key? key, required this.isFromCommunityPage, required this.isFromObjectPage, required this.communityName, required this.objectName}) : super(key: key);
   final bool isFromCommunityPage;
   final bool isFromObjectPage;
   final String communityName;
+  final String objectName;
 
   @override
   State<ServiceScreen> createState() => ServiceData();
@@ -38,7 +39,11 @@ class ServiceData extends State<ServiceScreen> {
       communityDropDown=providerCommunity.communities[providerCommunity.communitiesIndex];
     }
 
-    objectDropDown=providerCommunity.communityObjectMap[communityDropDown]![providerCommunity.objectIndex];
+    if(widget.isFromObjectPage){
+        objectDropDown=widget.objectName;
+      } else {
+      objectDropDown=providerCommunity.communityObjectMap[communityDropDown]![providerCommunity.objectIndex];
+    }
 
     return Form(
         key: _formKey,

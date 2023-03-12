@@ -195,7 +195,7 @@ class _CommunityPageState extends State<CommunityPage> {
               Wrap(
                   spacing: 8,
                   runSpacing: 4,
-                  children: List.of(objectDataProvider.communityObjectMap[widget.communityName]!.map((e) => Object(name: e,)))
+                  children: List.of(objectDataProvider.communityObjectMap[widget.communityName]!.map((e) => Object(name: e, communityName: widget.communityName,)))
               ),
             ],
           );

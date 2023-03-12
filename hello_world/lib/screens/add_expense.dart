@@ -6,10 +6,11 @@ import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
 
 class ExpenseScreen extends StatefulWidget {
-  const ExpenseScreen({Key? key, required this.isFromCommunityPage, required this.isFromObjectPage, required this.communityName}) : super(key: key);
+  const ExpenseScreen({Key? key, required this.isFromCommunityPage, required this.isFromObjectPage, required this.communityName, required this.objectName}) : super(key: key);
   final bool isFromCommunityPage;
   final bool isFromObjectPage;
   final String communityName;
+  final String objectName;
 
   @override
   State<ExpenseScreen> createState() => ExpenseData();
@@ -42,7 +43,11 @@ class ExpenseData extends State<ExpenseScreen> {
       communityDropDown=providerCommunity.communities[providerCommunity.communitiesIndex];
     }
 
-    objectDropDown=providerCommunity.communityObjectMap[communityDropDown]![providerCommunity.objectIndex];
+    if(widget.isFromObjectPage){
+        objectDropDown=widget.objectName;
+      } else {
+      objectDropDown=providerCommunity.communityObjectMap[communityDropDown]![providerCommunity.objectIndex];
+    }
 
     return Form(
       key: _formKey,
