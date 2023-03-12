@@ -89,72 +89,72 @@ class DataProvider extends ChangeNotifier{
 
       Map<String, List<Service>> objectUnresolvedServices = {
         "Oven": [
-          Service(creator: "PersonA", description: "Oven Service", isResolved: false),
-          Service(creator: "PersonB", description: "Oven Repair", isResolved: false),
+          Service(objectName: "Oven", creator: "PersonA", description: "Oven Service", isResolved: false),
+          Service(objectName: "Oven", creator: "PersonB", description: "Oven Repair", isResolved: false),
         ],
         "PC": [
-          Service(creator: "PersonA", description: "PC Service", isResolved: false),
-          Service(creator: "PersonB", description: "PC Repair", isResolved: false),
+          Service(objectName: "PC", creator: "PersonA", description: "PC Service", isResolved: false),
+          Service(objectName: "PC", creator: "PersonB", description: "PC Repair", isResolved: false),
         ],
         "TV": [
-          Service(creator: "PersonA", description: "TV Service", isResolved: false),
-          Service(creator: "PersonB", description: "TV Repair", isResolved: false),
+          Service(objectName: "TV", creator: "PersonA", description: "TV Service", isResolved: false),
+          Service(objectName: "TV", creator: "PersonB", description: "TV Repair", isResolved: false),
         ],
         "Fridge": [
-          Service(creator: "PersonA", description: "Fridge Service", isResolved: false),
-          Service(creator: "PersonB", description: "Fridge Repair", isResolved: false),
+          Service(objectName: "Fridge", creator: "PersonA", description: "Fridge Service", isResolved: false),
+          Service(objectName: "Fridge", creator: "PersonB", description: "Fridge Repair", isResolved: false),
         ],
         "Chairs": [
-          Service(creator: "PersonA", description: "Chair Service", isResolved: false),
-          Service(creator: "PersonB", description: "Chair Repair", isResolved: false),
+          Service(objectName: "Chairs", creator: "PersonA", description: "Chair Service", isResolved: false),
+          Service(objectName: "Chairs", creator: "PersonB", description: "Chair Repair", isResolved: false),
         ],
         "Books": [
-          Service(creator: "PersonA", description: "Book Service", isResolved: false),
-          Service(creator: "PersonB", description: "Book Repair", isResolved: false),
+          Service(objectName: "Books", creator: "PersonA", description: "Book Service", isResolved: false),
+          Service(objectName: "Books", creator: "PersonB", description: "Book Repair", isResolved: false),
         ],
         "Speaker": [
-          Service(creator: "PersonA", description: "Speaker Service", isResolved: false),
-          Service(creator: "PersonB", description: "Speaker Repair", isResolved: false),
+          Service(objectName: "Speaker", creator: "PersonA", description: "Speaker Service", isResolved: false),
+          Service(objectName: "Speaker", creator: "PersonB", description: "Speaker Repair", isResolved: false),
         ],
         "Car": [
-          Service(creator: "PersonA", description: "Car Service", isResolved: false),
-          Service(creator: "PersonB", description: "Car Repair", isResolved: false),
+          Service(objectName: "Car", creator: "PersonA", description: "Car Service", isResolved: false),
+          Service(objectName: "Car", creator: "PersonB", description: "Car Repair", isResolved: false),
         ],
         "Computer": [
-          Service(creator: "PersonA", description: "Computer Service", isResolved: false),
-          Service(creator: "PersonB", description: "Computer Repair", isResolved: false),
+          Service(objectName: "Computer", creator: "PersonA", description: "Computer Service", isResolved: false),
+          Service(objectName: "Computer", creator: "PersonB", description: "Computer Repair", isResolved: false),
         ],
+
       };
 
       Map<String, List<Service>> objectResolvedServices = {
         "Oven": [
-          Service(creator: "PersonA", description: "Oven Service", isResolved: true),
+          Service(objectName: "Oven", creator: "PersonA", description: "Oven Service", isResolved: true),
         ],
         "PC": [
-          Service(creator: "PersonA", description: "PC Service", isResolved: true),
+          Service(objectName: "PC", creator: "PersonA", description: "PC Service", isResolved: true),
         ],
         "TV": [
-          Service(creator: "PersonA", description: "TV Service", isResolved: true),
+          Service(objectName: "TV", creator: "PersonA", description: "TV Service", isResolved: true),
         ],
         "Fridge": [
-          Service(creator: "PersonA", description: "Fridge Service", isResolved: true),
+          Service(objectName: "Fridge", creator: "PersonA", description: "Fridge Service", isResolved: true),
         ],
         "Chairs": [
-          Service(creator: "PersonA", description: "Chair Service", isResolved: true),
+          Service(objectName: "Chairs", creator: "PersonA", description: "Chair Service", isResolved: true),
         ],
         "Books": [
-          Service(creator: "PersonA", description: "Book Service", isResolved: true),
+          Service(objectName: "Books", creator: "PersonA", description: "Book Service", isResolved: true),
         ],
         "Speaker": [
-          Service(creator: "PersonA", description: "Speaker Service", isResolved: true),
+          Service(objectName: "Speaker", creator: "PersonA", description: "Speaker Service", isResolved: true),
         ],
         "Car": [
-          Service(creator: "PersonA", description: "Car Service", isResolved: true),
+          Service(objectName: "Car", creator: "PersonA", description: "Car Service", isResolved: true),
         ],
         "Computer": [
-          Service(creator: "PersonA", description: "Computer Service", isResolved: true),
+          Service(objectName: "Computer", creator: "PersonA", description: "Computer Service", isResolved: true),
         ],
-
       };
     
       void communityListen( String communityName){
@@ -181,7 +181,7 @@ class DataProvider extends ChangeNotifier{
 
       void addService(String objectName, String creator, String description)
       {
-        objectUnresolvedServices[objectName]?.add(Service(creator: creator, description: description, isResolved: false));
+        objectUnresolvedServices[objectName]?.add(Service(objectName: objectName, creator: creator, description: description, isResolved: false));
         // notifyListeners();
       }
 
@@ -190,6 +190,13 @@ class DataProvider extends ChangeNotifier{
         Expense? item = objectUnresolvedExpenseMap[expense.objectName]?.firstWhere((element) => element.objectName == expense.objectName && element.creator == expense.creator && element.amount == expense.amount && element.description == expense.description);
         objectUnresolvedExpenseMap[expense.objectName]?.remove(item);
         objectResolvedExpenseMap[expense.objectName]?.add(Expense(objectName: expense.objectName, creator: expense.creator, amount: expense.amount, description: expense.description, isPaid: true));
+      }
+
+      void resolveService(Service service)
+      {
+        Service? item = objectUnresolvedServices[service.objectName]?.firstWhere((element) => element.objectName == service.objectName && element.creator == service.creator && element.description == service.description);
+        objectUnresolvedServices[service.objectName]?.remove(item);
+        objectResolvedServices[service.objectName]?.add(Service(objectName: service.objectName, creator: service.creator, description: service.description, isResolved: true));
       }
 
 }
