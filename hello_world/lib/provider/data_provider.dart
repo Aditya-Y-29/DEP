@@ -10,6 +10,8 @@ class DataProvider extends ChangeNotifier{
       List<String> communities = ["Home", "Office", "Apartment"];
       int communitiesIndex=0;
       int objectIndex = 0;
+      int expenseIndex = 0;
+      int serviceIndex = 0;
 
       Map<String, List<String>> communityObjectMap = {
         "Home": ["Oven", "PC", "TV", "Fridge"],
@@ -164,6 +166,17 @@ class DataProvider extends ChangeNotifier{
 
       void objectListen( String communityName, String objectName){
         objectIndex=communityObjectMap[communityName]!.indexOf(objectName);
+        notifyListeners();
+      }
+
+      void expenseListen(Expense expense){
+        expenseIndex=objectUnresolvedExpenseMap[expense.objectName]!.indexOf(expense);
+        print(expenseIndex);
+        notifyListeners();
+      }
+
+      void serviceListen(Service service){
+        serviceIndex=objectUnresolvedServices[service.objectName]!.indexOf(service);
         notifyListeners();
       }
 

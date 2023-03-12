@@ -37,9 +37,9 @@ class ResolveData extends State<ResolveScreen> {
       } else {
       objectDropDown=providerCommunity.communityObjectMap[widget.communityName]![providerCommunity.objectIndex];
     }
-    Expense expense = providerCommunity.objectUnresolvedExpenseMap[objectDropDown]![0];
+    Expense expense = providerCommunity.objectUnresolvedExpenseMap[objectDropDown]![providerCommunity.expenseIndex];
     resolveExpenseDropDown="${expense.creator} ₹${expense.amount} ${expense.description}";
-    Service service = providerCommunity.objectUnresolvedServices[objectDropDown]![0];
+    Service service = providerCommunity.objectUnresolvedServices[objectDropDown]![providerCommunity.serviceIndex];
     resolveServiceDropDown="${service.creator} ${service.description}";
 
     return Form(
@@ -82,6 +82,7 @@ class ResolveData extends State<ResolveScreen> {
                       setState(() {
                         objectDropDown = newValue!;
                       });
+                      providerCommunity.objectListen(widget.communityName, widget.objectName);
                     },
                   ),
 
@@ -145,6 +146,16 @@ class ResolveData extends State<ResolveScreen> {
                         setState(() {
                           resolveExpenseDropDown = newValue!;
                         });
+                        // var expenseAttributes = resolveExpenseDropDown.split(" ");
+                        // String creator = expenseAttributes[0];
+                        // int amount = int.parse(expenseAttributes[1].substring(1));
+                        // String description = "";
+                        // for(int i=2; i<expenseAttributes.length; i++){
+                        //   description = description + " " + expenseAttributes[i];
+                        // }
+                        // print("creator: $creator, amount: $amount, description: $description");
+                        Expense expense = providerCommunity.objectUnresolvedExpenseMap[objectDropDown]!.firstWhere((element) => "${element.creator} ₹${element.amount} ${element.description}"==resolveExpenseDropDown);
+                        providerCommunity.expenseListen(expense);
                       },
                     ),
                   if(!isExpense)
@@ -167,6 +178,8 @@ class ResolveData extends State<ResolveScreen> {
                         setState(() {
                           resolveServiceDropDown = newValue!;
                         });
+                        Service service = providerCommunity.objectUnresolvedServices[objectDropDown]!.firstWhere((element) => "${element.creator} ${element.description}"==resolveServiceDropDown);
+                        providerCommunity.serviceListen(service);
                       },
                     ),
 
