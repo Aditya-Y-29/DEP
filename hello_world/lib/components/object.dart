@@ -6,7 +6,8 @@ import 'community.dart';
 
 class Object extends StatefulWidget {
   final String name;
-  const Object({Key? key, required this.name}) : super(key: key);
+  final String communityName;
+  const Object({Key? key, required this.name, required this.communityName}) : super(key: key);
 
   @override
   State<Object> createState() => _ObjectState();
@@ -20,7 +21,7 @@ class _ObjectState extends State<Object> {
         Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => const ObjectPage()
+                builder: (context) => ObjectPage(objectName: widget.name, communityName: widget.communityName,)
             )
         );
       },
@@ -51,11 +52,17 @@ class _ObjectState extends State<Object> {
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Text(
-                    widget.name,
-                    style: const TextStyle(
-                      fontSize: 20,
-                    ),
+                  Flexible(
+                    child: Container(
+                      child:
+                        Text(
+                          widget.name,
+                          style: const TextStyle(
+                            fontSize: 20,
+                          ),
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                    )
                   ),
                   PopupMenuButton<Choice>(
                     itemBuilder: (BuildContext context) {
@@ -79,7 +86,7 @@ class _ObjectState extends State<Object> {
                   onPressed: (){
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => AddExpenseServiceCommunity(selectedPage: 0)),
+                      MaterialPageRoute(builder: (context) => AddFromHomePage(selectedPage: 0)),
                     );
                   },
                   child: const  Text(

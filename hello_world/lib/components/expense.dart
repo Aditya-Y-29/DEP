@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../provider/data_provider.dart';
 
 class Expense extends StatefulWidget {
   final String creator;
   final String description;
   final int amount;
   final bool isPaid;
-  const Expense({Key? key, required this.creator, required this.description, required this.amount, required this.isPaid}) : super(key: key);
+  final String objectName;
+  const Expense({Key? key, required this.objectName, required this.creator, required this.description, required this.amount, required this.isPaid}) : super(key: key);
 
   @override
   State<Expense> createState() => _ExpenseState();
@@ -14,6 +18,9 @@ class Expense extends StatefulWidget {
 class _ExpenseState extends State<Expense> {
   @override
   Widget build(BuildContext context) {
+
+    final providerCommunity = Provider.of<DataProvider>(context, listen: true);
+
     return Container(
       height: 60,
       padding: const EdgeInsets.all(10),
@@ -38,28 +45,40 @@ class _ExpenseState extends State<Expense> {
             children: [
               Text(
               widget.creator,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 15,
                 fontWeight: FontWeight.bold,
               ),
             ),
               Text(
               widget.description,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 15,
               ),
               ),
             ]
           ),
           Text(
-           '₹' + widget.amount.toString(),
+           '₹${widget.amount}',
             style: const TextStyle(
               fontSize: 15,
               fontWeight: FontWeight.bold,
             ),
           ),
           if(!widget.isPaid)
-              Icon(Icons.check_circle_outline, color: Colors.green, size: 35,),
+            GestureDetector(
+              onTap: () {
+                Expense expense = Expense(
+                  creator: widget.creator,
+                  description: widget.description,
+                  amount: widget.amount,
+                  isPaid: false,
+                  objectName: widget.objectName,
+                );
+                providerCommunity.resolveExpense(expense);
+              },
+              child: const Icon(Icons.check_circle_outline, color: Colors.green, size: 35,),
+            )
         ],
       ),
     );

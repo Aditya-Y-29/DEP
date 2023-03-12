@@ -62,7 +62,7 @@ class CommunityData extends State<CommunityScreen> {
                   onPressed: (){
                     providerCommunity.addCommunity(communityName.text);
                   },
-                  child: const Text('Create'),
+                  child: const Icon(Icons.check),
                 )
             ),
           ],

@@ -8,16 +8,18 @@ import 'package:hello_world/Pages/object_page.dart';
 import 'package:hello_world/Pages/profile_page.dart';
 import 'package:hello_world/Pages/navigation_page.dart';
 
+import 'add_from_community_page.dart';
+
 
 class CommunityPage extends StatefulWidget {
-  const CommunityPage({Key? key}) : super(key: key);
+  const CommunityPage({Key? key, required this.communityName}) : super(key: key);
+  final String communityName;
 
   @override
   State<CommunityPage> createState() => _CommunityPageState();
 }
 
 class _CommunityPageState extends State<CommunityPage> {
-  List<String> items = ["PC", "TV", "Oven", "Fridge"];
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +34,7 @@ class _CommunityPageState extends State<CommunityPage> {
             );
           },
         ),
-        title: const Text("Home"),
+        title: Text(widget.communityName),
         actions:  [
           Container(
             margin: const EdgeInsets.all(5),
@@ -80,7 +82,14 @@ class _CommunityPageState extends State<CommunityPage> {
                             height: 50,
                             width: 50,
                             child: FloatingActionButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => AddFromCommunityPage(selectedPage: 0, communityName: widget.communityName),
+                                  ),
+                                );
+                              },
                               child: const Icon(Icons.check_circle_outline),
                             ),
                           ),
@@ -101,8 +110,15 @@ class _CommunityPageState extends State<CommunityPage> {
                             height: 50,
                             width: 50,
                             child: FloatingActionButton(
-                              onPressed: () {},
-                              child: const Icon(Icons.monetization_on_sharp),
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => AddFromCommunityPage(selectedPage: 1, communityName: widget.communityName),
+                                  ),
+                                );
+                              },
+                              child: const Icon(Icons.currency_rupee_outlined),
                             ),
                           ),
                           const Text(
@@ -122,7 +138,14 @@ class _CommunityPageState extends State<CommunityPage> {
                             height: 50,
                             width: 50,
                             child: FloatingActionButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => AddFromCommunityPage(selectedPage: 2, communityName: widget.communityName),
+                                  ),
+                                );
+                              },
                               child: const Icon(Icons.home_repair_service),
                             ),
                           ),
@@ -143,7 +166,14 @@ class _CommunityPageState extends State<CommunityPage> {
                             height: 50,
                             width: 50,
                             child: FloatingActionButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => AddFromCommunityPage(selectedPage: 3, communityName: widget.communityName)
+                                  ),
+                                );
+                              },
                               child: const Icon(Icons.data_object),
                             ),
                           ),
@@ -162,20 +192,7 @@ class _CommunityPageState extends State<CommunityPage> {
               Wrap(
                   spacing: 8,
                   runSpacing: 4,
-                  children: [
-                    Object(
-                      name: objectDataProvider.objects[0],
-                    ),
-                    Object(
-                      name: objectDataProvider.objects[1],
-                    ),
-                    Object(
-                      name: objectDataProvider.objects[2],
-                    ),
-                    Object(
-                      name: objectDataProvider.objects[3],
-                    ),
-                  ]
+                  children: List.of(objectDataProvider.communityObjectMap[widget.communityName]!.map((e) => Object(name: e, communityName: widget.communityName,)))
               ),
             ],
           );

@@ -4,15 +4,15 @@ import '../screens/add_expense.dart';
 import '../screens/add_service.dart';
 
 
-class AddExpenseServiceCommunity extends StatefulWidget {
+class AddFromHomePage extends StatefulWidget {
   int selectedPage = 0;
-  AddExpenseServiceCommunity({Key? key, required this.selectedPage}) : super(key: key);
+  AddFromHomePage({Key? key, required this.selectedPage}) : super(key: key);
 
   @override
-  State<AddExpenseServiceCommunity> createState() => _AddExpenseServiceCommunityData();
+  State<AddFromHomePage> createState() => _AddExpenseServiceCommunityData();
 }
 
-class _AddExpenseServiceCommunityData extends State<AddExpenseServiceCommunity> {
+class _AddExpenseServiceCommunityData extends State<AddFromHomePage> {
 
   @override
   Widget build(BuildContext context) {
@@ -32,9 +32,10 @@ class _AddExpenseServiceCommunityData extends State<AddExpenseServiceCommunity> 
         ),
         body: const TabBarView(
           children: [
-            ExpenseScreen(),
-            ServiceScreen(),
             CommunityScreen(),
+            ExpenseScreen(isFromCommunityPage: false, isFromObjectPage: false, communityName: "", objectName: "",),
+            ServiceScreen(isFromCommunityPage: false, isFromObjectPage: false, communityName: "", objectName: "",),
+            ObjectScreen(isFromCommunityPage: false, communityName: ""),
           ],
         ),
       ),

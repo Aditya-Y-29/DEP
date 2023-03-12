@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../provider/data_provider.dart';
 
 class Service extends StatefulWidget {
-  const Service({Key? key, required this.creator, required this.description, required this.isResolved}) : super(key: key);
+  const Service({Key? key, required this.objectName, required this.creator, required this.description, required this.isResolved}) : super(key: key);
   final String creator;
   final String description;
   final bool isResolved;
+  final String objectName;
 
   @override
   State<Service> createState() => _ServiceState();
@@ -13,6 +17,9 @@ class Service extends StatefulWidget {
 class _ServiceState extends State<Service> {
   @override
   Widget build(BuildContext context) {
+
+    final providerCommunity = Provider.of<DataProvider>(context, listen: true);
+
     return Container(
       height: 60,
       padding: const EdgeInsets.all(10),
@@ -37,21 +44,32 @@ class _ServiceState extends State<Service> {
               children: [
                 Text(
                   widget.creator,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 15,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
                 Text(
                   widget.description,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 15,
                   ),
                 ),
               ]
           ),
           if(!widget.isResolved)
-            Icon(Icons.check_circle_outline, color: Colors.green, size: 35,),
+            GestureDetector(
+              onTap: () {
+                Service service = Service(
+                  creator: widget.creator,
+                  description: widget.description,
+                  isResolved: false,
+                  objectName: widget.objectName,
+                );
+                providerCommunity.resolveService(service);
+              },
+              child: const Icon(Icons.check_circle_outline, color: Colors.green, size: 35,),
+            )
         ],
       ),
     );

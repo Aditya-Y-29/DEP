@@ -25,7 +25,7 @@ class _CommunityState extends State<Community> {
         Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => CommunityPage()
+                builder: (context) => CommunityPage(communityName: widget.name,)
             )
         );
       },
@@ -56,12 +56,19 @@ class _CommunityState extends State<Community> {
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                Text(
-                  widget.name,
-                  style: const TextStyle(
-                    color: Colors.black,
-                    fontSize: 20,
-                  ),
+                Flexible(
+                  child:
+                    Container(
+                      child:
+                        Text(
+                          widget.name,
+                          style: const TextStyle(
+                            color: Colors.black,
+                            fontSize: 20,
+                          ),
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                    )
                 ),
                 PopupMenuButton<Choice>(
                   itemBuilder: (BuildContext context) {
@@ -78,7 +85,7 @@ class _CommunityState extends State<Community> {
                       print("pressed add expense");
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => AddExpenseServiceCommunity(selectedPage: 0)),
+                        MaterialPageRoute(builder: (context) => AddFromHomePage(selectedPage: 0)),
                       );
                     }
                     else if (value.name == "Add Service")
@@ -86,7 +93,7 @@ class _CommunityState extends State<Community> {
                       print("pressed add service");
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => AddExpenseServiceCommunity(selectedPage: 1)),
+                        MaterialPageRoute(builder: (context) => AddFromHomePage(selectedPage: 1)),
                       );
                     }
                   },
@@ -104,7 +111,7 @@ class _CommunityState extends State<Community> {
                 onPressed: (){
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => AddExpenseServiceCommunity(selectedPage: 0)),
+                    MaterialPageRoute(builder: (context) => AddFromHomePage(selectedPage: 0)),
                   );
                 },
                 child: const  Text(
@@ -127,7 +134,7 @@ class Choice {
 }
 
 const List<Choice> choices = <Choice> [
-  Choice(name: 'Add Expense'),
-  Choice(name: 'Add Service')
+  Choice(name: 'Add to Favourites'),
+  Choice(name: 'Delete Community')
 ];
 

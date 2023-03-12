@@ -1,10 +1,16 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import '../provider/data_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
 
 class ExpenseScreen extends StatefulWidget {
-  const ExpenseScreen({Key? key}) : super(key: key);
+  const ExpenseScreen({Key? key, required this.isFromCommunityPage, required this.isFromObjectPage, required this.communityName, required this.objectName}) : super(key: key);
+  final bool isFromCommunityPage;
+  final bool isFromObjectPage;
+  final String communityName;
+  final String objectName;
 
   @override
   State<ExpenseScreen> createState() => ExpenseData();
@@ -17,6 +23,9 @@ class ExpenseData extends State<ExpenseScreen> {
 
   String communityDropDown='';
   String objectDropDown='';
+  late int amount;
+  TextEditingController amountInvolved = TextEditingController();
+  TextEditingController description = TextEditingController();
 
 
   @override
@@ -28,10 +37,17 @@ class ExpenseData extends State<ExpenseScreen> {
   Widget build(BuildContext context) {
 
     final providerCommunity = Provider.of<DataProvider>(context, listen: true);
+    if(widget.isFromCommunityPage) {
+      communityDropDown=widget.communityName;
+    } else {
+      communityDropDown=providerCommunity.communities[providerCommunity.communitiesIndex];
+    }
 
-    communityDropDown=providerCommunity.communities[providerCommunity.communitiesindex];
-
-    objectDropDown=providerCommunity.communityObjectMap[communityDropDown]![0];
+    if(widget.isFromObjectPage){
+        objectDropDown=widget.objectName;
+      } else {
+      objectDropDown=providerCommunity.communityObjectMap[communityDropDown]![providerCommunity.objectIndex];
+    }
 
     return Form(
       key: _formKey,
@@ -52,33 +68,35 @@ class ExpenseData extends State<ExpenseScreen> {
                 ),
                 SizedBox(height: 10,),
 
-                DropdownButtonFormField<String>(
-                  decoration: const InputDecoration(
-                    icon: Icon(Icons.home),
-                    hintText: 'Community',
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                if(!widget.isFromCommunityPage && !widget.isFromObjectPage)
+                  DropdownButtonFormField<String>(
+                    decoration: const InputDecoration(
+                      icon: Icon(Icons.home_work),
+                      hintText: 'Community',
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                      ),
                     ),
-                  ),
-                  value : communityDropDown,
-                  items: providerCommunity.communities.map<DropdownMenuItem<String>>((String chosenValue) {
-                    return DropdownMenuItem<String>(
-                      value: chosenValue,
-                      child: Text(chosenValue),
-                    );
-                  }).toList(),
+                    value : communityDropDown,
+                    items: providerCommunity.communities.map<DropdownMenuItem<String>>((String chosenValue) {
+                      return DropdownMenuItem<String>(
+                        value: chosenValue,
+                        child: Text(chosenValue),
+                      );
+                    }).toList(),
 
-                  onChanged: (String? newValue) {
-                    setState(() {
-                      communityDropDown = newValue!;
-                      objectDropDown=providerCommunity.communityObjectMap[communityDropDown]![0];
-                      providerCommunity.dolistening(communityDropDown);
-                    });
-                  },
-                ),
+                    onChanged: (String? newValue) {
+                      setState(() {
+                        communityDropDown = newValue!;
+                        objectDropDown=providerCommunity.communityObjectMap[communityDropDown]![0];
+                        providerCommunity.communityListen(communityDropDown);
+                      });
+                    },
+                  ),
 
                 SizedBox(height: 10,),
 
+                if(!widget.isFromObjectPage)
                 DropdownButtonFormField<String>(
                   decoration: const InputDecoration(
                     icon: Icon(Icons.data_object),
@@ -99,6 +117,8 @@ class ExpenseData extends State<ExpenseScreen> {
                     setState(() {
                       objectDropDown = newValue!;
                     });
+                    // print(objectDropDown);
+                    providerCommunity.objectListen(communityDropDown, objectDropDown);
                   },
                 ),
 
@@ -114,6 +134,7 @@ class ExpenseData extends State<ExpenseScreen> {
                     ),
                   ),
                   keyboardType: TextInputType.number,
+                  controller: amountInvolved,
                 ),
 
                 SizedBox(height: 10,),
@@ -154,18 +175,21 @@ class ExpenseData extends State<ExpenseScreen> {
 
 
                 TextFormField(
-                  keyboardType: TextInputType.multiline,
-                  maxLines: null,
                   decoration: const InputDecoration(
                     icon: Icon(Icons.edit),
                     hintText: 'Description',
                   ),
+                  controller: description,
                 ),
                 Container(
                   margin: const EdgeInsets.only(top: 20.0),
-                    child: const FloatingActionButton(
-                      onPressed: null,
-                      child: Text('Add'),
+                    child: FloatingActionButton(
+                      onPressed: () {
+                        // print(objectDropDown);
+                        providerCommunity.addExpense(objectDropDown, "Creator", int.parse(amountInvolved.text), description.text);
+                        Navigator.pop(context);
+                      },
+                      child: const Icon(Icons.check),
                     )),
               ],
             ),
