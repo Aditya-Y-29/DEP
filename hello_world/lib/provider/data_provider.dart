@@ -7,7 +7,8 @@ import 'package:hello_world/components/service.dart';
 
 class DataProvider extends ChangeNotifier{
       List<String> communities = ["Home", "Office", "Apartment"];
-      int communitiesindex=0;
+      int communitiesIndex=0;
+      int objectIndex = 0;
 
       Map<String, List<String>> communityObjectMap = {
         "Home": ["Oven", "PC", "TV", "Fridge"],
@@ -154,8 +155,13 @@ class DataProvider extends ChangeNotifier{
 
       };
     
-      void dolistening( String communityName){
-        communitiesindex=communities.indexOf(communityName);
+      void communityListen( String communityName){
+        communitiesIndex=communities.indexOf(communityName);
+        notifyListeners();
+      }
+
+      void objectListen( String communityName, String objectName){
+        objectIndex=communityObjectMap[communityName]!.indexOf(objectName);
         notifyListeners();
       }
 
@@ -168,7 +174,13 @@ class DataProvider extends ChangeNotifier{
       void addExpense(String objectName, String creator, int amount, String description)
       {
         objectUnresolvedExpenseMap[objectName]?.add(Expense(creator: creator, amount: amount, description: description, isPaid: false));
-        notifyListeners();
+        // notifyListeners();
+      }
+
+      void addService(String objectName, String creator, String description)
+      {
+        objectUnresolvedServices[objectName]?.add(Service(creator: creator, description: description, isResolved: false));
+        // notifyListeners();
       }
 
 }

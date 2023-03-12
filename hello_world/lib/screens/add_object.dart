@@ -4,7 +4,9 @@ import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
 
 class ObjectScreen extends StatefulWidget {
-  const ObjectScreen({Key? key}) : super(key: key);
+  const ObjectScreen({Key? key, required this.isFromCommunityPage, required this.communityName}) : super(key: key);
+  final bool isFromCommunityPage;
+  final String communityName;
 
   @override
   State<ObjectScreen> createState() => ObjectData();
@@ -27,7 +29,11 @@ class ObjectData extends State<ObjectScreen> {
 
     final providerCommunity = Provider.of<DataProvider>(context, listen: true);
 
-    communityDropDown=providerCommunity.communities[providerCommunity.communitiesindex];
+    if(widget.isFromCommunityPage) {
+      communityDropDown=widget.communityName;
+    } else {
+      communityDropDown=providerCommunity.communities[providerCommunity.communitiesIndex];
+    }
 
     return Form(
         key: _formKey,
@@ -48,6 +54,7 @@ class ObjectData extends State<ObjectScreen> {
                   ),
                   SizedBox(height: 10,),
 
+                  if(!widget.isFromCommunityPage)
                   DropdownButtonFormField<String>(
                     decoration: const InputDecoration(
                       icon: Icon(Icons.home_work),
@@ -67,7 +74,7 @@ class ObjectData extends State<ObjectScreen> {
                     onChanged: (String? newValue) {
                       setState(() {
                         communityDropDown = newValue!;
-                        providerCommunity.dolistening(communityDropDown);
+                        providerCommunity.communityListen(communityDropDown);
                       });
                     },
                   ),

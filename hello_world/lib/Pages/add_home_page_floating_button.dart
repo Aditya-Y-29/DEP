@@ -35,9 +35,9 @@ class _AddExpenseServiceCommunityData extends State<AddFromHomePage> {
         body: const TabBarView(
           children: [
             CommunityScreen(),
-            ExpenseScreen(),
-            ServiceScreen(),
-            ObjectScreen(),
+            ExpenseScreen(isFromCommunityPage: false, isFromObjectPage: false, communityName: "",),
+            ServiceScreen(isFromCommunityPage: false, isFromObjectPage: false, communityName: "",),
+            ObjectScreen(isFromCommunityPage: false, communityName: ""),
           ],
         ),
       ),

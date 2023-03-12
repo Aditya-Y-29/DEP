@@ -4,7 +4,10 @@ import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
 
 class ServiceScreen extends StatefulWidget {
-  const ServiceScreen({Key? key}) : super(key: key);
+  const ServiceScreen({Key? key, required this.isFromCommunityPage, required this.isFromObjectPage, required this.communityName}) : super(key: key);
+  final bool isFromCommunityPage;
+  final bool isFromObjectPage;
+  final String communityName;
 
   @override
   State<ServiceScreen> createState() => ServiceData();
@@ -14,6 +17,7 @@ class ServiceData extends State<ServiceScreen> {
 
   final _formKey = GlobalKey<FormState>();
   TextEditingController dateController =TextEditingController();
+  TextEditingController description =TextEditingController();
 
   String communityDropDown='';
   String objectDropDown='';
@@ -28,10 +32,13 @@ class ServiceData extends State<ServiceScreen> {
   Widget build(BuildContext context) {
 
     final providerCommunity = Provider.of<DataProvider>(context, listen: true);
+    if(widget.isFromCommunityPage) {
+      communityDropDown=widget.communityName;
+    } else {
+      communityDropDown=providerCommunity.communities[providerCommunity.communitiesIndex];
+    }
 
-    communityDropDown=providerCommunity.communities[providerCommunity.communitiesindex];
-
-    objectDropDown=providerCommunity.communityObjectMap[communityDropDown]![0];
+    objectDropDown=providerCommunity.communityObjectMap[communityDropDown]![providerCommunity.objectIndex];
 
     return Form(
         key: _formKey,
@@ -52,6 +59,7 @@ class ServiceData extends State<ServiceScreen> {
                   ),
                   SizedBox(height: 10,),
 
+                  if(!widget.isFromCommunityPage && !widget.isFromObjectPage)
                   DropdownButtonFormField<String>(
                     decoration: const InputDecoration(
                       icon: Icon(Icons.home_work),
@@ -72,13 +80,14 @@ class ServiceData extends State<ServiceScreen> {
                       setState(() {
                         communityDropDown = newValue!;
                         objectDropDown=providerCommunity.communityObjectMap[communityDropDown]![0];
-                        providerCommunity.dolistening(communityDropDown);
+                        providerCommunity.communityListen(communityDropDown);
                       });
                     },
                   ),
 
                   SizedBox(height: 10,),
 
+                  if(!widget.isFromObjectPage)
                   DropdownButtonFormField<String>(
                     decoration: const InputDecoration(
                       icon: Icon(Icons.data_object),
@@ -99,6 +108,7 @@ class ServiceData extends State<ServiceScreen> {
                       setState(() {
                         objectDropDown = newValue!;
                       });
+                      providerCommunity.objectListen(communityDropDown, objectDropDown);
                     },
                   ),
 
@@ -142,18 +152,20 @@ class ServiceData extends State<ServiceScreen> {
 
 
                   TextFormField(
-                    keyboardType: TextInputType.multiline,
-                    maxLines: null,
                     decoration: const InputDecoration(
                       icon: Icon(Icons.edit),
                       hintText: 'Description',
                     ),
+                    controller: description,
                   ),
                   Container(
                       margin: const EdgeInsets.only(top: 20.0),
-                      child: const FloatingActionButton(
-                        onPressed: null,
-                        child: Icon(Icons.check),
+                      child: FloatingActionButton(
+                        onPressed: () {
+                          providerCommunity.addService(objectDropDown, "Creator", description.text);
+                          Navigator.pop(context);
+                        },
+                        child: const Icon(Icons.check),
                       )),
                 ],
               ),
