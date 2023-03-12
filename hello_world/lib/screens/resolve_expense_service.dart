@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hello_world/components/expense.dart';
+import 'package:hello_world/components/service.dart';
 import '../provider/data_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
@@ -16,7 +17,8 @@ class ResolveData extends State<ResolveScreen> {
 
   final _formKey = GlobalKey<FormState>();
   String objectDropDown='';
-  String resolveDropDown='';
+  String resolveExpenseDropDown='';
+  String resolveServiceDropDown='';
   bool isExpense=true;
 
 
@@ -29,6 +31,10 @@ class ResolveData extends State<ResolveScreen> {
 
     final providerCommunity = Provider.of<DataProvider>(context, listen: true);
     objectDropDown=providerCommunity.communityObjectMap[widget.communityName]![0];
+    Expense expense = providerCommunity.objectUnresolvedExpenseMap[objectDropDown]![0];
+    resolveExpenseDropDown="${expense.creator} ₹${expense.amount} ${expense.description}";
+    Service service = providerCommunity.objectUnresolvedServices[objectDropDown]![0];
+    resolveServiceDropDown="${service.creator} ${service.description}";
 
     return Form(
         key: _formKey,
@@ -112,27 +118,50 @@ class ResolveData extends State<ResolveScreen> {
 
                   SizedBox(height: 10,),
 
-                  DropdownButtonFormField<String>(
-                    decoration: const InputDecoration(
-                      icon: Icon(Icons.check_circle_outline),
-                      hintText: 'Object',
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                  if(isExpense)
+                    DropdownButtonFormField<String>(
+                      decoration: const InputDecoration(
+                        icon: Icon(Icons.check_circle_outline),
+                        hintText: 'Object',
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                        ),
                       ),
+                      value : resolveExpenseDropDown,
+                      items: providerCommunity.objectUnresolvedExpenseMap[objectDropDown]!.map<DropdownMenuItem<String>>((Expense expense) {
+                        return DropdownMenuItem<String>(
+                          value: "${expense.creator} ₹${expense.amount} ${expense.description}",
+                          child: Text("${expense.creator} ₹${expense.amount} ${expense.description}"),
+                        );
+                      }).toList(),
+                      onChanged: (String? newValue) {
+                        setState(() {
+                          resolveExpenseDropDown = newValue!;
+                        });
+                      },
                     ),
-                    value : resolveDropDown,
-                    items: providerCommunity.objectUnresolvedExpenseMap[objectDropDown]!.map<DropdownMenuItem<String>>((Expense expense) {
-                      return DropdownMenuItem<String>(
-                        value: expense.description,
-                        child: Text(expense.description),
-                      );
-                    }).toList(),
-                    onChanged: (String? newValue) {
-                      setState(() {
-                        resolveDropDown = newValue!;
-                      });
-                    },
-                  ),
+                  if(!isExpense)
+                    DropdownButtonFormField<String>(
+                      decoration: const InputDecoration(
+                        icon: Icon(Icons.check_circle_outline),
+                        hintText: 'Object',
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                        ),
+                      ),
+                      value : resolveServiceDropDown,
+                      items: providerCommunity.objectUnresolvedServices[objectDropDown]!.map<DropdownMenuItem<String>>((Service service) {
+                        return DropdownMenuItem<String>(
+                          value: "${service.creator} ${service.description}",
+                          child: Text("${service.creator} ${service.description}"),
+                        );
+                      }).toList(),
+                      onChanged: (String? newValue) {
+                        setState(() {
+                          resolveServiceDropDown = newValue!;
+                        });
+                      },
+                    ),
 
                   SizedBox(height: 10,),
 
@@ -147,7 +176,17 @@ class ResolveData extends State<ResolveScreen> {
                   Container(
                       margin: const EdgeInsets.only(top: 20.0),
                       child: FloatingActionButton.extended(
-                        onPressed: null,
+                        onPressed: () {
+                          if(isExpense){
+                            Expense expense = providerCommunity.objectUnresolvedExpenseMap[objectDropDown]!.firstWhere((element) => "${element.creator} ₹${element.amount} ${element.description}"==resolveExpenseDropDown);
+                            providerCommunity.resolveExpense(expense);
+                          }
+                          else{
+                            Service service = providerCommunity.objectUnresolvedServices[objectDropDown]!.firstWhere((element) => "${element.creator} ${element.description}"==resolveServiceDropDown);
+                            providerCommunity.resolveService(service);
+                          }
+                          Navigator.pop(context);
+                        },
                         label: Row(
                           children: const [
                             Text("Resolve"),
