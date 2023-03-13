@@ -1,21 +1,18 @@
-class Community{
-  String communityID;
+class CommunityModel{
   String name; 
-  String creatorID;
+  String phoneNo; // phone number of owner
 
-  Community({required this.communityID,required this.name, required this.creatorID});
+  CommunityModel({required this.name, required this.phoneNo});
 
-  factory Community.fromJson(Map<String, dynamic> json){
-    return Community(
-      communityID: json['_id'],
-      name: json['name'],
-      creatorID: json['creatorID'],
+  factory CommunityModel.fromJson(Map<String, dynamic> json){
+    return CommunityModel(
+      name: json['Name'],
+      phoneNo: json['Phone Number'],
     );
   }
 
   Map<String, dynamic> toJson() => {
-    '_id': communityID,
-    'name': name,
-    'creatorID': creatorID,
+    'Name': name,
+    'Phone Number': phoneNo,
   };
 }

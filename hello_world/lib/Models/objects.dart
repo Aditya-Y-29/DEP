@@ -1,27 +1,27 @@
-class Objects{
-  String userID;
+class ObjectsModel{
+  String? communityID;
+  String creatorPhoneNo;
   String name;
-  String username;
-  String email;
-  String phoneNo;
+  String? type;
+  String? description;
 
-  Objects({required this.userID,required this.name, required this.username ,required this.email,required this.phoneNo});
+  ObjectsModel({required this.communityID, required this.creatorPhoneNo ,required this.name,required this.type, required this.description});
 
-  factory Objects.fromJson(Map<String, dynamic> json){
-    return Objects(
-      userID: json['_id'],
-      name: json['name'],
-      username: json['username'],
-      email: json['email'],
-      phoneNo: json['phoneNo'],
+  factory ObjectsModel.fromJson(Map<String, dynamic> json){
+    return ObjectsModel(
+      communityID: json['CommunityID'],
+      creatorPhoneNo: json['CreatorPhoneNo'],
+      name: json['Name'],
+      type: json['Type'],
+      description: json['Description'],
     );
   }
 
   Map<String, dynamic> toJson() => {
-    '_id': userID,
-    'name': name,
-    'username': username,
-    'email': email,
-    'phoneNo': phoneNo,
+    'CommunityID': communityID,
+    'CreatorPhoneNo': creatorPhoneNo,
+    'Name': name,
+    'Type': type,
+    'Description': description,
   };
 }
