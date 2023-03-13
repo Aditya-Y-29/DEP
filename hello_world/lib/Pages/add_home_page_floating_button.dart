@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../screens/add_community.dart';
 import '../screens/add_expense.dart';
+import '../screens/add_object.dart';
 import '../screens/add_service.dart';
 
 
@@ -17,15 +18,16 @@ class _AddExpenseServiceCommunityData extends State<AddFromHomePage> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 3,
+      length: 4,
       initialIndex: widget.selectedPage,
       child: Scaffold(
         appBar: AppBar(
           bottom: const TabBar(
             tabs: [
-              Tab(text: 'Expense'),
-              Tab(text: 'Service',),
-              Tab(text: 'Community',),
+              Tab(icon: Icon(Icons.home_work),),
+              Tab(icon: Icon(Icons.currency_rupee_outlined),),
+              Tab(icon: Icon(Icons.home_repair_service),),
+              Tab(icon: Icon(Icons.data_object),)
             ],
             indicatorColor: Colors.white,
           ),

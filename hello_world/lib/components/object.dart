@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:hello_world/Pages/add_from_community_page.dart';
 import 'package:hello_world/Pages/object_page.dart';
 
+import '../Pages/add_from_object_page.dart';
 import '../Pages/add_home_page_floating_button.dart';
 import 'community.dart';
 
@@ -86,7 +88,7 @@ class _ObjectState extends State<Object> {
                   onPressed: (){
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => AddFromHomePage(selectedPage: 0)),
+                      MaterialPageRoute(builder: (context) => AddFromObjectPage(selectedPage: 0, communityName: widget.communityName, objectName: widget.name,)),
                     );
                   },
                   child: const  Text(
@@ -104,6 +106,6 @@ class _ObjectState extends State<Object> {
 
 
 const List<Choice> choices = <Choice> [
-  Choice(name: 'Add Expense'),
-  Choice(name: 'Add Service')
+  Choice(name: 'Add to Favourites'),
+  Choice(name: 'Delete Object')
 ];

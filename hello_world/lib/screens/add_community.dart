@@ -61,6 +61,7 @@ class CommunityData extends State<CommunityScreen> {
                 child: FloatingActionButton(
                   onPressed: (){
                     providerCommunity.addCommunity(communityName.text);
+                    Navigator.pop(context);
                   },
                   child: const Icon(Icons.check),
                 )

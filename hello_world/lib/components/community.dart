@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hello_world/Pages/community_page.dart';
+import '../Pages/add_from_community_page.dart';
 import '../Pages/add_home_page_floating_button.dart';
 
 class Community extends StatefulWidget {
@@ -111,7 +112,7 @@ class _CommunityState extends State<Community> {
                 onPressed: (){
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => AddFromHomePage(selectedPage: 0)),
+                    MaterialPageRoute(builder: (context) => AddFromCommunityPage(selectedPage: 0, communityName: widget.name,)),
                   );
                 },
                 child: const  Text(

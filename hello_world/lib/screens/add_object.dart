@@ -107,7 +107,7 @@ class ObjectData extends State<ObjectScreen> {
                       margin: const EdgeInsets.only(top: 20.0),
                       child: FloatingActionButton(
                         onPressed: () {
-                          providerCommunity.communityObjectMap[communityDropDown]!.add(objectName.text);
+                          providerCommunity.addObject(communityDropDown, objectName.text);
                           Navigator.pop(context);
                         },
                         child: const Icon(Icons.check),

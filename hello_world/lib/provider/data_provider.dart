@@ -171,7 +171,6 @@ class DataProvider extends ChangeNotifier{
 
       void expenseListen(Expense expense){
         expenseIndex=objectUnresolvedExpenseMap[expense.objectName]!.indexOf(expense);
-        print(expenseIndex);
         notifyListeners();
       }
 
@@ -184,6 +183,13 @@ class DataProvider extends ChangeNotifier{
         communities.add(communityName);
         communityObjectMap[communityName] = [];
         notifyListeners();
+      }
+
+      void addObject(String communityName, String objectName)
+      {
+        communityObjectMap[communityName]!.add(objectName);
+        objectUnresolvedExpenseMap[objectName] = [];
+        objectUnresolvedServices[objectName] = [];
       }
 
       void addExpense(String objectName, String creator, int amount, String description)

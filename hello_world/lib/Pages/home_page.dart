@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hello_world/Pages/community_page.dart';
+import 'package:hello_world/Pages/profile_page.dart';
 import 'package:provider/provider.dart';
 import '../components/community.dart';
 import '../screens/add_community.dart';
@@ -72,65 +73,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                   ],
                 ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Container(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Container(
-                            height: 50,
-                            width: 50,
-                            child: FloatingActionButton(
-                              onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => AddExpenseServiceCommunity(selectedPage: 2),
-                                  ),
-                                );
-                              },
-                              child: const Icon(Icons.home_work),
-                            ),
-                          ),
-                          const Text(
-                            "Community",
-                            style: TextStyle(
-                              fontSize: 12,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Container(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Container(
-                            height: 50,
-                            width: 50,
-                            child: FloatingActionButton(
-                              onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => AddExpenseServiceCommunity(selectedPage: 0),
-                                  ),
-                                );
-                              },
-                              child: const Icon(Icons.monetization_on_sharp),
-                            ),
-                          ),
-                          const Text(
-                            "Expense",
-                            style: TextStyle(
-                              fontSize: 12,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
+
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -245,26 +188,14 @@ class _MyHomePageState extends State<MyHomePage> {
                               ),
                             ],
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
-              ),
+                  ),
               Wrap(
                 spacing: 8,
                 runSpacing: 4,
-                children: [
-                  Community(
-                    name: communityDataProvider.communities[0],
-                  ),
-                  Community(
-                    name: communityDataProvider.communities[1],
-                  ),
-                  Community(
-                    name: communityDataProvider.communities[2],
-                  ),
-                ]
+                children: List.of(communityDataProvider.communities.map((e) => Community(name: e)))
               ),
             ],
           );

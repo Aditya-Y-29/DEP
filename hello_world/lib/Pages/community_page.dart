@@ -46,7 +46,17 @@ class _CommunityPageState extends State<CommunityPage> {
                 width: 2,
               ),
             ),
-            child: Icon(Icons.person_2_outlined, size: 30,),
+            child: GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const ProfilePage(),
+                  ),
+                );
+              },
+              child: const Icon(Icons.person_2_outlined, size: 30,),
+            )
           )
         ],
       ),
@@ -198,15 +208,6 @@ class _CommunityPageState extends State<CommunityPage> {
           );
         },
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => const ProfilePage()),
-          );
-        },
-        child: const Icon(Icons.add),
-      )
     );
   }
 }
