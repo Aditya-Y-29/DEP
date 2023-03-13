@@ -190,6 +190,8 @@ class DataProvider extends ChangeNotifier{
         communityObjectMap[communityName]!.add(objectName);
         objectUnresolvedExpenseMap[objectName] = [];
         objectUnresolvedServices[objectName] = [];
+        objectResolvedExpenseMap[objectName] = [];
+        objectResolvedServices[objectName] = [];
       }
 
       void addExpense(String objectName, String creator, int amount, String description)

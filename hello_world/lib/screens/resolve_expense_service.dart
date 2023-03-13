@@ -37,6 +37,18 @@ class ResolveData extends State<ResolveScreen> {
       } else {
       objectDropDown=providerCommunity.communityObjectMap[widget.communityName]![providerCommunity.objectIndex];
     }
+
+    if( providerCommunity.objectUnresolvedExpenseMap[objectDropDown]!.isEmpty || providerCommunity.objectUnresolvedServices[objectDropDown]!.isEmpty){
+      return Scaffold(
+        appBar: AppBar(
+          title: const Text('Resolve'),
+        ),
+        body: const Center(
+          child: Text('No unresolved expenses or services'),
+        ),
+      );
+    }
+
     Expense expense = providerCommunity.objectUnresolvedExpenseMap[objectDropDown]![providerCommunity.expenseIndex];
     resolveExpenseDropDown="${expense.creator} ₹${expense.amount} ${expense.description}";
     Service service = providerCommunity.objectUnresolvedServices[objectDropDown]![providerCommunity.serviceIndex];
