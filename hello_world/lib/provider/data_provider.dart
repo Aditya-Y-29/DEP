@@ -166,6 +166,8 @@ class DataProvider extends ChangeNotifier{
 
       void objectListen( String communityName, String objectName){
         objectIndex=communityObjectMap[communityName]!.indexOf(objectName);
+        print(objectName);
+        print(objectIndex);
         notifyListeners();
       }
 
@@ -192,6 +194,7 @@ class DataProvider extends ChangeNotifier{
         objectUnresolvedServices[objectName] = [];
         objectResolvedExpenseMap[objectName] = [];
         objectResolvedServices[objectName] = [];
+        notifyListeners();
       }
 
       void addExpense(String objectName, String creator, int amount, String description)
@@ -211,6 +214,7 @@ class DataProvider extends ChangeNotifier{
         Expense? item = objectUnresolvedExpenseMap[expense.objectName]?.firstWhere((element) => element.objectName == expense.objectName && element.creator == expense.creator && element.amount == expense.amount && element.description == expense.description);
         objectUnresolvedExpenseMap[expense.objectName]?.remove(item);
         objectResolvedExpenseMap[expense.objectName]?.add(Expense(objectName: expense.objectName, creator: expense.creator, amount: expense.amount, description: expense.description, isPaid: true));
+        notifyListeners();
       }
 
       void resolveService(Service service)
@@ -218,6 +222,7 @@ class DataProvider extends ChangeNotifier{
         Service? item = objectUnresolvedServices[service.objectName]?.firstWhere((element) => element.objectName == service.objectName && element.creator == service.creator && element.description == service.description);
         objectUnresolvedServices[service.objectName]?.remove(item);
         objectResolvedServices[service.objectName]?.add(Service(objectName: service.objectName, creator: service.creator, description: service.description, isResolved: true));
+        notifyListeners();
       }
 
 }

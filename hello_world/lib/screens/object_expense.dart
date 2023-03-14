@@ -19,12 +19,10 @@ class _ObjectExpenseScreenState extends State<ObjectExpenseScreen> {
     return Consumer<DataProvider>(
       builder: (context, objectDataProvider, child) {
 
-        print(objectDataProvider.objectUnresolvedExpenseMap[widget.objectName]==null);
         return Column(
             children: [
               Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
-                  // children: objectDataProvider.objectUnresolvedExpenseMap[widget.objectName]!=null ? List.of(objectDataProvider.objectUnresolvedExpenseMap[widget.objectName] as Iterable<Widget>) : Container(height: 0);
                   children: List.of(objectDataProvider.objectUnresolvedExpenseMap[widget.objectName] as Iterable<Widget>)
               ),
               Container (
