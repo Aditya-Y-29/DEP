@@ -33,7 +33,6 @@ class ResolveData extends State<ResolveScreen> {
 
     final providerCommunity = Provider.of<DataProvider>(context, listen: true);
 
-    print(providerCommunity.communityObjectMap[widget.communityName]);
     if( providerCommunity.communityObjectMap[widget.communityName]!.isEmpty){
       return const Scaffold(
         body: Center(
@@ -41,7 +40,7 @@ class ResolveData extends State<ResolveScreen> {
         ),
       );
     }
-    
+
     print("HELLO");
 
     if(widget.isFromObjectPage){
@@ -53,6 +52,9 @@ class ResolveData extends State<ResolveScreen> {
     print(objectDropDown);
     print(providerCommunity.expenseIndex);
     print(providerCommunity.serviceIndex);
+
+    print(providerCommunity.objectUnresolvedExpenseMap[objectDropDown]);
+    print(providerCommunity.objectUnresolvedServices[objectDropDown]);
 
     if( providerCommunity.objectUnresolvedExpenseMap[objectDropDown]!.isEmpty || providerCommunity.objectUnresolvedServices[objectDropDown]!.isEmpty){
       return const Scaffold(
