@@ -36,6 +36,7 @@ class ExpenseData extends State<ExpenseScreen> {
   @override
   Widget build(BuildContext context) {
 
+
     final providerCommunity = Provider.of<DataProvider>(context, listen: true);
     if(widget.isFromCommunityPage) {
       communityDropDown=widget.communityName;
@@ -43,10 +44,14 @@ class ExpenseData extends State<ExpenseScreen> {
       communityDropDown=providerCommunity.communities[providerCommunity.communitiesIndex];
     }
 
+
+
     if(widget.isFromObjectPage){
         objectDropDown=widget.objectName;
-      } else {
+      } else if (providerCommunity.communityObjectMap[communityDropDown]!.isNotEmpty) {
       objectDropDown=providerCommunity.communityObjectMap[communityDropDown]![providerCommunity.objectIndex];
+    } else {
+      return const Center(child: Text("No Objects in this Community"));
     }
 
     return Form(
