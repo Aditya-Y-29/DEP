@@ -21,9 +21,24 @@ class CommunityPage extends StatefulWidget {
 
 class _CommunityPageState extends State<CommunityPage> {
 
+  int clickedObject = 0;
+  String objectName = '';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: clickedObject != 0 ? FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ObjectPage(objectName: objectName, communityName: widget.communityName),
+            ),
+          );
+        },
+        backgroundColor: Colors.green,
+        child: const Icon(Icons.arrow_forward_ios, size: 20,),
+      ) : null,
       appBar: AppBar(
         leading: IconButton(
           icon: const Icon(Icons.menu, size: 30,),
@@ -71,7 +86,11 @@ class _CommunityPageState extends State<CommunityPage> {
                 padding: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
-                  color: Colors.white,
+                  border: Border.all(
+                    color: Colors.green,
+                    width: 2,
+                  ),
+                  color: Colors.green.shade50,
                   boxShadow: const [
                     BoxShadow(
                       color: Colors.black26,
@@ -202,7 +221,54 @@ class _CommunityPageState extends State<CommunityPage> {
               Wrap(
                   spacing: 8,
                   runSpacing: 4,
-                  children: List.of(objectDataProvider.communityObjectMap[widget.communityName]!.map((e) => Object(name: e, communityName: widget.communityName,)))
+                  children: List.of(objectDataProvider.communityObjectMap[widget.communityName]!.map((e) {
+                    int k = objectDataProvider.communityObjectMap[widget.communityName]!.indexOf(e) + 1;
+                    return GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          int temp = 1 << (k-1);
+                          if(clickedObject >> (k-1) & 1 == 1)
+                            clickedObject = clickedObject ^ temp;
+                          else {
+                            clickedObject = 0;
+                            clickedObject = clickedObject | temp;
+                          }
+                          objectName = e;
+                        });
+                      },
+                      child: AnimatedContainer(
+                        width: 150,
+                        height: 150,
+                        margin: const EdgeInsets.all(5.0),
+                        padding: const EdgeInsets.only(left: 20.0),
+                        decoration: BoxDecoration(
+                          color: (clickedObject >> (k-1) & 1) == 1 ? Colors.green.shade50 : Colors.grey.shade100,
+                          border: Border.all(
+                            color: (clickedObject >> (k-1) & 1) == 1 ? Colors.green : Colors.green.withOpacity(0),
+                            width: 2.0,
+                          ),
+                          borderRadius: BorderRadius.circular(20.0),
+                          boxShadow: const [
+                            BoxShadow(
+                              color: Colors.grey,
+                              blurRadius: 15.0, // soften the shadow
+                              spreadRadius: 1.0, //extend the shadow
+                              offset: Offset(
+                                1.0, // Move to right 5  horizontally
+                                1.0, // Move to bottom 5 Vertically
+                              ),
+                            )
+                          ],
+                        ),
+                        duration: const Duration(milliseconds: 250),
+                        curve: Curves.easeInOut,
+                        child: Object(
+                          name: e,
+                          communityName: widget.communityName,
+                        ),
+                      )
+                    );
+                  }))
               ),
             ],
           );

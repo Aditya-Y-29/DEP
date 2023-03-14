@@ -18,6 +18,7 @@ class _ObjectExpenseScreenState extends State<ObjectExpenseScreen> {
   Widget build(BuildContext context) {
     return Consumer<DataProvider>(
       builder: (context, objectDataProvider, child) {
+
         return Column(
             children: [
               Column(

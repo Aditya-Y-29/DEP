@@ -19,37 +19,48 @@ class _CommunityState extends State<Community> {
     });
   }
 
+  bool clicked = false;
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => CommunityPage(communityName: widget.name,)
-            )
-        );
+        // Navigator.push(
+        //     context,
+        //     MaterialPageRoute(
+        //         builder: (context) => CommunityPage(communityName: widget.name,)
+        //     )
+        // );
+        setState(() {
+          clicked = !clicked;
+        });
       },
       child: Container(
-      width: 150,
-      height: 100,
-      margin: const EdgeInsets.all(5.0),
-      padding: const EdgeInsets.only(left: 20.0),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(35.0),
-        color: Colors.white,
-        boxShadow: const [
-          BoxShadow(
-            color: Colors.grey,
-            blurRadius: 15.0, // soften the shadow
-            spreadRadius: 1.0, //extend the shadow
-            offset: Offset(
-              1.0, // Move to right 5  horizontally
-              1.0, // Move to bottom 5 Vertically
-            ),
-          )
-        ],
-      ),
+      // width: 150,
+      // height: 150,
+      // margin: const EdgeInsets.all(5.0),
+      // padding: const EdgeInsets.only(left: 20.0),
+      // decoration: BoxDecoration(
+      //   color: clicked ? Colors.blue.shade50 : Colors.grey.shade100,
+      //   border: Border.all(
+      //     color: clicked ? Colors.blue : Colors.blue.withOpacity(0),
+      //     width: 2.0,
+      //   ),
+      //   borderRadius: BorderRadius.circular(20.0),
+      //   boxShadow: const [
+      //     BoxShadow(
+      //       color: Colors.grey,
+      //       blurRadius: 15.0, // soften the shadow
+      //       spreadRadius: 1.0, //extend the shadow
+      //       offset: Offset(
+      //         1.0, // Move to right 5  horizontally
+      //         1.0, // Move to bottom 5 Vertically
+      //       ),
+      //     )
+      //   ],
+      // ),
+      // duration: const Duration(milliseconds: 250),
+      // curve: Curves.easeIn,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -105,8 +116,9 @@ class _CommunityState extends State<Community> {
           Align(
             alignment: Alignment.bottomRight,
             child: Container(
-              height: 25.0,
-              width: 25.0,
+              margin: const EdgeInsets.only(bottom: 5.0, right: 5.0),
+              height: 35.0,
+              width: 35.0,
               child: FloatingActionButton(
                 heroTag: "Comm_Btn",
                 onPressed: (){
@@ -115,9 +127,8 @@ class _CommunityState extends State<Community> {
                     MaterialPageRoute(builder: (context) => AddFromCommunityPage(selectedPage: 0, communityName: widget.name,)),
                   );
                 },
-                child: const  Text(
-                    "+"
-                ),
+                backgroundColor: Colors.green,
+                child: const Icon(Icons.add),
               ),
             ),
           )
