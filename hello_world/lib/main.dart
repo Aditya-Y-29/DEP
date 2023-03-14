@@ -22,7 +22,9 @@ class MyApp extends StatelessWidget {
       create: (context) => DataProvider(),
       child: MaterialApp(
         theme: ThemeData(
-          primarySwatch: Colors.blue,
+          primarySwatch: Colors.green,
+          fontFamily: 'OpenSans',
+          scaffoldBackgroundColor: Colors.green.shade50
         ),
         home: const MyHomePage(),
       ),

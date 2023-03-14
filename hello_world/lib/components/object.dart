@@ -28,25 +28,25 @@ class _ObjectState extends State<Object> {
         );
       },
       child: Container(
-        width: 150,
-        height: 100,
-        margin: const EdgeInsets.all(5.0),
-        padding: const EdgeInsets.only(left: 20.0),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(35.0),
-          color: Colors.white,
-          boxShadow: const [
-            BoxShadow(
-              color: Colors.grey,
-              blurRadius: 15.0, // soften the shadow
-              spreadRadius: 1.0, //extend the shadow
-              offset: Offset(
-                1.0, // Move to right 5  horizontally
-                1.0, // Move to bottom 5 Vertically
-              ),
-            )
-          ],
-        ),
+        // width: 150,
+        // height: 100,
+        // margin: const EdgeInsets.all(5.0),
+        // padding: const EdgeInsets.only(left: 20.0),
+        // decoration: BoxDecoration(
+        //   borderRadius: BorderRadius.circular(35.0),
+        //   color: Colors.white,
+        //   boxShadow: const [
+        //     BoxShadow(
+        //       color: Colors.grey,
+        //       blurRadius: 15.0, // soften the shadow
+        //       spreadRadius: 1.0, //extend the shadow
+        //       offset: Offset(
+        //         1.0, // Move to right 5  horizontally
+        //         1.0, // Move to bottom 5 Vertically
+        //       ),
+        //     )
+        //   ],
+        // ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -81,22 +81,22 @@ class _ObjectState extends State<Object> {
             Align(
               alignment: Alignment.bottomRight,
               child: Container(
-                height: 25.0,
-                width: 25.0,
+                margin: const EdgeInsets.only(bottom: 5.0, right: 5.0),
+                height: 35.0,
+                width: 35.0,
                 child: FloatingActionButton(
                   heroTag: "Comm_Btn",
                   onPressed: (){
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => AddFromObjectPage(selectedPage: 0, communityName: widget.communityName, objectName: widget.name,)),
+                      MaterialPageRoute(builder: (context) => AddFromCommunityPage(selectedPage: 0, communityName: widget.name,)),
                     );
                   },
-                  child: const  Text(
-                      "+"
-                  ),
+                  backgroundColor: Colors.green,
+                  child: const Icon(Icons.add),
                 ),
               ),
-            ),
+            )
           ],
         ),
       ),
