@@ -32,18 +32,33 @@ class ResolveData extends State<ResolveScreen> {
   Widget build(BuildContext context) {
 
     final providerCommunity = Provider.of<DataProvider>(context, listen: true);
+
+    if( providerCommunity.communityObjectMap[widget.communityName]!.isEmpty){
+      return const Scaffold(
+        body: Center(
+          child: Text('No objects in this community'),
+        ),
+      );
+    }
+
+    print("HELLO");
+
     if(widget.isFromObjectPage){
         objectDropDown=widget.objectName;
       } else {
       objectDropDown=providerCommunity.communityObjectMap[widget.communityName]![providerCommunity.objectIndex];
     }
 
+    print(objectDropDown);
+    print(providerCommunity.expenseIndex);
+    print(providerCommunity.serviceIndex);
+
+    print(providerCommunity.objectUnresolvedExpenseMap[objectDropDown]);
+    print(providerCommunity.objectUnresolvedServices[objectDropDown]);
+
     if( providerCommunity.objectUnresolvedExpenseMap[objectDropDown]!.isEmpty || providerCommunity.objectUnresolvedServices[objectDropDown]!.isEmpty){
-      return Scaffold(
-        appBar: AppBar(
-          title: const Text('Resolve'),
-        ),
-        body: const Center(
+      return const Scaffold(
+        body: Center(
           child: Text('No unresolved expenses or services'),
         ),
       );
@@ -94,7 +109,9 @@ class ResolveData extends State<ResolveScreen> {
                       setState(() {
                         objectDropDown = newValue!;
                       });
-                      providerCommunity.objectListen(widget.communityName, widget.objectName);
+                      print(widget.communityName);
+                      print(objectDropDown);
+                      providerCommunity.objectListen(widget.communityName, objectDropDown);
                     },
                   ),
 
