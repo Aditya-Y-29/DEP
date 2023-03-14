@@ -85,20 +85,20 @@ class ProfileScreen extends StatelessWidget {
             style: kCaptionTextStyle,
           ),
           SizedBox(height: kSpacingUnit.w * 2),
-          // Container(
-          //   height: kSpacingUnit.w * 4,
-          //   width: kSpacingUnit.w * 20,
-          //   decoration: BoxDecoration(
-          //     borderRadius: BorderRadius.circular(kSpacingUnit.w * 3),
-          //     color: Theme.of(context).accentColor,
-          //   ),
-          //   child: Center(
-          //     child: Text(
-          //       'Upgrade to PRO',
-          //       style: kButtonTextStyle,
-          //     ),
-          //   ),
-          // ),
+          Container(
+            height: kSpacingUnit.w * 4,
+            width: kSpacingUnit.w * 20,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(kSpacingUnit.w * 3),
+              color: Color(0xFF43A047),
+            ),
+            child: Center(
+              child: Text(
+                'Edit profile Details',
+                style: kButtonTextStyle,
+              ),
+            ),
+          ),
         ],
       ),
     );
