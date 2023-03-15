@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:hello_world/Pages/add_from_community_page.dart';
-import 'package:hello_world/Pages/object_page.dart';
+import 'package:hello_world/Pages/add_from_pages/add_from_community_page.dart';
+import 'package:hello_world/Pages/main_pages/object_page.dart';
 
-import '../Pages/add_from_object_page.dart';
-import '../Pages/add_home_page_floating_button.dart';
+import '../Pages/add_from_pages/add_from_object_page.dart';
+import '../Pages/add_from_pages/add_home_page_floating_button.dart';
 import 'community.dart';
 
 class Object extends StatefulWidget {

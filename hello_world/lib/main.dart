@@ -1,11 +1,11 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:hello_world/Pages/home_page.dart';
-import 'Pages/login_page.dart';
+import 'package:hello_world/Pages/main_pages/home_page.dart';
+import 'Pages/auth_pages/login_page.dart';
 import 'provider/data_provider.dart';
 import 'package:provider/provider.dart';
 
-import 'Pages/phone.dart';
+import 'Pages/auth_pages/phone.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

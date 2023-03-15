@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hello_world/components/expense.dart';
 import 'package:provider/provider.dart';
 
-import '../provider/data_provider.dart';
+import '../../provider/data_provider.dart';
 
 
 class ObjectExpenseScreen extends StatefulWidget {

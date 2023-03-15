@@ -1,7 +1,7 @@
 import 'dart:ffi';
 
 import 'package:flutter/material.dart';
-import '../provider/data_provider.dart';
+import '../../provider/data_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
 

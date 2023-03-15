@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:hello_world/Pages/object_page.dart';
+import 'package:hello_world/Pages/main_pages/object_page.dart';
 import 'package:provider/provider.dart';
-import '../components/object.dart';
-import '../provider/data_provider.dart';
-import '../components/community.dart';
-import 'package:hello_world/Pages/object_page.dart';
-import 'package:hello_world/Pages/profile_page.dart';
-import 'package:hello_world/Pages/navigation_page.dart';
+import '../../components/object.dart';
+import '../../provider/data_provider.dart';
+import '../../components/community.dart';
+import 'package:hello_world/Pages/main_pages/object_page.dart';
+import 'package:hello_world/Pages/profile_pages/profile_page.dart';
+import 'package:hello_world/Pages/main_pages/navigation_page.dart';
 
-import 'add_from_community_page.dart';
+import '../add_from_pages/add_from_community_page.dart';
 
 
 class CommunityPage extends StatefulWidget {

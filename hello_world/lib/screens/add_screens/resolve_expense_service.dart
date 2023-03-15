@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hello_world/components/expense.dart';
 import 'package:hello_world/components/service.dart';
-import '../provider/data_provider.dart';
+import '../../provider/data_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
 

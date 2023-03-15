@@ -1,11 +1,11 @@
 //create a page for an object.dart that consists of two screens in two separate tabs; namely Expenses and Services
 import 'package:flutter/material.dart';
-import 'package:hello_world/Pages/add_from_object_page.dart';
-import 'package:hello_world/Pages/profile_page.dart';
-import 'package:hello_world/screens/object_expense.dart';
-import 'package:hello_world/screens/object_service.dart';
+import 'package:hello_world/Pages/add_from_pages/add_from_object_page.dart';
+import 'package:hello_world/Pages/profile_pages/profile_page.dart';
+import 'package:hello_world/screens/objects_screens/object_expense.dart';
+import 'package:hello_world/screens/objects_screens/object_service.dart';
 
-import 'add_home_page_floating_button.dart';
+import '../add_from_pages/add_home_page_floating_button.dart';
 
 class ObjectPage extends StatefulWidget {
   final String communityName;

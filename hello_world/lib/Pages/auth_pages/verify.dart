@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:hello_world/Pages/home_page.dart';
-import 'package:hello_world/Pages/phone.dart';
+import 'package:hello_world/Pages/main_pages/home_page.dart';
+import 'package:hello_world/Pages/auth_pages/phone.dart';
 import 'package:pinput/pinput.dart';
 
 class MyVerify extends StatefulWidget {
