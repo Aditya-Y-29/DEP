@@ -73,8 +73,8 @@ class _ObjectPageState extends State<ObjectPage> {
               ),
               body: TabBarView(
                 children: [
-                  ObjectExpenseScreen(objectName: widget.objectName,),
-                  ObjectServiceScreen(objectName: widget.objectName,),
+                  ObjectExpenseScreen(objectName: widget.objectName,communityName: widget.communityName,),
+                  ObjectServiceScreen(objectName: widget.objectName,communityName: widget.communityName,),
                 ],
               ),
               floatingActionButton: FloatingActionButton(

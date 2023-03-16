@@ -235,13 +235,16 @@ class DataProvider extends ChangeNotifier{
       void addCommunity(String communityName){
         communities.add(communityName);
         communityObjectMap[communityName] = [];
+        objectUnresolvedExpenseMap[communityName] = {};
+        objectUnresolvedServices[communityName] = {};
+        objectResolvedExpenseMap[communityName] = {};
+        objectResolvedServices[communityName] = {};
         notifyListeners();
       }
 
       void addObject(String communityName, String objectName)
       {
         communityObjectMap[communityName]!.add(objectName);
-        objectUnresolvedExpenseMap[communityName]![objectName] = [];
         objectUnresolvedExpenseMap[communityName]![objectName] = [];
         objectUnresolvedServices[communityName]![objectName] = [];
         objectResolvedExpenseMap[communityName]![objectName] = [];
