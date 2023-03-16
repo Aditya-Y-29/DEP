@@ -41,7 +41,6 @@ class ResolveData extends State<ResolveScreen> {
       );
     }
 
-    print("HELLO");
 
     if(widget.isFromObjectPage){
         objectDropDown=widget.objectName;
@@ -49,14 +48,9 @@ class ResolveData extends State<ResolveScreen> {
       objectDropDown=providerCommunity.communityObjectMap[widget.communityName]![providerCommunity.objectIndex];
     }
 
-    print(objectDropDown);
-    print(providerCommunity.expenseIndex);
-    print(providerCommunity.serviceIndex);
 
-    print(providerCommunity.objectUnresolvedExpenseMap[objectDropDown]);
-    print(providerCommunity.objectUnresolvedServices[objectDropDown]);
 
-    if( providerCommunity.objectUnresolvedExpenseMap[objectDropDown]!.isEmpty || providerCommunity.objectUnresolvedServices[objectDropDown]!.isEmpty){
+    if( providerCommunity.objectUnresolvedExpenseMap[widget.communityName]![objectDropDown]!.isEmpty || providerCommunity.objectUnresolvedServices[widget.communityName]![objectDropDown]!.isEmpty){
       return const Scaffold(
         body: Center(
           child: Text('No unresolved expenses or services'),
@@ -64,9 +58,9 @@ class ResolveData extends State<ResolveScreen> {
       );
     }
 
-    Expense expense = providerCommunity.objectUnresolvedExpenseMap[objectDropDown]![providerCommunity.expenseIndex];
+    Expense expense = providerCommunity.objectUnresolvedExpenseMap[widget.communityName]![objectDropDown]![providerCommunity.expenseIndex];
     resolveExpenseDropDown="${expense.creator} ₹${expense.amount} ${expense.description}";
-    Service service = providerCommunity.objectUnresolvedServices[objectDropDown]![providerCommunity.serviceIndex];
+    Service service = providerCommunity.objectUnresolvedServices[widget.communityName]![objectDropDown]![providerCommunity.serviceIndex];
     resolveServiceDropDown="${service.creator} ${service.description}";
 
     return Form(
@@ -109,8 +103,6 @@ class ResolveData extends State<ResolveScreen> {
                       setState(() {
                         objectDropDown = newValue!;
                       });
-                      print(widget.communityName);
-                      print(objectDropDown);
                       providerCommunity.objectListen(widget.communityName, objectDropDown);
                     },
                   ),
@@ -165,7 +157,7 @@ class ResolveData extends State<ResolveScreen> {
                         ),
                       ),
                       value : resolveExpenseDropDown,
-                      items: providerCommunity.objectUnresolvedExpenseMap[objectDropDown]!.map<DropdownMenuItem<String>>((Expense expense) {
+                      items: providerCommunity.objectUnresolvedExpenseMap[widget.communityName]![objectDropDown]!.map<DropdownMenuItem<String>>((Expense expense) {
                         return DropdownMenuItem<String>(
                           value: "${expense.creator} ₹${expense.amount} ${expense.description}",
                           child: Text("${expense.creator} ₹${expense.amount} ${expense.description}"),
@@ -183,7 +175,7 @@ class ResolveData extends State<ResolveScreen> {
                         //   description = description + " " + expenseAttributes[i];
                         // }
                         // print("creator: $creator, amount: $amount, description: $description");
-                        Expense expense = providerCommunity.objectUnresolvedExpenseMap[objectDropDown]!.firstWhere((element) => "${element.creator} ₹${element.amount} ${element.description}"==resolveExpenseDropDown);
+                        Expense expense = providerCommunity.objectUnresolvedExpenseMap[widget.communityName]![objectDropDown]!.firstWhere((element) => "${element.creator} ₹${element.amount} ${element.description}"==resolveExpenseDropDown);
                         providerCommunity.expenseListen(expense);
                       },
                     ),
@@ -197,7 +189,7 @@ class ResolveData extends State<ResolveScreen> {
                         ),
                       ),
                       value : resolveServiceDropDown,
-                      items: providerCommunity.objectUnresolvedServices[objectDropDown]!.map<DropdownMenuItem<String>>((Service service) {
+                      items: providerCommunity.objectUnresolvedServices[widget.communityName]![objectDropDown]!.map<DropdownMenuItem<String>>((Service service) {
                         return DropdownMenuItem<String>(
                           value: "${service.creator} ${service.description}",
                           child: Text("${service.creator} ${service.description}"),
@@ -207,7 +199,7 @@ class ResolveData extends State<ResolveScreen> {
                         setState(() {
                           resolveServiceDropDown = newValue!;
                         });
-                        Service service = providerCommunity.objectUnresolvedServices[objectDropDown]!.firstWhere((element) => "${element.creator} ${element.description}"==resolveServiceDropDown);
+                        Service service = providerCommunity.objectUnresolvedServices[widget.communityName]![objectDropDown]!.firstWhere((element) => "${element.creator} ${element.description}"==resolveServiceDropDown);
                         providerCommunity.serviceListen(service);
                       },
                     ),
@@ -227,11 +219,11 @@ class ResolveData extends State<ResolveScreen> {
                       child: FloatingActionButton.extended(
                         onPressed: () {
                           if(isExpense){
-                            Expense expense = providerCommunity.objectUnresolvedExpenseMap[objectDropDown]!.firstWhere((element) => "${element.creator} ₹${element.amount} ${element.description}"==resolveExpenseDropDown);
+                            Expense expense = providerCommunity.objectUnresolvedExpenseMap[widget.communityName]![objectDropDown]!.firstWhere((element) => "${element.creator} ₹${element.amount} ${element.description}"==resolveExpenseDropDown);
                             providerCommunity.resolveExpense(expense);
                           }
                           else{
-                            Service service = providerCommunity.objectUnresolvedServices[objectDropDown]!.firstWhere((element) => "${element.creator} ${element.description}"==resolveServiceDropDown);
+                            Service service = providerCommunity.objectUnresolvedServices[widget.communityName]![objectDropDown]!.firstWhere((element) => "${element.creator} ${element.description}"==resolveServiceDropDown);
                             providerCommunity.resolveService(service);
                           }
                           Navigator.pop(context);

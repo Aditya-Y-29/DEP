@@ -89,7 +89,7 @@ class _ObjectState extends State<Object> {
                   onPressed: (){
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => AddFromCommunityPage(selectedPage: 0, communityName: widget.name,)),
+                      MaterialPageRoute(builder: (context) => AddFromObjectPage(selectedPage: 0, communityName: widget.communityName,objectName: widget.name)),
                     );
                   },
                   backgroundColor: Colors.green,

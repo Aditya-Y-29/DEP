@@ -1,4 +1,4 @@
-import 'dart:ffi';
+// import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import '../../provider/data_provider.dart';
@@ -191,7 +191,7 @@ class ExpenseData extends State<ExpenseScreen> {
                     child: FloatingActionButton(
                       onPressed: () {
                         // print(objectDropDown);
-                        providerCommunity.addExpense(objectDropDown, "Creator", int.parse(amountInvolved.text), description.text);
+                        providerCommunity.addExpense(objectDropDown, "Creator", int.parse(amountInvolved.text), description.text,communityDropDown);
                         Navigator.pop(context);
                       },
                       child: const Icon(Icons.check),
