@@ -9,7 +9,8 @@ class Expense extends StatefulWidget {
   final int amount;
   final bool isPaid;
   final String objectName;
-  const Expense({Key? key, required this.objectName, required this.creator, required this.description, required this.amount, required this.isPaid}) : super(key: key);
+  final String communityName;
+  const Expense({Key? key, required this.objectName, required this.creator, required this.description, required this.amount, required this.isPaid, required this.communityName}) : super(key: key);
 
   @override
   State<Expense> createState() => _ExpenseState();
@@ -74,6 +75,7 @@ class _ExpenseState extends State<Expense> {
                   amount: widget.amount,
                   isPaid: false,
                   objectName: widget.objectName,
+                  communityName: widget.communityName,
                 );
                 providerCommunity.resolveExpense(expense);
               },

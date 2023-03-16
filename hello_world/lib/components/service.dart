@@ -4,11 +4,12 @@ import 'package:provider/provider.dart';
 import '../provider/data_provider.dart';
 
 class Service extends StatefulWidget {
-  const Service({Key? key, required this.objectName, required this.creator, required this.description, required this.isResolved}) : super(key: key);
+  const Service({Key? key, required this.objectName, required this.creator, required this.description, required this.isResolved,required this.communityName}) : super(key: key);
   final String creator;
   final String description;
   final bool isResolved;
   final String objectName;
+  final String communityName;
 
   @override
   State<Service> createState() => _ServiceState();
@@ -65,6 +66,7 @@ class _ServiceState extends State<Service> {
                   description: widget.description,
                   isResolved: false,
                   objectName: widget.objectName,
+                  communityName: widget.communityName,
                 );
                 providerCommunity.resolveService(service);
               },

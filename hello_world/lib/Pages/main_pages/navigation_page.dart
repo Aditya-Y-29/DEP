@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:hello_world/Pages/object_page.dart';
-import 'package:hello_world/Pages/community_page.dart';
-import '../provider/data_provider.dart';
+import 'package:hello_world/Pages/main_pages/object_page.dart';
+import 'package:hello_world/Pages/main_pages/community_page.dart';
+import '../../provider/data_provider.dart';
 import 'package:provider/provider.dart';
-import '../components/community.dart';
+import '../../components/community.dart';
 
 class NavigationPage extends StatefulWidget {
   //const NavigationPage({Key? key}) : super(key: key);

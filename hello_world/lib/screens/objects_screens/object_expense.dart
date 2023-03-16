@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:hello_world/components/expense.dart';
 import 'package:provider/provider.dart';
 
-import '../provider/data_provider.dart';
+import '../../provider/data_provider.dart';
 
 
 class ObjectExpenseScreen extends StatefulWidget {
-  const ObjectExpenseScreen({Key? key, required this.objectName}) : super(key: key);
+  const ObjectExpenseScreen({Key? key, required this.objectName,required this.communityName}) : super(key: key);
   final String objectName;
+  final String communityName;
 
   @override
   State<ObjectExpenseScreen> createState() => _ObjectExpenseScreenState();
@@ -23,7 +24,7 @@ class _ObjectExpenseScreenState extends State<ObjectExpenseScreen> {
             children: [
               Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: List.of(objectDataProvider.objectUnresolvedExpenseMap[widget.objectName] as Iterable<Widget>)
+                  children: List.of(objectDataProvider.objectUnresolvedExpenseMap[widget.communityName]![widget.objectName] as Iterable<Widget>)
               ),
               Container (
                 padding: const EdgeInsets.only(left: 10, top: 10, bottom: 10),
@@ -40,7 +41,7 @@ class _ObjectExpenseScreenState extends State<ObjectExpenseScreen> {
               ),
               Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: List.of(objectDataProvider.objectResolvedExpenseMap[widget.objectName] as Iterable<Widget>)
+                  children: List.of(objectDataProvider.objectResolvedExpenseMap[widget.communityName]![widget.objectName] as Iterable<Widget>)
               ),
             ]
         );

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:hello_world/screens/resolve_expense_service.dart';
-import '../screens/add_expense.dart';
-import '../screens/add_service.dart';
-import '../screens/add_object.dart';
+import 'package:hello_world/screens/add_screens/resolve_expense_service.dart';
+import '../../screens/add_screens/add_expense.dart';
+import '../../screens/add_screens/add_service.dart';
+import '../../screens/add_screens/add_object.dart';
 
 
 class AddFromCommunityPage extends StatefulWidget {
