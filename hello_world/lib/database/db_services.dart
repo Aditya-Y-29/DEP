@@ -5,9 +5,9 @@ import '../Models/service.dart';
 
 
 class ExpenseDataBaseService {
-  final _db = FirebaseFirestore.instance;
+  static final _db = FirebaseFirestore.instance;
 
-  createService(ServiceModel service) async {
+  static createService(ServiceModel service) async {
     try {
 
       final sp= await _db.collection('services').where("Name", isEqualTo: service.name).where("ObjectID", isEqualTo: service.objectID).get();
@@ -26,7 +26,7 @@ class ExpenseDataBaseService {
     }
   }
 
-  Future<String?> getServiceID(ServiceModel service) async {
+  static Future<String?> getServiceID(ServiceModel service) async {
     try {
       final sp = await _db.collection('services').where("Name", isEqualTo: service.name).where("ObjectID", isEqualTo: service.objectID).get();
 
@@ -40,10 +40,10 @@ class ExpenseDataBaseService {
     }
   }
 
-  Future<bool> resolveService(ServiceModel service, String phoneNo) async {
+  static Future<bool> resolveService(ServiceModel service, String phoneNo) async {
     try {
       String? serviceID = await getServiceID(service);
-      String? userID = await UserDataBaseService().getUserID(phoneNo);
+      String? userID = await UserDataBaseService.getUserID(phoneNo);
 
       if(serviceID == null){
         print("Service does not exist");

@@ -3,9 +3,9 @@ import 'package:hello_world/Models/community.dart';
 import '../Models/user.dart';
 
 class UserDataBaseService {
-  final _db = FirebaseFirestore.instance;
+  static final _db = FirebaseFirestore.instance;
 
-  createUser(UserModel user) async {
+  static createUser(UserModel user) async {
     try {
       final sp1 = await _db
           .collection('users')
@@ -40,7 +40,7 @@ class UserDataBaseService {
     }
   }
 
-  Future<UserModel?> getUser(String phoneNo) async {
+  static Future<UserModel?> getUser(String phoneNo) async {
     try {
       final sp = await _db
           .collection('users')
@@ -57,7 +57,7 @@ class UserDataBaseService {
     }
   }
 
-  Future<bool> updateUser(UserModel user) async {
+  static Future<bool> updateUser(UserModel user) async {
     try {
       final sp = await _db
           .collection('users')
@@ -88,7 +88,7 @@ class UserDataBaseService {
     }
   }
 
-  Future<String?> getUserID(String phoneNo) async {
+  static Future<String?> getUserID(String phoneNo) async {
     try {
       final sp = await _db
           .collection('users')
@@ -104,7 +104,7 @@ class UserDataBaseService {
     }
   }
 
-  Future<List<CommunityModel>?> getCommunities(String phoneNo) async {
+  static Future<List<CommunityModel>?> getCommunities(String phoneNo) async {
     try {
       List<CommunityModel> communities = [];
       final sp = await _db

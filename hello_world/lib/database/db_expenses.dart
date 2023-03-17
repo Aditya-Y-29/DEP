@@ -6,9 +6,9 @@ import '../Models/objectS.dart';
 
 
 class ExpenseDataBaseService {
-  final _db = FirebaseFirestore.instance;
+  static final _db = FirebaseFirestore.instance;
 
-  createExpense(ExpenseModel expense) async {
+  static createExpense(ExpenseModel expense) async {
     try {
 
       final sp= await _db.collection('expenses').where("Name", isEqualTo: expense.name).where("ObjectID", isEqualTo: expense.objectID).get();
@@ -27,7 +27,7 @@ class ExpenseDataBaseService {
     }
   }
 
-  Future<String?> getExpenseID(ExpenseModel expense) async {
+  static Future<String?> getExpenseID(ExpenseModel expense) async {
     try {
       final sp = await _db.collection('expenses').where("Name", isEqualTo: expense.name).where("ObjectID", isEqualTo: expense.objectID).get();
 
@@ -41,10 +41,10 @@ class ExpenseDataBaseService {
     }
   }
 
-  Future<bool> resolveExpense(ExpenseModel expense, String phoneNo) async {
+  static Future<bool> resolveExpense(ExpenseModel expense, String phoneNo) async {
     try {
       String? expenseID = await getExpenseID(expense);
-      String? userID = await UserDataBaseService().getUserID(phoneNo);
+      String? userID = await UserDataBaseService.getUserID(phoneNo);
 
       if(expenseID == null){
         print("Expense does not exist");

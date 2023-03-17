@@ -25,15 +25,15 @@ class DataProvider extends ChangeNotifier{
       int expenseIndex = 0;
       int serviceIndex = 0;
 
-      late UserModel? user;
+      UserModel? user;
 
       List<String> communities = ["Home", "Office", "Apartment"];
+
       Map<String, List<String>> communityObjectMap = {
         "Home": ["Oven", "PC", "TV", "Fridge"],
         "Office": ["Chairs", "Books", "Speaker"],
         "Apartment": ["Car", "Computer", "TV"],
       };
-
 
       Map<String, Map<String,List<Expense> >> objectUnresolvedExpenseMap = {
         "Home":{
@@ -225,12 +225,12 @@ class DataProvider extends ChangeNotifier{
     
 
       void checkuser(String phoneNo) async {
-        UserModel? usertemp=await UserDataBaseService().getUser(phoneNo);
+        user=await UserDataBaseService.getUser(phoneNo);
       }
 
       void getAlldetails(String phoneNo) async {
 
-        List<CommunityModel>? communitytemp=await UserDataBaseService().getCommunities(phoneNo);
+        List<CommunityModel>? communitytemp=await UserDataBaseService.getCommunities(phoneNo);
 
         for(int i=0;i<communitytemp!.length;i++){
           communities.add(communitytemp[i].name);
@@ -242,8 +242,8 @@ class DataProvider extends ChangeNotifier{
         }
 
         for(int i=0;i<communitytemp.length;i++){
-          String? communityID=await CommunityDataBaseService().getCommunityID(communitytemp[i]);
-          List<ObjectsModel>? objecttemp=await ObjectDataBaseService().getObjects(communityID!);
+          String? communityID=await CommunityDataBaseService.getCommunityID(communitytemp[i]);
+          List<ObjectsModel>? objecttemp=await ObjectDataBaseService.getObjects(communityID!);
 
           for(int j=0;j<objecttemp!.length;j++){
             communityObjectMap[communitytemp[i].name]!.add(objecttemp[j].name);
@@ -252,7 +252,7 @@ class DataProvider extends ChangeNotifier{
             objectResolvedExpenseMap[communitytemp[i].name]![objecttemp[j].name] = [];
             objectResolvedServices[communitytemp[i].name]![objecttemp[j].name] = [];
 
-            List<ExpenseModel>? expensetemp=await ObjectDataBaseService().getExpenses(objecttemp[j]);
+            List<ExpenseModel>? expensetemp=await ObjectDataBaseService.getExpenses(objecttemp[j]);
             
             for(int k=0;k<expensetemp.length;k++){
               if(expensetemp[k].resolverid==null){
@@ -277,7 +277,7 @@ class DataProvider extends ChangeNotifier{
               }
             }
 
-            List<ServiceModel>? servicetemp=await ObjectDataBaseService().getServices(objecttemp[j]);
+            List<ServiceModel>? servicetemp=await ObjectDataBaseService.getServices(objecttemp[j]);
 
             for(int k=0;k<servicetemp.length;k++){
               if(servicetemp[k].resolverid==null){
@@ -301,6 +301,7 @@ class DataProvider extends ChangeNotifier{
             }
           }
         }
+        notifyListeners();
       }
 
       void deleteState(){
@@ -342,16 +343,22 @@ class DataProvider extends ChangeNotifier{
         objectUnresolvedServices[communityName] = {};
         objectResolvedExpenseMap[communityName] = {};
         objectResolvedServices[communityName] = {};
+
+        CommunityModel community=CommunityModel(name: communityName,phoneNo: user!.phoneNo);
+        CommunityDataBaseService.createCommunity(community);
         notifyListeners();
       }
 
-      void addObject(String communityName, String objectName)
-      {
+      Future<void> addObject(String communityName, String objectName) async {
         communityObjectMap[communityName]!.add(objectName);
         objectUnresolvedExpenseMap[communityName]![objectName] = [];
         objectUnresolvedServices[communityName]![objectName] = [];
         objectResolvedExpenseMap[communityName]![objectName] = [];
         objectResolvedServices[communityName]![objectName] = [];
+
+        CommunityModel community=CommunityModel(name: communityName,phoneNo: user!.phoneNo);
+        ObjectsModel object=ObjectsModel(name: objectName,communityID: await CommunityDataBaseService.getCommunityID(community),creatorPhoneNo: "",type: "",description: "");
+        ObjectDataBaseService.createObjects(object);
         notifyListeners();
       }
 

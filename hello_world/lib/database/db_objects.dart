@@ -5,9 +5,9 @@ import '../Models/expense.dart';
 import '../Models/service.dart';
 
 class ObjectDataBaseService {
-  final _db = FirebaseFirestore.instance;
+  static final _db = FirebaseFirestore.instance;
 
-  createObjects( ObjectsModel object) async {
+  static createObjects( ObjectsModel object) async {
     try {
       if( object.communityID == null){
         print("CommunityID is null");
@@ -45,7 +45,7 @@ class ObjectDataBaseService {
     }
   }
   
-  Future<String?> getObjectID(ObjectsModel object) async {
+  static Future<String?> getObjectID(ObjectsModel object) async {
     try {
       final sp = await _db
           .collection('objects')
@@ -63,7 +63,7 @@ class ObjectDataBaseService {
     }
   }
 
-  Future<List<ObjectsModel>?> getObjects( String? communityID) async {
+  static Future<List<ObjectsModel>?> getObjects( String? communityID) async {
 
     if( communityID == null){
       print("CommunityID is null");
@@ -85,7 +85,7 @@ class ObjectDataBaseService {
     }
   }
 
-  Future<List<ExpenseModel>> getExpenses(ObjectsModel object) async {
+  static Future<List<ExpenseModel>> getExpenses(ObjectsModel object) async {
     try {
       List<ExpenseModel> expenses = [];
       String? objectid=await getObjectID(object);
@@ -105,7 +105,7 @@ class ObjectDataBaseService {
     }
   }
 
-    Future<List<ServiceModel>> getServices(ObjectsModel object) async {
+  static Future<List<ServiceModel>> getServices(ObjectsModel object) async {
     try {
       List<ServiceModel> services = [];
       String? objectid=await getObjectID(object);

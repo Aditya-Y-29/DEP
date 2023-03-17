@@ -4,9 +4,9 @@ import '../Models/community.dart';
 import './db_user.dart';
 
 class CommunityDataBaseService {
-  final _db = FirebaseFirestore.instance;
+  static final _db = FirebaseFirestore.instance;
 
-  createCommunity(CommunityModel community) async {
+  static Future<bool> createCommunity(CommunityModel community) async {
     try {
       final sp1 = await _db
           .collection('communities')
@@ -28,7 +28,7 @@ class CommunityDataBaseService {
     }
   }
 
-  Future<String?> getCommunityID(CommunityModel community) async {
+  static Future<String?> getCommunityID(CommunityModel community) async {
     try {
       final sp = await _db
           .collection('communities')
@@ -46,10 +46,10 @@ class CommunityDataBaseService {
     }
   }
 
-  Future<bool> addUserInCommunity(CommunityModel community, String memberPhoneNo) async {
+  static Future<bool> addUserInCommunity(CommunityModel community, String memberPhoneNo) async {
     try {
       String? communityID = await getCommunityID(community);
-      String? userID = await UserDataBaseService().getUserID(memberPhoneNo);
+      String? userID = await UserDataBaseService.getUserID(memberPhoneNo);
 
       if (communityID == null) {
         print("Community does not exist");
