@@ -1,10 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hello_world/Pages/main_pages/object_page.dart';
-import 'package:hello_world/Pages/main_pages/community_page.dart';
-import 'package:hello_world/Pages/profile_pages/edit_profile_page.dart';
-
 import 'package:animated_theme_switcher/animated_theme_switcher.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:hello_world/constants.dart';
@@ -20,7 +15,7 @@ class ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return ThemeProvider(
-      initTheme: kDarkTheme,
+      initTheme: kLightTheme,
       child: Builder(
         builder: (context) {
           return MaterialApp(
@@ -42,20 +37,20 @@ class ProfileScreen extends StatelessWidget {
       child: Column(
         children: <Widget>[
           Container(
-            height: kSpacingUnit.w * 10,
-            width: kSpacingUnit.w * 10,
+            height: kSpacingUnit.w * 18,
+            width: kSpacingUnit.w * 18,
             margin: EdgeInsets.only(top: kSpacingUnit.w * 3),
             child: Stack(
               children: <Widget>[
                 CircleAvatar(
-                  radius: kSpacingUnit.w * 5,
+                  radius: kSpacingUnit.w * 10,
                   backgroundImage: AssetImage('assets/images/avatar.png'),
                 ),
                 Align(
                   alignment: Alignment.bottomRight,
                   child: Container(
-                    height: kSpacingUnit.w * 2.5,
-                    width: kSpacingUnit.w * 2.5,
+                    height: kSpacingUnit.w * 4,
+                    width: kSpacingUnit.w * 5,
                     decoration: BoxDecoration(
                       color: Theme.of(context).accentColor,
                       shape: BoxShape.circle,
@@ -85,20 +80,7 @@ class ProfileScreen extends StatelessWidget {
             style: kCaptionTextStyle,
           ),
           SizedBox(height: kSpacingUnit.w * 2),
-          Container(
-            height: kSpacingUnit.w * 4,
-            width: kSpacingUnit.w * 20,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(kSpacingUnit.w * 3),
-              color: Color(0xFF43A047),
-            ),
-            child: Center(
-              child: Text(
-                'Edit profile Details',
-                style: kButtonTextStyle,
-              ),
-            ),
-          ),
+
         ],
       ),
     );
@@ -116,7 +98,7 @@ class ProfileScreen extends StatelessWidget {
                 ThemeSwitcher.of(context).changeTheme(theme: kLightTheme),
             child: Icon(
               LineAwesomeIcons.sun,
-              size: 20,
+              size: 25,
             ),
           ),
           secondChild: GestureDetector(
@@ -124,7 +106,7 @@ class ProfileScreen extends StatelessWidget {
                 ThemeSwitcher.of(context).changeTheme(theme: kDarkTheme),
             child: Icon(
               LineAwesomeIcons.moon,
-              size: 20,
+              size: 25,
             ),
           ),
         );
@@ -135,16 +117,29 @@ class ProfileScreen extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        SizedBox(width: kSpacingUnit.w * 3),
-        Icon(
-          LineAwesomeIcons.arrow_left,
-          size: 20,
+        // SizedBox(width: kSpacingUnit.w * 0.1),
+        IconButton(
+          iconSize: 0,
+          // color: Colors.black,
+          onPressed: () {
+            // ScaffoldMessenger.of(context).showSnackBar(
+            //     SnackBar(content: Text('Icon button is pressed')));
+            Navigator.of(context).pop();
+          },
+          icon: Icon(
+            LineAwesomeIcons.arrow_left,
+            size: 25,
+          ),
         ),
+
+
         profileInfo,
         themeSwitcher,
         SizedBox(width: kSpacingUnit.w * 3),
       ],
     );
+
+    TextEditingController description = TextEditingController();
 
     return ThemeSwitchingArea(
       child: Builder(
@@ -152,31 +147,47 @@ class ProfileScreen extends StatelessWidget {
           return Scaffold(
             body: Column(
               children: <Widget>[
-                SizedBox(height: kSpacingUnit.w * 5),
+                SizedBox(height: kSpacingUnit.w * 4),
                 header,
                 Expanded(
                   child: ListView(
                     children: <Widget>[
-                      ProfileListItem(
-                        icon: LineAwesomeIcons.user_shield,
-                        text: 'Privacy',
+                      // SizedBox(width: kSpacingUnit.w * 5),
+                      TextFormField(
+                        decoration: const InputDecoration(
+                          icon: Icon(Icons.edit),
+                          hintText: 'Username',
+                        ),
+                        controller: description,
                       ),
-                      ProfileListItem(
-                        icon: LineAwesomeIcons.history,
-                        text: 'Purchase History',
+                      SizedBox(height: 10,),
+                      TextFormField(
+                        decoration: const InputDecoration(
+                          icon: Icon(Icons.edit),
+                          hintText: 'phone Number',
+                        ),
+                        controller: description,
                       ),
-                      ProfileListItem(
-                        icon: LineAwesomeIcons.question_circle,
-                        text: 'Help & Support',
+                      SizedBox(height: 10,),
+                      TextFormField(
+                        decoration: const InputDecoration(
+                          icon: Icon(Icons.edit),
+                          hintText: 'Email Id',
+                        ),
+                        controller: description,
                       ),
-                      ProfileListItem(
-                        icon: LineAwesomeIcons.cog,
-                        text: 'Settings',
-                      ),
-                      ProfileListItem(
-                        icon: LineAwesomeIcons.user_plus,
-                        text: 'Invite a Friend',
-                      ),
+                      SizedBox(height: 10,),
+                      Container(
+                          margin: const EdgeInsets.only(top: 20.0),
+                          child: FloatingActionButton(
+                            onPressed: () {
+                              // print(objectDropDown);
+                              // providerCommunity.addExpense(objectDropDown, "Creator", int.parse(amountInvolved.text), description.text,communityDropDown);
+                              Navigator.pop(context);
+                            },
+                            child: const Icon(Icons.check),
+                          )),
+                      SizedBox(height: 80,),
                       ProfileListItem(
                         icon: LineAwesomeIcons.alternate_sign_out,
                         text: 'Logout',
