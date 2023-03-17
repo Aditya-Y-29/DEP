@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
           fontFamily: 'OpenSans',
           scaffoldBackgroundColor: Colors.green.shade50
         ),
-        home: const MyHomePage(),
+        home: const MyPhone(),
       ),
     );
   }

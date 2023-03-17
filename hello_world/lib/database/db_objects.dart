@@ -1,6 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hello_world/Models/objects.dart';
 
+import '../Models/expense.dart';
+import '../Models/service.dart';
+
 class ObjectDataBaseService {
   final _db = FirebaseFirestore.instance;
 
@@ -82,4 +85,43 @@ class ObjectDataBaseService {
     }
   }
 
+  Future<List<ExpenseModel>> getExpenses(ObjectsModel object) async {
+    try {
+      List<ExpenseModel> expenses = [];
+      String? objectid=await getObjectID(object);
+      await _db
+          .collection('expenses')
+          .where("ObjectID", isEqualTo: getObjectID(object))
+          .get()
+          .then((value) => {
+                value.docs.forEach((element) {
+                  expenses.add(ExpenseModel.fromJson(element.data()));
+                })
+              });
+      return expenses;
+    } catch (e) {
+      print(e);
+      return [];
+    }
+  }
+
+    Future<List<ServiceModel>> getServices(ObjectsModel object) async {
+    try {
+      List<ServiceModel> services = [];
+      String? objectid=await getObjectID(object);
+      await _db
+          .collection('services')
+          .where("ObjectID", isEqualTo: getObjectID(object))
+          .get()
+          .then((value) => {
+                value.docs.forEach((element) {
+                  services.add(ServiceModel.fromJson(element.data()));
+                })
+              });
+      return services;
+    } catch (e) {
+      print(e);
+      return [];
+    }
+  }
 }
