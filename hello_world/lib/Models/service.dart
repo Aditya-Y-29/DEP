@@ -4,7 +4,7 @@ class ServiceModel{
   String creatorID;
   String description;
   DateTime date;
-  String resolverid;
+  String? resolverid;
 
   ServiceModel({required this.name, required this.objectID ,required this.creatorID,required this.description,required this.date, required this.resolverid});
 

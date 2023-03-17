@@ -5,7 +5,7 @@ class ExpenseModel{
   String amount;
   String description;
   DateTime date;
-  String resolverid;
+  String? resolverid;
 
   ExpenseModel({required this.name, required this.objectID ,required this.creatorID,required this.amount,required this.description,required this.date, required this.resolverid});
 

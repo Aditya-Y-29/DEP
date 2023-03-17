@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 import './db_user.dart';
 import '../Models/expense.dart';
+import '../Models/objectS.dart';
 
 
 class ExpenseDataBaseService {
@@ -64,4 +65,6 @@ class ExpenseDataBaseService {
       return false;
     }
   }
+
+
 }
