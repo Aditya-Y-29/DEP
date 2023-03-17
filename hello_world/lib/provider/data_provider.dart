@@ -28,7 +28,7 @@ class DataProvider extends ChangeNotifier{
       UserModel? user;
 
       List<String> communities = ["Home", "Office", "Apartment"];
-      
+
       Map<String, List<String>> communityObjectMap = {
         "Home": ["Oven", "PC", "TV", "Fridge"],
         "Office": ["Chairs", "Books", "Speaker"],
@@ -301,6 +301,7 @@ class DataProvider extends ChangeNotifier{
             }
           }
         }
+        notifyListeners();
       }
 
       void deleteState(){
@@ -348,13 +349,16 @@ class DataProvider extends ChangeNotifier{
         notifyListeners();
       }
 
-      void addObject(String communityName, String objectName)
-      {
+      Future<void> addObject(String communityName, String objectName) async {
         communityObjectMap[communityName]!.add(objectName);
         objectUnresolvedExpenseMap[communityName]![objectName] = [];
         objectUnresolvedServices[communityName]![objectName] = [];
         objectResolvedExpenseMap[communityName]![objectName] = [];
         objectResolvedServices[communityName]![objectName] = [];
+
+        CommunityModel community=CommunityModel(name: communityName,phoneNo: user!.phoneNo);
+        ObjectsModel object=ObjectsModel(name: objectName,communityID: await CommunityDataBaseService.getCommunityID(community),creatorPhoneNo: "",type: "",description: "");
+        ObjectDataBaseService.createObjects(object);
         notifyListeners();
       }
 
