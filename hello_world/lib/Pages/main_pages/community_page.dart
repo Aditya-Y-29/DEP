@@ -52,15 +52,6 @@ class _CommunityPageState extends State<CommunityPage> {
         title: Text(widget.communityName),
         actions:  [
           Container(
-            margin: const EdgeInsets.all(5),
-            padding: const EdgeInsets.all(1),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(100),
-              border: Border.all(
-                color: Colors.white,
-                width: 2,
-              ),
-            ),
             child: GestureDetector(
               onTap: () {
                 Navigator.push(
@@ -70,7 +61,23 @@ class _CommunityPageState extends State<CommunityPage> {
                   ),
                 );
               },
-              child: const Icon(Icons.person_2_outlined, size: 30,),
+                child:
+                Container(
+                  margin: const EdgeInsets.all(5),
+                  // padding: const EdgeInsets.all(1),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(50),
+                    border: Border.all(
+                      color: Colors.white,
+                      width: 1,
+                    ),
+                  ),
+                  child: Image.asset(
+                    'assets/images/avatar.png',
+                    width: 40,
+                    height: 30,
+                  ),
+                )
             )
           )
         ],
