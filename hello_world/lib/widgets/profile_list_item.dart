@@ -8,7 +8,7 @@ class ProfileListItem extends StatelessWidget {
   final String text;
   final bool hasNavigation;
 
-  const ProfileListItem({
+  const ProfileListItem({super.key, 
     required this.icon,
     required this.text,
     this.hasNavigation = true,
@@ -28,23 +28,23 @@ class ProfileListItem extends StatelessWidget {
       ),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(kSpacingUnit.w * 3),
-        color: Theme.of(context).backgroundColor,
+        color: Theme.of(context).colorScheme.background,
       ),
       child: Row(
         children: <Widget>[
           Icon(
-            this.icon,
+            icon,
             size: kSpacingUnit.w * 2.5,
           ),
           SizedBox(width: kSpacingUnit.w * 1.5),
           Text(
-            this.text,
+            text,
             style: kTitleTextStyle.copyWith(
               fontWeight: FontWeight.w500,
             ),
           ),
           Spacer(),
-          if (this.hasNavigation)
+          if (hasNavigation)
             Icon(
               LineAwesomeIcons.angle_right,
               size: kSpacingUnit.w * 2.5,
