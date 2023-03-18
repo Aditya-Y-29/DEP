@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hello_world/Pages/main_pages/home_page.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:hello_world/constants.dart';
 import 'package:hello_world/widgets/profile_list_item.dart';
@@ -71,7 +72,7 @@ class ProfileScreen extends StatelessWidget {
           ),
           SizedBox(height: kSpacingUnit.w * 2),
           Text(
-            'Aditya Ladenberg',
+            'Aditya',
             style: kTitleTextStyle,
           ),
           SizedBox(height: kSpacingUnit.w * 0.5),
@@ -124,7 +125,11 @@ class ProfileScreen extends StatelessWidget {
           onPressed: () {
             // ScaffoldMessenger.of(context).showSnackBar(
             //     SnackBar(content: Text('Icon button is pressed')));
-            Navigator.of(context).pop();
+            // Navigator.pop(context);
+            // Navigator.push(
+            //   context,
+            //   MaterialPageRoute(builder: (context) => const MyHomePage()),
+            // );
           },
           icon: Icon(
             LineAwesomeIcons.arrow_left,
@@ -183,7 +188,7 @@ class ProfileScreen extends StatelessWidget {
                             onPressed: () {
                               // print(objectDropDown);
                               // providerCommunity.addExpense(objectDropDown, "Creator", int.parse(amountInvolved.text), description.text,communityDropDown);
-                              Navigator.pop(context);
+                              // Navigator.pop(context);
                             },
                             child: const Icon(Icons.check),
                           )),
