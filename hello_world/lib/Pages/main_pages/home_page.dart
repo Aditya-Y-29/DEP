@@ -6,6 +6,8 @@ import '../../components/community.dart';
 import '../../screens/add_screens/add_community.dart';
 import '../add_from_pages/add_home_page_floating_button.dart';
 import '../../provider/data_provider.dart';
+import 'package:hello_world/Pages/profile_pages/profile_page.dart';
+import 'package:hello_world/Pages/main_pages/navigation_page.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
@@ -33,7 +35,12 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         leading: IconButton(
           icon: const Icon(Icons.menu, size: 30,),
-          onPressed: () {},
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => NavigationPage()),
+            );
+          },
         ),
         title: const Text("Your Communities"),
         actions:  [
