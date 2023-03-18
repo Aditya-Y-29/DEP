@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
           fontFamily: 'OpenSans',
           scaffoldBackgroundColor: Colors.green.shade50
         ),
-        home: DataProvider().user == null ? const MyPhone() : const MyHomePage(),
+        home: const MyHomePage(),
         routes: {
         '/home': (context) => const MyHomePage(),
       },
@@ -37,5 +37,7 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
+// DataProvider().user == null ? const MyPhone() : const MyHomePage()
 
 
