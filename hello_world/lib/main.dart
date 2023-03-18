@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
           fontFamily: 'OpenSans',
           scaffoldBackgroundColor: Colors.green.shade50
         ),
-        home: const AddMembers(),
+        home: CommunityInfo(),
         routes: {
         '/home': (context) => const MyHomePage(),
       },

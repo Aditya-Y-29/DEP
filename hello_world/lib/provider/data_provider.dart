@@ -27,6 +27,8 @@ class DataProvider extends ChangeNotifier{
 
       UserModel? user;
 
+      List<String> allUserPhones = ["8279833510", "8595939608", "8930448891", "9502201858"];
+
       List<String> communities = ["Home", "Office", "Apartment"];
 
       Map<String, List<String>> communityObjectMap = {
