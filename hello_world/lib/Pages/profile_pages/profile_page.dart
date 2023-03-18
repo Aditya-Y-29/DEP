@@ -156,10 +156,6 @@ class ProfileScreen extends StatelessWidget {
                 header,
                 Expanded(
                   child: ListView(
-                    children: const <Widget>[
-                      ProfileListItem(
-                        icon: LineAwesomeIcons.user_shield,
-                        text: 'Privacy',
                     children: <Widget>[
                       // SizedBox(width: kSpacingUnit.w * 5),
                       TextFormField(
