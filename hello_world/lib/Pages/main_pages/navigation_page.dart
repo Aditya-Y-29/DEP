@@ -124,7 +124,9 @@ class NavigationPageState extends State<NavigationPage> {
                     // Handle item click
                   },
                   child: ListTile(
+                    tileColor: Colors.green,
                     title: Text('Go To Communities >>> ',
+
                       style: TextStyle(
                         fontSize: 18.0),
                     ),
@@ -150,8 +152,27 @@ class NavigationPageState extends State<NavigationPage> {
                           communityName = e;
                         });
                       },
-                      child:ListTile(
-                        title: Text(e),
+                      child: Container(
+                        margin: const EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0, bottom: 10.0),
+                        // padding: const EdgeInsets.only(left: 10.0, right: 10.0, top: 0.0, bottom: 0.0),
+                          child: IntrinsicHeight(
+                            child: Row(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+                              Expanded(
+                                child: FloatingActionButton(
+                                  backgroundColor : Colors.green.shade50,
+                                  elevation: 0,
+                                  onPressed: () {
+                                    // print(objectDropDown);
+                                    // providerCommunity.addExpense(objectDropDown, "Creator", int.parse(amountInvolved.text), description.text,communityDropDown);
+                                    Navigator.of(context).push(_createRoute(e));
+                                  },
+                                  child:ListTile(
+                                    tileColor: Colors.white,
+                                    title: Text(e),
+                                  ),),
+                              ),
+                            ]),
+                          ),  // margin: const EdgeInsets.only(top: 20.0),
                       ),
                     );
                   }))

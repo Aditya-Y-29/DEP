@@ -49,15 +49,19 @@ class _MyHomePageState extends State<MyHomePage> {
             child:
               Container(
                 margin: const EdgeInsets.all(5),
-                padding: const EdgeInsets.all(1),
+                // padding: const EdgeInsets.all(1),
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(100),
+                  borderRadius: BorderRadius.circular(50),
                   border: Border.all(
                     color: Colors.white,
-                    width: 2,
+                    width: 1,
                   ),
                 ),
-                child: const Icon(Icons.person_2_outlined, size: 30,),
+                child: Image.asset(
+                  'assets/images/avatar.png',
+                  width: 40,
+                  height: 30,
+                ),
               )
           )
         ],
