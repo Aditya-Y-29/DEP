@@ -91,13 +91,15 @@ class ObjectDataBaseService {
       String? objectid=await getObjectID(object);
       await _db
           .collection('expenses')
-          .where("ObjectID", isEqualTo: getObjectID(object))
+          .where("ObjectID", isEqualTo: objectid)
           .get()
           .then((value) => {
                 value.docs.forEach((element) {
                   expenses.add(ExpenseModel.fromJson(element.data()));
                 })
               });
+      
+      print( objectid);
       return expenses;
     } catch (e) {
       print(e);
@@ -111,7 +113,7 @@ class ObjectDataBaseService {
       String? objectid=await getObjectID(object);
       await _db
           .collection('services')
-          .where("ObjectID", isEqualTo: getObjectID(object))
+          .where("ObjectID", isEqualTo: objectid)
           .get()
           .then((value) => {
                 value.docs.forEach((element) {
