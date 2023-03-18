@@ -1,5 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:hello_world/Pages/group_member_pages/add_member_page.dart';
+import 'package:hello_world/Pages/group_member_pages/community_info_page.dart';
 
 import 'package:hello_world/Pages/main_pages/home_page.dart';
 import 'package:hello_world/Pages/profile_pages/profile_page.dart';
@@ -29,7 +31,7 @@ class MyApp extends StatelessWidget {
           fontFamily: 'OpenSans',
           scaffoldBackgroundColor: Colors.green.shade50
         ),
-        home: const MyHomePage(),
+        home: const AddMembers(),
         routes: {
         '/home': (context) => const MyHomePage(),
       },
