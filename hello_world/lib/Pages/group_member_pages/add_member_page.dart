@@ -6,7 +6,8 @@ import 'package:provider/provider.dart';
 import '../../provider/data_provider.dart';
 
 class AddMembers extends StatefulWidget {
-  const AddMembers({Key? key}) : super(key: key);
+  const AddMembers({Key? key, required this.communityName}) : super(key: key);
+  final String communityName;
 
   @override
   State<AddMembers> createState() => _AddMemberState();
@@ -68,11 +69,11 @@ class _AddMemberState extends State<AddMembers> {
           },
         ),
       ),
-      body: _body(contactsOnPlatform),
+      body: _body(contactsOnPlatform, providerCommunity),
     );
   }
 
-  Widget _body(contactsOnPlatform) {
+  Widget _body(contactsOnPlatform, providerCommunity) {
     if (_permissionDenied) return Center(child: Text('Permission denied'));
     if (contactsOnPlatform == null) return Center(child: CircularProgressIndicator());
     return Container(
@@ -129,7 +130,10 @@ class _AddMemberState extends State<AddMembers> {
             child:
               FloatingActionButton.extended(
                 onPressed: () {
-                  Navigator.pop(context, selectedContacts);
+                  var selectedNames = selectedContacts.map((contact) => contact.name.first).toList();
+                  var selectedPhones = selectedContacts.map((contact) => contact.phones.first.number).toList();
+                  providerCommunity.addMembersToCommunity(widget.communityName, selectedNames, selectedPhones);
+                  Navigator.pop(context);
                 },
                 label: Row(
                   children: const [

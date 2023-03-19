@@ -5,6 +5,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:hello_world/Models/community.dart';
 import 'package:hello_world/components/expense.dart';
+import 'package:hello_world/components/member.dart';
 import 'package:hello_world/components/service.dart';
 
 import '../Models/user.dart';
@@ -35,6 +36,27 @@ class DataProvider extends ChangeNotifier{
         "Home": ["Oven", "PC", "TV", "Fridge"],
         "Office": ["Chairs", "Books", "Speaker"],
         "Apartment": ["Car", "Computer", "TV"],
+      };
+
+      Map<String, List<Member>> communityMembersMap = {
+        "Home": [
+          Member(name: "PersonA", phone: "8279833510", isCreator: true,),
+          Member(name: "PersonB", phone: "8595939608", isCreator: false,),
+          Member(name: "PersonC", phone: "8930448891", isCreator: false,),
+          Member(name: "PersonD", phone: "9502201858", isCreator: false,),
+        ],
+        "Office": [
+          Member(name: "PersonA", phone: "8279833510", isCreator: true,),
+          Member(name: "PersonE", phone: "8595939608", isCreator: false,),
+          Member(name: "PersonF", phone: "8930448891", isCreator: false,),
+          Member(name: "PersonG", phone: "9502201858", isCreator: false,),
+        ],
+        "Apartment": [
+          Member(name: "PersonA", phone: "8279833510", isCreator: true,),
+          Member(name: "PersonH", phone: "8595939608", isCreator: false,),
+          Member(name: "PersonI", phone: "8930448891", isCreator: false,),
+          Member(name: "PersonJ", phone: "9502201858", isCreator: false,),
+        ]
       };
 
       Map<String, Map<String,List<Expense> >> objectUnresolvedExpenseMap = {
@@ -389,6 +411,17 @@ class DataProvider extends ChangeNotifier{
         Service? item = objectUnresolvedServices[service.communityName]![service.objectName]?.firstWhere((element) => element.objectName == service.objectName && element.creator == service.creator && element.description == service.description);
         objectUnresolvedServices[service.communityName]![service.objectName]?.remove(item);
         objectResolvedServices[service.communityName]![service.objectName]?.add(Service(objectName: service.objectName, creator: service.creator, description: service.description, isResolved: true, communityName: service.communityName));
+        notifyListeners();
+      }
+
+      addMembersToCommunity(String communityName, List<dynamic> names, List<dynamic> phones){
+        for(int i=0;i<names.length;i++)
+          {
+            Member member = Member(name: names[i], phone: phones[i], isCreator: false,);
+            if(!communityMembersMap[communityName]!.contains(member)) {
+              communityMembersMap[communityName]!.add(member);
+              }
+          }
         notifyListeners();
       }
 

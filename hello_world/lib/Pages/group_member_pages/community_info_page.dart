@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:hello_world/Pages/group_member_pages/add_member_page.dart';
+import 'package:provider/provider.dart';
 
 import '../../components/member.dart';
+import '../../provider/data_provider.dart';
 
 class CommunityInfo extends StatefulWidget {
   const CommunityInfo({Key? key, required this.communityName}) : super(key: key);
@@ -14,6 +16,9 @@ class CommunityInfo extends StatefulWidget {
 class _CommunityInfoState extends State<CommunityInfo> {
   @override
   Widget build(BuildContext context) {
+
+    final providerCommunity = Provider.of<DataProvider>(context, listen: false);
+
     return Scaffold(
       appBar: AppBar(
         title: Text('${widget.communityName} Info'),
@@ -23,7 +28,7 @@ class _CommunityInfoState extends State<CommunityInfo> {
           children: [
             GestureDetector(
               onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => const AddMembers()));
+                Navigator.push(context, MaterialPageRoute(builder: (context) => AddMembers(communityName: widget.communityName)));
               },
               child: Container(
                 color: Colors.green.shade100,
@@ -53,9 +58,7 @@ class _CommunityInfoState extends State<CommunityInfo> {
             Expanded(
               child:
                 ListView(
-                  children: [
-                      Member(name: "Pranav", phone: "1234567890", isCreator: true)
-                  ],
+                  children: List.of(providerCommunity.communityMembersMap[widget.communityName] as Iterable<Widget>)
                 )
             )
           ],
