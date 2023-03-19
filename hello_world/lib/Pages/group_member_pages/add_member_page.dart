@@ -123,9 +123,23 @@ class _AddMemberState extends State<AddMembers> {
                     ),
                   )
             )
-          )
+          ),
+          Container(
+            margin: const EdgeInsets.all(10.0),
+            child:
+              FloatingActionButton.extended(
+                onPressed: () {
+                  Navigator.pop(context, selectedContacts);
+                },
+                label: Row(
+                  children: const [
+                    Text("Add Members"),
+                  ],
+                )
+              ),
+          ),
         ]
-      )
+      ),
     );
   }
 }

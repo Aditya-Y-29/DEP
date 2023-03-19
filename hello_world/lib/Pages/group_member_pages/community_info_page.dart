@@ -4,7 +4,8 @@ import 'package:hello_world/Pages/group_member_pages/add_member_page.dart';
 import '../../components/member.dart';
 
 class CommunityInfo extends StatefulWidget {
-  const CommunityInfo({Key? key}) : super(key: key);
+  const CommunityInfo({Key? key, required this.communityName}) : super(key: key);
+  final String communityName;
 
   @override
   State<CommunityInfo> createState() => _CommunityInfoState();
@@ -15,7 +16,7 @@ class _CommunityInfoState extends State<CommunityInfo> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Community Info'),
+        title: Text('${widget.communityName} Info'),
       ),
       body: Container(
         child: Column(

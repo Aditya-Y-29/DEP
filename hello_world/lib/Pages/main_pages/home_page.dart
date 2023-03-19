@@ -50,13 +50,13 @@ class _MyHomePageState extends State<MyHomePage> {
               Container(
                 margin: const EdgeInsets.all(5),
                 padding: const EdgeInsets.all(1),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(100),
-                  border: Border.all(
-                    color: Colors.white,
-                    width: 2,
-                  ),
-                ),
+                // decoration: BoxDecoration(
+                //   borderRadius: BorderRadius.circular(100),
+                //   border: Border.all(
+                //     color: Colors.white,
+                //     width: 2,
+                //   ),
+                // ),
                 child: const Icon(Icons.person_2_outlined, size: 30,),
               )
           )
