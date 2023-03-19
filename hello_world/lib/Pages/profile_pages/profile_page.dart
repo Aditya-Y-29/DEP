@@ -120,25 +120,27 @@ class ProfileScreen extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         // SizedBox(width: kSpacingUnit.w * 0.1),
-        IconButton(
-          iconSize: 0,
-          // color: Colors.black,
-          onPressed: () {
-            // ScaffoldMessenger.of(context).showSnackBar(
-            //     SnackBar(content: Text('Icon button is pressed')));
-            // Navigator.pop(context);
-            // Navigator.pop(context);
-            // Scaffold.of(context).openEndDrawer();
-            // Navigator.push(
-            //   context,
-            //   MaterialPageRoute(builder: (context) => const MyHomePage()),
-            // );
-          },
-          icon: Icon(
-            LineAwesomeIcons.arrow_left,
-            size: 25,
-          ),
-        ),
+        // ======================================
+        // IconButton(
+        //   iconSize: 0,
+        //   // color: Colors.black,
+        //   onPressed: () {
+        //     // ScaffoldMessenger.of(context).showSnackBar(
+        //     //     SnackBar(content: Text('Icon button is pressed')));
+        //     // Navigator.pop(context);
+        //     // Navigator.pop(context);
+        //     // Scaffold.of(context).openEndDrawer();
+        //     // Navigator.push(
+        //     //   context,
+        //     //   MaterialPageRoute(builder: (context) => const MyHomePage()),
+        //     // );
+        //   },
+        //   icon: Icon(
+        //     LineAwesomeIcons.arrow_left,
+        //     size: 25,
+        //   ),
+        // ),
+        // --------------------------------------------------
 
 
         profileInfo,
