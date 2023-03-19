@@ -126,4 +126,17 @@ class UserDataBaseService {
       return null;
     }
   }
+
+  static Future<String> getName(String id) async{
+    try{
+      final sp= await _db.collection('users').doc(id).get();
+      if(sp.exists){
+        return sp.data()!["Name"];
+      }
+      return "";
+    }catch(e){
+      print(e);
+      return "";
+    }
+  }
 }

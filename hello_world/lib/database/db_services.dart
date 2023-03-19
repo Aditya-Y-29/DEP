@@ -4,7 +4,7 @@ import './db_user.dart';
 import '../Models/service.dart';
 
 
-class ExpenseDataBaseService {
+class ServiceDataBaseService {
   static final _db = FirebaseFirestore.instance;
 
   static createService(ServiceModel service) async {

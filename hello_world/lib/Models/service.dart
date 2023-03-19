@@ -1,9 +1,9 @@
 class ServiceModel{
   String name;
-  String objectID;
-  String creatorID;
+  String? objectID;
+  String? creatorID;
   String description;
-  DateTime date;
+  DateTime? date;
   String? resolverid;
 
   ServiceModel({required this.name, required this.objectID ,required this.creatorID,required this.description,required this.date, required this.resolverid});
