@@ -17,6 +17,7 @@ class ProfileListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      // color: Color(0xFFDCEDC8),
       height: kSpacingUnit.w * 5.5,
       margin: EdgeInsets.symmetric(
         horizontal: kSpacingUnit.w * 4,
@@ -28,7 +29,8 @@ class ProfileListItem extends StatelessWidget {
       ),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(kSpacingUnit.w * 3),
-        color: Theme.of(context).colorScheme.background,
+        // color: Theme.of(context).colorScheme.background,
+        color: Color(0xFFDCEDC8),
       ),
       child: Row(
         children: <Widget>[

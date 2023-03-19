@@ -33,7 +33,7 @@ final kDarkTheme = ThemeData(
   backgroundColor: kDarkSecondaryColor,
   accentColor: kAccentColor,
   iconTheme: ThemeData.dark().iconTheme.copyWith(
-    color: kLightSecondaryColor,
+    color: Color(0xFFDCEDC8),
   ),
   textTheme: ThemeData.dark().textTheme.apply(
     fontFamily: 'SFProText',

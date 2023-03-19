@@ -21,7 +21,7 @@ class ProfilePageState extends State<ProfilePage> {
         builder: (context) {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
-            theme: ThemeProvider.of(context),
+            // theme: ThemeProvider.of(context),
             home: ProfileScreen(),
           );
         },
@@ -53,12 +53,13 @@ class ProfileScreen extends StatelessWidget {
                     height: kSpacingUnit.w * 4,
                     width: kSpacingUnit.w * 5,
                     decoration: BoxDecoration(
-                      color: Theme.of(context).accentColor,
+                      color: Color(0xFFDCEDC8),
                       shape: BoxShape.circle,
                     ),
                     child: Center(
                       heightFactor: kSpacingUnit.w * 1.5,
                       widthFactor: kSpacingUnit.w * 1.5,
+
                       child: Icon(
                         LineAwesomeIcons.pen,
                         color: kDarkPrimaryColor,
@@ -86,33 +87,33 @@ class ProfileScreen extends StatelessWidget {
       ),
     );
 
-    var themeSwitcher = ThemeSwitcher(
-      builder: (context) {
-        return AnimatedCrossFade(
-          duration: Duration(milliseconds: 200),
-          crossFadeState:
-          ThemeProvider.of(context).brightness == Brightness.dark
-              ? CrossFadeState.showFirst
-              : CrossFadeState.showSecond,
-          firstChild: GestureDetector(
-            onTap: () =>
-                ThemeSwitcher.of(context).changeTheme(theme: kLightTheme),
-            child: Icon(
-              LineAwesomeIcons.sun,
-              size: 25,
-            ),
-          ),
-          secondChild: GestureDetector(
-            onTap: () =>
-                ThemeSwitcher.of(context).changeTheme(theme: kDarkTheme),
-            child: Icon(
-              LineAwesomeIcons.moon,
-              size: 25,
-            ),
-          ),
-        );
-      },
-    );
+    // var themeSwitcher = ThemeSwitcher(
+    //   builder: (context) {
+    //     return AnimatedCrossFade(
+    //       duration: Duration(milliseconds: 200),
+    //       crossFadeState:
+    //       ThemeProvider.of(context).brightness == Brightness.dark
+    //           ? CrossFadeState.showFirst
+    //           : CrossFadeState.showSecond,
+    //       firstChild: GestureDetector(
+    //         onTap: () =>
+    //             ThemeSwitcher.of(context).changeTheme(theme: kLightTheme),
+    //         child: Icon(
+    //           LineAwesomeIcons.sun,
+    //           size: 25,
+    //         ),
+    //       ),
+    //       secondChild: GestureDetector(
+    //         onTap: () =>
+    //             ThemeSwitcher.of(context).changeTheme(theme: kDarkTheme),
+    //         child: Icon(
+    //           LineAwesomeIcons.moon,
+    //           size: 25,
+    //         ),
+    //       ),
+    //     );
+    //   },
+    // );
 
     var header = Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -126,6 +127,8 @@ class ProfileScreen extends StatelessWidget {
             // ScaffoldMessenger.of(context).showSnackBar(
             //     SnackBar(content: Text('Icon button is pressed')));
             // Navigator.pop(context);
+            // Navigator.pop(context);
+            // Scaffold.of(context).openEndDrawer();
             // Navigator.push(
             //   context,
             //   MaterialPageRoute(builder: (context) => const MyHomePage()),
@@ -139,7 +142,7 @@ class ProfileScreen extends StatelessWidget {
 
 
         profileInfo,
-        themeSwitcher,
+        // themeSwitcher,
         SizedBox(width: kSpacingUnit.w * 3),
       ],
     );
