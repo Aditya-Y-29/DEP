@@ -9,6 +9,7 @@ import 'package:hello_world/Pages/profile_pages/profile_page.dart';
 import 'package:hello_world/Pages/main_pages/navigation_page.dart';
 
 import '../add_from_pages/add_from_community_page.dart';
+import '../group_member_pages/community_info_page.dart';
 
 
 class CommunityPage extends StatefulWidget {
@@ -52,6 +53,37 @@ class _CommunityPageState extends State<CommunityPage> {
         title: Text(widget.communityName),
         actions:  [
           Container(
+            margin: const EdgeInsets.all(5),
+            padding: const EdgeInsets.all(1),
+            // decoration: BoxDecoration(
+            //   borderRadius: BorderRadius.circular(100),
+            //   border: Border.all(
+            //     color: Colors.white,
+            //     width: 2,
+            //   ),
+            // ),
+            child: GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => CommunityInfo(communityName: widget.communityName,),
+                  ),
+                );
+              },
+              child: const Icon(Icons.group, size: 30,),
+            )
+          ),
+          Container(
+            margin: const EdgeInsets.all(5),
+            padding: const EdgeInsets.all(1),
+            // decoration: BoxDecoration(
+            //   borderRadius: BorderRadius.circular(100),
+            //   border: Border.all(
+            //     color: Colors.white,
+            //     width: 2,
+            //   ),
+            // ),
             child: GestureDetector(
               onTap: () {
                 Navigator.push(
