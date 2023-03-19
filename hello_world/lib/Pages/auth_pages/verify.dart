@@ -128,6 +128,7 @@ class _MyVerifyState extends State<MyVerify> {
 
                             dataProvider.checkuser(MyPhone.phoneNo);
                             dataProvider.getAlldetails(MyPhone.phoneNo);
+                            print(dataProvider.user?.email);
 
                             // ignore: use_build_context_synchronously
                             Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);
