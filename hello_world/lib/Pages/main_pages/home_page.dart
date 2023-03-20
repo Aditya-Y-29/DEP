@@ -44,18 +44,29 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
         title: const Text("Your Communities"),
         actions:  [
+          Container(
+            margin: const EdgeInsets.all(5),
+            padding: const EdgeInsets.all(1),
+            // decoration: BoxDecoration(
+            //   borderRadius: BorderRadius.circular(100),
+            //   border: Border.all(
+            //     color: Colors.white,
+            //     width: 2,
+            //   ),
+            // )
+          ),
           GestureDetector(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const ProfilePage(),
-                ),
-              );
-            },
-            child:
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const ProfilePage(),
+                  ),
+                );
+              },
+              child:
               Container(
-                margin: const EdgeInsets.all(5),
+                margin: const EdgeInsets.all(10),
                 // padding: const EdgeInsets.all(1),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(50),
@@ -65,17 +76,17 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ),
                 child: Image.asset(
-                    'assets/images/avatar.png',
-                    width: 40,
-                    height: 30,
-                    errorBuilder: ( context,  exception,  stackTrace) {
-                        return Image.asset(
-                              'assets/img1.png',
-                              width: 40,
-                              height: 30,
-                            );                  
-                    },
-                  ),
+                  'assets/images/avatar.png',
+                  width: 30,
+                  height: 30,
+                  errorBuilder: ( context,  exception,  stackTrace) {
+                    return Image.asset(
+                      'assets/img1.png',
+                      width: 40,
+                      height: 30,
+                    );
+                  },
+                ),
               )
           )
         ],
