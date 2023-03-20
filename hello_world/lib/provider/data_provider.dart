@@ -427,8 +427,8 @@ class DataProvider extends ChangeNotifier{
         CommunityModel ctmp=communitiesdb!.firstWhere((element) => element.name==communityName);
         String? communityID=await CommunityDataBaseService.getCommunityID(ctmp);
         ObjectsModel object=ObjectsModel(name: objectName,communityID: communityID,creatorPhoneNo: user!.phoneNo,type:"",description: "");
-        ObjectDataBaseService.createObjects(object);
         communityObjectMapdb![ctmp]!.add(object);
+        ObjectDataBaseService.createObjects(object);
       }
 
       Future<void> addExpense(String objectName, String creator, int amount, String description, String communityName)async {
@@ -438,9 +438,11 @@ class DataProvider extends ChangeNotifier{
         CommunityModel ctmp=communitiesdb!.firstWhere((element) => element.name==communityName);
         ObjectsModel otmp = communityObjectMapdb![ctmp]!.firstWhere((element) => element.name==objectName);
         String? objectID=await ObjectDataBaseService.getObjectID(otmp);
+        print(objectID);
         ExpenseModel expense=ExpenseModel(creatorID: await UserDataBaseService.getUserID(user!.phoneNo),amount: amount.toString(),name: description,objectID: objectID,resolverid: null,description: "", date: null);
-        ExpenseDataBaseService.createExpense(expense);
         objectUnresolvedExpenseMapdb![ctmp]![otmp]!.add(expense);
+        
+        ExpenseDataBaseService.createExpense(expense);
 
         
       }
@@ -452,8 +454,8 @@ class DataProvider extends ChangeNotifier{
         ObjectsModel? otmp = communityObjectMapdb![ctmp]!.firstWhere((element) => element.name==objectName);
         String? objectID=await ObjectDataBaseService.getObjectID(otmp);
         ServiceModel service = ServiceModel(creatorID: await UserDataBaseService.getUserID(user!.phoneNo) ,name: description,objectID: objectID,resolverid: null, date: null,description: "");
-        ServiceDataBaseService.createService(service);
         objectUnresolvedServiceMapdb![ctmp]![otmp]!.add(service);
+        ServiceDataBaseService.createService(service);
       }
 
       void resolveExpense(Expense expense)
@@ -470,8 +472,8 @@ class DataProvider extends ChangeNotifier{
         objectUnresolvedExpenseMapdb![ctmp]![otmp]!.remove(rtmp);
 
         rtmp.resolverid=user!.phoneNo;
-        ExpenseDataBaseService.resolveExpense(rtmp,user!.phoneNo);
         objectResolvedExpenseMapdb![ctmp]![otmp]!.add(rtmp);
+        ExpenseDataBaseService.resolveExpense(rtmp,user!.phoneNo);
 
       }
 
@@ -489,8 +491,8 @@ class DataProvider extends ChangeNotifier{
         objectUnresolvedServiceMapdb![ctmp]![otmp]!.remove(stmp);
 
         stmp.resolverid=user!.phoneNo;
-        ServiceDataBaseService.resolveService(stmp,user!.phoneNo);
         objectResolvedServiceMapdb![ctmp]![otmp]!.add(stmp);
+        ServiceDataBaseService.resolveService(stmp,user!.phoneNo);
       }
 
       addMembersToCommunity(String communityName, List<dynamic> names, List<dynamic> phones){
