@@ -18,8 +18,8 @@ class ExpenseDataBaseService {
         return false;
       }
 
-
       await _db.collection('expenses').add(expense.toJson());
+      print("HERE1");
       return true;
     } catch (e) {
       print(e);

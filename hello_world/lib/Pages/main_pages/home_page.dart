@@ -65,10 +65,17 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ),
                 child: Image.asset(
-                  'assets/images/avatar.png',
-                  width: 40,
-                  height: 30,
-                ),
+                    'assets/images/avatar.png',
+                    width: 40,
+                    height: 30,
+                    errorBuilder: ( context,  exception,  stackTrace) {
+                        return Image.asset(
+                              'assets/img1.png',
+                              width: 40,
+                              height: 30,
+                            );                  
+                    },
+                  ),
               )
           )
         ],

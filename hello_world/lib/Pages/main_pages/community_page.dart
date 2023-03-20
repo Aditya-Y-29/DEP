@@ -108,6 +108,13 @@ class _CommunityPageState extends State<CommunityPage> {
                     'assets/images/avatar.png',
                     width: 40,
                     height: 30,
+                    errorBuilder: ( context,  exception,  stackTrace) {
+                        return Image.asset(
+                              'assets/img1.png',
+                              width: 40,
+                              height: 30,
+                            );                  
+                    },
                   ),
                 )
             )

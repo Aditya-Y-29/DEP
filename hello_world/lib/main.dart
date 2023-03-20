@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
           fontFamily: 'OpenSans',
           scaffoldBackgroundColor: Colors.green.shade50
         ),
-        home: MyHomePage(),
+        home: DataProvider().user == null ? const MyPhone() : const MyHomePage(),
         routes: {
         '/home': (context) => const MyHomePage(),
       },
