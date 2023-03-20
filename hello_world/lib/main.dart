@@ -30,8 +30,9 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.green,
           fontFamily: 'OpenSans',
-          scaffoldBackgroundColor: Colors.green.shade50
+          scaffoldBackgroundColor: Colors.green.shade50,
         ),
+        debugShowCheckedModeBanner: false,
         home: DataProvider().user == null ? const MyPhone() : const MyHomePage(),
         routes: {
         '/home': (context) => const MyHomePage(),
