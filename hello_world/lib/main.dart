@@ -10,22 +10,24 @@ import 'Pages/auth_pages/phone.dart';
 
 import 'provider/data_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(const MyApp());
+  var isLoggedIn = await getLoginState();
+  runApp(MyApp(isLoggedIn: isLoggedIn));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({super.key, required this.isLoggedIn});
+  final String? isLoggedIn;
 
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (context) => DataProvider(),
-
       child: MaterialApp(
         theme: ThemeData(
           primarySwatch: Colors.green,
@@ -33,7 +35,7 @@ class MyApp extends StatelessWidget {
           scaffoldBackgroundColor: Colors.green.shade50,
         ),
         debugShowCheckedModeBanner: false,
-        home: DataProvider().user == null ? const MyPhone() : const MyHomePage(),
+        home: isLoggedIn == null ? const MyPhone() : const MyHomePage(),
         routes: {
         '/home': (context) => const MyHomePage(),
       },
@@ -42,6 +44,14 @@ class MyApp extends StatelessWidget {
   }
 }
 
-// DataProvider().user == null ? const MyPhone() : const MyHomePage()
+void saveLoginState() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  prefs.setString('login', "yes");
+}
 
+Future<String?> getLoginState() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  String? login = prefs.getString('login');
+  return login;
+}
 
