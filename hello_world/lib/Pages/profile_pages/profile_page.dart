@@ -149,7 +149,9 @@ class ProfileScreen extends StatelessWidget {
       ],
     );
 
-    TextEditingController description = TextEditingController();
+    TextEditingController description1 = TextEditingController();
+    TextEditingController description2= TextEditingController();
+    TextEditingController description3 = TextEditingController();
 
     return ThemeSwitchingArea(
       child: Builder(
@@ -168,7 +170,7 @@ class ProfileScreen extends StatelessWidget {
                           icon: Icon(Icons.edit),
                           hintText: 'Username',
                         ),
-                        controller: description,
+                        controller: description1,
                       ),
                       SizedBox(height: 10,),
                       TextFormField(
@@ -176,7 +178,7 @@ class ProfileScreen extends StatelessWidget {
                           icon: Icon(Icons.edit),
                           hintText: 'phone Number',
                         ),
-                        controller: description,
+                        controller: description2,
                       ),
                       SizedBox(height: 10,),
                       TextFormField(
@@ -184,7 +186,7 @@ class ProfileScreen extends StatelessWidget {
                           icon: Icon(Icons.edit),
                           hintText: 'Email Id',
                         ),
-                        controller: description,
+                        controller: description3,
                       ),
                       SizedBox(height: 10,),
                       Container(
