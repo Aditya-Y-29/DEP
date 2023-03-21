@@ -192,7 +192,7 @@ class ExpenseData extends State<ExpenseScreen> {
                     child: FloatingActionButton(
                       onPressed: () {
                         // print(objectDropDown);
-                        providerCommunity.addExpense(objectDropDown, providerCommunity.user?.name as String, int.parse(amountInvolved.text), description.text,communityDropDown);
+                        providerCommunity.addExpense(objectDropDown, "Creator", int.parse(amountInvolved.text), description.text,communityDropDown);
                         Navigator.pop(context);
                       },
                       child: const Icon(Icons.check),
@@ -205,3 +205,5 @@ class ExpenseData extends State<ExpenseScreen> {
     );
   }
 }
+
+// creator name: providerCommunity.user?.name as String

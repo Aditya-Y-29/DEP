@@ -262,7 +262,9 @@ class DataProvider extends ChangeNotifier{
 
 
       void checkuser(String phoneNo) async {
+        print("in checkuser, phone no: $phoneNo");
         user=await UserDataBaseService.getUser(phoneNo);
+        print("in checkuser, phone no: $user");
       }
       
       void getCommunityMembers(String phone) async {
