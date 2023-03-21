@@ -261,6 +261,28 @@ class DataProvider extends ChangeNotifier{
         user=await UserDataBaseService.getUser(phoneNo);
       }
 
+      void getCommunityMembers(String phone) async {
+        List<CommunityModel>? communityList = await UserDataBaseService.getCommunities(phone);
+        for(int i=0;i<communityList!.length;i++){
+          // print("goin thru communities");
+          List<Member> memberList = [];
+          List<dynamic>? group = await UserDataBaseService.getCommunityMembers(communityList[i].name, communityList[i].phoneNo);
+          for(int j=0;j<group.length;j++)
+            {
+              // print("goin thru users and adding them");
+              memberList.add(Member(name: group[j]["Name"],phone: group[j]["Phone Number"], isCreator: group[j]["isCreator"],));
+            }
+          communityMembersMap[communityList[i].name] = memberList;
+        }
+        notifyListeners();
+      }
+
+      void getAllUserPhones() async {
+        List<String> phones = await UserDataBaseService.getAllUserPhones();
+        allUserPhones = phones;
+        notifyListeners();
+      }
+
       Future<void> getAlldetails(String phoneNo) async {
 
         List<CommunityModel>? communitytemp=await UserDataBaseService.getCommunities(phoneNo);
