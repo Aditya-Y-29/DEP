@@ -46,6 +46,8 @@ void saveLoginState(String phone) async {
 
 Future<String?> getLoginState() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //uncomment this line and restart to logout, then comment it again
+  // prefs.clear();
   String? login = prefs.getString('login');
   return login;
 }
