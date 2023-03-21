@@ -1,6 +1,7 @@
 // import 'dart:ffi';
 
 import 'package:flutter/material.dart';
+import 'package:hello_world/Pages/auth_pages/phone.dart';
 import '../../provider/data_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
@@ -190,8 +191,7 @@ class ExpenseData extends State<ExpenseScreen> {
                   margin: const EdgeInsets.only(top: 20.0),
                     child: FloatingActionButton(
                       onPressed: () {
-                        // print(objectDropDown);
-                        providerCommunity.addExpense(objectDropDown, "Creator", int.parse(amountInvolved.text), description.text,communityDropDown);
+                        providerCommunity.addExpense(objectDropDown, providerCommunity.user?.name as String, int.parse(amountInvolved.text), description.text,communityDropDown);
                         Navigator.pop(context);
                       },
                       child: const Icon(Icons.check),

@@ -113,6 +113,7 @@ class UserDataBaseService {
           for(var i in sp1.docs){
             final sp2= await _db.collection('communities').doc(i.data()["CommunityID"]).get();
             communities.add(CommunityModel.fromJson(sp2.data()!));
+            // print(sp2.data()!);
           }
         }
       }
@@ -147,6 +148,7 @@ class UserDataBaseService {
       }
       return "";
     } catch (e) {
+      print(e);
       return "";
     }
   }
@@ -154,6 +156,8 @@ class UserDataBaseService {
   static Future<List<dynamic>> getCommunityMembers(String communityName, String creatorPhone) async{
     try{
       List<dynamic> group=[];
+      print(communityName);
+      print(creatorPhone);
       String communityID="";
       final sp= await _db.collection('communities').where("Name", isEqualTo: communityName).where("Phone Number", isEqualTo: creatorPhone).get();
       if(sp.docs.isNotEmpty){
@@ -174,6 +178,7 @@ class UserDataBaseService {
       }
       return group;
     }catch(e){
+      print(e);
       return [];
     }
   }
@@ -189,6 +194,7 @@ class UserDataBaseService {
       }
       return phones;
     } catch (e) {
+      print(e);
       return [];
     }
   }

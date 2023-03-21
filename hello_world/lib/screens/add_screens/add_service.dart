@@ -172,7 +172,7 @@ class ServiceData extends State<ServiceScreen> {
                       margin: const EdgeInsets.only(top: 20.0),
                       child: FloatingActionButton(
                         onPressed: () {
-                          providerCommunity.addService(objectDropDown, "Creator", description.text,communityDropDown);
+                          providerCommunity.addService(objectDropDown, providerCommunity.user?.name as String, description.text,communityDropDown);
                           Navigator.pop(context);
                         },
                         child: const Icon(Icons.check),

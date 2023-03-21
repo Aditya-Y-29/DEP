@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hello_world/Pages/main_pages/home_page.dart';
 import 'package:hello_world/Pages/auth_pages/phone.dart';
+import 'package:hello_world/main.dart';
 import 'package:pinput/pinput.dart';
 import 'package:provider/provider.dart';
 
@@ -84,7 +85,7 @@ class _MyVerifyState extends State<MyVerify> {
                     height: 10,
                   ),
                   Text(
-                    "We need to register your phone without getting started!",
+                    "Enter Your OTP",
                     style: TextStyle(
                       fontSize: 16,
                     ),
@@ -127,8 +128,9 @@ class _MyVerifyState extends State<MyVerify> {
                             DataProvider dataProvider = Provider.of<DataProvider>(context, listen: false);
 
                             dataProvider.checkuser(MyPhone.phoneNo);
-                            await dataProvider.getAlldetails(MyPhone.phoneNo);
+                            await dataProvider.getAllDetails(MyPhone.phoneNo);
 
+                            saveLoginState(MyPhone.phoneNo);
                             // ignore: use_build_context_synchronously
                             Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);
                           }
