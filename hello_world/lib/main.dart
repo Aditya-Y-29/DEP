@@ -37,21 +37,27 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         home: isLoggedIn == null ? const MyPhone() : const MyHomePage(),
         routes: {
-        '/home': (context) => const MyHomePage(),
+        '/home': (context) => isLoggedIn == null ? const MyPhone() : const MyHomePage(),
       },
       ),
     );
   }
 }
 
-void saveLoginState() async {
+void saveLoginState(String phone) async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   prefs.setString('login', "yes");
+  prefs.setString('phone', phone);
 }
 
 Future<String?> getLoginState() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   String? login = prefs.getString('login');
   return login;
+}
+
+void logoutAndClearPreferences() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  prefs.clear();
 }
 
