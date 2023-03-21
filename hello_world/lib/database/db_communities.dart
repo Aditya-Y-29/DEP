@@ -15,7 +15,6 @@ class CommunityDataBaseService {
           .get();
 
       if (sp1.docs.isNotEmpty) {
-        print("Community Already exist for this user");
         return false;
       }
 
@@ -23,7 +22,6 @@ class CommunityDataBaseService {
       addUserInCommunity(community, community.phoneNo);
       return true;
     } catch (e) {
-      print(e);
       return false;
     }
   }
@@ -41,7 +39,6 @@ class CommunityDataBaseService {
       }
       return null;
     } catch (e) {
-      print(e);
       return null;
     }
   }
@@ -52,12 +49,10 @@ class CommunityDataBaseService {
       String? userID = await UserDataBaseService.getUserID(memberPhoneNo);
 
       if (communityID == null) {
-        print("Community does not exist");
         return false;
       }
 
       if (userID == null) {
-        print("User does not exist");
         return false;
       }
 
@@ -68,7 +63,6 @@ class CommunityDataBaseService {
           .get();
 
       if (sp.docs.isNotEmpty) {
-        print("User already exist in this community");
         return false;
       }
 
@@ -80,7 +74,6 @@ class CommunityDataBaseService {
       return true;
       
     } catch (e) {
-      print("Error in adding user in community");
       return false;
     }
   }

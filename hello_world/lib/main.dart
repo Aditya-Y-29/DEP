@@ -27,6 +27,7 @@ class MyApp extends StatelessWidget {
       create: (context) => DataProvider(),
 
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         theme: ThemeData(
           primarySwatch: Colors.green,
           fontFamily: 'OpenSans',

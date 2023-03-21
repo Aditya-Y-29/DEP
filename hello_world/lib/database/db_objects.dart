@@ -10,13 +10,11 @@ class ObjectDataBaseService {
   static createObjects( ObjectsModel object) async {
     try {
       if( object.communityID == null){
-        print("CommunityID is null");
         return false;
       }
 
       final sp1 = await _db.collection("communities").doc(object.communityID).get();
       if(sp1.data() == null){
-        print("Community does not exist");
         return false;
       }
 
@@ -27,20 +25,17 @@ class ObjectDataBaseService {
           .get();
 
       if (sp2.docs.isNotEmpty) {
-        print("Object Already exist in this community");
         return false;
       }
 
       final sp3= await _db.collection("users").where("Phone Number", isEqualTo: object.creatorPhoneNo).get();
       if(sp3.docs.isEmpty){
-        print("User does not exist");
         return false;
       }
 
       await _db.collection('objects').add(object.toJson());
       return true;
     } catch (e) {
-      print(e);
       return false;
     }
   }

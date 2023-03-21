@@ -14,15 +14,11 @@ class ExpenseDataBaseService {
       final sp= await _db.collection('expenses').where("Name", isEqualTo: expense.name).where("ObjectID", isEqualTo: expense.objectID).get();
 
       if(sp.docs.isNotEmpty){
-        print("Expense Already exist for this Object");
         return false;
       }
-
       await _db.collection('expenses').add(expense.toJson());
-      print("HERE1");
       return true;
     } catch (e) {
-      print(e);
       return false;
     }
   }
@@ -36,7 +32,6 @@ class ExpenseDataBaseService {
       }
       return null;
     } catch (e) {
-      print(e);
       return null;
     }
   }
@@ -47,12 +42,10 @@ class ExpenseDataBaseService {
       String? userID = await UserDataBaseService.getUserID(phoneNo);
 
       if(expenseID == null){
-        print("Expense does not exist");
         return false;
       }
 
       if(userID == null){
-        print("User does not exist");
         return false;
       }
 
@@ -61,7 +54,6 @@ class ExpenseDataBaseService {
       });
       return true;
     } catch (e) {
-      print(e);
       return false;
     }
   }

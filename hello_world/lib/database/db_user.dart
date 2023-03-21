@@ -21,22 +21,19 @@ class UserDataBaseService {
           .get();
 
       if (sp1.docs.isNotEmpty) {
-        print("Email ID already exists");
         return false;
       }
       if (sp2.docs.isNotEmpty) {
-        print("Phone Number already exists");
         return false;
       }
       if (sp3.docs.isNotEmpty) {
-        print("UserName already exists");
         return false;
       }
 
       await _db.collection('users').add(user.toJson());
       return true;
     } catch (e) {
-      print(e);
+      return false;
     }
   }
 
@@ -52,7 +49,6 @@ class UserDataBaseService {
       }
       return null;
     } catch (e) {
-      print(e);
       return null;
     }
   }

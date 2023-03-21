@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hello_world/Pages/main_pages/home_page.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:hello_world/constants.dart';
 import 'package:hello_world/widgets/profile_list_item.dart';
@@ -19,16 +18,14 @@ class ProfilePageState extends State<ProfilePage> {
       initTheme: kLightTheme,
       child: Builder(
         builder: (context) {
-          return MaterialApp(
-            debugShowCheckedModeBanner: false,
-            // theme: ThemeProvider.of(context),
-            home: ProfileScreen(),
-          );
+          return ProfileScreen();
         },
       ),
     );
   }
 }
+
+
 class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -87,69 +84,19 @@ class ProfileScreen extends StatelessWidget {
       ),
     );
 
-    // var themeSwitcher = ThemeSwitcher(
-    //   builder: (context) {
-    //     return AnimatedCrossFade(
-    //       duration: Duration(milliseconds: 200),
-    //       crossFadeState:
-    //       ThemeProvider.of(context).brightness == Brightness.dark
-    //           ? CrossFadeState.showFirst
-    //           : CrossFadeState.showSecond,
-    //       firstChild: GestureDetector(
-    //         onTap: () =>
-    //             ThemeSwitcher.of(context).changeTheme(theme: kLightTheme),
-    //         child: Icon(
-    //           LineAwesomeIcons.sun,
-    //           size: 25,
-    //         ),
-    //       ),
-    //       secondChild: GestureDetector(
-    //         onTap: () =>
-    //             ThemeSwitcher.of(context).changeTheme(theme: kDarkTheme),
-    //         child: Icon(
-    //           LineAwesomeIcons.moon,
-    //           size: 25,
-    //         ),
-    //       ),
-    //     );
-    //   },
-    // );
 
     var header = Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        // SizedBox(width: kSpacingUnit.w * 0.1),
-        // ======================================
-        // IconButton(
-        //   iconSize: 0,
-        //   // color: Colors.black,
-        //   onPressed: () {
-        //     // ScaffoldMessenger.of(context).showSnackBar(
-        //     //     SnackBar(content: Text('Icon button is pressed')));
-        //     // Navigator.pop(context);
-        //     // Navigator.pop(context);
-        //     // Scaffold.of(context).openEndDrawer();
-        //     // Navigator.push(
-        //     //   context,
-        //     //   MaterialPageRoute(builder: (context) => const MyHomePage()),
-        //     // );
-        //   },
-        //   icon: Icon(
-        //     LineAwesomeIcons.arrow_left,
-        //     size: 25,
-        //   ),
-        // ),
-        // --------------------------------------------------
-
-
         profileInfo,
-        // themeSwitcher,
         SizedBox(width: kSpacingUnit.w * 3),
       ],
     );
 
-    TextEditingController description = TextEditingController();
+    TextEditingController userNameController = TextEditingController();
+    TextEditingController phoneNumberController = TextEditingController();
+    TextEditingController emailController = TextEditingController();
 
     return ThemeSwitchingArea(
       child: Builder(
@@ -162,13 +109,12 @@ class ProfileScreen extends StatelessWidget {
                 Expanded(
                   child: ListView(
                     children: <Widget>[
-                      // SizedBox(width: kSpacingUnit.w * 5),
                       TextFormField(
                         decoration: const InputDecoration(
                           icon: Icon(Icons.edit),
                           hintText: 'Username',
                         ),
-                        controller: description,
+                        controller: userNameController,
                       ),
                       SizedBox(height: 10,),
                       TextFormField(
@@ -176,7 +122,7 @@ class ProfileScreen extends StatelessWidget {
                           icon: Icon(Icons.edit),
                           hintText: 'phone Number',
                         ),
-                        controller: description,
+                        controller: phoneNumberController,
                       ),
                       SizedBox(height: 10,),
                       TextFormField(
@@ -184,16 +130,13 @@ class ProfileScreen extends StatelessWidget {
                           icon: Icon(Icons.edit),
                           hintText: 'Email Id',
                         ),
-                        controller: description,
+                        controller: emailController,
                       ),
                       SizedBox(height: 10,),
                       Container(
                           margin: const EdgeInsets.only(top: 20.0),
                           child: FloatingActionButton(
                             onPressed: () {
-                              // print(objectDropDown);
-                              // providerCommunity.addExpense(objectDropDown, "Creator", int.parse(amountInvolved.text), description.text,communityDropDown);
-                              // Navigator.pop(context);
                             },
                             child: const Icon(Icons.check),
                           )),

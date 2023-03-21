@@ -261,7 +261,7 @@ class DataProvider extends ChangeNotifier{
         user=await UserDataBaseService.getUser(phoneNo);
       }
 
-      void getAlldetails(String phoneNo) async {
+      Future<void> getAlldetails(String phoneNo) async {
 
         List<CommunityModel>? communitytemp=await UserDataBaseService.getCommunities(phoneNo);
         communitiesdb=communitytemp;
@@ -294,7 +294,6 @@ class DataProvider extends ChangeNotifier{
             communityObjectMap[communitytemp[i].name]!.add(objecttemp[j].name);
             communityObjectMapdb![communitytemp[i]]!.add(objecttemp[j]);
 
-            print(communitytemp[i].name+" "+objecttemp[j].name);
 
             objectUnresolvedExpenseMap[communitytemp[i].name]![objecttemp[j].name] = [];
             objectUnresolvedExpenseMapdb![communitytemp[i]]![objecttemp[j]] = [];
@@ -438,7 +437,6 @@ class DataProvider extends ChangeNotifier{
         CommunityModel ctmp=communitiesdb!.firstWhere((element) => element.name==communityName);
         ObjectsModel otmp = communityObjectMapdb![ctmp]!.firstWhere((element) => element.name==objectName);
         String? objectID=await ObjectDataBaseService.getObjectID(otmp);
-        print(objectID);
         ExpenseModel expense=ExpenseModel(creatorID: await UserDataBaseService.getUserID(user!.phoneNo),amount: amount.toString(),name: description,objectID: objectID,resolverid: null,description: "", date: null);
         objectUnresolvedExpenseMapdb![ctmp]![otmp]!.add(expense);
         
