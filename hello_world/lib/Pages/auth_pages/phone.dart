@@ -1,5 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../../provider/data_provider.dart';
 import 'verify.dart';
 
 class MyPhone extends StatefulWidget {

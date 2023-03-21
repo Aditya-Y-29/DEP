@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hello_world/Pages/main_pages/home_page.dart';
 import 'package:hello_world/Pages/auth_pages/phone.dart';
+import 'package:hello_world/main.dart';
 import 'package:pinput/pinput.dart';
 import 'package:provider/provider.dart';
 
@@ -127,10 +128,11 @@ class _MyVerifyState extends State<MyVerify> {
                             DataProvider dataProvider = Provider.of<DataProvider>(context, listen: false);
 
                             dataProvider.checkuser(MyPhone.phoneNo);
-                            dataProvider.getAlldetails(MyPhone.phoneNo);
+                            dataProvider.getAllDetails(MyPhone.phoneNo);
                             print(dataProvider.user?.email);
 
                             // ignore: use_build_context_synchronously
+                            saveLoginState(MyPhone.phoneNo);
                             Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);
                           }
                           catch(e){
