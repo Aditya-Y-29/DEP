@@ -34,6 +34,17 @@ class _ObjectPageState extends State<ObjectPage> {
             widget.objectName
           ),
           actions: [
+            Container(
+              margin: const EdgeInsets.all(5),
+              padding: const EdgeInsets.all(1),
+              // decoration: BoxDecoration(
+              //   borderRadius: BorderRadius.circular(100),
+              //   border: Border.all(
+              //     color: Colors.white,
+              //     width: 2,
+              //   ),
+              // )
+            ),
             GestureDetector(
                 onTap: () {
                   Navigator.push(
@@ -45,7 +56,7 @@ class _ObjectPageState extends State<ObjectPage> {
                 },
                 child:
                 Container(
-                  margin: const EdgeInsets.all(5),
+                  margin: const EdgeInsets.all(10),
                   // padding: const EdgeInsets.all(1),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(50),
@@ -56,8 +67,15 @@ class _ObjectPageState extends State<ObjectPage> {
                   ),
                   child: Image.asset(
                     'assets/images/avatar.png',
-                    width: 40,
+                    width: 30,
                     height: 30,
+                    errorBuilder: ( context,  exception,  stackTrace) {
+                        return Image.asset(
+                              'assets/img1.png',
+                              width: 30,
+                              height: 30,
+                            );                  
+                    },
                   ),
                 )
             )

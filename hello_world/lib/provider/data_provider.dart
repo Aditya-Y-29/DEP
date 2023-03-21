@@ -5,6 +5,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:hello_world/Models/community.dart';
 import 'package:hello_world/components/expense.dart';
+import 'package:hello_world/components/member.dart';
 import 'package:hello_world/components/service.dart';
 
 import '../Models/user.dart';
@@ -35,12 +36,35 @@ class DataProvider extends ChangeNotifier{
       Map<CommunityModel,Map<ObjectsModel,List<ServiceModel>>>? objectUnresolvedServiceMapdb = {};
       Map<CommunityModel,Map<ObjectsModel,List<ServiceModel>>>? objectResolvedServiceMapdb = {};
 
+      List<String> allUserPhones = ["8279833510", "8595939608", "8930448891", "9502201858"];
+
       List<String> communities = ["Home", "Office", "Apartment"];
 
       Map<String, List<String>> communityObjectMap = {
         "Home": ["Oven", "PC", "TV", "Fridge"],
         "Office": ["Chairs", "Books", "Speaker"],
         "Apartment": ["Car", "Computer", "TV"],
+      };
+
+      Map<String, List<Member>> communityMembersMap = {
+        "Home": [
+          Member(name: "PersonA", phone: "8279833510", isCreator: true,),
+          Member(name: "PersonB", phone: "8595939608", isCreator: false,),
+          Member(name: "PersonC", phone: "8930448891", isCreator: false,),
+          Member(name: "PersonD", phone: "9502201858", isCreator: false,),
+        ],
+        "Office": [
+          Member(name: "PersonA", phone: "8279833510", isCreator: true,),
+          Member(name: "PersonE", phone: "8595939608", isCreator: false,),
+          Member(name: "PersonF", phone: "8930448891", isCreator: false,),
+          Member(name: "PersonG", phone: "9502201858", isCreator: false,),
+        ],
+        "Apartment": [
+          Member(name: "PersonA", phone: "8279833510", isCreator: true,),
+          Member(name: "PersonH", phone: "8595939608", isCreator: false,),
+          Member(name: "PersonI", phone: "8930448891", isCreator: false,),
+          Member(name: "PersonJ", phone: "9502201858", isCreator: false,),
+        ]
       };
 
       Map<String, Map<String,List<Expense> >> objectUnresolvedExpenseMap = {
@@ -403,8 +427,8 @@ class DataProvider extends ChangeNotifier{
         CommunityModel ctmp=communitiesdb!.firstWhere((element) => element.name==communityName);
         String? communityID=await CommunityDataBaseService.getCommunityID(ctmp);
         ObjectsModel object=ObjectsModel(name: objectName,communityID: communityID,creatorPhoneNo: user!.phoneNo,type:"",description: "");
-        ObjectDataBaseService.createObjects(object);
         communityObjectMapdb![ctmp]!.add(object);
+        ObjectDataBaseService.createObjects(object);
       }
 
       Future<void> addExpense(String objectName, String creator, int amount, String description, String communityName)async {
@@ -414,9 +438,11 @@ class DataProvider extends ChangeNotifier{
         CommunityModel ctmp=communitiesdb!.firstWhere((element) => element.name==communityName);
         ObjectsModel otmp = communityObjectMapdb![ctmp]!.firstWhere((element) => element.name==objectName);
         String? objectID=await ObjectDataBaseService.getObjectID(otmp);
+        print(objectID);
         ExpenseModel expense=ExpenseModel(creatorID: await UserDataBaseService.getUserID(user!.phoneNo),amount: amount.toString(),name: description,objectID: objectID,resolverid: null,description: "", date: null);
-        ExpenseDataBaseService.createExpense(expense);
         objectUnresolvedExpenseMapdb![ctmp]![otmp]!.add(expense);
+        
+        ExpenseDataBaseService.createExpense(expense);
 
         
       }
@@ -428,8 +454,8 @@ class DataProvider extends ChangeNotifier{
         ObjectsModel? otmp = communityObjectMapdb![ctmp]!.firstWhere((element) => element.name==objectName);
         String? objectID=await ObjectDataBaseService.getObjectID(otmp);
         ServiceModel service = ServiceModel(creatorID: await UserDataBaseService.getUserID(user!.phoneNo) ,name: description,objectID: objectID,resolverid: null, date: null,description: "");
-        ServiceDataBaseService.createService(service);
         objectUnresolvedServiceMapdb![ctmp]![otmp]!.add(service);
+        ServiceDataBaseService.createService(service);
       }
 
       void resolveExpense(Expense expense)
@@ -446,8 +472,8 @@ class DataProvider extends ChangeNotifier{
         objectUnresolvedExpenseMapdb![ctmp]![otmp]!.remove(rtmp);
 
         rtmp.resolverid=user!.phoneNo;
-        ExpenseDataBaseService.resolveExpense(rtmp,user!.phoneNo);
         objectResolvedExpenseMapdb![ctmp]![otmp]!.add(rtmp);
+        ExpenseDataBaseService.resolveExpense(rtmp,user!.phoneNo);
 
       }
 
@@ -465,8 +491,19 @@ class DataProvider extends ChangeNotifier{
         objectUnresolvedServiceMapdb![ctmp]![otmp]!.remove(stmp);
 
         stmp.resolverid=user!.phoneNo;
-        ServiceDataBaseService.resolveService(stmp,user!.phoneNo);
         objectResolvedServiceMapdb![ctmp]![otmp]!.add(stmp);
+        ServiceDataBaseService.resolveService(stmp,user!.phoneNo);
+      }
+
+      addMembersToCommunity(String communityName, List<dynamic> names, List<dynamic> phones){
+        for(int i=0;i<names.length;i++)
+          {
+            Member member = Member(name: names[i], phone: phones[i], isCreator: false,);
+            if(!communityMembersMap[communityName]!.contains(member)) {
+              communityMembersMap[communityName]!.add(member);
+              }
+          }
+        notifyListeners();
       }
 
 }
