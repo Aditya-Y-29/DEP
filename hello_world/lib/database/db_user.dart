@@ -166,7 +166,7 @@ class UserDataBaseService {
             print(sp2.data()!);
             var groupMember = {
               ...sp2.data()!,
-              "isCreator": i.data()["isCreator"],
+              "Is Admin": i.data()["Is Admin"],
             };
             group.add(groupMember);
           }
@@ -192,5 +192,6 @@ class UserDataBaseService {
       return [];
     }
   }
+
 
 }

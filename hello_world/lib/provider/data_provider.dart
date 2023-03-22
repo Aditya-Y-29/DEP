@@ -29,37 +29,19 @@ class DataProvider extends ChangeNotifier{
       UserModel? user;
       List<CommunityModel>? communitiesdb = [];
       Map<CommunityModel, List<ObjectsModel>>? communityObjectMapdb = {};
-
       Map<CommunityModel,Map<ObjectsModel,List<ExpenseModel>>>? objectUnresolvedExpenseMapdb = {};
       Map<CommunityModel,Map<ObjectsModel,List<ExpenseModel>>>? objectResolvedExpenseMapdb = {};
-
       Map<CommunityModel,Map<ObjectsModel,List<ServiceModel>>>? objectUnresolvedServiceMapdb = {};
       Map<CommunityModel,Map<ObjectsModel,List<ServiceModel>>>? objectResolvedServiceMapdb = {};
 
-      List<String> allUserPhones = ["8279833510", "8595939608", "8930448891", "9502201858"];
-
+      List<String> allUserPhones = [];
       List<String> communities = [];
-
-      Map<String, List<String>> communityObjectMap = {
-      };
-
-      Map<String, List<Member>> communityMembersMap = {
-      };
-
-      Map<String, Map<String,List<Expense> >> objectUnresolvedExpenseMap = {
-      };
-
-      Map<String, Map<String,List<Expense> >> objectResolvedExpenseMap = {
-      };
-
-      Map<String, Map<String,List<Service> >> objectUnresolvedServices = {
-
-
-      };
-
-      Map<String, Map<String,List<Service> >> objectResolvedServices = {
-
-      };
+      Map<String, List<String>> communityObjectMap = {};
+      Map<String, List<Member>> communityMembersMap = {};
+      Map<String, Map<String,List<Expense> >> objectUnresolvedExpenseMap = {};
+      Map<String, Map<String,List<Expense> >> objectResolvedExpenseMap = {};
+      Map<String, Map<String,List<Service> >> objectUnresolvedServices = {};
+      Map<String, Map<String,List<Service> >> objectResolvedServices = {};
 
 
 
@@ -75,8 +57,7 @@ class DataProvider extends ChangeNotifier{
           List<dynamic>? group = await UserDataBaseService.getCommunityMembers(communityList[i].name, communityList[i].phoneNo);
           for(int j=0;j<group.length;j++)
             {
-              // print("goin thru users and adding them");
-              memberList.add(Member(name: group[j]["Name"],phone: group[j]["Phone Number"], isCreator: group[j]["isCreator"],));
+              memberList.add(Member(name: group[j]["Name"],phone: group[j]["Phone Number"], isCreator: group[j]["Is Admin"],));
             }
           communityMembersMap[communityList[i].name] = memberList;
         }
@@ -91,6 +72,7 @@ class DataProvider extends ChangeNotifier{
 
       Future<void> getAlldetails(String phoneNo) async {
 
+        checkuser(phoneNo);
         List<CommunityModel>? communitytemp=await UserDataBaseService.getCommunities(phoneNo);
         communitiesdb=communitytemp;
 
@@ -113,6 +95,10 @@ class DataProvider extends ChangeNotifier{
           objectResolvedServiceMapdb![communitytemp[i]] = {};
         }
         notifyListeners();
+
+        getAllUserPhones();
+        getCommunityMembers(phoneNo);
+
 
         for(int i=0;i<communitytemp.length;i++){
           String? communityID=await CommunityDataBaseService.getCommunityID(communitytemp[i]);
@@ -235,9 +221,11 @@ class DataProvider extends ChangeNotifier{
         objectUnresolvedServices[communityName] = {};
         objectResolvedExpenseMap[communityName] = {};
         objectResolvedServices[communityName] = {};
+        communityMembersMap[communityName] = [];
+        communityMembersMap[communityName]!.add(Member(name:user!.name,phone: user!.phoneNo,isCreator: true));
         notifyListeners();
 
-        CommunityModel community=CommunityModel(name: communityName,phoneNo: user!.phoneNo);
+        CommunityModel community=CommunityModel(name: communityName,phoneNo: user!.phoneNo,);
         CommunityDataBaseService.createCommunity(community);
         communitiesdb!.add(community);
         notifyListeners();
@@ -327,6 +315,8 @@ class DataProvider extends ChangeNotifier{
             Member member = Member(name: names[i], phone: phones[i], isCreator: false,);
             if(!communityMembersMap[communityName]!.contains(member)) {
               communityMembersMap[communityName]!.add(member);
+              CommunityModel ctmp=communitiesdb!.firstWhere((element) => element.name==communityName);
+              CommunityDataBaseService.addUserInCommunity(ctmp, member.phone,false);
               }
           }
         notifyListeners();

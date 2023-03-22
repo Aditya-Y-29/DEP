@@ -19,7 +19,7 @@ class CommunityDataBaseService {
       }
 
       await _db.collection('communities').add(community.toJson());
-      addUserInCommunity(community, community.phoneNo);
+      addUserInCommunity(community, community.phoneNo,true);
       return true;
     } catch (e) {
       return false;
@@ -43,7 +43,7 @@ class CommunityDataBaseService {
     }
   }
 
-  static Future<bool> addUserInCommunity(CommunityModel community, String memberPhoneNo) async {
+  static Future<bool> addUserInCommunity(CommunityModel community, String memberPhoneNo,bool admin) async {
     try {
       String? communityID = await getCommunityID(community);
       String? userID = await UserDataBaseService.getUserID(memberPhoneNo);
@@ -70,6 +70,7 @@ class CommunityDataBaseService {
       await _db.collection('communityMembers').add({
         'CommunityID': communityID,
         'UserID': userID,
+        'Is Admin':admin
       });
       return true;
       

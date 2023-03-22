@@ -95,7 +95,6 @@ class _MyVerifyState extends State<MyVerify> {
                   ),
                   Pinput(
                     onChanged: (value){
-                      print(value);
                       code=value;
                     },
                     length: 6,
@@ -126,7 +125,6 @@ class _MyVerifyState extends State<MyVerify> {
                             // ignore: use_build_context_synchronously
                             DataProvider dataProvider = Provider.of<DataProvider>(context, listen: false);
 
-                            dataProvider.checkuser(MyPhone.phoneNo);
                             await dataProvider.getAlldetails(MyPhone.phoneNo);
 
                             // ignore: use_build_context_synchronously

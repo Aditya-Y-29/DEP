@@ -55,13 +55,6 @@ class _CommunityPageState extends State<CommunityPage> {
           Container(
             margin: const EdgeInsets.all(5),
             padding: const EdgeInsets.all(1),
-            // decoration: BoxDecoration(
-            //   borderRadius: BorderRadius.circular(100),
-            //   border: Border.all(
-            //     color: Colors.white,
-            //     width: 2,
-            //   ),
-            // ),
             child: GestureDetector(
               onTap: () {
                 Navigator.push(
@@ -77,13 +70,6 @@ class _CommunityPageState extends State<CommunityPage> {
           Container(
             margin: const EdgeInsets.all(5),
             padding: const EdgeInsets.all(1),
-            // decoration: BoxDecoration(
-            //   borderRadius: BorderRadius.circular(100),
-            //   border: Border.all(
-            //     color: Colors.white,
-            //     width: 2,
-            //   ),
-            // ),
             child: GestureDetector(
               onTap: () {
                 Navigator.push(
