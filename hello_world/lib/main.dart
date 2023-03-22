@@ -23,15 +23,16 @@ class MyApp extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (context) => DataProvider(),
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         theme: ThemeData(
           primarySwatch: Colors.green,
           fontFamily: 'OpenSans',
           scaffoldBackgroundColor: Colors.green.shade50,
         ),
-        debugShowCheckedModeBanner: false,
         home: isLoggedIn == null ? const MyPhone() : const MyHomePage(),
         routes: {
         '/home': (context) => const MyHomePage(),
+        '/login': (context) => const MyPhone(),
       },
       ),
     );

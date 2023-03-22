@@ -294,7 +294,7 @@ class DataProvider extends ChangeNotifier{
       //   return name;
       // }
 
-      void getAllDetails(String phoneNo) {
+      Future<void> getAllDetails(String phoneNo) async {
         _memoizer.runOnce(() async {
 
           String name = await UserDataBaseService.getNameFromPhone(phoneNo);

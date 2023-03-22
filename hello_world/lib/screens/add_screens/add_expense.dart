@@ -191,8 +191,7 @@ class ExpenseData extends State<ExpenseScreen> {
                   margin: const EdgeInsets.only(top: 20.0),
                     child: FloatingActionButton(
                       onPressed: () {
-                        // print(objectDropDown);
-                        providerCommunity.addExpense(objectDropDown, "Creator", int.parse(amountInvolved.text), description.text,communityDropDown);
+                        providerCommunity.addExpense(objectDropDown, providerCommunity.user?.name as String, int.parse(amountInvolved.text), description.text,communityDropDown);
                         Navigator.pop(context);
                       },
                       child: const Icon(Icons.check),

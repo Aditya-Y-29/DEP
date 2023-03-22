@@ -11,7 +11,7 @@ class ProfileListItem extends StatelessWidget {
   const ProfileListItem({super.key, 
     required this.icon,
     required this.text,
-    this.hasNavigation = true,
+    this.hasNavigation = true
   }) ;
 
   @override

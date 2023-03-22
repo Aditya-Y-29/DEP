@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:hello_world/constants.dart';
 import 'package:hello_world/widgets/profile_list_item.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);
@@ -141,11 +142,13 @@ class ProfileScreen extends StatelessWidget {
                             child: const Icon(Icons.check),
                           )),
                       SizedBox(height: 80,),
-                      ProfileListItem(
-                        icon: LineAwesomeIcons.alternate_sign_out,
-                        text: 'Logout',
-                        hasNavigation: false,
-                      ),
+                      ElevatedButton(child: Text("Logout"),onPressed: () async {
+                          SharedPreferences prefs = await SharedPreferences.getInstance();
+                          prefs.clear();
+                          // ignore: use_build_context_synchronously
+                          Navigator.pushNamedAndRemoveUntil(context, '/login', (route) => false);
+
+                      })
                     ],
                   ),
                 )

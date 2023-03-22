@@ -85,7 +85,7 @@ class _MyVerifyState extends State<MyVerify> {
                     height: 10,
                   ),
                   Text(
-                    "We need to register your phone without getting started!",
+                    "Enter Your OTP",
                     style: TextStyle(
                       fontSize: 16,
                     ),
@@ -128,11 +128,10 @@ class _MyVerifyState extends State<MyVerify> {
                             DataProvider dataProvider = Provider.of<DataProvider>(context, listen: false);
 
                             dataProvider.checkuser(MyPhone.phoneNo);
-                            dataProvider.getAllDetails(MyPhone.phoneNo);
-                            print(dataProvider.user?.email);
+                            await dataProvider.getAllDetails(MyPhone.phoneNo);
 
-                            // ignore: use_build_context_synchronously
                             saveLoginState(MyPhone.phoneNo);
+                            // ignore: use_build_context_synchronously
                             Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);
                           }
                           catch(e){

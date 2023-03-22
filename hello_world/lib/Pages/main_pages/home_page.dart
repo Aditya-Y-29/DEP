@@ -35,7 +35,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    DataProvider dataProvider = Provider.of<DataProvider>(context, listen: false);
+    DataProvider dataProvider = Provider.of<DataProvider>(context, listen: true);
 
     return FutureBuilder<String>(
       future: getPhone(),

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hello_world/Pages/main_pages/community_page.dart';
+// import 'package:hello_world/Pages/main_pages/community_page.dart';
 import '../Pages/add_from_pages/add_from_community_page.dart';
 import '../Pages/add_from_pages/add_home_page_floating_button.dart';
 
@@ -94,7 +94,6 @@ class _CommunityState extends State<Community> {
                   onSelected: (value) {
                     if(value.name == "Add Expense")
                     {
-                      print("pressed add expense");
                       Navigator.push(
                         context,
                         MaterialPageRoute(builder: (context) => AddFromHomePage(selectedPage: 0)),
@@ -102,7 +101,6 @@ class _CommunityState extends State<Community> {
                     }
                     else if (value.name == "Add Service")
                     {
-                      print("pressed add service");
                       Navigator.push(
                         context,
                         MaterialPageRoute(builder: (context) => AddFromHomePage(selectedPage: 1)),
