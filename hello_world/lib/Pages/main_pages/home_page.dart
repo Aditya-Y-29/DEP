@@ -28,7 +28,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Future<String> getPhone() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getString('phone')!;
+    String phone = prefs.getString('phone')!;
+    print("in async getPhone homepage: $phone");
+    return phone;
   }
 
   @override
@@ -40,7 +42,7 @@ class _MyHomePageState extends State<MyHomePage> {
       builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
         if(snapshot.hasError) {
           return Text("Error: ${snapshot.error}");
-        } else {
+        } else if(snapshot.hasData) {
             final String phone = snapshot.data!;
             dataProvider.getAllDetails(phone);
             return
@@ -308,6 +310,13 @@ class _MyHomePageState extends State<MyHomePage> {
                   )
                 );
               },
+            ),
+          );
+        }
+        else{
+          return const Scaffold(
+            body: Center(
+              child: Text("No data found"),
             ),
           );
         }
