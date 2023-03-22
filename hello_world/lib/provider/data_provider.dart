@@ -38,221 +38,27 @@ class DataProvider extends ChangeNotifier{
 
       List<String> allUserPhones = ["8279833510", "8595939608", "8930448891", "9502201858"];
 
-      List<String> communities = ["Home", "Office", "Apartment"];
+      List<String> communities = [];
 
       Map<String, List<String>> communityObjectMap = {
-        "Home": ["Oven", "PC", "TV", "Fridge"],
-        "Office": ["Chairs", "Books", "Speaker"],
-        "Apartment": ["Car", "Computer", "TV"],
       };
 
       Map<String, List<Member>> communityMembersMap = {
-        "Home": [
-          Member(name: "PersonA", phone: "8279833510", isCreator: true,),
-          Member(name: "PersonB", phone: "8595939608", isCreator: false,),
-          Member(name: "PersonC", phone: "8930448891", isCreator: false,),
-          Member(name: "PersonD", phone: "9502201858", isCreator: false,),
-        ],
-        "Office": [
-          Member(name: "PersonA", phone: "8279833510", isCreator: true,),
-          Member(name: "PersonE", phone: "8595939608", isCreator: false,),
-          Member(name: "PersonF", phone: "8930448891", isCreator: false,),
-          Member(name: "PersonG", phone: "9502201858", isCreator: false,),
-        ],
-        "Apartment": [
-          Member(name: "PersonA", phone: "8279833510", isCreator: true,),
-          Member(name: "PersonH", phone: "8595939608", isCreator: false,),
-          Member(name: "PersonI", phone: "8930448891", isCreator: false,),
-          Member(name: "PersonJ", phone: "9502201858", isCreator: false,),
-        ]
       };
 
       Map<String, Map<String,List<Expense> >> objectUnresolvedExpenseMap = {
-        "Home":{
-            "Oven": [
-            Expense(objectName: "Oven", creator: "PersonA", description: "Oven Service", amount: 750, isPaid: false,communityName: "Home",),
-            Expense(objectName: "Oven", creator: "PersonB", description: "Oven Repair", amount: 1000, isPaid: false,communityName: "Home",),
-          ],
-          "PC": [
-            Expense(objectName: "PC", creator: "PersonA", description: "PC Service", amount: 750, isPaid: false,communityName: "Home",),
-            Expense(objectName: "PC", creator: "PersonB", description: "PC Repair", amount: 1000, isPaid: false,communityName: "Home",),
-          ],
-          "TV": [
-            Expense(objectName: "TV", creator: "PersonA", description: "TV Service", amount: 750, isPaid: false,communityName: "Home",),
-            Expense(objectName: "TV", creator: "PersonB", description: "TV Repair", amount: 1000, isPaid: false,communityName: "Home",),
-          ],
-          "Fridge": [
-            Expense(objectName: "Fridge", creator: "PersonA", description: "Fridge Service", amount: 750, isPaid: false,communityName: "Home",),
-            Expense(objectName: "Fridge", creator: "PersonB", description: "Fridge Repair", amount: 1000, isPaid: false,communityName: "Home",),
-          ]
-        },
-        "Office": {
-          "Chairs": [
-            Expense(objectName: "Chairs", creator: "PersonA", description: "Chair Service", amount: 750, isPaid: false,communityName: "Office",),
-            Expense(objectName: "Chairs", creator: "PersonB", description: "Chair Repair", amount: 1000, isPaid: false,communityName: "Office",),
-          ],
-          "Books": [
-            Expense(objectName: "Books", creator: "PersonA", description: "Book Service", amount: 750, isPaid: false,communityName: "Office",),
-            Expense(objectName: "Books", creator: "PersonB", description: "Book Repair", amount: 1000, isPaid: false,communityName: "Office",),
-          ],
-          "Speaker": [
-            Expense(objectName: "Speaker", creator: "PersonA", description: "Speaker Service", amount: 750, isPaid: false,communityName: "Office",),
-            Expense(objectName: "Speaker", creator: "PersonB", description: "Speaker Repair", amount: 1000, isPaid: false,communityName: "Office",),
-          ],
-        },
-
-        "Apartment": {
-            "Car": [
-            Expense(objectName: "Car", creator: "PersonA", description: "Car Service", amount: 750, isPaid: false,communityName: "Apartment",),
-            Expense(objectName: "Car", creator: "PersonB", description: "Car Repair", amount: 1000, isPaid: false,communityName: "Apartment",),
-          ],
-          "Computer": [
-            Expense(objectName: "Computer", creator: "PersonA", description: "Computer Service", amount: 750, isPaid: false,communityName: "Apartment",),
-            Expense(objectName: "Computer", creator: "PersonB", description: "Computer Repair", amount: 1000, isPaid: false,communityName: "Apartment",),
-          ],
-          "TV": [
-            Expense(objectName: "TV", creator: "PersonA", description: "TV Service", amount: 750, isPaid: false,communityName: "Apartment",),
-            Expense(objectName: "TV", creator: "PersonB", description: "TV Repair", amount: 1000, isPaid: false,communityName: "Apartment",),
-          ],
-        }
-
       };
 
       Map<String, Map<String,List<Expense> >> objectResolvedExpenseMap = {
-
-        "Home":{
-          "Oven": [
-            Expense(objectName: "Oven", creator: "PersonA", description: "Oven Service", amount: 750, isPaid: true,communityName: "Home",),
-          ],
-          "PC": [
-            Expense(objectName: "PC", creator: "PersonA", description: "PC Service", amount: 750, isPaid: true,communityName: "Home",),
-          ],
-          "TV": [
-            Expense(objectName: "TV", creator: "PersonA", description: "TV Service", amount: 750, isPaid: true,communityName: "Home",),
-          ],
-          "Fridge": [
-            Expense(objectName: "Fridge", creator: "PersonA", description: "Fridge Service", amount: 750, isPaid: true,communityName: "Home",),
-          ],
-        },
-
-        "Office": {
-          "Chairs": [
-            Expense(objectName: "Chairs", creator: "PersonA", description: "Chair Service", amount: 750, isPaid: true,communityName: "Office",),
-          ],
-          "Books": [
-            Expense(objectName: "Books", creator: "PersonA", description: "Book Service", amount: 750, isPaid: true,communityName: "Office",),
-          ],
-          "Speaker": [
-            Expense(objectName: "Speaker", creator: "PersonA", description: "Speaker Service", amount: 750, isPaid: true,communityName: "Office",),
-          ],
-        },
-
-        "Apartment": {
-          "Car": [
-            Expense(objectName: "Car", creator: "PersonA", description: "Car Service", amount: 750, isPaid: true,communityName: "Apartment",),
-          ],
-          "Computer": [
-            Expense(objectName: "Computer", creator: "PersonA", description: "Computer Service", amount: 750, isPaid: true,communityName: "Apartment",),
-          ],
-          "TV": [
-            Expense(objectName: "TV", creator: "PersonA", description: "TV Service", amount: 750, isPaid: true,communityName: "Apartment",),
-          ],
-        }
       };
 
       Map<String, Map<String,List<Service> >> objectUnresolvedServices = {
 
-        "Home":{
-          "Oven": [
-            Service(objectName: "Oven", creator: "PersonA", description: "Oven Service", isResolved: false,communityName: "Home",),
-            Service(objectName: "Oven", creator: "PersonB", description: "Oven Repair", isResolved: false,communityName: "Home",),
-          ],
-          "PC": [
-            Service(objectName: "PC", creator: "PersonA", description: "PC Service", isResolved: false,communityName: "Home",),
-            Service(objectName: "PC", creator: "PersonB", description: "PC Repair", isResolved: false,communityName: "Home",),
-          ],
-          "TV": [
-            Service(objectName: "TV", creator: "PersonA", description: "TV Service", isResolved: false,communityName: "Home",),
-            Service(objectName: "TV", creator: "PersonB", description: "TV Repair", isResolved: false,communityName: "Home",),
-          ],
-          "Fridge": [
-            Service(objectName: "Fridge", creator: "PersonA", description: "Fridge Service", isResolved: false,communityName: "Home",),
-            Service(objectName: "Fridge", creator: "PersonB", description: "Fridge Repair", isResolved: false,communityName: "Home",),
-          ],
-        },
-
-        "Office": {
-          "Chairs": [
-            Service(objectName: "Chairs", creator: "PersonA", description: "Chair Service", isResolved: false,communityName: "Office",),
-            Service(objectName: "Chairs", creator: "PersonB", description: "Chair Repair", isResolved: false,communityName: "Office",),
-          ],
-          "Books": [
-            Service(objectName: "Books", creator: "PersonA", description: "Book Service", isResolved: false,communityName: "Office",),
-            Service(objectName: "Books", creator: "PersonB", description: "Book Repair", isResolved: false,communityName: "Office",),
-          ],
-          "Speaker": [
-            Service(objectName: "Speaker", creator: "PersonA", description: "Speaker Service", isResolved: false,communityName: "Office",),
-            Service(objectName: "Speaker", creator: "PersonB", description: "Speaker Repair", isResolved: false,communityName: "Office",),
-          ],
-        },
-
-        "Apartment": {
-          "Car": [
-            Service(objectName: "Car", creator: "PersonA", description: "Car Service", isResolved: false,communityName: "Apartment",),
-            Service(objectName: "Car", creator: "PersonB", description: "Car Repair", isResolved: false,communityName: "Apartment",),
-          ],
-          "Computer": [
-            Service(objectName: "Computer", creator: "PersonA", description: "Computer Service", isResolved: false,communityName: "Apartment",),
-            Service(objectName: "Computer", creator: "PersonB", description: "Computer Repair", isResolved: false,communityName: "Apartment",),
-          ],
-          "TV": [
-            Service(objectName: "TV", creator: "PersonA", description: "TV Service", isResolved: false,communityName: "Apartment",),
-            Service(objectName: "TV", creator: "PersonB", description: "TV Repair", isResolved: false,communityName: "Apartment",),
-          ],
-        }
 
       };
 
       Map<String, Map<String,List<Service> >> objectResolvedServices = {
 
-        "Home":{
-          "Oven": [
-            Service(objectName: "Oven", creator: "PersonA", description: "Oven Service", isResolved: true,communityName: "Home",),
-          ],
-          "PC": [
-            Service(objectName: "PC", creator: "PersonA", description: "PC Service", isResolved: true,communityName: "Home",),
-          ],
-          "TV": [
-            Service(objectName: "TV", creator: "PersonA", description: "TV Service", isResolved: true,communityName: "Home",),
-          ],
-          "Fridge": [
-            Service(objectName: "Fridge", creator: "PersonA", description: "Fridge Service", isResolved: true,communityName: "Home",),
-          ],
-        },
-
-        "Office": {
-          "Chairs": [
-            Service(objectName: "Chairs", creator: "PersonA", description: "Chair Service", isResolved: true,communityName: "Office",),
-          ],
-          "Books": [
-            Service(objectName: "Books", creator: "PersonA", description: "Book Service", isResolved: true,communityName: "Office",),
-          ],
-          "Speaker": [
-            Service(objectName: "Speaker", creator: "PersonA", description: "Speaker Service", isResolved: true,communityName: "Office",),
-          ],
-        },
-
-        "Apartment": {
-          "Car": [
-            Service(objectName: "Car", creator: "PersonA", description: "Car Service", isResolved: true,communityName: "Apartment",),
-          ],
-          "Computer": [
-            Service(objectName: "Computer", creator: "PersonA", description: "Computer Service", isResolved: true,communityName: "Apartment",),
-          ],
-          "TV": [
-            Service(objectName: "TV", creator: "PersonA", description: "TV Service", isResolved: true,communityName: "Apartment",),
-          ],
-        }
       };
 
 

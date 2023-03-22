@@ -3,10 +3,8 @@ import 'package:hello_world/Pages/main_pages/community_page.dart';
 import 'package:hello_world/Pages/profile_pages/profile_page.dart';
 import 'package:provider/provider.dart';
 import '../../components/community.dart';
-import '../../screens/add_screens/add_community.dart';
 import '../add_from_pages/add_home_page_floating_button.dart';
 import '../../provider/data_provider.dart';
-import 'package:hello_world/Pages/profile_pages/profile_page.dart';
 import 'package:hello_world/Pages/main_pages/navigation_page.dart';
 
 class MyHomePage extends StatefulWidget {
