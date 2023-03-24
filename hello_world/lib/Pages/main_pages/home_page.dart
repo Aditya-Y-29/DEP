@@ -169,35 +169,35 @@ class _MyHomePageState extends State<MyHomePage> {
                                 ],
                               ),
                             ),
-                            Container(
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                children: [
-                                  Container(
-                                    height: 50,
-                                    width: 50,
-                                    child: FloatingActionButton(
-                                      onPressed: () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) => AddFromHomePage(selectedPage: 2),
-                                          ),
-                                        );
-                                      },
-                                      backgroundColor: Colors.green,
-                                      child: const Icon(Icons.home_repair_service),
-                                    ),
-                                  ),
-                                  const Text(
-                                    "Service",
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
+                            // Container(
+                            //   child: Column(
+                            //     mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            //     children: [
+                            //       Container(
+                            //         height: 50,
+                            //         width: 50,
+                            //         child: FloatingActionButton(
+                            //           onPressed: () {
+                            //             Navigator.push(
+                            //               context,
+                            //               MaterialPageRoute(
+                            //                 builder: (context) => AddFromHomePage(selectedPage: 2),
+                            //               ),
+                            //             );
+                            //           },
+                            //           backgroundColor: Colors.green,
+                            //           child: const Icon(Icons.home_repair_service),
+                            //         ),
+                            //       ),
+                            //       const Text(
+                            //         "Service",
+                            //         style: TextStyle(
+                            //           fontSize: 12,
+                            //         ),
+                            //       ),
+                            //     ],
+                            //   ),
+                            // ),
                             Container(
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.spaceAround,

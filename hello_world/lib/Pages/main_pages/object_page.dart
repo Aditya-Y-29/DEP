@@ -81,7 +81,7 @@ class _ObjectPageState extends State<ObjectPage> {
                   bottom: const TabBar(
                   tabs: [
                     Tab(icon: Icon(Icons.currency_rupee_outlined),),
-                    Tab(icon: Icon(Icons.home_repair_service),),
+                    // Tab(icon: Icon(Icons.home_repair_service),),
                   ],
                   indicatorColor: Colors.white,
                 ),
@@ -90,7 +90,7 @@ class _ObjectPageState extends State<ObjectPage> {
               body: TabBarView(
                 children: [
                   ObjectExpenseScreen(objectName: widget.objectName,communityName: widget.communityName,),
-                  ObjectServiceScreen(objectName: widget.objectName,communityName: widget.communityName,),
+                  // ObjectServiceScreen(objectName: widget.objectName,communityName: widget.communityName,),
                 ],
               ),
               floatingActionButton: FloatingActionButton(

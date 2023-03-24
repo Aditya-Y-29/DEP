@@ -26,9 +26,9 @@ class _AddFromCommunityPageData extends State<AddFromCommunityPage> {
           bottom: const TabBar(
             tabs: [
               Tab(icon: Icon(Icons.check_circle_outline),),
+              Tab(icon: Icon(Icons.data_object),),
               Tab(icon: Icon(Icons.currency_rupee_outlined),),
-              Tab(icon: Icon(Icons.home_repair_service),),
-              Tab(icon: Icon(Icons.data_object),)
+              // Tab(icon: Icon(Icons.home_repair_service),),
             ],
             indicatorColor: Colors.white,
           ),
@@ -36,9 +36,9 @@ class _AddFromCommunityPageData extends State<AddFromCommunityPage> {
         body: TabBarView(
           children: [
             ResolveScreen(isFromObjectPage: false, communityName: widget.communityName, objectName: "",),
-            ExpenseScreen(isFromCommunityPage: true, isFromObjectPage: false, communityName: widget.communityName, objectName: "",),
-            ServiceScreen(isFromCommunityPage: true, isFromObjectPage: false, communityName: widget.communityName, objectName: "",),
             ObjectScreen(isFromCommunityPage: true, communityName: widget.communityName),
+            ExpenseScreen(isFromCommunityPage: true, isFromObjectPage: false, communityName: widget.communityName, objectName: "",),
+            // ServiceScreen(isFromCommunityPage: true, isFromObjectPage: false, communityName: widget.communityName, objectName: "",),
           ],
         ),
       ),
