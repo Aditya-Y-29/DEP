@@ -99,13 +99,13 @@ class _CommunityState extends State<Community> {
                         MaterialPageRoute(builder: (context) => AddFromHomePage(selectedPage: 0)),
                       );
                     }
-                    else if (value.name == "Add Service")
-                    {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => AddFromHomePage(selectedPage: 1)),
-                      );
-                    }
+                    // else if (value.name == "Add Service")
+                    // {
+                    //   Navigator.push(
+                    //     context,
+                    //     MaterialPageRoute(builder: (context) => AddFromHomePage(selectedPage: 1)),
+                    //   );
+                    // }
                   },
                   // color: Colors.black,
                 ),

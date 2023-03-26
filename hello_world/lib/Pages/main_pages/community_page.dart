@@ -55,13 +55,6 @@ class _CommunityPageState extends State<CommunityPage> {
           Container(
             margin: const EdgeInsets.all(5),
             padding: const EdgeInsets.all(1),
-            // decoration: BoxDecoration(
-            //   borderRadius: BorderRadius.circular(100),
-            //   border: Border.all(
-            //     color: Colors.white,
-            //     width: 2,
-            //   ),
-            // ),
             child: GestureDetector(
               onTap: () {
                 Navigator.push(
@@ -77,13 +70,6 @@ class _CommunityPageState extends State<CommunityPage> {
           Container(
             margin: const EdgeInsets.all(5),
             padding: const EdgeInsets.all(1),
-            // decoration: BoxDecoration(
-            //   borderRadius: BorderRadius.circular(100),
-            //   border: Border.all(
-            //     color: Colors.white,
-            //     width: 2,
-            //   ),
-            // ),
             child: GestureDetector(
               onTap: () {
                 Navigator.push(
@@ -208,6 +194,34 @@ class _CommunityPageState extends State<CommunityPage> {
                             ],
                           ),
                         ),
+                        // Container(
+                        //   child: Column(
+                        //     mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        //     children: [
+                        //       Container(
+                        //         height: 50,
+                        //         width: 50,
+                        //         child: FloatingActionButton(
+                        //           onPressed: () {
+                        //             Navigator.push(
+                        //               context,
+                        //               MaterialPageRoute(
+                        //                 builder: (context) => AddFromCommunityPage(selectedPage: 2, communityName: widget.communityName),
+                        //               ),
+                        //             );
+                        //           },
+                        //           child: const Icon(Icons.home_repair_service),
+                        //         ),
+                        //       ),
+                        //       const Text(
+                        //         "Service",
+                        //         style: TextStyle(
+                        //           fontSize: 12,
+                        //         ),
+                        //       ),
+                        //     ],
+                        //   ),
+                        // ),
                         Container(
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -220,35 +234,7 @@ class _CommunityPageState extends State<CommunityPage> {
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (context) => AddFromCommunityPage(selectedPage: 2, communityName: widget.communityName),
-                                      ),
-                                    );
-                                  },
-                                  child: const Icon(Icons.home_repair_service),
-                                ),
-                              ),
-                              const Text(
-                                "Service",
-                                style: TextStyle(
-                                  fontSize: 12,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Container(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              Container(
-                                height: 50,
-                                width: 50,
-                                child: FloatingActionButton(
-                                  onPressed: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => AddFromCommunityPage(selectedPage: 3, communityName: widget.communityName)
+                                        builder: (context) => AddFromCommunityPage(selectedPage: 2, communityName: widget.communityName)
                                       ),
                                     );
                                   },

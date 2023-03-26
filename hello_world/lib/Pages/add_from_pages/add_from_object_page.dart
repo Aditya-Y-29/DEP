@@ -26,7 +26,7 @@ class _AddFromObjectPageData extends State<AddFromObjectPage> {
             tabs: [
               Tab(icon: Icon(Icons.check_circle_outline),),
               Tab(icon: Icon(Icons.currency_rupee_outlined),),
-              Tab(icon: Icon(Icons.home_repair_service),),
+              // Tab(icon: Icon(Icons.home_repair_service),),
             ],
             indicatorColor: Colors.white,
           ),
@@ -35,7 +35,7 @@ class _AddFromObjectPageData extends State<AddFromObjectPage> {
           children: [
             ResolveScreen(isFromObjectPage: true, communityName: widget.communityName, objectName: widget.objectName,),
             ExpenseScreen(isFromCommunityPage: false, isFromObjectPage: true, communityName: widget.communityName, objectName: widget.objectName,),
-            ServiceScreen(isFromCommunityPage: false, isFromObjectPage: true, communityName: widget.communityName, objectName: widget.objectName,),
+            // ServiceScreen(isFromCommunityPage: false, isFromObjectPage: true, communityName: widget.communityName, objectName: widget.objectName,),
           ],
         ),
       ),
