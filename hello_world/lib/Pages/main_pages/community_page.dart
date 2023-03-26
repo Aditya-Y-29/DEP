@@ -234,7 +234,7 @@ class _CommunityPageState extends State<CommunityPage> {
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (context) => AddFromCommunityPage(selectedPage: 3, communityName: widget.communityName)
+                                        builder: (context) => AddFromCommunityPage(selectedPage: 2, communityName: widget.communityName)
                                       ),
                                     );
                                   },
