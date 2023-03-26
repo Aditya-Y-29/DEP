@@ -10,13 +10,11 @@ import 'package:shared_preferences/shared_preferences.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  var isLoggedIn = await getLoginState();
-  runApp(MyApp(isLoggedIn: isLoggedIn));
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key, required this.isLoggedIn});
-  final String? isLoggedIn;
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -33,15 +31,8 @@ class MyApp extends StatelessWidget {
         routes: {
         '/home': (context) => const MyHomePage(),
         '/login': (context) => const MyPhone(),
-        '/login': (context) => const MyPhone(),
       },
       ),
     );
   }
 }
-
-void logoutAndClearPreferences() async {
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  prefs.clear();
-}
-
