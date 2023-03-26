@@ -184,13 +184,19 @@ class DataProvider extends ChangeNotifier{
       }
 
       void deleteState(){
+        user=null;
         communities=[];
+        communitiesdb=[];
         communityObjectMap={};
         objectUnresolvedExpenseMap={};
         // objectUnresolvedServices={};
         objectResolvedExpenseMap={};
         // objectResolvedServices={};
         communitiesdb=[];
+        objectUnresolvedExpenseMapdb={};
+        objectResolvedExpenseMapdb={};
+        allUserPhones=[];
+        communityMembersMap={};
         notifyListeners();
       }
 

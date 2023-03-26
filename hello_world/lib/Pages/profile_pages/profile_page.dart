@@ -4,6 +4,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:hello_world/constants.dart';
 import 'package:hello_world/widgets/profile_list_item.dart';
+import '../../provider/data_provider.dart';
+import 'package:provider/provider.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);
@@ -30,6 +32,7 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ScreenUtil.init(context, height: 896, width: 414, allowFontScaling: true);
+    final providerCommunity = Provider.of<DataProvider>(context, listen: false);
 
     var profileInfo = Expanded(
       child: Column(
@@ -70,12 +73,12 @@ class ProfileScreen extends StatelessWidget {
           ),
           SizedBox(height: kSpacingUnit.w * 2),
           Text(
-            'Aditya',
+            "${providerCommunity.user?.username}",
             style: kTitleTextStyle,
           ),
           SizedBox(height: kSpacingUnit.w * 0.5),
           Text(
-            'Aditya@gmail.com',
+            "${providerCommunity.user?.email}",
             style: kCaptionTextStyle,
           ),
           SizedBox(height: kSpacingUnit.w * 2),
@@ -94,9 +97,6 @@ class ProfileScreen extends StatelessWidget {
       ],
     );
 
-    TextEditingController userNameController = TextEditingController();
-    TextEditingController phoneNumberController = TextEditingController();
-    TextEditingController emailController = TextEditingController();
 
     return ThemeSwitchingArea(
       child: Builder(
@@ -106,49 +106,67 @@ class ProfileScreen extends StatelessWidget {
               children: <Widget>[
                 SizedBox(height: kSpacingUnit.w * 4),
                 header,
-                Expanded(
-                  child: ListView(
-                    children: <Widget>[
-                      TextFormField(
-                        decoration: const InputDecoration(
-                          icon: Icon(Icons.edit),
-                          hintText: 'Username',
-                        ),
-                        controller: userNameController,
-                      ),
-                      SizedBox(height: 10,),
-                      TextFormField(
-                        decoration: const InputDecoration(
-                          icon: Icon(Icons.edit),
-                          hintText: 'phone Number',
-                        ),
-                        controller: phoneNumberController,
-                      ),
-                      SizedBox(height: 10,),
-                      TextFormField(
-                        decoration: const InputDecoration(
-                          icon: Icon(Icons.edit),
-                          hintText: 'Email Id',
-                        ),
-                        controller: emailController,
-                      ),
-                      SizedBox(height: 10,),
-                      Container(
-                          margin: const EdgeInsets.only(top: 20.0),
-                          child: FloatingActionButton(
-                            onPressed: () {
-                            },
-                            child: const Icon(Icons.check),
-                          )),
-                      SizedBox(height: 80,),
-                      ProfileListItem(
-                        icon: LineAwesomeIcons.alternate_sign_out,
-                        text: 'Logout',
-                        hasNavigation: false,
-                      ),
-                    ],
-                  ),
-                )
+                ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                      foregroundColor: Colors.white, backgroundColor: Colors.green,
+                      shadowColor: Colors.greenAccent,
+                      elevation: 3,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(32.0)),
+                      fixedSize: const Size(150, 5)
+                    ),
+                    onPressed: () {
+                      providerCommunity.deleteState();
+                      Navigator.pushNamedAndRemoveUntil(context, '/login', (route) => false);
+                    },
+                    child: Text('Logout'),
+                    
+                  )
+                // Expanded(
+                  // child: ListView(
+                    // children: <Widget>[
+                    //   TextFormField(
+                    //     // decoration: const InputDecoration(
+                    //     //   icon: Icon(Icons.edit),
+
+                    //     // ),
+                    //     initialValue: "UserName: ${providerCommunity.user?.username}",
+                    //   ),
+                    //   SizedBox(height: 10,),
+                    //   TextFormField(
+                    //     // decoration: const InputDecoration(
+                    //     //   icon: Icon(Icons.edit),
+                    //     //   hintText: 'phone Number',
+                    //     // ),
+                    //     initialValue: "Phone Number: ${providerCommunity.user?.phoneNo}",
+                    //   ),
+                    //   SizedBox(height: 10,),
+                    //   TextFormField(
+                    //     // decoration: const InputDecoration(
+                    //     //   icon: Icon(Icons.edit),
+                    //     //   hintText: 'Email Id',
+                    //     // ),
+                    //     initialValue: "Email Id: ${providerCommunity.user?.email}",
+                    //   ),
+                    //   SizedBox(height: 10,),
+                    //   // Container(
+                    //   //     margin: const EdgeInsets.only(top: 20.0),
+                    //   //     child: FloatingActionButton(
+                    //   //       onPressed: () {
+                    //   //       },
+                    //   //       child: const Icon(Icons.check),
+                    //   //     )),
+                    //   SizedBox(height: 80,),
+                    //   ProfileListItem(
+                    //     icon: LineAwesomeIcons.alternate_sign_out,
+                    //     text: 'Logout',
+                    //     hasNavigation: false,
+                        
+                    //   ),
+                    // ],
+                  // ),
+
+                // )
               ],
             ),
           );
