@@ -4,32 +4,35 @@ import 'package:hello_world/Pages/main_pages/home_page.dart';
 import 'Pages/auth_pages/phone.dart';
 import 'provider/data_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(const MyApp());
+  var isLoggedIn = await getLoginState();
+  runApp(MyApp(isLoggedIn: isLoggedIn));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({super.key, required this.isLoggedIn});
+  final String? isLoggedIn;
 
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (context) => DataProvider(),
-
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           primarySwatch: Colors.green,
           fontFamily: 'OpenSans',
-          scaffoldBackgroundColor: Colors.green.shade50
+          scaffoldBackgroundColor: Colors.green.shade50,
         ),
         home: const MyPhone(),
         routes: {
         '/home': (context) => const MyHomePage(),
+        '/login': (context) => const MyPhone(),
         '/login': (context) => const MyPhone(),
       },
       ),
@@ -37,4 +40,8 @@ class MyApp extends StatelessWidget {
   }
 }
 
+void logoutAndClearPreferences() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  prefs.clear();
+}
 

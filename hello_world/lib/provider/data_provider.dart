@@ -2,6 +2,7 @@
 import 'dart:developer';
 import 'dart:math';
 
+import 'package:async/async.dart';
 import 'package:flutter/material.dart';
 import 'package:hello_world/Models/community.dart';
 import 'package:hello_world/components/expense.dart';
@@ -21,6 +22,9 @@ import '../database/db_expenses.dart';
 import '../database/db_services.dart';
 
 class DataProvider extends ChangeNotifier{
+
+      final AsyncMemoizer _memoizer = AsyncMemoizer();
+
       int communitiesIndex=0;
       int objectIndex = 0;
       int expenseIndex = 0;
@@ -46,9 +50,11 @@ class DataProvider extends ChangeNotifier{
 
 
       void checkuser(String phoneNo) async {
+        print("in checkuser, phone no: $phoneNo");
         user=await UserDataBaseService.getUser(phoneNo);
+        print("in checkuser, phone no: $user");
       }
-
+      
       void getCommunityMembers(String phone) async {
         List<CommunityModel>? communityList = await UserDataBaseService.getCommunities(phone);
         for(int i=0;i<communityList!.length;i++){
@@ -70,26 +76,34 @@ class DataProvider extends ChangeNotifier{
         notifyListeners();
       }
 
-      Future<void> getAlldetails(String phoneNo) async {
+      // Future<String> getNameFromPhone(String phone) async {
+      //   String name = await UserDataBaseService.getNameFromPhone(phone);
+      //   return name;
+      // }
+
+      Future<void> getAllDetails(String phoneNo) async {
+        _memoizer.runOnce(() async {
+
+          String name = await UserDataBaseService.getNameFromPhone(phoneNo);
 
         checkuser(phoneNo);
         List<CommunityModel>? communitytemp=await UserDataBaseService.getCommunities(phoneNo);
         communitiesdb=communitytemp;
 
-        for(int i=0;i<communitytemp!.length;i++){
-          communities.add(communitytemp[i].name);
-          notifyListeners();
-          communityObjectMap[communitytemp[i].name] = [];
-          communityObjectMapdb![communitytemp[i]] = [];
+          for(int i=0;i<communityTemp!.length;i++){
+            communities.add(communityTemp[i].name);
+            notifyListeners();
+            communityObjectMap[communityTemp[i].name] = [];
+            communityObjectMapdb![communityTemp[i]] = [];
 
-          objectUnresolvedExpenseMap[communitytemp[i].name] = {};
-          objectUnresolvedExpenseMapdb![communitytemp[i]] = {};
+            objectUnresolvedExpenseMap[communityTemp[i].name] = {};
+            objectUnresolvedExpenseMapdb![communityTemp[i]] = {};
 
           // objectUnresolvedServices[communitytemp[i].name] = {};
           // objectUnresolvedServiceMapdb![communitytemp[i]] = {};
 
-          objectResolvedExpenseMap[communitytemp[i].name] = {};
-          objectResolvedExpenseMapdb![communitytemp[i]] = {};
+            objectResolvedExpenseMap[communityTemp[i].name] = {};
+            objectResolvedExpenseMapdb![communityTemp[i]] = {};
 
           // objectResolvedServices[communitytemp[i].name] = {};
           // objectResolvedServiceMapdb![communitytemp[i]] = {};
@@ -100,54 +114,56 @@ class DataProvider extends ChangeNotifier{
         getCommunityMembers(phoneNo);
 
 
-        for(int i=0;i<communitytemp.length;i++){
-          String? communityID=await CommunityDataBaseService.getCommunityID(communitytemp[i]);
-          List<ObjectsModel>? objecttemp=await ObjectDataBaseService.getObjects(communityID!);
+          for(int i=0;i<communityTemp.length;i++){
+            String? communityID=await CommunityDataBaseService.getCommunityID(communityTemp[i]);
+            List<ObjectsModel>? objectTemp=await ObjectDataBaseService.getObjects(communityID!);
 
-          for(int j=0;j<objecttemp!.length;j++){
-            communityObjectMap[communitytemp[i].name]!.add(objecttemp[j].name);
-            communityObjectMapdb![communitytemp[i]]!.add(objecttemp[j]);
+            for(int j=0;j<objectTemp!.length;j++){
+              communityObjectMap[communityTemp[i].name]!.add(objectTemp[j].name);
+              communityObjectMapdb![communityTemp[i]]!.add(objectTemp[j]);
 
+              // print(communityTemp[i].name+" "+objectTemp[j].name);
 
-            objectUnresolvedExpenseMap[communitytemp[i].name]![objecttemp[j].name] = [];
-            objectUnresolvedExpenseMapdb![communitytemp[i]]![objecttemp[j]] = [];
+              objectUnresolvedExpenseMap[communityTemp[i].name]![objectTemp[j].name] = [];
+              objectUnresolvedExpenseMapdb![communityTemp[i]]![objectTemp[j]] = [];
 
             // objectUnresolvedServices[communitytemp[i].name]![objecttemp[j].name] = [];
             // objectUnresolvedServiceMapdb![communitytemp[i]]![objecttemp[j]] = [];
 
-            objectResolvedExpenseMap[communitytemp[i].name]![objecttemp[j].name] = [];
-            objectResolvedExpenseMapdb![communitytemp[i]]![objecttemp[j]] = [];
+              objectResolvedExpenseMap[communityTemp[i].name]![objectTemp[j].name] = [];
+              objectResolvedExpenseMapdb![communityTemp[i]]![objectTemp[j]] = [];
 
             // objectResolvedServices[communitytemp[i].name]![objecttemp[j].name] = [];
             // objectResolvedServiceMapdb![communitytemp[i]]![objecttemp[j]] = [];
 
-            notifyListeners();
-            List<ExpenseModel>? expensetemp=await ObjectDataBaseService.getExpenses(objecttemp[j]);
+              notifyListeners();
+              List<ExpenseModel>? expenseTemp=await ObjectDataBaseService.getExpenses(objectTemp[j]);
 
-            for(int k=0;k<expensetemp.length;k++){
-              if(expensetemp[k].resolverid==null){
-                objectUnresolvedExpenseMap[communitytemp[i].name]![objecttemp[j].name]!.add(Expense(
-                  communityName: communitytemp[i].name,
-                  objectName: objecttemp[j].name,
-                  creator: await UserDataBaseService.getName(expensetemp[k].creatorID!),
-                  description: expensetemp[k].name,
-                  isPaid: false,
-                  amount: int.parse(expensetemp[k].amount),
-                ));
+              for(int k=0;k<expenseTemp.length;k++){
+                if(expenseTemp[k].resolverid==null){
+                  objectUnresolvedExpenseMap[communityTemp[i].name]![objectTemp[j].name]!.add(Expense(
+                    communityName: communityTemp[i].name,
+                    objectName: objectTemp[j].name,
+                    creator: await UserDataBaseService.getName(expenseTemp[k].creatorID!),
+                    description: expenseTemp[k].name,
+                    isPaid: false,
+                    amount: int.parse(expenseTemp[k].amount),
+                  ));
 
-                objectUnresolvedExpenseMapdb![communitytemp[i]]![objecttemp[j]]!.add(expensetemp[k]);
-              }
-              else{
-                objectResolvedExpenseMap[communitytemp[i].name]![objecttemp[j].name]!.add(Expense(
-                  communityName: communitytemp[i].name,
-                  objectName: objecttemp[j].name,
-                  creator: await UserDataBaseService.getName(expensetemp[k].creatorID!),
-                  description: expensetemp[k].name,
-                  isPaid: true,
-                  amount: int.parse(expensetemp[k].amount),
-                ));
+                  objectUnresolvedExpenseMapdb![communityTemp[i]]![objectTemp[j]]!.add(expenseTemp[k]);
+                }
+                else{
+                  objectResolvedExpenseMap[communityTemp[i].name]![objectTemp[j].name]!.add(Expense(
+                    communityName: communityTemp[i].name,
+                    objectName: objectTemp[j].name,
+                    creator: await UserDataBaseService.getName(expenseTemp[k].creatorID!),
+                    description: expenseTemp[k].name,
+                    isPaid: true,
+                    amount: int.parse(expenseTemp[k].amount),
+                  ));
 
-                objectResolvedExpenseMapdb![communitytemp[i]]![objecttemp[j]]!.add(expensetemp[k]);
+                  objectResolvedExpenseMapdb![communityTemp[i]]![objectTemp[j]]!.add(expenseTemp[k]);
+                }
               }
             }
             notifyListeners();
@@ -179,8 +195,10 @@ class DataProvider extends ChangeNotifier{
             // }
             notifyListeners();
           }
-        }
-        notifyListeners();
+          getAllUserPhones();
+          getCommunityMembers(phoneNo);
+          notifyListeners();
+        });
       }
 
       void deleteState(){
@@ -259,12 +277,12 @@ class DataProvider extends ChangeNotifier{
         CommunityModel ctmp=communitiesdb!.firstWhere((element) => element.name==communityName);
         ObjectsModel otmp = communityObjectMapdb![ctmp]!.firstWhere((element) => element.name==objectName);
         String? objectID=await ObjectDataBaseService.getObjectID(otmp);
+        // print(objectID);
         ExpenseModel expense=ExpenseModel(creatorID: await UserDataBaseService.getUserID(user!.phoneNo),amount: amount.toString(),name: description,objectID: objectID,resolverid: null,description: "", date: null);
         objectUnresolvedExpenseMapdb![ctmp]![otmp]!.add(expense);
         
         ExpenseDataBaseService.createExpense(expense);
-
-        
+        notifyListeners();
       }
 
       // Future<void> addService(String objectName, String creator, String description, String communityName)async {
@@ -315,7 +333,7 @@ class DataProvider extends ChangeNotifier{
       //   ServiceDataBaseService.resolveService(stmp,user!.phoneNo);
       // }
 
-      addMembersToCommunity(String communityName, List<dynamic> names, List<dynamic> phones){
+      addMembersToCommunity(String communityName, List<dynamic> names, List<dynamic> phones, String phoneNo){
         for(int i=0;i<names.length;i++)
           {
             Member member = Member(name: names[i], phone: phones[i], isCreator: false,);
@@ -324,6 +342,8 @@ class DataProvider extends ChangeNotifier{
               CommunityModel ctmp=communitiesdb!.firstWhere((element) => element.name==communityName);
               CommunityDataBaseService.addUserInCommunity(ctmp, member.phone,false);
               }
+            CommunityModel community = CommunityModel(name: communityName, phoneNo: phoneNo);
+            CommunityDataBaseService.addUserInCommunity(community, member.phone, false);
           }
         notifyListeners();
       }

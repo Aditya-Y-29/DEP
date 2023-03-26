@@ -92,12 +92,12 @@ class _CommunityPageState extends State<CommunityPage> {
                   ),
                   child: Image.asset(
                     'assets/images/avatar.png',
-                    width: 40,
+                    width: 30,
                     height: 30,
                     errorBuilder: ( context,  exception,  stackTrace) {
                         return Image.asset(
                               'assets/img1.png',
-                              width: 40,
+                              width: 30,
                               height: 30,
                             );                  
                     },
