@@ -16,38 +16,59 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   int clickedCommunity = 0;
   String communityName = "";
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: clickedCommunity != 0 ? FloatingActionButton(
-        onPressed: () {
-          Navigator.of(context).push(_createRoute(communityName));
-        },
-        backgroundColor: Colors.green,
-        child: const Icon(Icons.arrow_forward_ios, size: 20,),
-      ) : null,
+      floatingActionButton: clickedCommunity != 0
+          ? FloatingActionButton(
+              onPressed: () {
+                Navigator.of(context).push(_createRoute(communityName));
+              },
+              backgroundColor: Colors.green,
+              child: const Icon(
+                Icons.arrow_forward_ios,
+                size: 20,
+              ),
+            )
+          : null,
       appBar: AppBar(
         leading: IconButton(
-          icon: const Icon(Icons.menu, size: 30,),
+          icon: const Icon(
+            Icons.menu,
+            size: 30,
+          ),
           onPressed: () {},
         ),
         title: const Text("Your Communities"),
-        actions:  [
+        actions: [
+          Container(
+            margin: const EdgeInsets.all(5),
+            padding: const EdgeInsets.all(1),
+            child: IconButton(
+              icon: const Icon(
+                Icons.refresh,
+                size: 30,
+              ),
+              onPressed: () async {
+                DataProvider dataProvider =
+                    Provider.of<DataProvider>(context, listen: false);
+                await dataProvider.getAllDetails(dataProvider.user!.phoneNo);
+              },
+            ),
+          ),
           GestureDetector(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const ProfilePage(),
-                ),
-              );
-            },
-            child:
-              Container(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const ProfilePage(),
+                  ),
+                );
+              },
+              child: Container(
                 margin: const EdgeInsets.all(5),
                 // padding: const EdgeInsets.all(1),
                 decoration: BoxDecoration(
@@ -62,13 +83,14 @@ class _MyHomePageState extends State<MyHomePage> {
                   width: 40,
                   height: 30,
                 ),
-              )
-          )
+              ))
         ],
       ),
       body: Consumer<DataProvider>(
         builder: (context, communityDataProvider, child) {
-          return Column(
+          return Container(
+              child: SingleChildScrollView(
+                  child: Column(
             // mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Container(
@@ -91,182 +113,186 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                   ],
                 ),
-
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Container(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              Container(
-                                height: 50,
-                                width: 50,
-                                child: FloatingActionButton(
-                                  onPressed: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => AddFromHomePage(selectedPage: 0),
-                                      ),
-                                    );
-                                  },
-                                  backgroundColor: Colors.green,
-                                  child: const Icon(Icons.home_work),
-                                ),
-                              ),
-                              const Text(
-                                "Community",
-                                style: TextStyle(
-                                  fontSize: 12,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Container(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              Container(
-                                height: 50,
-                                width: 50,
-                                child: FloatingActionButton(
-                                  onPressed: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => AddFromHomePage(selectedPage: 1),
-                                      ),
-                                    );
-                                  },
-                                  backgroundColor: Colors.green,
-                                  child: const Icon(Icons.currency_rupee_outlined),
-                                ),
-                              ),
-                              const Text(
-                                "Expense",
-                                style: TextStyle(
-                                  fontSize: 12,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        // Container(
-                        //   child: Column(
-                        //     mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        //     children: [
-                        //       Container(
-                        //         height: 50,
-                        //         width: 50,
-                        //         child: FloatingActionButton(
-                        //           onPressed: () {
-                        //             Navigator.push(
-                        //               context,
-                        //               MaterialPageRoute(
-                        //                 builder: (context) => AddFromHomePage(selectedPage: 2),
-                        //               ),
-                        //             );
-                        //           },
-                        //           backgroundColor: Colors.green,
-                        //           child: const Icon(Icons.home_repair_service),
-                        //         ),
-                        //       ),
-                        //       const Text(
-                        //         "Service",
-                        //         style: TextStyle(
-                        //           fontSize: 12,
-                        //         ),
-                        //       ),
-                        //     ],
-                        //   ),
-                        // ),
-                        Container(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              Container(
-                                height: 50,
-                                width: 50,
-                                child: FloatingActionButton(
-                                  onPressed: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => AddFromHomePage(selectedPage: 2),
-                                      ),
-                                    );
-                                  },
-                                  backgroundColor: Colors.green,
-                                  child: const Icon(Icons.data_object),
-                                ),
-                              ),
-                              const Text(
-                                  "Object",
-                                style: TextStyle(
-                                  fontSize: 12,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-              Wrap(
-                spacing: 8,
-                runSpacing: 4,
-                children: List.of(communityDataProvider.communities.map((e) {
-                  int k = communityDataProvider.communities.indexOf(e)+1;
-                  return GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        int temp = 1 << (k-1);
-                        if(clickedCommunity >> (k-1) & 1 == 1)
-                          clickedCommunity = clickedCommunity ^ temp;
-                        else{
-                          clickedCommunity = 0;
-                          clickedCommunity = clickedCommunity | temp;
-                        }
-                        communityName = e;
-                      });
-                    },
-                    child: AnimatedContainer(
-                      width: 150,
-                      height: 150,
-                      margin: const EdgeInsets.all(5.0),
-                      padding: const EdgeInsets.only(left: 20.0),
-                      decoration: BoxDecoration(
-                        color: (clickedCommunity >> (k-1) & 1) == 1 ? Colors.green.shade50 : Colors.grey.shade100,
-                        border: Border.all(
-                          color: (clickedCommunity >> (k-1) & 1) == 1 ? Colors.green : Colors.green.withOpacity(0),
-                          width: 2.0,
-                        ),
-                        borderRadius: BorderRadius.circular(20.0),
-                        boxShadow: const [
-                          BoxShadow(
-                            color: Colors.grey,
-                            blurRadius: 15.0, // soften the shadow
-                            spreadRadius: 1.0, //extend the shadow
-                            offset: Offset(
-                              1.0, // Move to right 5  horizontally
-                              1.0, // Move to bottom 5 Vertically
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Container(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Container(
+                            height: 50,
+                            width: 50,
+                            child: FloatingActionButton(
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        AddFromHomePage(selectedPage: 0),
+                                  ),
+                                );
+                              },
+                              backgroundColor: Colors.green,
+                              child: const Icon(Icons.home_work),
                             ),
-                          )
+                          ),
+                          const Text(
+                            "Community",
+                            style: TextStyle(
+                              fontSize: 12,
+                            ),
+                          ),
                         ],
                       ),
-                      duration: const Duration(milliseconds: 250),
-                      curve: Curves.easeInOut,
-                      child: Community(
-                        name: e,
+                    ),
+                    Container(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Container(
+                            height: 50,
+                            width: 50,
+                            child: FloatingActionButton(
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        AddFromHomePage(selectedPage: 1),
+                                  ),
+                                );
+                              },
+                              backgroundColor: Colors.green,
+                              child: const Icon(Icons.currency_rupee_outlined),
+                            ),
+                          ),
+                          const Text(
+                            "Expense",
+                            style: TextStyle(
+                              fontSize: 12,
+                            ),
+                          ),
+                        ],
                       ),
-                    )
-                  );
-                }))
+                    ),
+                    // Container(
+                    //   child: Column(
+                    //     mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    //     children: [
+                    //       Container(
+                    //         height: 50,
+                    //         width: 50,
+                    //         child: FloatingActionButton(
+                    //           onPressed: () {
+                    //             Navigator.push(
+                    //               context,
+                    //               MaterialPageRoute(
+                    //                 builder: (context) => AddFromHomePage(selectedPage: 2),
+                    //               ),
+                    //             );
+                    //           },
+                    //           backgroundColor: Colors.green,
+                    //           child: const Icon(Icons.home_repair_service),
+                    //         ),
+                    //       ),
+                    //       const Text(
+                    //         "Service",
+                    //         style: TextStyle(
+                    //           fontSize: 12,
+                    //         ),
+                    //       ),
+                    //     ],
+                    //   ),
+                    // ),
+                    Container(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Container(
+                            height: 50,
+                            width: 50,
+                            child: FloatingActionButton(
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        AddFromHomePage(selectedPage: 2),
+                                  ),
+                                );
+                              },
+                              backgroundColor: Colors.green,
+                              child: const Icon(Icons.data_object),
+                            ),
+                          ),
+                          const Text(
+                            "Object",
+                            style: TextStyle(
+                              fontSize: 12,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ),
+              Wrap(
+                  spacing: 8,
+                  runSpacing: 4,
+                  children: List.of(communityDataProvider.communities.map((e) {
+                    int k = communityDataProvider.communities.indexOf(e) + 1;
+                    return GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            int temp = 1 << (k - 1);
+                            if (clickedCommunity >> (k - 1) & 1 == 1)
+                              clickedCommunity = clickedCommunity ^ temp;
+                            else {
+                              clickedCommunity = 0;
+                              clickedCommunity = clickedCommunity | temp;
+                            }
+                            communityName = e;
+                          });
+                        },
+                        child: AnimatedContainer(
+                          width: 150,
+                          height: 150,
+                          margin: const EdgeInsets.all(5.0),
+                          padding: const EdgeInsets.only(left: 20.0),
+                          decoration: BoxDecoration(
+                            color: (clickedCommunity >> (k - 1) & 1) == 1
+                                ? Colors.green.shade50
+                                : Colors.grey.shade100,
+                            border: Border.all(
+                              color: (clickedCommunity >> (k - 1) & 1) == 1
+                                  ? Colors.green
+                                  : Colors.green.withOpacity(0),
+                              width: 2.0,
+                            ),
+                            borderRadius: BorderRadius.circular(20.0),
+                            boxShadow: const [
+                              BoxShadow(
+                                color: Colors.grey,
+                                blurRadius: 15.0, // soften the shadow
+                                spreadRadius: 1.0, //extend the shadow
+                                offset: Offset(
+                                  1.0, // Move to right 5  horizontally
+                                  1.0, // Move to bottom 5 Vertically
+                                ),
+                              )
+                            ],
+                          ),
+                          duration: const Duration(milliseconds: 250),
+                          curve: Curves.easeInOut,
+                          child: Community(
+                            name: e,
+                          ),
+                        ));
+                  }))),
             ],
-          );
+          )));
         },
       ),
     );
@@ -275,7 +301,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
 Route _createRoute(String communityName) {
   return PageRouteBuilder(
-    pageBuilder: (context, animation, secondaryAnimation) => CommunityPage(communityName: communityName),
+    pageBuilder: (context, animation, secondaryAnimation) =>
+        CommunityPage(communityName: communityName),
     transitionsBuilder: (context, animation, secondaryAnimation, child) {
       var begin = const Offset(1.0, 0.0);
       var end = Offset.zero;
