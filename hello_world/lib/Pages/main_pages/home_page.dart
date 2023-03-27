@@ -23,13 +23,13 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: clickedCommunity != 0 ? FloatingActionButton(
-        onPressed: () {
-          Navigator.of(context).push(_createRoute(communityName));
-        },
-        backgroundColor: Colors.green,
-        child: const Icon(Icons.arrow_forward_ios, size: 20,),
-      ) : null,
+      // floatingActionButton: clickedCommunity != 0 ? FloatingActionButton(
+      //   onPressed: () {
+      //     Navigator.of(context).push(_createRoute(communityName));
+      //   },
+      //   backgroundColor: Colors.green,
+      //   child: const Icon(Icons.arrow_forward_ios, size: 20,),
+      // ) : null,
       appBar: AppBar(
         leading: IconButton(
           icon: const Icon(Icons.menu, size: 30,),
@@ -231,6 +231,8 @@ class _MyHomePageState extends State<MyHomePage> {
                         }
                         communityName = e;
                       });
+                      Navigator.of(context).push(_createRoute(communityName));
+
                     },
                     child: AnimatedContainer(
                       width: 150,

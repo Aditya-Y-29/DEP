@@ -28,18 +28,18 @@ class _CommunityPageState extends State<CommunityPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: clickedObject != 0 ? FloatingActionButton(
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => ObjectPage(objectName: objectName, communityName: widget.communityName),
-            ),
-          );
-        },
-        backgroundColor: Colors.green,
-        child: const Icon(Icons.arrow_forward_ios, size: 20,),
-      ) : null,
+      // floatingActionButton: clickedObject != 0 ? FloatingActionButton(
+      //   onPressed: () {
+      //     Navigator.push(
+      //       context,
+      //       MaterialPageRoute(
+      //         builder: (context) => ObjectPage(objectName: objectName, communityName: widget.communityName),
+      //       ),
+      //     );
+      //   },
+      //   backgroundColor: Colors.green,
+      //   child: const Icon(Icons.arrow_forward_ios, size: 20,),
+      // ) : null,
       appBar: AppBar(
         leading: IconButton(
           icon: const Icon(Icons.menu, size: 30,),
@@ -270,6 +270,12 @@ class _CommunityPageState extends State<CommunityPage> {
                               }
                               objectName = e;
                             });
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => ObjectPage(objectName: objectName, communityName: widget.communityName),
+                              ),
+                            );
                           },
                           child: AnimatedContainer(
                             width: 150,
