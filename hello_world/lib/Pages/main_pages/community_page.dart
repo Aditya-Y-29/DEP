@@ -117,7 +117,8 @@ class _CommunityPageState extends State<CommunityPage> {
                 children: [
                   Container(
                     height: 100,
-                    margin: const EdgeInsets.all(10),
+                    width: 300,
+                    margin: const EdgeInsets.only(left: 30, right: 30, top: 20, bottom: 20),
                     padding: const EdgeInsets.all(10),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
@@ -182,11 +183,19 @@ class _CommunityPageState extends State<CommunityPage> {
                                       ),
                                     );
                                   },
-                                  child: const Icon(Icons.currency_rupee_outlined),
+                                  child: Container(
+                                    margin: const EdgeInsets.all(8),
+                                    child:  Row(
+                                      children: const [
+                                        Text("+"),
+                                        Icon(Icons.currency_rupee_outlined),
+                                      ],
+                                    ),
+                                  ),
                                 ),
                               ),
                               const Text(
-                                "Expense",
+                                "Add Expense",
                                 style: TextStyle(
                                   fontSize: 12,
                                 ),
@@ -238,11 +247,19 @@ class _CommunityPageState extends State<CommunityPage> {
                                       ),
                                     );
                                   },
-                                  child: const Icon(Icons.data_object),
+                                  child: Container(
+                                    margin: const EdgeInsets.all(5),
+                                    child:  Row(
+                                      children: const [
+                                        Text("+"),
+                                        Icon(Icons.data_object),
+                                      ],
+                                    ),
+                                  ),
                                 ),
                               ),
                               const Text(
-                                "Object",
+                                "Add Object",
                                 style: TextStyle(
                                   fontSize: 12,
                                 ),
