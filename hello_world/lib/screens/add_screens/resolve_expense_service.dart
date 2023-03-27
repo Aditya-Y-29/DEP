@@ -50,7 +50,7 @@ class ResolveData extends State<ResolveScreen> {
 
 
 
-    if( providerCommunity.objectUnresolvedExpenseMap[widget.communityName]![objectDropDown]!.isEmpty || providerCommunity.objectUnresolvedServices[widget.communityName]![objectDropDown]!.isEmpty){
+    if( providerCommunity.objectUnresolvedExpenseMap[widget.communityName]![objectDropDown]!.isEmpty){
       return const Scaffold(
         body: Center(
           child: Text('No unresolved expenses or services'),
@@ -60,8 +60,8 @@ class ResolveData extends State<ResolveScreen> {
 
     Expense expense = providerCommunity.objectUnresolvedExpenseMap[widget.communityName]![objectDropDown]![providerCommunity.expenseIndex];
     resolveExpenseDropDown="${expense.creator} ₹${expense.amount} ${expense.description}";
-    Service service = providerCommunity.objectUnresolvedServices[widget.communityName]![objectDropDown]![providerCommunity.serviceIndex];
-    resolveServiceDropDown="${service.creator} ${service.description}";
+    // Service service = providerCommunity.objectUnresolvedServices[widget.communityName]![objectDropDown]![providerCommunity.serviceIndex];
+    // resolveServiceDropDown="${service.creator} ${service.description}";
 
     return Form(
         key: _formKey,
@@ -179,30 +179,30 @@ class ResolveData extends State<ResolveScreen> {
                         providerCommunity.expenseListen(expense);
                       },
                     ),
-                  if(!isExpense)
-                    DropdownButtonFormField<String>(
-                      decoration: const InputDecoration(
-                        icon: Icon(Icons.check_circle_outline),
-                        hintText: 'Object',
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                        ),
-                      ),
-                      value : resolveServiceDropDown,
-                      items: providerCommunity.objectUnresolvedServices[widget.communityName]![objectDropDown]!.map<DropdownMenuItem<String>>((Service service) {
-                        return DropdownMenuItem<String>(
-                          value: "${service.creator} ${service.description}",
-                          child: Text("${service.creator} ${service.description}"),
-                        );
-                      }).toList(),
-                      onChanged: (String? newValue) {
-                        setState(() {
-                          resolveServiceDropDown = newValue!;
-                        });
-                        Service service = providerCommunity.objectUnresolvedServices[widget.communityName]![objectDropDown]!.firstWhere((element) => "${element.creator} ${element.description}"==resolveServiceDropDown);
-                        providerCommunity.serviceListen(service);
-                      },
-                    ),
+                  // if(!isExpense)
+                  //   DropdownButtonFormField<String>(
+                  //     decoration: const InputDecoration(
+                  //       icon: Icon(Icons.check_circle_outline),
+                  //       hintText: 'Object',
+                  //       border: OutlineInputBorder(
+                  //         borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                  //       ),
+                  //     ),
+                  //     value : resolveServiceDropDown,
+                  //     items: providerCommunity.objectUnresolvedServices[widget.communityName]![objectDropDown]!.map<DropdownMenuItem<String>>((Service service) {
+                  //       return DropdownMenuItem<String>(
+                  //         value: "${service.creator} ${service.description}",
+                  //         child: Text("${service.creator} ${service.description}"),
+                  //       );
+                  //     }).toList(),
+                  //     onChanged: (String? newValue) {
+                  //       setState(() {
+                  //         resolveServiceDropDown = newValue!;
+                  //       });
+                  //       Service service = providerCommunity.objectUnresolvedServices[widget.communityName]![objectDropDown]!.firstWhere((element) => "${element.creator} ${element.description}"==resolveServiceDropDown);
+                  //       providerCommunity.serviceListen(service);
+                  //     },
+                  //   ),
 
                   SizedBox(height: 10,),
 
@@ -222,10 +222,10 @@ class ResolveData extends State<ResolveScreen> {
                             Expense expense = providerCommunity.objectUnresolvedExpenseMap[widget.communityName]![objectDropDown]!.firstWhere((element) => "${element.creator} ₹${element.amount} ${element.description}"==resolveExpenseDropDown);
                             providerCommunity.resolveExpense(expense);
                           }
-                          else{
-                            Service service = providerCommunity.objectUnresolvedServices[widget.communityName]![objectDropDown]!.firstWhere((element) => "${element.creator} ${element.description}"==resolveServiceDropDown);
-                            providerCommunity.resolveService(service);
-                          }
+                          // else{
+                          //   Service service = providerCommunity.objectUnresolvedServices[widget.communityName]![objectDropDown]!.firstWhere((element) => "${element.creator} ${element.description}"==resolveServiceDropDown);
+                          //   providerCommunity.resolveService(service);
+                          // }
                           Navigator.pop(context);
                         },
                         label: Row(

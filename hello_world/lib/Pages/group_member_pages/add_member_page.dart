@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_contacts/flutter_contacts.dart';
+import 'package:hello_world/Pages/auth_pages/phone.dart';
+import 'package:hello_world/Pages/group_member_pages/community_info_page.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 
@@ -132,7 +134,12 @@ class _AddMemberState extends State<AddMembers> {
                 onPressed: () {
                   var selectedNames = selectedContacts.map((contact) => contact.name.first).toList();
                   var selectedPhones = selectedContacts.map((contact) => contact.phones.first.number).toList();
-                  providerCommunity.addMembersToCommunity(widget.communityName, selectedNames, selectedPhones);
+                  providerCommunity.addMembersToCommunity(widget.communityName, selectedNames, selectedPhones, MyPhone.phoneNo);
+                  providerCommunity.memberListener(MyPhone.phoneNo);
+                  // Navigator.push(
+                  //   context,
+                  //   MaterialPageRoute(builder: (context) => CommunityInfo(communityName: widget.communityName)),
+                  // );
                   Navigator.pop(context);
                 },
                 label: Row(

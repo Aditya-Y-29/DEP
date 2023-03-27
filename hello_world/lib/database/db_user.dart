@@ -21,22 +21,19 @@ class UserDataBaseService {
           .get();
 
       if (sp1.docs.isNotEmpty) {
-        print("Email ID already exists");
         return false;
       }
       if (sp2.docs.isNotEmpty) {
-        print("Phone Number already exists");
         return false;
       }
       if (sp3.docs.isNotEmpty) {
-        print("UserName already exists");
         return false;
       }
 
       await _db.collection('users').add(user.toJson());
       return true;
     } catch (e) {
-      print(e);
+      return false;
     }
   }
 
@@ -52,7 +49,6 @@ class UserDataBaseService {
       }
       return null;
     } catch (e) {
-      print(e);
       return null;
     }
   }
@@ -117,6 +113,7 @@ class UserDataBaseService {
           for(var i in sp1.docs){
             final sp2= await _db.collection('communities').doc(i.data()["CommunityID"]).get();
             communities.add(CommunityModel.fromJson(sp2.data()!));
+            // print(sp2.data()!);
           }
         }
       }
@@ -139,4 +136,68 @@ class UserDataBaseService {
       return "";
     }
   }
+
+  static Future<String> getNameFromPhone(String phone) async {
+    try {
+      final sp = await _db
+          .collection('users')
+          .where("Phone Number", isEqualTo: phone)
+          .get();
+      if (sp.docs.isNotEmpty) {
+        return sp.docs.first.data()["Name"];
+      }
+      return "";
+    } catch (e) {
+      print(e);
+      return "";
+    }
+  }
+
+  static Future<List<dynamic>> getCommunityMembers(String communityName, String creatorPhone) async{
+    try{
+      List<dynamic> group=[];
+      print(communityName);
+      print(creatorPhone);
+      String communityID="";
+      final sp= await _db.collection('communities').where("Name", isEqualTo: communityName).where("Phone Number", isEqualTo: creatorPhone).get();
+      if(sp.docs.isNotEmpty){
+        final doc = sp.docs.first;
+        communityID=doc.id;
+        final sp1 = await _db.collection('communityMembers').where("CommunityID", isEqualTo: communityID).get();
+        if(sp1.docs.isNotEmpty){
+          for(var i in sp1.docs){
+            final sp2= await _db.collection('users').doc(i.data()["UserID"]).get();
+            print(sp2.data()!);
+            var groupMember = {
+              ...sp2.data()!,
+              "Is Admin": i.data()["Is Admin"],
+            };
+            group.add(groupMember);
+          }
+        }
+      }
+      return group;
+    }catch(e){
+      print(e);
+      return [];
+    }
+  }
+
+  static Future<List<String>> getAllUserPhones() async {
+    try {
+      List<String> phones = [];
+      final sp = await _db.collection('users').get();
+      if (sp.docs.isNotEmpty) {
+        for (var i in sp.docs) {
+          phones.add(i.data()["Phone Number"]);
+        }
+      }
+      return phones;
+    } catch (e) {
+      print(e);
+      return [];
+    }
+  }
+
+
 }

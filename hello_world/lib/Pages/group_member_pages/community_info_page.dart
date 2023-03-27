@@ -17,7 +17,7 @@ class _CommunityInfoState extends State<CommunityInfo> {
   @override
   Widget build(BuildContext context) {
 
-    final providerCommunity = Provider.of<DataProvider>(context, listen: false);
+    final providerCommunity = Provider.of<DataProvider>(context, listen: true);
 
     return Scaffold(
       appBar: AppBar(
@@ -56,7 +56,7 @@ class _CommunityInfoState extends State<CommunityInfo> {
               child: const Text('Members', style: TextStyle(fontSize: 20),)
             ),
             Expanded(
-              child:
+              child: 
                 ListView(
                   children: List.of(providerCommunity.communityMembersMap[widget.communityName] as Iterable<Widget>)
                 )
