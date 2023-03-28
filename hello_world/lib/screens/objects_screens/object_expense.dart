@@ -17,10 +17,8 @@ class ObjectExpenseScreen extends StatefulWidget {
 class _ObjectExpenseScreenState extends State<ObjectExpenseScreen> {
   @override
   Widget build(BuildContext context) {
-    print("before return consumer");
     return Consumer<DataProvider>(
       builder: (context, objectDataProvider, child) {
-        print("in object expense screen");
 
         return Column(
             children: [

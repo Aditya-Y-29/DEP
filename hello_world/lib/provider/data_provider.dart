@@ -115,6 +115,7 @@ class DataProvider extends ChangeNotifier {
             await ObjectDataBaseService.getExpenses(objectTemp[j]);
 
         for (int k = 0; k < expenseTemp.length; k++) {
+          print("HELLO");
           if (expenseTemp[k].resolverid == null) {
             objectUnresolvedExpenseMap[communityTemp[i].name]![
                     objectTemp[j].name]!
@@ -292,7 +293,7 @@ class DataProvider extends ChangeNotifier {
   }
 
   addMembersToCommunity(String communityName, List<dynamic> names,
-      List<dynamic> phones, String phoneNo) {
+      List<dynamic> phones, String phoneNo) async {
     for (int i = 0; i < names.length; i++) {
       Member member = Member(
         name: names[i],
@@ -300,10 +301,11 @@ class DataProvider extends ChangeNotifier {
         isCreator: false,
       );
       if (!communityMembersMap[communityName]!.contains(member)) {
-        communityMembersMap[communityName]!.add(member);
         CommunityModel ctmp = communitiesdb!
             .firstWhere((element) => element.name == communityName);
-        CommunityDataBaseService.addUserInCommunity(ctmp, member.phone, false);
+        if(await CommunityDataBaseService.addUserInCommunity(ctmp, member.phone, false)){
+          communityMembersMap[communityName]!.add(member);
+        }
       }
       // CommunityModel community =
       //     CommunityModel(name: communityName, phoneNo: phoneNo);
