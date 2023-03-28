@@ -23,7 +23,7 @@ class _AddFromCommunityPageData extends State<AddFromCommunityPage> {
       initialIndex: widget.selectedPage,
       child: Scaffold(
         appBar: AppBar(
-          title: Text(widget.communityName),
+          title: Text('${widget.communityName}'),
           bottom: const TabBar(
             tabs: [
               Tab(icon: Icon(Icons.check_circle_outline),),

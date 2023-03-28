@@ -22,7 +22,7 @@ class _AddFromObjectPageData extends State<AddFromObjectPage> {
       initialIndex: widget.selectedPage,
       child: Scaffold(
         appBar: AppBar(
-          title: Text('${widget.objectName} (${widget.communityName})'),
+          title: Text('${widget.communityName}'),
           bottom: const TabBar(
             tabs: [
               Tab(icon: Icon(Icons.check_circle_outline),),
