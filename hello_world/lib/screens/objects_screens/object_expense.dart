@@ -17,10 +17,13 @@ class ObjectExpenseScreen extends StatefulWidget {
 class _ObjectExpenseScreenState extends State<ObjectExpenseScreen> {
   @override
   Widget build(BuildContext context) {
-    print("before return consumer");
     return Consumer<DataProvider>(
       builder: (context, objectDataProvider, child) {
-        print("in object expense screen");
+        
+        if( objectDataProvider.objectUnresolvedExpenseMap[widget.communityName]![widget.objectName] == null ||  
+            objectDataProvider.objectResolvedExpenseMap[widget.communityName]![widget.objectName] == null){
+          return const Center(child: Text("No Expenses in this Object"));
+        } 
 
         return Column(
             children: [

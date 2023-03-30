@@ -16,7 +16,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   int clickedCommunity = 0;
   String communityName = "";
 
@@ -32,22 +31,39 @@ class _MyHomePageState extends State<MyHomePage> {
       // ) : null,
       appBar: AppBar(
         leading: IconButton(
-          icon: const Icon(Icons.menu, size: 30,),
+          icon: const Icon(
+            Icons.menu,
+            size: 30,
+          ),
           onPressed: () {},
         ),
         title: const Text("Your Communities"),
-        actions:  [
+        actions: [
+          Container(
+            margin: const EdgeInsets.all(5),
+            padding: const EdgeInsets.all(1),
+            child: IconButton(
+              icon: const Icon(
+                Icons.refresh,
+                size: 20,
+              ),
+              onPressed: () async {
+                DataProvider dataProvider =
+                    Provider.of<DataProvider>(context, listen: false);
+                await dataProvider.getAllDetails(dataProvider.user!.phoneNo);
+              },
+            ),
+          ),
           GestureDetector(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const ProfilePage(),
-                ),
-              );
-            },
-            child:
-              Container(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const ProfilePage(),
+                  ),
+                );
+              },
+              child: Container(
                 margin: const EdgeInsets.all(5),
                 // padding: const EdgeInsets.all(1),
                 decoration: BoxDecoration(
@@ -62,14 +78,15 @@ class _MyHomePageState extends State<MyHomePage> {
                   width: 40,
                   height: 30,
                 ),
-              )
-          )
+              ))
         ],
       ),
       body: Consumer<DataProvider>(
         builder: (context, communityDataProvider, child) {
-          return Column(
-            // crossAxisAlignment: CrossAxisAlignment.center,
+          return Container(
+              child: SingleChildScrollView(
+                  child: Column(
+            // mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Container (
                 height: 100,
@@ -143,6 +160,43 @@ class _MyHomePageState extends State<MyHomePage> {
                                   },
                                   backgroundColor: Colors.green,
                                   child: Container(
+                                    margin: const EdgeInsets.all(5),
+                                    child:  Row(
+                                      children: const [
+                                        Text("+"),
+                                        Icon(Icons.data_object),
+                                      ],
+                                    ),
+                                  )
+                                ),
+                              ),
+                              const Text(
+                                  "Add Object",
+                                style: TextStyle(
+                                  fontSize: 12,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Container(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Container(
+                                height: 50,
+                                width: 50,
+                                child: FloatingActionButton(
+                                  onPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => AddFromHomePage(selectedPage: 2),
+                                      ),
+                                    );
+                                  },
+                                  backgroundColor: Colors.green,
+                                  child: Container(
                                     margin: const EdgeInsets.all(8),
                                     child:  Row(
                                       children: const [
@@ -191,43 +245,6 @@ class _MyHomePageState extends State<MyHomePage> {
                         //     ],
                         //   ),
                         // ),
-                        Container(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              Container(
-                                height: 50,
-                                width: 50,
-                                child: FloatingActionButton(
-                                  onPressed: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => AddFromHomePage(selectedPage: 2),
-                                      ),
-                                    );
-                                  },
-                                  backgroundColor: Colors.green,
-                                  child: Container(
-                                    margin: const EdgeInsets.all(5),
-                                    child:  Row(
-                                      children: const [
-                                        Text("+"),
-                                        Icon(Icons.data_object),
-                                      ],
-                                    ),
-                                  )
-                                ),
-                              ),
-                              const Text(
-                                  "Add Object",
-                                style: TextStyle(
-                                  fontSize: 12,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
                       ],
                     ),
                   ),
@@ -285,7 +302,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 }))
               ),
             ],
-          );
+          )));
         },
       ),
     );
@@ -294,7 +311,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
 Route _createRoute(String communityName) {
   return PageRouteBuilder(
-    pageBuilder: (context, animation, secondaryAnimation) => CommunityPage(communityName: communityName),
+    pageBuilder: (context, animation, secondaryAnimation) =>
+        CommunityPage(communityName: communityName),
     transitionsBuilder: (context, animation, secondaryAnimation, child) {
       var begin = const Offset(1.0, 0.0);
       var end = Offset.zero;

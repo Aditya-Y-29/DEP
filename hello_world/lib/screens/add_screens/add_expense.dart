@@ -49,7 +49,8 @@ class ExpenseData extends State<ExpenseScreen> {
 
     if(widget.isFromObjectPage){
         objectDropDown=widget.objectName;
-      } else if (providerCommunity.communityObjectMap[communityDropDown]!.isNotEmpty) {
+      } 
+    else if (providerCommunity.communityObjectMap[communityDropDown]!.isNotEmpty) {
       objectDropDown=providerCommunity.communityObjectMap[communityDropDown]![providerCommunity.objectIndex];
     } else {
       return const Center(child: Text("No Objects in this Community"));

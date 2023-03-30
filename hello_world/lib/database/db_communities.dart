@@ -62,9 +62,11 @@ class CommunityDataBaseService {
           .where("UserID", isEqualTo: userID)
           .get();
 
+      print("HELLO1");
       if (sp.docs.isNotEmpty) {
         return false;
       }
+      print("HELLO2");
 
 
       await _db.collection('communityMembers').add({
