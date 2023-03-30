@@ -40,7 +40,7 @@ class _ObjectPageState extends State<ObjectPage> {
             margin: const EdgeInsets.all(5),
             padding: const EdgeInsets.all(1),
             child: IconButton(
-              icon: const Icon(Icons.refresh, size: 30,),
+              icon: const Icon(Icons.refresh, size: 20,),
               onPressed: () async {
                   DataProvider dataProvider = Provider.of<DataProvider>(context, listen: false);
                   await dataProvider.getAllDetails(dataProvider.user!.phoneNo);

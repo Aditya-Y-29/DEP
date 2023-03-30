@@ -75,7 +75,7 @@ class _CommunityPageState extends State<CommunityPage> {
                   ),
                 );
               },
-              child: const Icon(Icons.group, size: 30,),
+              child: const Icon(Icons.group, size: 20,),
             )
           ),
           Container(
@@ -190,7 +190,43 @@ class _CommunityPageState extends State<CommunityPage> {
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (context) => AddFromCommunityPage(selectedPage: 1, communityName: widget.communityName),
+                                        builder: (context) => AddFromCommunityPage(selectedPage: 1, communityName: widget.communityName)
+                                      ),
+                                    );
+                                  },
+                                  child: Container(
+                                    margin: const EdgeInsets.all(5),
+                                    child:  Row(
+                                      children: const [
+                                        Text("+"),
+                                        Icon(Icons.data_object),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              const Text(
+                                "Add Object",
+                                style: TextStyle(
+                                  fontSize: 12,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Container(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Container(
+                                height: 50,
+                                width: 50,
+                                child: FloatingActionButton(
+                                  onPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => AddFromCommunityPage(selectedPage: 2, communityName: widget.communityName),
                                       ),
                                     );
                                   },
@@ -242,42 +278,6 @@ class _CommunityPageState extends State<CommunityPage> {
                         //     ],
                         //   ),
                         // ),
-                        Container(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              Container(
-                                height: 50,
-                                width: 50,
-                                child: FloatingActionButton(
-                                  onPressed: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => AddFromCommunityPage(selectedPage: 2, communityName: widget.communityName)
-                                      ),
-                                    );
-                                  },
-                                  child: Container(
-                                    margin: const EdgeInsets.all(5),
-                                    child:  Row(
-                                      children: const [
-                                        Text("+"),
-                                        Icon(Icons.data_object),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              const Text(
-                                "Add Object",
-                                style: TextStyle(
-                                  fontSize: 12,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
                       ],
                     ),
                   ),

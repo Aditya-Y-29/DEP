@@ -45,7 +45,7 @@ class _MyHomePageState extends State<MyHomePage> {
             child: IconButton(
               icon: const Icon(
                 Icons.refresh,
-                size: 30,
+                size: 20,
               ),
               onPressed: () async {
                 DataProvider dataProvider =
@@ -160,6 +160,43 @@ class _MyHomePageState extends State<MyHomePage> {
                                   },
                                   backgroundColor: Colors.green,
                                   child: Container(
+                                    margin: const EdgeInsets.all(5),
+                                    child:  Row(
+                                      children: const [
+                                        Text("+"),
+                                        Icon(Icons.data_object),
+                                      ],
+                                    ),
+                                  )
+                                ),
+                              ),
+                              const Text(
+                                  "Add Object",
+                                style: TextStyle(
+                                  fontSize: 12,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Container(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Container(
+                                height: 50,
+                                width: 50,
+                                child: FloatingActionButton(
+                                  onPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => AddFromHomePage(selectedPage: 2),
+                                      ),
+                                    );
+                                  },
+                                  backgroundColor: Colors.green,
+                                  child: Container(
                                     margin: const EdgeInsets.all(8),
                                     child:  Row(
                                       children: const [
@@ -208,43 +245,6 @@ class _MyHomePageState extends State<MyHomePage> {
                         //     ],
                         //   ),
                         // ),
-                        Container(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              Container(
-                                height: 50,
-                                width: 50,
-                                child: FloatingActionButton(
-                                  onPressed: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => AddFromHomePage(selectedPage: 2),
-                                      ),
-                                    );
-                                  },
-                                  backgroundColor: Colors.green,
-                                  child: Container(
-                                    margin: const EdgeInsets.all(5),
-                                    child:  Row(
-                                      children: const [
-                                        Text("+"),
-                                        Icon(Icons.data_object),
-                                      ],
-                                    ),
-                                  )
-                                ),
-                              ),
-                              const Text(
-                                  "Add Object",
-                                style: TextStyle(
-                                  fontSize: 12,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
                       ],
                     ),
                   ),

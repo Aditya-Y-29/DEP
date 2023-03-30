@@ -67,7 +67,6 @@ class DataProvider extends ChangeNotifier {
   }
 
   Future<void> getAllDetails(String phoneNo) async {
-    String name = await UserDataBaseService.getNameFromPhone(phoneNo);
 
     deleteState();
     checkuser(phoneNo);
@@ -190,28 +189,26 @@ class DataProvider extends ChangeNotifier {
   }
 
   void addCommunity(String communityName) {
+    CommunityModel community = CommunityModel(
+      name: communityName,
+      phoneNo: user!.phoneNo,
+    );
+    if(CommunityDataBaseService.createCommunity(community)==false){
+      return;
+    }
+
     communities.add(communityName);
     communityObjectMap[communityName] = [];
     objectUnresolvedExpenseMap[communityName] = {};
     objectResolvedExpenseMap[communityName] = {};
     communityMembersMap[communityName] = [];
-    communityMembersMap[communityName]!
-        .add(Member(name: user!.name, phone: user!.phoneNo, isCreator: true));
-    notifyListeners();
-
-    CommunityModel community = CommunityModel(
-      name: communityName,
-      phoneNo: user!.phoneNo,
-    );
-    CommunityDataBaseService.createCommunity(community);
+    communityMembersMap[communityName]!.add(Member(name: user!.name, phone: user!.phoneNo, isCreator: true));
     communitiesdb!.add(community);
+
     notifyListeners();
   }
 
   Future<void> addObject(String communityName, String objectName) async {
-    communityObjectMap[communityName]!.add(objectName);
-    objectUnresolvedExpenseMap[communityName]![objectName] = [];
-    objectResolvedExpenseMap[communityName]![objectName] = [];
 
     notifyListeners();
     CommunityModel ctmp =
@@ -223,21 +220,19 @@ class DataProvider extends ChangeNotifier {
         creatorPhoneNo: user!.phoneNo,
         type: "",
         description: "");
+    if(ObjectDataBaseService.createObjects(object)==false){
+      return;
+    }
+
     communityObjectMapdb![ctmp]!.add(object);
-    ObjectDataBaseService.createObjects(object);
+    communityObjectMap[communityName]!.add(objectName);
+    objectUnresolvedExpenseMap[communityName]![objectName] = [];
+    objectResolvedExpenseMap[communityName]![objectName] = [];
+    notifyListeners();
   }
 
   Future<void> addExpense(String objectName, String creator, int amount,
       String description, String communityName) async {
-    objectUnresolvedExpenseMap[communityName]![objectName]?.add(Expense(
-        objectName: objectName,
-        creator: creator,
-        amount: amount,
-        description: description,
-        isPaid: false,
-        communityName: communityName));
-
-    notifyListeners();
     CommunityModel ctmp =
         communitiesdb!.firstWhere((element) => element.name == communityName);
     ObjectsModel otmp = communityObjectMapdb![ctmp]!
@@ -252,13 +247,39 @@ class DataProvider extends ChangeNotifier {
         resolverid: null,
         description: "",
         date: null);
-    objectUnresolvedExpenseMapdb![ctmp]![otmp]!.add(expense);
 
-    ExpenseDataBaseService.createExpense(expense);
+    if(ExpenseDataBaseService.createExpense(expense)==false){
+      return;
+    }
+
+    objectUnresolvedExpenseMap[communityName]![objectName]?.add(Expense(
+        objectName: objectName,
+        creator: creator,
+        amount: amount,
+        description: description,
+        isPaid: false,
+        communityName: communityName));
+    objectUnresolvedExpenseMapdb![ctmp]![otmp]!.add(expense);
+    
     notifyListeners();
   }
 
   void resolveExpense(Expense expense) {
+
+    CommunityModel ctmp = communitiesdb!
+        .firstWhere((element) => element.name == expense.communityName);
+    ObjectsModel? otmp = communityObjectMapdb![ctmp]!
+        .firstWhere((element) => element.name == expense.objectName);
+    ExpenseModel? rtmp = objectUnresolvedExpenseMapdb![ctmp]![otmp]!
+        .firstWhere((element) => element.name == expense.description);
+
+    objectUnresolvedExpenseMapdb![ctmp]![otmp]!.remove(rtmp);
+
+    rtmp.resolverid = user!.phoneNo;
+    if(ExpenseDataBaseService.resolveExpense(rtmp, user!.phoneNo)==false){
+      return;
+    }
+
     Expense? item =
         objectUnresolvedExpenseMap[expense.communityName]![expense.objectName]
             ?.firstWhere((element) =>
@@ -276,20 +297,8 @@ class DataProvider extends ChangeNotifier {
             description: expense.description,
             isPaid: true,
             communityName: expense.communityName));
-    notifyListeners();
-
-    CommunityModel ctmp = communitiesdb!
-        .firstWhere((element) => element.name == expense.communityName);
-    ObjectsModel? otmp = communityObjectMapdb![ctmp]!
-        .firstWhere((element) => element.name == expense.objectName);
-    ExpenseModel? rtmp = objectUnresolvedExpenseMapdb![ctmp]![otmp]!
-        .firstWhere((element) => element.name == expense.description);
-
-    objectUnresolvedExpenseMapdb![ctmp]![otmp]!.remove(rtmp);
-
-    rtmp.resolverid = user!.phoneNo;
     objectResolvedExpenseMapdb![ctmp]![otmp]!.add(rtmp);
-    ExpenseDataBaseService.resolveExpense(rtmp, user!.phoneNo);
+    notifyListeners();
   }
 
   addMembersToCommunity(String communityName, List<dynamic> names,
@@ -307,10 +316,6 @@ class DataProvider extends ChangeNotifier {
           communityMembersMap[communityName]!.add(member);
         }
       }
-      // CommunityModel community =
-      //     CommunityModel(name: communityName, phoneNo: phoneNo);
-      // CommunityDataBaseService.addUserInCommunity(
-      //     community, member.phone, false);
     }
     notifyListeners();
   }
