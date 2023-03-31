@@ -107,64 +107,64 @@ class ProfileScreen extends StatelessWidget {
                 SizedBox(height: kSpacingUnit.w * 4),
                 header,
                 ElevatedButton(
-                      style: ElevatedButton.styleFrom(
+                  style: ElevatedButton.styleFrom(
                       foregroundColor: Colors.white, backgroundColor: Colors.green,
                       shadowColor: Colors.greenAccent,
                       elevation: 3,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(32.0)),
                       fixedSize: const Size(150, 5)
-                    ),
-                    onPressed: () {
-                      providerCommunity.deleteState();
-                      Navigator.pushNamedAndRemoveUntil(context, '/login', (route) => false);
-                    },
-                    child: Text('Logout'),
-                    
-                  )
-                // Expanded(
-                  // child: ListView(
-                    // children: <Widget>[
-                    //   TextFormField(
-                    //     // decoration: const InputDecoration(
-                    //     //   icon: Icon(Icons.edit),
+                  ),
+                  onPressed: () {
+                    providerCommunity.deleteState();
+                    Navigator.pushNamedAndRemoveUntil(context, '/login', (route) => false);
+                  },
+                  child: Text('Logout'),
 
-                    //     // ),
-                    //     initialValue: "UserName: ${providerCommunity.user?.username}",
-                    //   ),
-                    //   SizedBox(height: 10,),
-                    //   TextFormField(
-                    //     // decoration: const InputDecoration(
-                    //     //   icon: Icon(Icons.edit),
-                    //     //   hintText: 'phone Number',
-                    //     // ),
-                    //     initialValue: "Phone Number: ${providerCommunity.user?.phoneNo}",
-                    //   ),
-                    //   SizedBox(height: 10,),
-                    //   TextFormField(
-                    //     // decoration: const InputDecoration(
-                    //     //   icon: Icon(Icons.edit),
-                    //     //   hintText: 'Email Id',
-                    //     // ),
-                    //     initialValue: "Email Id: ${providerCommunity.user?.email}",
-                    //   ),
-                    //   SizedBox(height: 10,),
-                    //   // Container(
-                    //   //     margin: const EdgeInsets.only(top: 20.0),
-                    //   //     child: FloatingActionButton(
-                    //   //       onPressed: () {
-                    //   //       },
-                    //   //       child: const Icon(Icons.check),
-                    //   //     )),
-                    //   SizedBox(height: 80,),
-                    //   ProfileListItem(
-                    //     icon: LineAwesomeIcons.alternate_sign_out,
-                    //     text: 'Logout',
-                    //     hasNavigation: false,
-                        
-                    //   ),
-                    // ],
-                  // ),
+                )
+                // Expanded(
+                // child: ListView(
+                // children: <Widget>[
+                //   TextFormField(
+                //     // decoration: const InputDecoration(
+                //     //   icon: Icon(Icons.edit),
+
+                //     // ),
+                //     initialValue: "UserName: ${providerCommunity.user?.username}",
+                //   ),
+                //   SizedBox(height: 10,),
+                //   TextFormField(
+                //     // decoration: const InputDecoration(
+                //     //   icon: Icon(Icons.edit),
+                //     //   hintText: 'phone Number',
+                //     // ),
+                //     initialValue: "Phone Number: ${providerCommunity.user?.phoneNo}",
+                //   ),
+                //   SizedBox(height: 10,),
+                //   TextFormField(
+                //     // decoration: const InputDecoration(
+                //     //   icon: Icon(Icons.edit),
+                //     //   hintText: 'Email Id',
+                //     // ),
+                //     initialValue: "Email Id: ${providerCommunity.user?.email}",
+                //   ),
+                //   SizedBox(height: 10,),
+                //   // Container(
+                //   //     margin: const EdgeInsets.only(top: 20.0),
+                //   //     child: FloatingActionButton(
+                //   //       onPressed: () {
+                //   //       },
+                //   //       child: const Icon(Icons.check),
+                //   //     )),
+                //   SizedBox(height: 80,),
+                //   ProfileListItem(
+                //     icon: LineAwesomeIcons.alternate_sign_out,
+                //     text: 'Logout',
+                //     hasNavigation: false,
+
+                //   ),
+                // ],
+                // ),
 
                 // )
               ],

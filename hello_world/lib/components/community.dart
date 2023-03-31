@@ -24,115 +24,145 @@ class _CommunityState extends State<Community> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        // Navigator.push(
-        //     context,
-        //     MaterialPageRoute(
-        //         builder: (context) => CommunityPage(communityName: widget.name,)
-        //     )
-        // );
-        setState(() {
-          clicked = !clicked;
-        });
-      },
-      child: Container(
-      // width: 150,
-      // height: 150,
-      // margin: const EdgeInsets.all(5.0),
-      // padding: const EdgeInsets.only(left: 20.0),
-      // decoration: BoxDecoration(
-      //   color: clicked ? Colors.blue.shade50 : Colors.grey.shade100,
-      //   border: Border.all(
-      //     color: clicked ? Colors.blue : Colors.blue.withOpacity(0),
-      //     width: 2.0,
-      //   ),
-      //   borderRadius: BorderRadius.circular(20.0),
-      //   boxShadow: const [
-      //     BoxShadow(
-      //       color: Colors.grey,
-      //       blurRadius: 15.0, // soften the shadow
-      //       spreadRadius: 1.0, //extend the shadow
-      //       offset: Offset(
-      //         1.0, // Move to right 5  horizontally
-      //         1.0, // Move to bottom 5 Vertically
-      //       ),
-      //     )
-      //   ],
-      // ),
-      // duration: const Duration(milliseconds: 250),
-      // curve: Curves.easeIn,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Row(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Flexible(
-                  child:
-                    Container(
-                      child:
-                        Text(
-                          widget.name,
+        onTap: () {
+          // Navigator.push(
+          //     context,
+          //     MaterialPageRoute(
+          //         builder: (context) => CommunityPage(communityName: widget.name,)
+          //     )
+          // );
+          setState(() {
+            clicked = !clicked;
+          });
+        },
+        child: Container(
+          // width: 150,
+          // height: 150,
+          // margin: const EdgeInsets.all(5.0),
+          // padding: const EdgeInsets.only(left: 20.0),
+          // decoration: BoxDecoration(
+          //   color: clicked ? Colors.blue.shade50 : Colors.grey.shade100,
+          //   border: Border.all(
+          //     color: clicked ? Colors.blue : Colors.blue.withOpacity(0),
+          //     width: 2.0,
+          //   ),
+          //   borderRadius: BorderRadius.circular(20.0),
+          //   boxShadow: const [
+          //     BoxShadow(
+          //       color: Colors.grey,
+          //       blurRadius: 15.0, // soften the shadow
+          //       spreadRadius: 1.0, //extend the shadow
+          //       offset: Offset(
+          //         1.0, // Move to right 5  horizontally
+          //         1.0, // Move to bottom 5 Vertically
+          //       ),
+          //     )
+          //   ],
+          // ),
+          // duration: const Duration(milliseconds: 250),
+          // curve: Curves.easeIn,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Flexible(
+                        child:
+                        Container(
+                          child:
+                          Image.asset(
+                            'assets/images/Home.jpg',
+                            width: 40,
+                            height: 40,
+                          ),
+                        )
+                    ),
+                    Flexible(
+                        child:
+                        Container(
+                          child:
+                          Text(
+                            widget.name,
+                            style: const TextStyle(
+                              color: Colors.black,
+                              fontSize: 20,
+                            ),
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        )
+                    ),
+                    Column(
+                      children: const <Widget>[
+                        Text('Your Spending \$15',
                           style: const TextStyle(
                             color: Colors.black,
-                            fontSize: 20,
-                          ),
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                    )
-                ),
-                PopupMenuButton<Choice>(
-                  itemBuilder: (BuildContext context) {
-                    return choices.skip(0).map((Choice choice) {
-                      return PopupMenuItem <Choice>(
-                        value: choice,
-                        child: Text(choice.name),
-                      );
-                    }).toList();
-                  },
-                  onSelected: (value) {
-                    if(value.name == "Add Expense")
-                    {
+                            fontSize: 10,
+                          ),),
+                        Text('Total Spending \$15',
+                          style: const TextStyle(
+                            color: Colors.black,
+                            fontSize: 10,
+                          ),),
+                        Text('Last Edited -- 10 AM',
+                          style: const TextStyle(
+                          color: Colors.black,
+                          fontSize: 10,
+                        ),),
+                      ],
+                    ),
+                    PopupMenuButton<Choice>(
+                      itemBuilder: (BuildContext context) {
+                        return choices.skip(0).map((Choice choice) {
+                          return PopupMenuItem <Choice>(
+                            value: choice,
+                            child: Text(choice.name),
+                          );
+                        }).toList();
+                      },
+                      onSelected: (value) {
+                        if(value.name == "Add Expense")
+                        {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => AddFromHomePage(selectedPage: 0)),
+                          );
+                        }
+                        // else if (value.name == "Add Service")
+                        // {
+                        //   Navigator.push(
+                        //     context,
+                        //     MaterialPageRoute(builder: (context) => AddFromHomePage(selectedPage: 1)),
+                        //   );
+                        // }
+                      },
+                      // color: Colors.black,
+                    ),
+                  ]
+              ),
+              Align(
+                alignment: Alignment.bottomRight,
+                child: Container(
+                  margin: const EdgeInsets.only(bottom: 3.0, right: 15.0),
+                  height: 18.0,
+                  width: 18.0,
+                  child: FloatingActionButton(
+                    heroTag: "Comm_Btn",
+                    onPressed: (){
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => AddFromHomePage(selectedPage: 0)),
+                        MaterialPageRoute(builder: (context) => AddFromCommunityPage(selectedPage: 0, communityName: widget.name,)),
                       );
-                    }
-                    // else if (value.name == "Add Service")
-                    // {
-                    //   Navigator.push(
-                    //     context,
-                    //     MaterialPageRoute(builder: (context) => AddFromHomePage(selectedPage: 1)),
-                    //   );
-                    // }
-                  },
-                  // color: Colors.black,
+                    },
+                    backgroundColor: Colors.green,
+                    child: const Icon(Icons.add, size: 20,),
+                  ),
                 ),
-              ]
+              )
+            ],
           ),
-          Align(
-            alignment: Alignment.bottomRight,
-            child: Container(
-              margin: const EdgeInsets.only(bottom: 5.0, right: 5.0),
-              height: 35.0,
-              width: 35.0,
-              child: FloatingActionButton(
-                heroTag: "Comm_Btn",
-                onPressed: (){
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => AddFromCommunityPage(selectedPage: 0, communityName: widget.name,)),
-                  );
-                },
-                backgroundColor: Colors.green,
-                child: const Icon(Icons.add),
-              ),
-            ),
-          )
-        ],
-      ),
-    )
+        )
     );
   }
 }
@@ -147,4 +177,3 @@ const List<Choice> choices = <Choice> [
   Choice(name: 'Add to Favourites'),
   Choice(name: 'Delete Community')
 ];
-
