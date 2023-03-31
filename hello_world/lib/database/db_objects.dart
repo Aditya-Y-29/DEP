@@ -7,7 +7,7 @@ import '../Models/service.dart';
 class ObjectDataBaseService {
   static final _db = FirebaseFirestore.instance;
 
-  static createObjects( ObjectsModel object) async {
+  static Future<bool> createObjects( ObjectsModel object) async {
     try {
       if( object.communityID == null){
         return false;

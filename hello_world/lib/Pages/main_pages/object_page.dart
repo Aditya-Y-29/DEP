@@ -6,6 +6,8 @@ import 'package:hello_world/screens/objects_screens/object_expense.dart';
 import 'package:hello_world/screens/objects_screens/object_service.dart';
 import 'package:hello_world/Pages/main_pages/navigation_page.dart';
 import '../add_from_pages/add_home_page_floating_button.dart';
+import '../../provider/data_provider.dart';
+import 'package:provider/provider.dart';
 
 class ObjectPage extends StatefulWidget {
   final String communityName;
@@ -34,6 +36,17 @@ class _ObjectPageState extends State<ObjectPage> {
             widget.objectName
           ),
           actions: [
+            Container(
+            margin: const EdgeInsets.all(5),
+            padding: const EdgeInsets.all(1),
+            child: IconButton(
+              icon: const Icon(Icons.refresh, size: 20,),
+              onPressed: () async {
+                  DataProvider dataProvider = Provider.of<DataProvider>(context, listen: false);
+                  await dataProvider.getAllDetails(dataProvider.user!.phoneNo);
+              },
+            ),
+          ),
             Container(
               margin: const EdgeInsets.all(5),
               padding: const EdgeInsets.all(1),

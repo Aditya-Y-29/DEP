@@ -8,7 +8,7 @@ import '../Models/objectS.dart';
 class ExpenseDataBaseService {
   static final _db = FirebaseFirestore.instance;
 
-  static createExpense(ExpenseModel expense) async {
+  static Future<bool> createExpense(ExpenseModel expense) async {
     try {
 
       final sp= await _db.collection('expenses').where("Name", isEqualTo: expense.name).where("ObjectID", isEqualTo: expense.objectID).get();
