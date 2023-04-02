@@ -72,17 +72,6 @@ class _CommunityState extends State<Community> {
                         child:
                         Container(
                           child:
-                          Image.asset(
-                            'assets/images/Home.jpg',
-                            width: 40,
-                            height: 40,
-                          ),
-                        )
-                    ),
-                    Flexible(
-                        child:
-                        Container(
-                          child:
                           Text(
                             widget.name,
                             style: const TextStyle(
@@ -92,25 +81,6 @@ class _CommunityState extends State<Community> {
                             overflow: TextOverflow.ellipsis,
                           ),
                         )
-                    ),
-                    Column(
-                      children: const <Widget>[
-                        Text('Your Spending \$15',
-                          style: const TextStyle(
-                            color: Colors.black,
-                            fontSize: 10,
-                          ),),
-                        Text('Total Spending \$15',
-                          style: const TextStyle(
-                            color: Colors.black,
-                            fontSize: 10,
-                          ),),
-                        Text('Last Edited -- 10 AM',
-                          style: const TextStyle(
-                          color: Colors.black,
-                          fontSize: 10,
-                        ),),
-                      ],
                     ),
                     PopupMenuButton<Choice>(
                       itemBuilder: (BuildContext context) {
@@ -144,9 +114,9 @@ class _CommunityState extends State<Community> {
               Align(
                 alignment: Alignment.bottomRight,
                 child: Container(
-                  margin: const EdgeInsets.only(bottom: 3.0, right: 15.0),
-                  height: 18.0,
-                  width: 18.0,
+                  margin: const EdgeInsets.only(bottom: 5.0, right: 5.0),
+                  height: 35.0,
+                  width: 35.0,
                   child: FloatingActionButton(
                     heroTag: "Comm_Btn",
                     onPressed: (){
@@ -156,7 +126,7 @@ class _CommunityState extends State<Community> {
                       );
                     },
                     backgroundColor: Colors.green,
-                    child: const Icon(Icons.add, size: 20,),
+                    child: const Icon(Icons.add),
                   ),
                 ),
               )
