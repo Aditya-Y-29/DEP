@@ -4,13 +4,18 @@ import 'package:hello_world/Pages/main_pages/home_page.dart';
 import 'Pages/auth_pages/phone.dart';
 import 'provider/data_provider.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
+import 'package:firebase_messaging/firebase_messaging.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  FirebaseMessaging.onBackgroundMessage( _firebaseMessagingBackgroundHandler);
   runApp(MyApp());
+}
+
+@pragma('vm:entry-point')
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  await Firebase.initializeApp();
 }
 
 class MyApp extends StatelessWidget {

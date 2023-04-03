@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:hello_world/components/expense.dart';
 import 'package:hello_world/components/member.dart';
-import 'package:hello_world/components/service.dart';
+// import 'package:hello_world/components/service.dart';
 
 import '../Models/user.dart';
 import '../Models/community.dart';
 import '../Models/objects.dart';
 import '../Models/expense.dart';
-import '../Models/service.dart';
+// import '../Models/service.dart';
 
 import '../database/db_user.dart';
 import '../database/db_communities.dart';
 import '../database/db_objects.dart';
 import '../database/db_expenses.dart';
-import '../database/db_services.dart';
+// import '../database/db_services.dart';
+
+import 'package:hello_world/Notifications/notification_services.dart';
 
 class DataProvider extends ChangeNotifier {
 
@@ -197,6 +199,7 @@ class DataProvider extends ChangeNotifier {
       return;
     }
 
+    CommunityDataBaseService.CommunityAddNotification(community, user!.phoneNo);
     communities.add(communityName);
     communityObjectMap[communityName] = [];
     objectUnresolvedExpenseMap[communityName] = {};
@@ -223,6 +226,8 @@ class DataProvider extends ChangeNotifier {
     if(ObjectDataBaseService.createObjects(object)==false){
       return;
     }
+
+    ObjectDataBaseService.ObjectAddNotification(object);
 
     communityObjectMapdb![ctmp]!.add(object);
     communityObjectMap[communityName]!.add(objectName);
@@ -251,6 +256,8 @@ class DataProvider extends ChangeNotifier {
     if(ExpenseDataBaseService.createExpense(expense)==false){
       return;
     }
+
+    ExpenseDataBaseService.ExpenseAddNotification(expense);
 
     objectUnresolvedExpenseMap[communityName]![objectName]?.add(Expense(
         objectName: objectName,
@@ -313,10 +320,20 @@ class DataProvider extends ChangeNotifier {
         CommunityModel ctmp = communitiesdb!
             .firstWhere((element) => element.name == communityName);
         if(await CommunityDataBaseService.addUserInCommunity(ctmp, member.phone, false)){
+          CommunityDataBaseService.CommunityAddNotification(ctmp, member.phone);
           communityMembersMap[communityName]!.add(member);
         }
       }
     }
     notifyListeners();
   }
+
+  void addToken(  ) async {
+    NotificationServices notificationServices = NotificationServices();
+    String token = await notificationServices.getToken();
+    if(user!=null){
+      UserDataBaseService.addToken(user!.phoneNo, token);
+    }
+  }
+
 }

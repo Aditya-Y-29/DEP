@@ -199,5 +199,29 @@ class UserDataBaseService {
     }
   }
 
+  static Future<String> getUserToken(String phoneNo) async{
+    try{
+      final sp= await _db.collection('tokens').where("UserID", isEqualTo: await getUserID(phoneNo)).get();
+      if(sp.docs.isNotEmpty){
+        return sp.docs.first.data()["Token"];
+      }
+      return "";
+    }catch(e){
+      return "";
+    }
+  }
 
+  static Future<bool> addToken(String phoneNo, String token) async{
+    try{
+      final sp= await _db.collection('tokens').where("UserID", isEqualTo: await getUserID(phoneNo)).get();
+      if(sp.docs.isNotEmpty){
+        await _db.collection('tokens').doc(sp.docs.first.id).update({"Token": token});
+      }else{
+        await _db.collection('tokens').add({"UserID": await getUserID(phoneNo), "Token": token});
+      }
+      return true;
+    }catch(e){
+      return false;
+    }
+  } 
 }

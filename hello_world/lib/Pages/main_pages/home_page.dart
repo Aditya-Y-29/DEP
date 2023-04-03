@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hello_world/Notifications/notification_services.dart';
 import 'package:hello_world/Pages/main_pages/community_page.dart';
 import 'package:hello_world/Pages/profile_pages/profile_page.dart';
 import 'package:provider/provider.dart';
@@ -18,6 +19,20 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int clickedCommunity = 0;
   String communityName = "";
+
+  NotificationServices notificationServices = NotificationServices();
+  
+  @override
+  void initState() {
+    super.initState();
+    notificationServices.RequestNotificationPermission();
+    notificationServices.initlocalNotifications();
+    notificationServices.firebaseInit();
+    notificationServices.isTokenRefreshed();
+    
+    DataProvider tokenProvider =Provider.of<DataProvider>(context, listen: false);
+    tokenProvider.addToken();
+  }
 
   @override
   Widget build(BuildContext context) {
