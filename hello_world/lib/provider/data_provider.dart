@@ -15,7 +15,7 @@ import '../database/db_objects.dart';
 import '../database/db_expenses.dart';
 // import '../database/db_services.dart';
 
-
+import 'package:hello_world/Notifications/notification_services.dart';
 
 class DataProvider extends ChangeNotifier {
 
@@ -195,9 +195,9 @@ class DataProvider extends ChangeNotifier {
       name: communityName,
       phoneNo: user!.phoneNo,
     );
-    // if(CommunityDataBaseService.createCommunity(community)==false){
-    //   return;
-    // }
+    if(CommunityDataBaseService.createCommunity(community)==false){
+      return;
+    }
 
     CommunityDataBaseService.CommunityAddNotification(community, user!.phoneNo);
     communities.add(communityName);
@@ -223,9 +223,9 @@ class DataProvider extends ChangeNotifier {
         creatorPhoneNo: user!.phoneNo,
         type: "",
         description: "");
-    // if(ObjectDataBaseService.createObjects(object)==false){
-    //   return;
-    // }
+    if(ObjectDataBaseService.createObjects(object)==false){
+      return;
+    }
 
     ObjectDataBaseService.ObjectAddNotification(object);
 
@@ -253,9 +253,9 @@ class DataProvider extends ChangeNotifier {
         description: "",
         date: null);
 
-    // if(ExpenseDataBaseService.createExpense(expense)==false){
-    //   return;
-    // }
+    if(ExpenseDataBaseService.createExpense(expense)==false){
+      return;
+    }
 
     ExpenseDataBaseService.ExpenseAddNotification(expense);
 
@@ -326,6 +326,14 @@ class DataProvider extends ChangeNotifier {
       }
     }
     notifyListeners();
+  }
+
+  void addToken(  ) async {
+    NotificationServices notificationServices = NotificationServices();
+    String token = await notificationServices.getToken();
+    if(user!=null){
+      UserDataBaseService.addToken(user!.phoneNo, token);
+    }
   }
 
 }

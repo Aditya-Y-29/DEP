@@ -28,8 +28,10 @@ class _MyHomePageState extends State<MyHomePage> {
     notificationServices.RequestNotificationPermission();
     notificationServices.initlocalNotifications();
     notificationServices.firebaseInit();
-    // notificationServices.isTokenRefreshed();
-    Future<String> token = notificationServices.getToken();
+    notificationServices.isTokenRefreshed();
+    
+    DataProvider tokenProvider =Provider.of<DataProvider>(context, listen: false);
+    tokenProvider.addToken();
   }
 
   @override
