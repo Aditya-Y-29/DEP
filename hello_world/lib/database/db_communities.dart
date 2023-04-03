@@ -81,4 +81,11 @@ class CommunityDataBaseService {
     }
   }
 
+  static Future<bool> CommunityAddNotification(CommunityModel community, String phoneNo) async {
+
+    String token= await UserDataBaseService.getUserToken(phoneNo);
+
+    print(token);
+    return true;
+  }
 }

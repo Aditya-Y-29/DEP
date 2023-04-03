@@ -30,7 +30,6 @@ class _MyHomePageState extends State<MyHomePage> {
     notificationServices.firebaseInit();
     // notificationServices.isTokenRefreshed();
     Future<String> token = notificationServices.getToken();
-    print(token);
   }
 
   @override

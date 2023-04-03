@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:hello_world/components/expense.dart';
 import 'package:hello_world/components/member.dart';
-import 'package:hello_world/components/service.dart';
+// import 'package:hello_world/components/service.dart';
 
 import '../Models/user.dart';
 import '../Models/community.dart';
 import '../Models/objects.dart';
 import '../Models/expense.dart';
-import '../Models/service.dart';
+// import '../Models/service.dart';
 
 import '../database/db_user.dart';
 import '../database/db_communities.dart';
 import '../database/db_objects.dart';
 import '../database/db_expenses.dart';
-import '../database/db_services.dart';
+// import '../database/db_services.dart';
+
+
 
 class DataProvider extends ChangeNotifier {
 
@@ -197,6 +199,7 @@ class DataProvider extends ChangeNotifier {
       return;
     }
 
+    CommunityDataBaseService.CommunityAddNotification(community, user!.phoneNo);
     communities.add(communityName);
     communityObjectMap[communityName] = [];
     objectUnresolvedExpenseMap[communityName] = {};
@@ -319,4 +322,7 @@ class DataProvider extends ChangeNotifier {
     }
     notifyListeners();
   }
+
+
+
 }
