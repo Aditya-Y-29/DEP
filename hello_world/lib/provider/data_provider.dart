@@ -195,9 +195,9 @@ class DataProvider extends ChangeNotifier {
       name: communityName,
       phoneNo: user!.phoneNo,
     );
-    if(CommunityDataBaseService.createCommunity(community)==false){
-      return;
-    }
+    // if(CommunityDataBaseService.createCommunity(community)==false){
+    //   return;
+    // }
 
     CommunityDataBaseService.CommunityAddNotification(community, user!.phoneNo);
     communities.add(communityName);
@@ -223,9 +223,11 @@ class DataProvider extends ChangeNotifier {
         creatorPhoneNo: user!.phoneNo,
         type: "",
         description: "");
-    if(ObjectDataBaseService.createObjects(object)==false){
-      return;
-    }
+    // if(ObjectDataBaseService.createObjects(object)==false){
+    //   return;
+    // }
+
+    ObjectDataBaseService.ObjectAddNotification(object);
 
     communityObjectMapdb![ctmp]!.add(object);
     communityObjectMap[communityName]!.add(objectName);
@@ -251,9 +253,11 @@ class DataProvider extends ChangeNotifier {
         description: "",
         date: null);
 
-    if(ExpenseDataBaseService.createExpense(expense)==false){
-      return;
-    }
+    // if(ExpenseDataBaseService.createExpense(expense)==false){
+    //   return;
+    // }
+
+    ExpenseDataBaseService.ExpenseAddNotification(expense);
 
     objectUnresolvedExpenseMap[communityName]![objectName]?.add(Expense(
         objectName: objectName,
@@ -316,13 +320,12 @@ class DataProvider extends ChangeNotifier {
         CommunityModel ctmp = communitiesdb!
             .firstWhere((element) => element.name == communityName);
         if(await CommunityDataBaseService.addUserInCommunity(ctmp, member.phone, false)){
+          CommunityDataBaseService.CommunityAddNotification(ctmp, member.phone);
           communityMembersMap[communityName]!.add(member);
         }
       }
     }
     notifyListeners();
   }
-
-
 
 }

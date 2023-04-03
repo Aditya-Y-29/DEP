@@ -201,7 +201,7 @@ class UserDataBaseService {
 
   static Future<String> getUserToken(String phoneNo) async{
     try{
-      final sp= await _db.collection('tokens').where("Phone Number", isEqualTo: phoneNo).get();
+      final sp= await _db.collection('tokens').where("UserID", isEqualTo: await getUserID(phoneNo)).get();
       if(sp.docs.isNotEmpty){
         return sp.docs.first.data()["Token"];
       }
