@@ -102,9 +102,14 @@ class _CommunityState extends State<Community> {
                           Icon(
                             Icons.person,
                           ),
-                          Text(' \$15',
+                          Text(' = ',
                             style: const TextStyle(
                               color: Colors.black,
+                              fontSize: 13,
+                            ),),
+                          Text(' \$15',
+                            style: const TextStyle(
+                              color: Colors.red,
                               fontSize: 13,
                             ),),
                          ],
@@ -118,27 +123,16 @@ class _CommunityState extends State<Community> {
                           Icons.group,
 
                         ),
-
+                        Text(' = ',
+                          style: const TextStyle(
+                            color: Colors.black,
+                            fontSize: 13,
+                          ),),
                         Text(' \$65',
                           style: const TextStyle(
-                            color: Colors.black,
+                            color: Colors.red,
                             fontSize: 13,
                           ),),
-                      ],
-                      ),
-
-                      // Third Row
-                      Row(
-                      children: <Widget>[
-                        Icon(
-                          Icons.edit,
-                        ),
-                        Text(' 10 AM',
-                          style: const TextStyle(
-                            color: Colors.black,
-                            fontSize: 13,
-                          ),),
-                        // Widgets for the third row
                       ],
                       ),
                     ],
