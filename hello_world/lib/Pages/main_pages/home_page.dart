@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hello_world/Notifications/notification_services.dart';
 import 'package:hello_world/Pages/main_pages/community_page.dart';
 import 'package:hello_world/Pages/profile_pages/profile_page.dart';
 import 'package:provider/provider.dart';
@@ -18,6 +19,20 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int clickedCommunity = 0;
   String communityName = "";
+
+  NotificationServices notificationServices = NotificationServices();
+  
+  @override
+  void initState() {
+    super.initState();
+    notificationServices.RequestNotificationPermission();
+    notificationServices.initlocalNotifications();
+    notificationServices.firebaseInit();
+    notificationServices.isTokenRefreshed();
+    
+    DataProvider tokenProvider =Provider.of<DataProvider>(context, listen: false);
+    tokenProvider.addToken();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +65,10 @@ class _MyHomePageState extends State<MyHomePage> {
               onPressed: () async {
                 DataProvider dataProvider =
                 Provider.of<DataProvider>(context, listen: false);
+                const snackbar1 = SnackBar(content: Text("Refreshing..."), duration: Duration(seconds: 8),);
+                ScaffoldMessenger.of(context).showSnackBar(snackbar1);
                 await dataProvider.getAllDetails(dataProvider.user!.phoneNo);
+
               },
             ),
           ),
@@ -269,17 +287,17 @@ class _MyHomePageState extends State<MyHomePage> {
 
                                 },
                                 child: AnimatedContainer(
-                                  width: 150,
-                                  height: 150,
+                                  width: 340,
+                                  height: 76,
                                   margin: const EdgeInsets.all(5.0),
-                                  padding: const EdgeInsets.only(left: 20.0),
+                                  padding: const EdgeInsets.only(left: 8.0),
                                   decoration: BoxDecoration(
                                     color: (clickedCommunity >> (k-1) & 1) == 1 ? Colors.green.shade50 : Colors.grey.shade100,
                                     border: Border.all(
                                       color: (clickedCommunity >> (k-1) & 1) == 1 ? Colors.green : Colors.green.withOpacity(0),
                                       width: 2.0,
                                     ),
-                                    borderRadius: BorderRadius.circular(20.0),
+                                    borderRadius: BorderRadius.circular(10.0),
                                     boxShadow: const [
                                       BoxShadow(
                                         color: Colors.grey,

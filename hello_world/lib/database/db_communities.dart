@@ -1,7 +1,11 @@
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../Models/user.dart';
 import '../Models/community.dart';
 import './db_user.dart';
+
+import 'package:http/http.dart' as http;
 
 class CommunityDataBaseService {
   static final _db = FirebaseFirestore.instance;
@@ -81,4 +85,42 @@ class CommunityDataBaseService {
     }
   }
 
+  static Future<String> getCommunityName(String? communityID) async {
+    try {
+      final sp = await _db.collection('communities').doc(communityID).get();
+      if (sp.data() == null) {
+        return "";
+      }
+      return sp.data()!['Name'];
+    } catch (e) {
+      return "";
+    }
+  }
+
+  static Future<bool> CommunityAddNotification(CommunityModel community, String phoneNo) async {
+
+    String token= await UserDataBaseService.getUserToken(phoneNo);
+
+    if(token==""){
+      return false;
+    }
+    var data={
+      'to':token.toString(),
+      'priority':'high',
+      'notification':{
+        'title':'New Community Added',
+        'body':'You have been added to ${community.name}'
+      }
+    };
+
+    await http.post(
+      Uri.parse('https://fcm.googleapis.com/fcm/send'),
+      body:jsonEncode(data),
+      headers:{
+        'Content-Type':'application/json; charset=UTF-8',
+        'Authorization':'key=AAAAsXT8mZo:APA91bEjQMOMbx42wNSYYqsQsFQcQX3QEWrjeSVE0kKtvkxtoJrhhvJvqb2yCjPRHFlQQ05YZRkjgYkHJvNtO0O4n5b8w35-XMNQHda0Y_D7XPoF5oZWRN7U6HhmsymK7hEzK2qrms74'
+      }
+    );
+    return true;
+  }
 }

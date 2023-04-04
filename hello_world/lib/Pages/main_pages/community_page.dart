@@ -59,6 +59,8 @@ class _CommunityPageState extends State<CommunityPage> {
               icon: const Icon(Icons.refresh, size: 30,),
               onPressed: () async {
                   DataProvider dataProvider = Provider.of<DataProvider>(context, listen: false);
+                  const snackbar1 = SnackBar(content: Text("Refreshing..."), duration: Duration(seconds: 8),);
+                  ScaffoldMessenger.of(context).showSnackBar(snackbar1);
                   await dataProvider.getAllDetails(dataProvider.user!.phoneNo);
               },
             ),

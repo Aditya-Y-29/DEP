@@ -6,6 +6,7 @@ import 'package:hello_world/constants.dart';
 import 'package:hello_world/widgets/profile_list_item.dart';
 import '../../provider/data_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);
