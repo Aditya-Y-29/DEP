@@ -93,6 +93,57 @@ class _CommunityState extends State<Community> {
                           ),
                         )
                     ),
+                    Column(
+                    children: <Widget>[
+                      // First Row
+                       Row(
+                        children: <Widget>[
+                        // Widgets for the first row
+                          Icon(
+                            Icons.person,
+                          ),
+                          Text(' \$15',
+                            style: const TextStyle(
+                              color: Colors.black,
+                              fontSize: 13,
+                            ),),
+                         ],
+                       ),
+
+                      // Second Row
+                      Row(
+                      children: <Widget>[
+                      // Widgets for the second row
+                        Icon(
+                          Icons.group,
+
+                        ),
+
+                        Text(' \$65',
+                          style: const TextStyle(
+                            color: Colors.black,
+                            fontSize: 13,
+                          ),),
+                      ],
+                      ),
+
+                      // Third Row
+                      Row(
+                      children: <Widget>[
+                        Icon(
+                          Icons.edit,
+                        ),
+                        Text(' 10 AM',
+                          style: const TextStyle(
+                            color: Colors.black,
+                            fontSize: 13,
+                          ),),
+                        // Widgets for the third row
+                      ],
+                      ),
+                    ],
+                      ),
+
                     Flexible(child: Column(
                       children: [
                           PopupMenuButton<Choice>(

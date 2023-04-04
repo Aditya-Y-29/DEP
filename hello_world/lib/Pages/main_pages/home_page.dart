@@ -288,7 +288,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 },
                                 child: AnimatedContainer(
                                   width: 340,
-                                  height: 75,
+                                  height: 76,
                                   margin: const EdgeInsets.all(5.0),
                                   padding: const EdgeInsets.only(left: 8.0),
                                   decoration: BoxDecoration(
