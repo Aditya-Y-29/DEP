@@ -45,6 +45,7 @@ class ResolveData extends State<ResolveScreen> {
     if(widget.isFromObjectPage){
         objectDropDown=widget.objectName;
       } else {
+        providerCommunity.objectIndex=0;
       objectDropDown=providerCommunity.communityObjectMap[widget.communityName]![providerCommunity.objectIndex];
     }
 
