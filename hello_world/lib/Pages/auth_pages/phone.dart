@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../provider/data_provider.dart';
 import 'verify.dart';
+import 'signup.dart';
 
 class MyPhone extends StatefulWidget {
   const MyPhone({Key? key}) : super(key: key);
@@ -20,7 +21,7 @@ class _MyPhoneState extends State<MyPhone> {
   @override
   void initState() {
     // TODO: implement initState
-    countryController.text = "+91";
+    countryController.text = "  +91";
     super.initState();
   }
 
@@ -104,33 +105,60 @@ class _MyPhoneState extends State<MyPhone> {
               SizedBox(
                 height: 20,
               ),
-              SizedBox(
-                width: double.infinity,
-                height: 45,
-                child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.green.shade600,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10))),
-                    onPressed: () async {
-                      await FirebaseAuth.instance.verifyPhoneNumber(
-                        phoneNumber: countryController.text+phone,
-                        verificationCompleted: (PhoneAuthCredential credential) {},
-                        verificationFailed: (FirebaseAuthException e) {},
-                        codeSent: (String verificationId, int? resendToken) {
-                          MyPhone.verify=verificationId;
-                          MyPhone.phoneNo=phone;
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => const MyVerify()),
-                          );
-                        },
-                        codeAutoRetrievalTimeout: (String verificationId) {},
-                      );
-                      //
-                    },
-                    child: Text("Send the code")),
-              )
+              Row(
+                children: [
+                  Expanded(
+                    child: SizedBox(
+                      width: double.infinity,
+                      height: 45,
+                      child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.green.shade600,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10))),
+                          onPressed: () async {
+                            await FirebaseAuth.instance.verifyPhoneNumber(
+                              phoneNumber: countryController.text+phone,
+                              verificationCompleted: (PhoneAuthCredential credential) {},
+                              verificationFailed: (FirebaseAuthException e) {},
+                              codeSent: (String verificationId, int? resendToken) {
+                                MyPhone.verify=verificationId;
+                                MyPhone.phoneNo=phone;
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => const MyVerify()),
+                                );
+                              },
+                              codeAutoRetrievalTimeout: (String verificationId) {},
+                            );
+                            //
+                          },
+                          child: Text("Log In")),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 5,
+                  ),
+                  Expanded(
+                    child: SizedBox(
+                      width: double.infinity,
+                      height: 45,
+                      child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.green.shade600,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10))),
+                          onPressed: () async {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => const MySignUp()),
+                                );
+                          },
+                          child: Text("Sign Up")),
+                    ),
+                  ),
+                ],
+              ),
             ],
           ),
         ),

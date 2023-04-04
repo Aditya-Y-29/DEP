@@ -150,7 +150,8 @@ class _MyVerifyState extends State<MyVerify> {
                           child: Text(
                             "Edit Phone Number ?",
                             style: TextStyle(color: Colors.black),
-                          ))
+                          )
+                      )
                     ],
                   )
                 ],
@@ -159,7 +160,5 @@ class _MyVerifyState extends State<MyVerify> {
           );
         }
     ));
-  
-  
   }
 }
