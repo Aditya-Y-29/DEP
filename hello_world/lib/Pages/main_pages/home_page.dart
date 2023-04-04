@@ -315,34 +315,37 @@ class _MyHomePageState extends State<MyHomePage> {
                           })
                         )
                       ),
-                      Container(
-                        child: Stack(
-                          children: <Widget>[
-                            Align(
-                              alignment: Alignment.bottomRight,
-                              child: Padding(
-                                padding: EdgeInsets.all(16.0),
-                                child: FloatingActionButton(
-                                  onPressed: () async {
-                                    DataProvider dataProvider =
-                                    Provider.of<DataProvider>(context, listen: false);
-                                    const snackbar1 = SnackBar(content: Text("Refreshing..."), duration: Duration(seconds: 8),);
-                                    ScaffoldMessenger.of(context).showSnackBar(snackbar1);
-                                    await dataProvider.getAllDetails(dataProvider.user!.phoneNo);
-                                  },
-                                  child: Icon(Icons.sync),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      )
                     ],
                   )
               )
           );
         },
       ),
+      bottomNavigationBar: BottomAppBar(
+        color: Colors.green.shade50,
+        elevation: 0,
+        shape: CircularNotchedRectangle(),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: <Widget>[
+            SizedBox(width: 16.0,height: 10,),
+            Padding(
+              padding: const EdgeInsets.only(right: 8.0,bottom: 8,top: 4),
+              child: FloatingActionButton(
+                onPressed: () async {
+                  DataProvider dataProvider =
+                  Provider.of<DataProvider>(context, listen: false);
+                  const snackbar1 = SnackBar(content: Text("Refreshing..."), duration: Duration(seconds: 8),);
+                  ScaffoldMessenger.of(context).showSnackBar(snackbar1);
+                  await dataProvider.getAllDetails(dataProvider.user!.phoneNo);
+                },
+                child: Icon(Icons.sync),
+              ),
+            ),
+          ],
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
     );
   }
 }

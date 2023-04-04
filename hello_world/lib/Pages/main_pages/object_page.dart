@@ -106,47 +106,45 @@ class _ObjectPageState extends State<ObjectPage> {
                   // ObjectServiceScreen(objectName: widget.objectName,communityName: widget.communityName,),
                 ],
               ),
-              floatingActionButton: Stack(
-                children: <Widget>[
-                  Positioned.fill(
-                    child: Align(
-                      alignment: Alignment.bottomRight,
-                      child: Padding(
-                        padding: EdgeInsets.only(left: 0.0),
-                        child: FloatingActionButton(
-                          onPressed: () async {
+              bottomNavigationBar: BottomAppBar(
+                color: Colors.green.shade50,
+                elevation: 0,
+                shape: CircularNotchedRectangle(),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: <Widget>[
+                    SizedBox(width: 16.0,),
+                    Padding(
+                      padding: const EdgeInsets.only(right: 85.0,bottom: 8),
+                      child: FloatingActionButton(
+                        onPressed: () async {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => AddFromObjectPage(selectedPage: DefaultTabController.of(tabContext).index+1, communityName: widget.communityName, objectName: widget.objectName),
+                            ),
+                          );
+                        },
+                        child: Icon(Icons.add),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(right: 8.0,bottom: 8),
+                      child: FloatingActionButton(
+                        onPressed: () async {
                           DataProvider dataProvider =
                           Provider.of<DataProvider>(context, listen: false);
                           const snackbar1 = SnackBar(content: Text("Refreshing..."), duration: Duration(seconds: 8),);
                           ScaffoldMessenger.of(context).showSnackBar(snackbar1);
                           await dataProvider.getAllDetails(dataProvider.user!.phoneNo);
-                          },
-                          child: Icon(Icons.sync),
-                        ),
+                        },
+                        child: Icon(Icons.sync),
                       ),
                     ),
-                  ),
-                  Positioned.fill(
-                    child: Align(
-                      alignment: Alignment.bottomCenter,
-                      child: Padding(
-                        padding: EdgeInsets.only(bottom: 0.0),
-                        child: FloatingActionButton(
-                          onPressed: () async {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => AddFromObjectPage(selectedPage: DefaultTabController.of(tabContext).index+1, communityName: widget.communityName, objectName: widget.objectName),
-                              ),
-                            );
-                          },
-                          child: Icon(Icons.add),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
+                  ],
+                ),
               ),
+              floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
             )
         ),
       ),

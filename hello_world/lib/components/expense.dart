@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../provider/data_provider.dart';
-import 'package:hello_world/Pages/edit_details_pages/edit_expense_page.dart';
+// import 'package:hello_world/Pages/edit_details_pages/edit_expense_page.dart';
 
 class Expense extends StatefulWidget {
   final String creator;
@@ -80,12 +80,12 @@ class _ExpenseState extends State<Expense> {
                 );
                 //providerCommunity.resolveExpense(expense);
 
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => EditExpensePage( communityName: widget.communityName, objectName: widget.objectName,expense:expense),
-                    ),
-                  );
+                  // Navigator.push(
+                  //   context,
+                  //   MaterialPageRoute(
+                  //     builder: (context) => EditExpensePage( communityName: widget.communityName, objectName: widget.objectName,expense:expense),
+                  //   ),
+                  // );
 
               },
               child: const Icon(Icons.edit, color: Colors.green, size: 35,),
