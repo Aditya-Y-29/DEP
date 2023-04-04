@@ -52,19 +52,6 @@ class _CommunityPageState extends State<CommunityPage> {
         ),
         title: Text(widget.communityName),
         actions:  [
-            Container(
-            margin: const EdgeInsets.all(5),
-            padding: const EdgeInsets.all(1),
-            child: IconButton(
-              icon: const Icon(Icons.refresh, size: 30,),
-              onPressed: () async {
-                  DataProvider dataProvider = Provider.of<DataProvider>(context, listen: false);
-                  const snackbar1 = SnackBar(content: Text("Refreshing..."), duration: Duration(seconds: 8),);
-                  ScaffoldMessenger.of(context).showSnackBar(snackbar1);
-                  await dataProvider.getAllDetails(dataProvider.user!.phoneNo);
-              },
-            ),
-          ),
           Container(
             margin: const EdgeInsets.all(5),
             padding: const EdgeInsets.all(1),
@@ -347,6 +334,31 @@ class _CommunityPageState extends State<CommunityPage> {
           );
         },
       ),
+      bottomNavigationBar: BottomAppBar(
+        color: Colors.green.shade50,
+        elevation: 0,
+        shape: CircularNotchedRectangle(),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: <Widget>[
+            SizedBox(width: 16.0,),
+            Padding(
+              padding: const EdgeInsets.only(right: 8.0,bottom: 8),
+              child: FloatingActionButton(
+                onPressed: () async {
+                  DataProvider dataProvider =
+                  Provider.of<DataProvider>(context, listen: false);
+                  const snackbar1 = SnackBar(content: Text("Refreshing..."), duration: Duration(seconds: 8),);
+                  ScaffoldMessenger.of(context).showSnackBar(snackbar1);
+                  await dataProvider.getAllDetails(dataProvider.user!.phoneNo);
+                },
+                child: Icon(Icons.sync),
+              ),
+            ),
+          ],
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
     );
   }
 }

@@ -7,6 +7,7 @@ import '../../components/community.dart';
 import '../../screens/add_screens/add_community.dart';
 import '../add_from_pages/add_home_page_floating_button.dart';
 import '../../provider/data_provider.dart';
+import 'package:hello_world/Pages/main_pages/navigation_page.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
@@ -50,28 +51,14 @@ class _MyHomePageState extends State<MyHomePage> {
             Icons.menu,
             size: 30,
           ),
-          onPressed: () {},
+          onPressed: () {
+            Navigator.push(context,
+              MaterialPageRoute(builder: (context) => NavigationPage()),
+            );
+          }
         ),
         title: const Text("Your Communities"),
         actions: [
-          Container(
-            margin: const EdgeInsets.all(5),
-            padding: const EdgeInsets.all(1),
-            child: IconButton(
-              icon: const Icon(
-                Icons.refresh,
-                size: 20,
-              ),
-              onPressed: () async {
-                DataProvider dataProvider =
-                Provider.of<DataProvider>(context, listen: false);
-                const snackbar1 = SnackBar(content: Text("Refreshing..."), duration: Duration(seconds: 8),);
-                ScaffoldMessenger.of(context).showSnackBar(snackbar1);
-                await dataProvider.getAllDetails(dataProvider.user!.phoneNo);
-
-              },
-            ),
-          ),
           GestureDetector(
               onTap: () {
                 Navigator.push(
@@ -82,8 +69,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 );
               },
               child: Container(
-                margin: const EdgeInsets.all(5),
-                // padding: const EdgeInsets.all(1),
+                margin: const EdgeInsets.all(10),
+                padding: const EdgeInsets.all(1),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(50),
                   border: Border.all(
@@ -92,11 +79,19 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ),
                 child: Image.asset(
-                  'assets/img1.png',
-                  width: 40,
+                  'assets/images/avatar.png',
+                  width: 30,
                   height: 30,
+                  errorBuilder: ( context,  exception,  stackTrace) {
+                    return Image.asset(
+                      'assets/img1.png',
+                      width: 30,
+                      height: 30,
+                    );
+                  },
                 ),
-              ))
+              )
+          )
         ],
       ),
       body: Consumer<DataProvider>(
@@ -287,17 +282,17 @@ class _MyHomePageState extends State<MyHomePage> {
 
                                 },
                                 child: AnimatedContainer(
-                                  width: 150,
-                                  height: 150,
+                                  width: 340,
+                                  height: 76,
                                   margin: const EdgeInsets.all(5.0),
-                                  padding: const EdgeInsets.only(left: 20.0),
+                                  padding: const EdgeInsets.only(left: 8.0),
                                   decoration: BoxDecoration(
                                     color: (clickedCommunity >> (k-1) & 1) == 1 ? Colors.green.shade50 : Colors.grey.shade100,
                                     border: Border.all(
                                       color: (clickedCommunity >> (k-1) & 1) == 1 ? Colors.green : Colors.green.withOpacity(0),
                                       width: 2.0,
                                     ),
-                                    borderRadius: BorderRadius.circular(20.0),
+                                    borderRadius: BorderRadius.circular(10.0),
                                     boxShadow: const [
                                       BoxShadow(
                                         color: Colors.grey,
@@ -317,12 +312,40 @@ class _MyHomePageState extends State<MyHomePage> {
                                   ),
                                 )
                             );
-                          }))
+                          })
+                        )
                       ),
                     ],
-                  )));
+                  )
+              )
+          );
         },
       ),
+      bottomNavigationBar: BottomAppBar(
+        color: Colors.green.shade50,
+        elevation: 0,
+        shape: CircularNotchedRectangle(),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: <Widget>[
+            SizedBox(width: 16.0,height: 10,),
+            Padding(
+              padding: const EdgeInsets.only(right: 8.0,bottom: 8,top: 4),
+              child: FloatingActionButton(
+                onPressed: () async {
+                  DataProvider dataProvider =
+                  Provider.of<DataProvider>(context, listen: false);
+                  const snackbar1 = SnackBar(content: Text("Refreshing..."), duration: Duration(seconds: 8),);
+                  ScaffoldMessenger.of(context).showSnackBar(snackbar1);
+                  await dataProvider.getAllDetails(dataProvider.user!.phoneNo);
+                },
+                child: Icon(Icons.sync),
+              ),
+            ),
+          ],
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
     );
   }
 }

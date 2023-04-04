@@ -309,6 +309,25 @@ class DataProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void updateExpense(
+      Expense expense,
+      String newAmount,
+      String newDescription) {
+
+    // Find the expense to update in the "unresolved expenses" map
+    final community = communitiesdb?.firstWhere((c) => c.name == expense.communityName);
+    final object = communityObjectMapdb?[community]?.firstWhere((o) => o.name == expense.objectName);
+    final expenseToUpdate = objectUnresolvedExpenseMapdb?[community]?[object]?.firstWhere((e) => e.name == expense.description);
+    if (expenseToUpdate != null){
+    // Update the expense's fields
+
+    expenseToUpdate.amount = newAmount;
+    expenseToUpdate.description = newDescription;
+
+    // Notify any listeners of the change
+    notifyListeners();}
+  }
+
   addMembersToCommunity(String communityName, List<dynamic> names,
       List<dynamic> phones, String phoneNo) async {
     for (int i = 0; i < names.length; i++) {

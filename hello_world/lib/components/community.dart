@@ -72,6 +72,17 @@ class _CommunityState extends State<Community> {
                         child:
                         Container(
                           child:
+                          Image.asset(
+                            'assets/images/Home.jpg',
+                            width: 40,
+                            height: 40,
+                          ),
+                        )
+                    ),
+                    Flexible(
+                        child:
+                        Container(
+                          child:
                           Text(
                             widget.name,
                             style: const TextStyle(
@@ -82,54 +93,107 @@ class _CommunityState extends State<Community> {
                           ),
                         )
                     ),
-                    PopupMenuButton<Choice>(
-                      itemBuilder: (BuildContext context) {
-                        return choices.skip(0).map((Choice choice) {
-                          return PopupMenuItem <Choice>(
-                            value: choice,
-                            child: Text(choice.name),
-                          );
-                        }).toList();
-                      },
-                      onSelected: (value) {
-                        if(value.name == "Add Expense")
-                        {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => AddFromHomePage(selectedPage: 0)),
-                          );
-                        }
-                        // else if (value.name == "Add Service")
-                        // {
-                        //   Navigator.push(
-                        //     context,
-                        //     MaterialPageRoute(builder: (context) => AddFromHomePage(selectedPage: 1)),
-                        //   );
-                        // }
-                      },
-                      // color: Colors.black,
+                    Column(
+                    children: <Widget>[
+                      // First Row
+                       Row(
+                        children: <Widget>[
+                        // Widgets for the first row
+                          Icon(
+                            Icons.person,
+                          ),
+                          Text(' = ',
+                            style: const TextStyle(
+                              color: Colors.black,
+                              fontSize: 13,
+                            ),),
+                          Text(' \$15',
+                            style: const TextStyle(
+                              color: Colors.red,
+                              fontSize: 13,
+                            ),),
+                         ],
+                       ),
+
+                      // Second Row
+                      Row(
+                      children: <Widget>[
+                      // Widgets for the second row
+                        Icon(
+                          Icons.group,
+
+                        ),
+                        Text(' = ',
+                          style: const TextStyle(
+                            color: Colors.black,
+                            fontSize: 13,
+                          ),),
+                        Text(' \$65',
+                          style: const TextStyle(
+                            color: Colors.red,
+                            fontSize: 13,
+                          ),),
+                      ],
+                      ),
+                    ],
+                      ),
+
+                    Flexible(child: Column(
+                      children: [
+                          PopupMenuButton<Choice>(
+                            itemBuilder: (BuildContext context) {
+                              return choices.skip(0).map((Choice choice) {
+                                return PopupMenuItem <Choice>(
+                                  value: choice,
+                                  child: Text(choice.name),
+                                );
+                              }).toList();
+                            },
+                            onSelected: (value) {
+                              if(value.name == "Add Expense")
+                              {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => AddFromHomePage(selectedPage: 0)),
+                                );
+                              }
+                              // else if (value.name == "Add Service")
+                              // {
+                              //   Navigator.push(
+                              //     context,
+                              //     MaterialPageRoute(builder: (context) => AddFromHomePage(selectedPage: 1)),
+                              //   );
+                              // }
+                            },
+                            // color: Colors.black,
+                          ),
+                          Align(
+                            // alignment: Alignment.bottomRight,
+                            child: Container(
+                              margin: const EdgeInsets.only(bottom: 1.0, right: 1.0),
+                              height: 18.0,
+                              width: 18.0,
+                              child: FloatingActionButton(
+                                heroTag: "Comm_Btn",
+                                onPressed: (){
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(builder: (context) => AddFromCommunityPage(selectedPage: 0, communityName: widget.name,)),
+                                  );
+                                },
+                                backgroundColor: Colors.green,
+                                child: FittedBox(
+                                  child: const Icon(
+                                    Icons.add,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          )
+                       ])
                     ),
                   ]
               ),
-              Align(
-                alignment: Alignment.bottomRight,
-                child: Container(
-                  margin: const EdgeInsets.only(bottom: 5.0, right: 5.0),
-                  height: 35.0,
-                  width: 35.0,
-                  child: FloatingActionButton(
-                    heroTag: "Comm_Btn",
-                    onPressed: (){
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => AddFromCommunityPage(selectedPage: 0, communityName: widget.name,)),
-                      );
-                    },
-                    backgroundColor: Colors.green,
-                    child: const Icon(Icons.add),
-                  ),
-                ),
-              )
             ],
           ),
         )
