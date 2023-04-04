@@ -30,6 +30,11 @@ class ExpenseData extends State<EditExpenseScreen> {
   TextEditingController amountInvolved = TextEditingController();
   TextEditingController description = TextEditingController();
 
+  
+
+
+
+
 
   @override
   void initState(){
@@ -39,6 +44,9 @@ class ExpenseData extends State<EditExpenseScreen> {
   @override
   Widget build(BuildContext context) {
 
+    description.text=widget.expense.description;
+    amountInvolved.text=widget.expense.amount.toString();
+    // dateController.text=DateFormat('dd-MM-yyyy').format(widget.expense.date);
 
     final providerCommunity = Provider.of<DataProvider>(context, listen: true);
     if(widget.isFromCommunityPage) {
@@ -194,7 +202,6 @@ class ExpenseData extends State<EditExpenseScreen> {
                       margin: const EdgeInsets.only(top: 20.0),
                       child: FloatingActionButton(
                         onPressed: () {
-                          // print(objectDropDown);
                           providerCommunity.updateExpense(widget.expense, amountInvolved.text, description.text);
                           Navigator.pop(context);
                         },

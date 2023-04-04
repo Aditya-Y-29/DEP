@@ -319,10 +319,17 @@ class DataProvider extends ChangeNotifier {
     final object = communityObjectMapdb?[community]?.firstWhere((o) => o.name == expense.objectName);
     final expenseToUpdate = objectUnresolvedExpenseMapdb?[community]?[object]?.firstWhere((e) => e.name == expense.description);
     if (expenseToUpdate != null){
-    // Update the expense's fields
-
+    int? index= objectUnresolvedExpenseMapdb?[community]?[object]?.indexOf(expenseToUpdate);
     expenseToUpdate.amount = newAmount;
     expenseToUpdate.description = newDescription;
+
+    print(index);
+    print(newAmount);
+    print(newDescription);
+
+    // update in the list
+
+    objectUnresolvedExpenseMapdb?[community]?[object]?[index!]=expenseToUpdate;
 
     // Notify any listeners of the change
     notifyListeners();}
