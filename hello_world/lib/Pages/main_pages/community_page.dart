@@ -27,6 +27,7 @@ class _CommunityPageState extends State<CommunityPage> {
 
   @override
   Widget build(BuildContext context) {
+    final providerCommunity = Provider.of<DataProvider>(context, listen: false);
     return Scaffold(
       // floatingActionButton: clickedObject != 0 ? FloatingActionButton(
       //   onPressed: () {
@@ -41,16 +42,29 @@ class _CommunityPageState extends State<CommunityPage> {
       //   child: const Icon(Icons.arrow_forward_ios, size: 20,),
       // ) : null,
       appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.menu, size: 30,),
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => NavigationPage()),
-            );
-          },
+        leading: Container(
+          width: 50,
+          child: IconButton(
+            icon: const Icon(Icons.menu, size: 30,),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => NavigationPage()),
+              );
+            },
+          ),
         ),
-        title: Text(widget.communityName),
+        title: Row(
+          children: <Widget>[
+            Image.asset(
+              '${providerCommunity.extractCommunityImagePathByName(widget.communityName)}',
+              width: 40,
+              height: 40,
+            ),
+            SizedBox(width: 10),
+            Text(widget.communityName),
+          ],
+        ),
         actions:  [
           Container(
             margin: const EdgeInsets.all(5),
