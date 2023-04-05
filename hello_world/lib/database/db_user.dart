@@ -5,7 +5,7 @@ import '../Models/user.dart';
 class UserDataBaseService {
   static final _db = FirebaseFirestore.instance;
 
-  static createUser(UserModel user) async {
+  static createUserDb(UserModel user) async {
     try {
       final sp1 = await _db
           .collection('users')
@@ -18,6 +18,10 @@ class UserDataBaseService {
       final sp3 = await _db
           .collection('users')
           .where("UserName", isEqualTo: user.username)
+          .get();
+      final sp4 = await _db
+          .collection('users')
+          .where("Phone Number", isEqualTo: user.phoneNo)
           .get();
 
       if (sp1.docs.isNotEmpty) {

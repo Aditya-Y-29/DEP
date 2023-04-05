@@ -1,5 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:hello_world/Pages/auth_pages/signup.dart';
+import 'package:hello_world/Pages/auth_pages/signup_page.dart';
 import 'package:hello_world/Pages/main_pages/home_page.dart';
 import 'package:hello_world/Pages/auth_pages/phone.dart';
 import 'package:hello_world/main.dart';
@@ -120,13 +122,15 @@ class _MyVerifyState extends State<MyVerify> {
                         onPressed: () async {
                           try{
                             // Create a PhoneAuthCredential with the code
-                            PhoneAuthCredential credential = PhoneAuthProvider.credential(verificationId: MyPhone.verify, smsCode: code);
+                            PhoneAuthCredential credential = PhoneAuthProvider.credential(verificationId: MySignUp.verify, smsCode: code);
 
                             await auth.signInWithCredential(credential);
                             // ignore: use_build_context_synchronously
                             DataProvider dataProvider = Provider.of<DataProvider>(context, listen: false);
 
-                            await dataProvider.getAllDetails(MyPhone.phoneNo);
+                            // await dataProvider.getAllDetails(MyPhone.phoneNo);
+
+                            await dataProvider.addUser(MySignUp.name, MySignUp.emailId, MySignUp.phoneNo) ;
 
                             // ignore: use_build_context_synchronously
                             Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);

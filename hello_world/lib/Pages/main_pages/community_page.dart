@@ -64,7 +64,7 @@ class _CommunityPageState extends State<CommunityPage> {
                   ),
                 );
               },
-              child: const Icon(Icons.group, size: 20,),
+              child: const Icon(Icons.group, size: 30,),
             )
           ),
           Container(
@@ -188,7 +188,7 @@ class _CommunityPageState extends State<CommunityPage> {
                                     child:  Row(
                                       children: const [
                                         Text("+"),
-                                        Icon(Icons.data_object),
+                                        Icon(Icons.laptop_mac_sharp),
                                       ],
                                     ),
                                   ),
@@ -294,36 +294,42 @@ class _CommunityPageState extends State<CommunityPage> {
                               ),
                             );
                           },
-                          child: AnimatedContainer(
-                            width: 150,
-                            height: 150,
-                            margin: const EdgeInsets.all(5.0),
-                            padding: const EdgeInsets.only(left: 20.0),
-                            decoration: BoxDecoration(
-                              color: (clickedObject >> (k-1) & 1) == 1 ? Colors.green.shade50 : Colors.grey.shade100,
-                              border: Border.all(
-                                color: (clickedObject >> (k-1) & 1) == 1 ? Colors.green : Colors.green.withOpacity(0),
-                                width: 2.0,
-                              ),
-                              borderRadius: BorderRadius.circular(20.0),
-                              boxShadow: const [
-                                BoxShadow(
-                                  color: Colors.grey,
-                                  blurRadius: 15.0, // soften the shadow
-                                  spreadRadius: 1.0, //extend the shadow
-                                  offset: Offset(
-                                    1.0, // Move to right 5  horizontally
-                                    1.0, // Move to bottom 5 Vertically
+                          child: Column (
+                            children: [
+
+                              AnimatedContainer(
+                                width: 90,
+                                height: 90,
+                                margin: const EdgeInsets.all(5.0),
+                                padding: const EdgeInsets.only(left: 20.0),
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  border: Border.all(
+                                    color: (clickedObject >> (k-1) & 1) == 1 ? Colors.green : Colors.green.withOpacity(0),
+                                    width: 2.0,
                                   ),
-                                )
-                              ],
-                            ),
-                            duration: const Duration(milliseconds: 250),
-                            curve: Curves.easeInOut,
-                            child: Object(
-                              name: e,
-                              communityName: widget.communityName,
-                            ),
+                                  borderRadius: BorderRadius.circular(35.0),
+                                  boxShadow: const [
+                                    BoxShadow(
+                                      color: Colors.grey,
+                                      blurRadius: 15.0, // soften the shadow
+                                      spreadRadius: 1.0, //extend the shadow
+                                      offset: Offset(
+                                        1.0, // Move to right 5  horizontally
+                                        1.0, // Move to bottom 5 Vertically
+                                      ),
+                                    )
+                                  ],
+                                ),
+                                duration: const Duration(milliseconds: 250),
+                                curve: Curves.easeInOut,
+                                child: Object(
+                                  name: e,
+                                  communityName: widget.communityName,
+                                ),
+                              ),
+                              Text(e),
+                            ],
                           )
                         );
                       }))

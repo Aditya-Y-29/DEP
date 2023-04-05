@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import '../../provider/data_provider.dart';
 import 'verify.dart';
 import 'signup.dart';
+import 'verify_l.dart';
 
 class MyPhone extends StatefulWidget {
   const MyPhone({Key? key}) : super(key: key);
@@ -105,6 +106,7 @@ class _MyPhoneState extends State<MyPhone> {
               SizedBox(
                 height: 20,
               ),
+
               Row(
                 children: [
                   Expanded(
@@ -126,7 +128,7 @@ class _MyPhoneState extends State<MyPhone> {
                                 MyPhone.phoneNo=phone;
                                 Navigator.push(
                                   context,
-                                  MaterialPageRoute(builder: (context) => const MyVerify()),
+                                  MaterialPageRoute(builder: (context) => const MyVerifyL()),
                                 );
                               },
                               codeAutoRetrievalTimeout: (String verificationId) {},

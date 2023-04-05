@@ -27,7 +27,7 @@ class _AddFromCommunityPageData extends State<AddFromCommunityPage> {
           bottom: const TabBar(
             tabs: [
               Tab(icon: Icon(Icons.check_circle_outline),),
-              Tab(icon: Icon(Icons.data_object),),
+              Tab(icon: Icon(Icons.laptop_mac_sharp),),
               Tab(icon: Icon(Icons.currency_rupee_outlined),),
               // Tab(icon: Icon(Icons.home_repair_service),),
             ],

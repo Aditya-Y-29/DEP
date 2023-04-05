@@ -20,8 +20,8 @@ class MySignUp extends StatefulWidget {
 class _MySignUpState extends State<MySignUp> {
   TextEditingController countryController = TextEditingController();
   String phone="";
-  String emailId="";
-  String name="";
+  String email="";
+  String nam="";
 
   @override
   void initState() {
@@ -106,7 +106,7 @@ class _MySignUpState extends State<MySignUp> {
                     Expanded(
                         child: TextField(
                           onChanged: (value){
-                            name=value;
+                            nam=value;
                           },
                           keyboardType: TextInputType.text,
                           decoration: InputDecoration(
@@ -147,7 +147,7 @@ class _MySignUpState extends State<MySignUp> {
                     Expanded(
                         child: TextField(
                           onChanged: (value){
-                            emailId=value;
+                            email=value;
                           },
                           keyboardType: TextInputType.emailAddress,
                           decoration: InputDecoration(
@@ -220,8 +220,10 @@ class _MySignUpState extends State<MySignUp> {
                         verificationCompleted: (PhoneAuthCredential credential) {},
                         verificationFailed: (FirebaseAuthException e) {},
                         codeSent: (String verificationId, int? resendToken) {
-                          MyPhone.verify=verificationId;
-                          MyPhone.phoneNo=phone;
+                          MySignUp.verify=verificationId;
+                          MySignUp.phoneNo=phone;
+                          MySignUp.emailId=email;
+                          MySignUp.name=nam;
                           Navigator.push(
                             context,
                             MaterialPageRoute(builder: (context) => const MyVerify()),

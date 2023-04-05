@@ -1,178 +1,221 @@
 import 'package:flutter/material.dart';
-import 'package:animated_theme_switcher/animated_theme_switcher.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:line_awesome_flutter/line_awesome_flutter.dart';
-import 'package:hello_world/constants.dart';
-import 'package:hello_world/widgets/profile_list_item.dart';
 import '../../provider/data_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class ProfilePage extends StatefulWidget {
-  const ProfilePage({Key? key}) : super(key: key);
+  const ProfilePage({Key? key }) : super(key: key);
   @override
-  ProfilePageState createState() => ProfilePageState();
+  State<ProfilePage> createState() => _ProfilePageState();
 }
 
-class ProfilePageState extends State<ProfilePage> {
+class _ProfilePageState extends State<ProfilePage> {
+  TextEditingController countryController = TextEditingController();
+
   @override
-  Widget build(BuildContext context) {
-    return ThemeProvider(
-      initTheme: kLightTheme,
-      child: Builder(
-        builder: (context) {
-          return ProfileScreen();
-        },
-      ),
-    );
+  void initState() {
+    countryController.text = " +91";
+    super.initState();
   }
-}
 
-
-class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.init(context, height: 896, width: 414, allowFontScaling: true);
     final providerCommunity = Provider.of<DataProvider>(context, listen: false);
+    return Scaffold(
+        extendBodyBehindAppBar: true,
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: Icon(
+              Icons.arrow_back_ios_rounded,
+              color: Colors.black,
+            ),
+          ),
+          elevation: 0,
+        ),
+        body: Container(
+          margin: EdgeInsets.only(left: 25, right: 25),
+          alignment: Alignment.center,
+          child: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    height: 150,
+                    width: 150,
+                    margin: EdgeInsets.only(top: 3),
+                    // height: kSpacingUnit.w * 18,
+                    // width: kSpacingUnit.w * 18,
+                    // margin: EdgeInsets.only(top: kSpacingUnit.w * 3),
+                    child: Stack(
+                      children: <Widget>[
+                        CircleAvatar(
+                          radius: 75,
+                          // radius: kSpacingUnit.w * 10,
+                          backgroundImage: AssetImage('assets/images/avatar.png'),
+                        ),
+                        Align(
+                          alignment: Alignment.bottomRight,
+                          child: Container(
+                            height: 32,
+                            width: 32,
+                            // height: kSpacingUnit.w * 4,
+                            // width: kSpacingUnit.w * 5,
+                            decoration: BoxDecoration(
+                              color: Colors.green,
+                              shape: BoxShape.circle,
+                            ),
+                            child: Center(
+                              heightFactor: 2,
+                              widthFactor: 2,
+                              // heightFactor: kSpacingUnit.w * 1.5,
+                              // widthFactor: kSpacingUnit.w * 1.5,
 
-    var profileInfo = Expanded(
-      child: Column(
-        children: <Widget>[
-          Container(
-            height: kSpacingUnit.w * 18,
-            width: kSpacingUnit.w * 18,
-            margin: EdgeInsets.only(top: kSpacingUnit.w * 3),
-            child: Stack(
-              children: <Widget>[
-                CircleAvatar(
-                  radius: kSpacingUnit.w * 10,
-                  backgroundImage: AssetImage('assets/images/avatar.png'),
-                ),
-                Align(
-                  alignment: Alignment.bottomRight,
-                  child: Container(
-                    height: kSpacingUnit.w * 4,
-                    width: kSpacingUnit.w * 5,
+                              child: Icon(
+                                Icons.edit,
+                                color: Colors.white,
+                                size: 22,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  // SizedBox(height: kSpacingUnit.w * 2),
+                  SizedBox(
+                    height: 30,
+                  ),
+                  Container(
+                    height: 55,
                     decoration: BoxDecoration(
-                      color: Color(0xFFDCEDC8),
-                      shape: BoxShape.circle,
-                    ),
-                    child: Center(
-                      heightFactor: kSpacingUnit.w * 1.5,
-                      widthFactor: kSpacingUnit.w * 1.5,
-
-                      child: Icon(
-                        LineAwesomeIcons.pen,
-                        color: kDarkPrimaryColor,
-                        size: 20,
-                      ),
+                        border: Border.all(width: 1, color: Colors.grey),
+                        borderRadius: BorderRadius.circular(10)),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                          width: 10,
+                        ),
+                        SizedBox(
+                          width: 40,
+                          child: Icon(
+                            Icons.person,
+                          ),
+                        ),
+                        Text(
+                          "|",
+                          style: TextStyle(fontSize: 33, color: Colors.grey),
+                        ),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Expanded(
+                          child: Text("${providerCommunity.user?.username}",
+                              style: TextStyle(fontSize: 16)
+                          ),
+                        )
+                      ],
                     ),
                   ),
-                ),
-              ],
-            ),
-          ),
-          SizedBox(height: kSpacingUnit.w * 2),
-          Text(
-            "${providerCommunity.user?.username}",
-            style: kTitleTextStyle,
-          ),
-          SizedBox(height: kSpacingUnit.w * 0.5),
-          Text(
-            "${providerCommunity.user?.email}",
-            style: kCaptionTextStyle,
-          ),
-          SizedBox(height: kSpacingUnit.w * 2),
-
-        ],
-      ),
-    );
-
-
-    var header = Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        profileInfo,
-        SizedBox(width: kSpacingUnit.w * 3),
-      ],
-    );
-
-
-    return ThemeSwitchingArea(
-      child: Builder(
-        builder: (context) {
-          return Scaffold(
-            body: Column(
-              children: <Widget>[
-                SizedBox(height: kSpacingUnit.w * 4),
-                header,
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                      foregroundColor: Colors.white, backgroundColor: Colors.green,
-                      shadowColor: Colors.greenAccent,
-                      elevation: 3,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(32.0)),
-                      fixedSize: const Size(150, 5)
+                  SizedBox(
+                    height: 10,
                   ),
-                  onPressed: () {
-                    providerCommunity.deleteState();
-                    Navigator.pushNamedAndRemoveUntil(context, '/login', (route) => false);
-                  },
-                  child: Text('Logout'),
+                  Container(
+                    height: 55,
+                    decoration: BoxDecoration(
+                        border: Border.all(width: 1, color: Colors.grey),
+                        borderRadius: BorderRadius.circular(10)),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                          width: 10,
+                        ),
+                        SizedBox(
+                          width: 40,
+                          child: Icon(
+                            Icons.mail,
+                          ),
+                        ),
+                        Text(
+                          "|",
+                          style: TextStyle(fontSize: 33, color: Colors.grey),
+                        ),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Expanded(
+                          child: Text("${providerCommunity.user?.email}",
+                              style: TextStyle(fontSize: 16)
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Container(
+                    height: 55,
+                    decoration: BoxDecoration(
+                        border: Border.all(width: 1, color: Colors.grey),
+                        borderRadius: BorderRadius.circular(10)),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                          width: 10,
+                        ),
+                        SizedBox(
+                            width: 40,
+                            child:  Text(
+                                " +91",
+                                style: TextStyle(fontSize: 16)
+                            )
+                        ),
+                        Text(
+                          "|",
+                          style: TextStyle(fontSize: 33, color: Colors.grey),
+                        ),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Expanded(
+                            child: Text(
+                                "${providerCommunity.user?.phoneNo}",
+                                style: TextStyle(fontSize: 16)
+                            )
+                        )
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  SizedBox(
+                      width: 150,
+                      height: 45,
+                      child: ElevatedButton(
 
-                )
-                // Expanded(
-                // child: ListView(
-                // children: <Widget>[
-                //   TextFormField(
-                //     // decoration: const InputDecoration(
-                //     //   icon: Icon(Icons.edit),
-
-                //     // ),
-                //     initialValue: "UserName: ${providerCommunity.user?.username}",
-                //   ),
-                //   SizedBox(height: 10,),
-                //   TextFormField(
-                //     // decoration: const InputDecoration(
-                //     //   icon: Icon(Icons.edit),
-                //     //   hintText: 'phone Number',
-                //     // ),
-                //     initialValue: "Phone Number: ${providerCommunity.user?.phoneNo}",
-                //   ),
-                //   SizedBox(height: 10,),
-                //   TextFormField(
-                //     // decoration: const InputDecoration(
-                //     //   icon: Icon(Icons.edit),
-                //     //   hintText: 'Email Id',
-                //     // ),
-                //     initialValue: "Email Id: ${providerCommunity.user?.email}",
-                //   ),
-                //   SizedBox(height: 10,),
-                //   // Container(
-                //   //     margin: const EdgeInsets.only(top: 20.0),
-                //   //     child: FloatingActionButton(
-                //   //       onPressed: () {
-                //   //       },
-                //   //       child: const Icon(Icons.check),
-                //   //     )),
-                //   SizedBox(height: 80,),
-                //   ProfileListItem(
-                //     icon: LineAwesomeIcons.alternate_sign_out,
-                //     text: 'Logout',
-                //     hasNavigation: false,
-
-                //   ),
-                // ],
-                // ),
-
-                // )
-              ],
-            ),
-          );
-        },
-      ),
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.green.shade600,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10))),
+                        onPressed: () {
+                          providerCommunity.deleteState();
+                          Navigator.pushNamedAndRemoveUntil(context, '/login', (route) => false);
+                        },
+                        child: Text("Log Out", style: TextStyle(fontSize: 15)),
+                      )
+                  )       //
+                ],
+              )
+          ),
+        )
     );
   }
 }
