@@ -41,7 +41,7 @@ class _SplashPageState extends State<SplashPage> {
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: [
+              children: const [
                 Icon(
                   Icons.home_filled,
                   size: 45,

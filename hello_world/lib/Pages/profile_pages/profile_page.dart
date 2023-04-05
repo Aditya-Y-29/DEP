@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../provider/data_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -205,7 +206,9 @@ class _ProfilePageState extends State<ProfilePage> {
                             backgroundColor: Colors.green.shade600,
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10))),
-                        onPressed: () {
+                        onPressed: () async {
+                          var sharedPref = await SharedPreferences.getInstance();
+                          sharedPref.setString("userPhone", "");
                           providerCommunity.deleteState();
                           Navigator.pushNamedAndRemoveUntil(context, '/login', (route) => false);
                         },
