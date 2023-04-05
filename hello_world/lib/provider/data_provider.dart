@@ -42,6 +42,17 @@ class DataProvider extends ChangeNotifier {
     user = await UserDataBaseService.getUser(phoneNo);
   }
 
+  bool addUser(String name,String email,String phoneNo) {
+
+    UserModel userM = UserModel(
+      name: name,
+      username: name,
+      phoneNo: phoneNo,
+      email: email,
+    );
+    UserDataBaseService.createUserDb(userM);
+    return true;
+  }
   void getCommunityMembers(String phone) async {
     List<CommunityModel>? communityList =
         await UserDataBaseService.getCommunities(phone);
