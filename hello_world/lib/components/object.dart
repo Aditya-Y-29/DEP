@@ -53,19 +53,19 @@ class _ObjectState extends State<Object> {
             Row(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.center,
-                // children: <Widget>[
-                  // Flexible(
-                  //     child:
-                  //     Container(
-                  //       margin: const EdgeInsets.only(right: 12.0),
-                  //       child:
-                  //       Image.asset(
-                  //         'assets/images/Car.png',
-                  //         width: 60,
-                  //         height: 60,
-                  //       ),
-                  //     )
-                  // ),
+                children: <Widget>[
+                  Flexible(
+                      child:
+                      Container(
+                        margin: const EdgeInsets.only(right: 12.0),
+                        child:
+                        Image.asset(
+                          'assets/images/Car.png',
+                          width: 60,
+                          height: 60,
+                        ),
+                      )
+                  ),
                   // Flexible(
                   //   child: Container(
                   //     child:
@@ -88,7 +88,7 @@ class _ObjectState extends State<Object> {
                   //     }).toList();
                   //   },
                   // ),
-                // ]
+                ]
             ),
             Align(
               alignment: Alignment.bottomRight,
