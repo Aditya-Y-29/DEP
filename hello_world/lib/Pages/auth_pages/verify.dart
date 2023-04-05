@@ -121,6 +121,7 @@ class _MyVerifyState extends State<MyVerify> {
                           try{
                             // Create a PhoneAuthCredential with the code
                             PhoneAuthCredential credential = PhoneAuthProvider.credential(verificationId: MyPhone.verify, smsCode: code);
+                            print("Code: $code");
 
                             await auth.signInWithCredential(credential);
                             // ignore: use_build_context_synchronously

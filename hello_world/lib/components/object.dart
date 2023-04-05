@@ -52,38 +52,50 @@ class _ObjectState extends State<Object> {
           children: [
             Row(
                 mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Flexible(
-                    child: Container(
                       child:
-                        Text(
-                          widget.name,
-                          style: const TextStyle(
-                            fontSize: 20,
-                          ),
-                          overflow: TextOverflow.ellipsis,
+                      Container(
+                        margin: const EdgeInsets.only(right: 12.0),
+                        child:
+                        Image.asset(
+                          'assets/images/Car.png',
+                          width: 60,
+                          height: 60,
                         ),
-                    )
+                      )
                   ),
-                  PopupMenuButton<Choice>(
-                    itemBuilder: (BuildContext context) {
-                      return choices.skip(0).map((Choice choice) {
-                        return PopupMenuItem <Choice>(
-                          value: choice,
-                          child: Text(choice.name),
-                        );
-                      }).toList();
-                    },
-                  ),
+                  // Flexible(
+                  //   child: Container(
+                  //     child:
+                  //       Text(
+                  //         widget.name,
+                  //         style: const TextStyle(
+                  //           fontSize: 20,
+                  //         ),
+                  //         overflow: TextOverflow.ellipsis,
+                  //       ),
+                  //   )
+                  // ),
+                  // PopupMenuButton<Choice>(
+                  //   itemBuilder: (BuildContext context) {
+                  //     return choices.skip(0).map((Choice choice) {
+                  //       return PopupMenuItem <Choice>(
+                  //         value: choice,
+                  //         child: Text(choice.name),
+                  //       );
+                  //     }).toList();
+                  //   },
+                  // ),
                 ]
             ),
             Align(
               alignment: Alignment.bottomRight,
               child: Container(
-                margin: const EdgeInsets.only(bottom: 5.0, right: 5.0),
-                height: 35.0,
-                width: 35.0,
+                // margin: const EdgeInsets.only(bottom: 5.0, right: 5.0),
+                height: 25.0,
+                width: 25.0,
                 child: FloatingActionButton(
                   heroTag: "Comm_Btn",
                   onPressed: (){
