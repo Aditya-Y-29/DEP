@@ -1,9 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:animated_theme_switcher/animated_theme_switcher.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:line_awesome_flutter/line_awesome_flutter.dart';
-import 'package:hello_world/constants.dart';
-import 'package:hello_world/widgets/profile_list_item.dart';
 import '../../provider/data_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -80,7 +75,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               // widthFactor: kSpacingUnit.w * 1.5,
 
                               child: Icon(
-                                LineAwesomeIcons.pen,
+                                Icons.edit,
                                 color: Colors.white,
                                 size: 22,
                               ),
