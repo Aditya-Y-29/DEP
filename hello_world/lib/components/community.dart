@@ -109,7 +109,7 @@ class _CommunityState extends State<Community> {
                             ),),
                           Text(' \$15',
                             style: const TextStyle(
-                              color: Colors.green,
+                              color: Colors.red,
                               fontSize: 13,
                             ),),
                          ],
