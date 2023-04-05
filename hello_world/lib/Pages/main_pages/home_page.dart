@@ -177,7 +177,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                           child:  Row(
                                             children: const [
                                               Text("+"),
-                                              Icon(Icons.data_object),
+                                              Icon(Icons.laptop_mac_sharp),
                                             ],
                                           ),
                                         )
