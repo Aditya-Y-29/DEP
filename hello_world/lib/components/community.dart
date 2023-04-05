@@ -76,9 +76,10 @@ class _CommunityState extends State<Community> {
                         Container(
                           child:
                           Image.asset(
-                            'assets/images/Home.jpg',
-                            width: 40,
-                            height: 40,
+                            '${providerCommunity.extractCommunityImagePathByName(widget.name)}',
+                            // 'assets/images/Home.jpg',
+                            width: 45,
+                            height: 45,
                           ),
                         )
                     ),

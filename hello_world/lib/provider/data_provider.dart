@@ -42,6 +42,52 @@ class DataProvider extends ChangeNotifier {
     user = await UserDataBaseService.getUser(phoneNo);
   }
 
+  //***********************************************
+  // Images for common names
+
+  Map<String,String> communityNameToImagePath={
+    "Home": "assets/images/communityImages/Home.jpg",
+    "Office": "assets/images/communityImages/Office.png",
+    "Shop":"assets/images/communityImages/Shop.jpg",
+    // "Lab":"assets/images/communityImages/Lab.jpg",
+    // "Friends":"assets/images/communityImages/Friends.jpg",
+    // "Family":"assets/images/communityImages/Family.jpg",
+    // "Trip":"assets/images/communityImages/Trip.jpg",
+    // "Apartment":"assets/images/communityImages/Apartment.jpg",
+    // "Test":"assets/images/communityImages/Test.jpg",
+    // "Myself":"assets/images/communityImages/Myself.jpg",
+    // "Me":"assets/images/communityImages/Me.jpg",
+    // "Couple":"assets/images/communityImages/Couple.jpg",
+    "Default":"assets/images/communityImages/Default.jpg",
+  };
+
+
+
+  //***********************************************
+
+  bool isSubstring(String s, String t) {
+    if (s.isEmpty) return true;
+    if (t.isEmpty) return false;
+    if (t.length < s.length) return false;
+
+    for (int i = 0; i <= t.length - s.length; i++) {
+      if (t.substring(i, i + s.length) == s) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  String extractCommunityImagePathByName(String communityName){
+    for (String key in communityNameToImagePath.keys) {
+      String value = communityNameToImagePath[key]!;
+      if(isSubstring(communityName.toLowerCase(),key.toLowerCase())){
+        return value;
+      }
+    }
+    return communityNameToImagePath["Default"]!;
+  }
+
   int communityTotalExpense(String communityName) {
      int sum=0;
      for(int i=0;i<communityObjectMap[communityName]!.length;i++){
