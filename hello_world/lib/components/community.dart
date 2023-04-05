@@ -68,17 +68,17 @@ class _CommunityState extends State<Community> {
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    Flexible(
-                        child:
-                        Container(
-                          child:
-                          Image.asset(
-                            'assets/images/Home.jpg',
-                            width: 40,
-                            height: 40,
-                          ),
-                        )
-                    ),
+                    // Flexible(
+                    //     child:
+                    //     Container(
+                    //       child:
+                    //       Image.asset(
+                    //         'assets/images/Home.jpg',
+                    //         width: 40,
+                    //         height: 40,
+                    //       ),
+                    //     )
+                    // ),
                     Flexible(
                         child:
                         Container(

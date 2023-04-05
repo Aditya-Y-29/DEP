@@ -322,21 +322,76 @@ class DataProvider extends ChangeNotifier {
   void updateExpense(
       Expense expense,
       String newAmount,
-      String newDescription) {
+      String newDescription) async{
 
-    // Find the expense to update in the "unresolved expenses" map
-    final community = communitiesdb?.firstWhere((c) => c.name == expense.communityName);
-    final object = communityObjectMapdb?[community]?.firstWhere((o) => o.name == expense.objectName);
-    final expenseToUpdate = objectUnresolvedExpenseMapdb?[community]?[object]?.firstWhere((e) => e.name == expense.description);
-    if (expenseToUpdate != null){
-    // Update the expense's fields
+    CommunityModel ctmp = communitiesdb!
+        .firstWhere((element) => element.name == expense.communityName);
+    ObjectsModel? otmp = communityObjectMapdb![ctmp]!
+        .firstWhere((element) => element.name == expense.objectName);
+    ExpenseModel? rtmp = objectUnresolvedExpenseMapdb![ctmp]![otmp]!
+        .firstWhere((element) => element.name == expense.description);
 
-    expenseToUpdate.amount = newAmount;
-    expenseToUpdate.description = newDescription;
+    if(ExpenseDataBaseService.deleteExpense(rtmp)==false){
+      return;
+    }
+    objectUnresolvedExpenseMapdb![ctmp]![otmp]!.remove(rtmp);
 
-    // Notify any listeners of the change
-    notifyListeners();}
+    Expense? item =
+    objectUnresolvedExpenseMap[expense.communityName]![expense.objectName]
+        ?.firstWhere((element) =>
+        element.objectName == expense.objectName &&
+        element.creator == expense.creator &&
+        element.amount == expense.amount &&
+        element.description == expense.description);
+    objectUnresolvedExpenseMap[expense.communityName]![expense.objectName]
+        ?.remove(item);
+
+    ExpenseModel expenseM = ExpenseModel(
+        creatorID: await UserDataBaseService.getUserID(user!.phoneNo),
+        amount: newAmount,
+        name: newDescription,
+        objectID: await ObjectDataBaseService.getObjectID(otmp),
+        resolverid: null,
+        description: "",
+        date: null);
+    if(ExpenseDataBaseService.createExpense(expenseM)==false){
+      return;
+    }
+
+    //ExpenseDataBaseService.ExpenseEditNotification(expense);
+
+    objectUnresolvedExpenseMap[expense.communityName]![expense.objectName]?.add(
+        Expense(
+            objectName: expense.objectName,
+            creator: expense.creator,
+            amount:  int.parse(newAmount),
+            description:newDescription,
+            isPaid: false,
+            communityName: expense.communityName));
+
+    objectUnresolvedExpenseMapdb![ctmp]![otmp]!.add(expenseM);
+    notifyListeners();
   }
+
+
+  // void updateExpense(
+  //     Expense expense,
+  //     String newAmount,
+  //     String newDescription) {
+  //
+  //   // Find the expense to update in the "unresolved expenses" map
+  //   final community = communitiesdb?.firstWhere((c) => c.name == expense.communityName);
+  //   final object = communityObjectMapdb?[community]?.firstWhere((o) => o.name == expense.objectName);
+  //   final expenseToUpdate = objectUnresolvedExpenseMapdb?[community]?[object]?.firstWhere((e) => e.name == expense.description);
+  //   if (expenseToUpdate != null){
+  //   // Update the expense's fields
+  //
+  //   expenseToUpdate.amount = newAmount;
+  //   expenseToUpdate.description = newDescription;
+  //
+  //   // Notify any listeners of the change
+  //   notifyListeners();}
+  // }
 
   addMembersToCommunity(String communityName, List<dynamic> names,
       List<dynamic> phones, String phoneNo) async {

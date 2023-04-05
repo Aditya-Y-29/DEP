@@ -8,11 +8,9 @@ import 'package:intl/intl.dart';
 import 'package:hello_world/components/expense.dart';
 
 class EditExpenseScreen extends StatefulWidget {
-  const EditExpenseScreen({Key? key, required this.isFromCommunityPage, required this.isFromObjectPage, required this.communityName, required this.objectName,required this.expense}) : super(key: key);
+  const EditExpenseScreen({Key? key, required this.isFromCommunityPage, required this.isFromObjectPage,required this.expense}) : super(key: key);
   final bool isFromCommunityPage;
   final bool isFromObjectPage;
-  final String communityName;
-  final String objectName;
   final Expense expense;
 
   @override
@@ -22,27 +20,31 @@ class EditExpenseScreen extends StatefulWidget {
 class ExpenseData extends State<EditExpenseScreen> {
 
   final _formKey = GlobalKey<FormState>();
-  TextEditingController dateController =TextEditingController();
+
 
   String communityDropDown='';
   String objectDropDown='';
   late int amount;
   TextEditingController amountInvolved = TextEditingController();
   TextEditingController description = TextEditingController();
+  TextEditingController dateController =TextEditingController();
 
 
   @override
   void initState(){
     super.initState();
     dateController.text="";
+    description.text='${widget.expense.description}';
+    amountInvolved.text='${widget.expense.amount}';
   }
-  @override
+
+
   Widget build(BuildContext context) {
 
 
     final providerCommunity = Provider.of<DataProvider>(context, listen: true);
     if(widget.isFromCommunityPage) {
-      communityDropDown=widget.communityName;
+      communityDropDown=widget.expense.communityName;
     } else {
       communityDropDown=providerCommunity.communities[providerCommunity.communitiesIndex];
     }
@@ -50,7 +52,7 @@ class ExpenseData extends State<EditExpenseScreen> {
 
 
     if(widget.isFromObjectPage){
-      objectDropDown=widget.objectName;
+      objectDropDown=widget.expense.objectName;
     }
     else if (providerCommunity.communityObjectMap[communityDropDown]!.isNotEmpty) {
       objectDropDown=providerCommunity.communityObjectMap[communityDropDown]![providerCommunity.objectIndex];
@@ -148,39 +150,39 @@ class ExpenseData extends State<EditExpenseScreen> {
 
                   SizedBox(height: 10,),
 
-                  TextField(
-                      controller: dateController, //editing controller of this TextField
-                      decoration: const InputDecoration(
-                          icon: Icon(Icons.calendar_today), //icon of text field
-                          labelText: "Enter Date" //label text of field
-                      ),
-                      readOnly: true,  // when true user cannot edit text
-                      onTap: () async {
-                        //when click we have to show the datepicker
-                        DateTime? pickedDate = await showDatePicker(
-                          context: context,
-                          initialDate: DateTime.now(), //get today's date
-                          firstDate:DateTime(1900), //DateTime.now() - not to allow to choose before today.
-                          lastDate: DateTime.now(),
-                        );
-                        if(pickedDate != null ){
-                          // print(pickedDate);  //get the picked date in the format => 2022-07-04 00:00:00.000
-                          String formattedDate = DateFormat('yyyy-MM-dd').format(pickedDate); // format date in required form here we use yyyy-MM-dd that means time is removed
-                          // print(formattedDate); //formatted date output using intl package =>  2022-07-04
-                          //You can format date as per your need
-
-                          setState(() {
-                            dateController.text = formattedDate.toString(); //set foratted date to TextField value.
-                          });
-                        }else{
-                          //print("Date is not selected");
-                        }
-                      }
-
-                  ),
-
-
-                  SizedBox(height: 10,),
+                  // TextField(
+                  //     controller: dateController, //editing controller of this TextField
+                  //     decoration: const InputDecoration(
+                  //         icon: Icon(Icons.calendar_today), //icon of text field
+                  //         labelText: "Enter Date" //label text of field
+                  //     ),
+                  //     readOnly: true,  // when true user cannot edit text
+                  //     onTap: () async {
+                  //       //when click we have to show the datepicker
+                  //       DateTime? pickedDate = await showDatePicker(
+                  //         context: context,
+                  //         initialDate: DateTime.now(), //get today's date
+                  //         firstDate:DateTime(1900), //DateTime.now() - not to allow to choose before today.
+                  //         lastDate: DateTime.now(),
+                  //       );
+                  //       if(pickedDate != null ){
+                  //         // print(pickedDate);  //get the picked date in the format => 2022-07-04 00:00:00.000
+                  //         String formattedDate = DateFormat('yyyy-MM-dd').format(pickedDate); // format date in required form here we use yyyy-MM-dd that means time is removed
+                  //         // print(formattedDate); //formatted date output using intl package =>  2022-07-04
+                  //         //You can format date as per your need
+                  //
+                  //         setState(() {
+                  //           dateController.text = formattedDate.toString(); //set foratted date to TextField value.
+                  //         });
+                  //       }else{
+                  //         //print("Date is not selected");
+                  //       }
+                  //     }
+                  //
+                  // ),
+                  //
+                  //
+                  // SizedBox(height: 10,),
 
 
                   TextFormField(
@@ -195,7 +197,7 @@ class ExpenseData extends State<EditExpenseScreen> {
                       child: FloatingActionButton(
                         onPressed: () {
                           // print(objectDropDown);
-                          providerCommunity.updateExpense(widget.expense, amountInvolved.text, description.text);
+                          providerCommunity.updateExpense(widget.expense,amountInvolved.text, description.text);
                           Navigator.pop(context);
                         },
                         child: const Icon(Icons.check),
