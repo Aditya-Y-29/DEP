@@ -42,6 +42,28 @@ class DataProvider extends ChangeNotifier {
     user = await UserDataBaseService.getUser(phoneNo);
   }
 
+  int communityTotalExpense(String communityName) {
+     int sum=0;
+     for(int i=0;i<communityObjectMap[communityName]!.length;i++){
+         for(int j=0;j<objectUnresolvedExpenseMap[communityName]![communityObjectMap[communityName]![i]]!.length;j++){
+             sum+=objectUnresolvedExpenseMap[communityName]![communityObjectMap[communityName]![i]]![j].amount;
+         }
+     }
+     return sum;
+  }
+
+  int myExpenseInCommunity(String communityName) {
+    int sum=0;
+    for(int i=0;i<communityObjectMap[communityName]!.length;i++){
+      for(int j=0;j<objectUnresolvedExpenseMap[communityName]![communityObjectMap[communityName]![i]]!.length;j++){
+        if(user!.name==objectUnresolvedExpenseMap[communityName]![communityObjectMap[communityName]![i]]![j].creator){
+          sum+=objectUnresolvedExpenseMap[communityName]![communityObjectMap[communityName]![i]]![j].amount;
+        }
+      }
+    }
+    return sum;
+  }
+
   bool addUser(String name,String email,String phoneNo) {
 
     UserModel userM = UserModel(
