@@ -11,7 +11,7 @@ import 'package:hello_world/Pages/main_pages/navigation_page.dart';
 import '../add_from_pages/add_from_community_page.dart';
 import '../group_member_pages/add_member_page.dart';
 import '../group_member_pages/community_info_page.dart';
-
+import '../logs_notification_pages/logs_notification.dart';
 
 class CommunityPage extends StatefulWidget {
   const CommunityPage({Key? key, required this.communityName}) : super(key: key);
@@ -43,6 +43,7 @@ class _CommunityPageState extends State<CommunityPage> {
       //   backgroundColor: Colors.green,
       //   child: const Icon(Icons.arrow_forward_ios, size: 20,),
       // ) : null,
+
       appBar: AppBar(
         leading: Container(
           width: 50,
@@ -68,6 +69,24 @@ class _CommunityPageState extends State<CommunityPage> {
           ],
         ),
         actions:  [
+          Container(
+            margin: const EdgeInsets.all(5),
+            padding: const EdgeInsets.all(1),
+            child: GestureDetector(
+              onTap: ()  async{
+                List<String> notification= await providerCommunity.getNotification(widget.communityName);
+                
+                // ignore: use_build_context_synchronously
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => LogsNotification(communityName: widget.communityName,notification: notification,),
+                  ),
+                );
+              },
+              child: const Icon(Icons.notifications, size: 30,),
+            )
+          ),
           Container(
             margin: const EdgeInsets.all(5),
             padding: const EdgeInsets.all(1),

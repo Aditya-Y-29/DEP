@@ -326,11 +326,11 @@ class DataProvider extends ChangeNotifier {
       name: communityName,
       phoneNo: user!.phoneNo,
     );
-    if(CommunityDataBaseService.createCommunity(community)==false){
+    if( await CommunityDataBaseService.createCommunity(community)==false){
       return;
     }
 
-    CommunityDataBaseService.CommunityAddNotification(community, user!.phoneNo);
+
     communities.add(communityName);
     communityObjectMap[communityName] = ["Misc"];
     objectUnresolvedExpenseMap[communityName] = {};
@@ -344,6 +344,9 @@ class DataProvider extends ChangeNotifier {
     objectUnresolvedExpenseMap[communityName]!["Misc"] = [];
 
     notifyListeners();
+
+    await CommunityDataBaseService.communityAddNotification(community, user!.phoneNo);
+    await CommunityDataBaseService.addCommunityLogNotification(community,"Community Created");
   }
 
   Future<void> addObject(String communityName, String objectName) async {
@@ -364,13 +367,15 @@ class DataProvider extends ChangeNotifier {
       return;
     }
 
-    ObjectDataBaseService.ObjectAddNotification(object);
 
     communityObjectMapdb![ctmp]!.add(object);
     communityObjectMap[communityName]!.add(objectName);
     objectUnresolvedExpenseMap[communityName]![objectName] = [];
     objectResolvedExpenseMap[communityName]![objectName] = [];
     notifyListeners();
+
+    ObjectDataBaseService.ObjectAddNotification(object);
+    await CommunityDataBaseService.addCommunityLogNotification(ctmp, "Object Added: " + objectName);
   }
 
   Future<void> addExpense(String objectName, String creator, int amount,
@@ -395,6 +400,7 @@ class DataProvider extends ChangeNotifier {
     }
 
     ExpenseDataBaseService.ExpenseAddNotification(expense);
+    // await CommunityDataBaseService.addCommunityLogNotification(ctmp, "Expense Added: " + description + " (" + amount.toString() + ")");
 
     objectUnresolvedExpenseMap[communityName]![objectName]?.add(Expense(
         objectName: objectName,
@@ -531,8 +537,9 @@ class DataProvider extends ChangeNotifier {
         CommunityModel ctmp = communitiesdb!
             .firstWhere((element) => element.name == communityName);
         if(await CommunityDataBaseService.addUserInCommunity(ctmp, member.phone, false)){
-          CommunityDataBaseService.CommunityAddNotification(ctmp, member.phone);
           communityMembersMap[communityName]!.add(member);
+          CommunityDataBaseService.communityAddNotification(ctmp, member.phone);
+          await CommunityDataBaseService.addCommunityLogNotification(ctmp, "Member Added : ${member.name}");
         }
       }
     }
@@ -547,4 +554,9 @@ class DataProvider extends ChangeNotifier {
     }
   }
 
+  Future<List<String>> getNotification( String communityName) async {
+    CommunityModel ctmp = communitiesdb!.firstWhere((element) => element.name == communityName);
+    List<String> notification = await CommunityDataBaseService.getCommunityNotification(ctmp);
+    return notification;
+  }
 }

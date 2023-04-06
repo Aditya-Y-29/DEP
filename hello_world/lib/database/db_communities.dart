@@ -26,6 +26,8 @@ class CommunityDataBaseService {
       }
 
       await _db.collection('communities').add(community.toJson());
+      // await _db.collection('logsNotification').add();
+
       addUserInCommunity(community, community.phoneNo,true);
       // create misc object
       String? communityID = await getCommunityID(community);
@@ -109,7 +111,7 @@ class CommunityDataBaseService {
     }
   }
 
-  static Future<bool> CommunityAddNotification(CommunityModel community, String phoneNo) async {
+  static Future<bool> communityAddNotification(CommunityModel community, String phoneNo) async {
 
     String token= await UserDataBaseService.getUserToken(phoneNo);
 
@@ -133,6 +135,55 @@ class CommunityDataBaseService {
         'Authorization':'key=AAAAsXT8mZo:APA91bEjQMOMbx42wNSYYqsQsFQcQX3QEWrjeSVE0kKtvkxtoJrhhvJvqb2yCjPRHFlQQ05YZRkjgYkHJvNtO0O4n5b8w35-XMNQHda0Y_D7XPoF5oZWRN7U6HhmsymK7hEzK2qrms74'
       }
     );
+
     return true;
+  }
+
+  static Future<bool> addCommunityLogNotification(CommunityModel community,String message) async {
+    
+    try{
+      String? communityId=await getCommunityID(community);
+      final sp = await _db
+          .collection('logsNotification')
+          .where("CommunityID", isEqualTo: communityId)
+          .get();
+      
+      if(sp.docs.isNotEmpty){
+        await _db.collection('logsNotification').doc(sp.docs.first.id).update({
+          'Notification':FieldValue.arrayUnion([message])
+        });
+      }
+      else{
+        await _db.collection('logsNotification').add({
+          'CommunityID':communityId,
+          'Notification':[message]
+        });
+      }
+      return true;
+    }
+    catch(e){
+      return false;
+    }
+
+  }
+
+  static Future<List<String>> getCommunityNotification(CommunityModel community) async{
+    List<String> notifications=[];
+    try{
+      String? communityID = await getCommunityID(community);
+      final sp = await _db
+          .collection('logsNotification')
+          .where("CommunityID", isEqualTo: communityID)
+          .get();
+      
+      for(var community in sp.docs){
+        for( var notification in community.data()['Notification']){
+          notifications.add(notification);
+        }
+      }
+      return notifications;
+    }catch(e){
+      return notifications;
+    }
   }
 }
