@@ -52,7 +52,7 @@ class _ObjectState extends State<Object> {
           children: [
             Row(
                 mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
                   Flexible(
                       child:
@@ -66,18 +66,18 @@ class _ObjectState extends State<Object> {
                         ),
                       )
                   ),
-                  // Flexible(
-                  //   child: Container(
-                  //     child:
-                  //       Text(
-                  //         widget.name,
-                  //         style: const TextStyle(
-                  //           fontSize: 20,
-                  //         ),
-                  //         overflow: TextOverflow.ellipsis,
-                  //       ),
-                  //   )
-                  // ),
+                  Flexible(
+                    child: Container(
+                      child:
+                        Text(
+                          widget.name,
+                          style: const TextStyle(
+                            fontSize: 20,
+                          ),
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                    )
+                  ),
                   // PopupMenuButton<Choice>(
                   //   itemBuilder: (BuildContext context) {
                   //     return choices.skip(0).map((Choice choice) {
@@ -90,10 +90,22 @@ class _ObjectState extends State<Object> {
                   // ),
                 ]
             ),
+            Row(
+              children: [
+                Icon(Icons.person),
+                Text(" = 1000", style: TextStyle(color: Colors.blue),),
+              ],
+            ),
+            Row(
+              children: [
+                Icon(Icons.group),
+                Text(" = 1000", style: TextStyle(color: Colors.blue)),
+              ],
+            ),
             Align(
               alignment: Alignment.bottomRight,
               child: Container(
-                // margin: const EdgeInsets.only(bottom: 5.0, right: 5.0),
+                margin: const EdgeInsets.only(bottom: 5.0, right: 5.0),
                 height: 25.0,
                 width: 25.0,
                 child: FloatingActionButton(
