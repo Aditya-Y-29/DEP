@@ -205,16 +205,30 @@ class _ProfilePageState extends State<ProfilePage> {
                     height: 0,
                   ),
                   SizedBox(
-                    height: 300,
-                    width: 300,
+                    height: 280,
+                    width: 310,
                     child: Container(
-                        margin: EdgeInsets.only(top: 34.0),
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: Colors.grey,
+                          width: 1.0,
+                        ),
+                        borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                      ),
+                        margin: EdgeInsets.only(top: 10.0,bottom: 10),
+                      padding: EdgeInsets.only(top:22.0,bottom: 15.0,left: 10.0,right: 10),
                         child: Column(
                           children: [
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                // MySpendingSummary(),
+                                Container(
+                                  margin: EdgeInsets.only(top: 0.0, left: 0),
+                                  child: Center(
+
+                                    child: MySpendingSummary(),
+                                  ),
+                                ),
                               ],
                             ),
                             Row(
