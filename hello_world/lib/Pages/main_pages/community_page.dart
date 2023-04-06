@@ -9,6 +9,7 @@ import 'package:hello_world/Pages/profile_pages/profile_page.dart';
 import 'package:hello_world/Pages/main_pages/navigation_page.dart';
 
 import '../add_from_pages/add_from_community_page.dart';
+import '../group_member_pages/add_member_page.dart';
 import '../group_member_pages/community_info_page.dart';
 
 
@@ -166,15 +167,15 @@ class _CommunityPageState extends State<CommunityPage> {
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (context) => AddFromCommunityPage(selectedPage: 0, communityName: widget.communityName),
+                                        builder: (context) => AddMembers(communityName: widget.communityName),
                                       ),
                                     );
                                   },
-                                  child: const Icon(Icons.check_circle_outline),
+                                  child: const Icon(Icons.person_add),
                                 ),
                               ),
                               const Text(
-                                "Resolve",
+                                "Add Member",
                                 style: TextStyle(
                                   fontSize: 12,
                                 ),
