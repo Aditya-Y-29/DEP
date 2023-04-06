@@ -290,6 +290,9 @@ class _CommunityPageState extends State<CommunityPage> {
                     child: Row(
                       children: List.of(objectDataProvider.communityObjectMap[widget.communityName]!.map((e) {
                           int k = objectDataProvider.communityObjectMap[widget.communityName]!.indexOf(e) + 1;
+                          if(e == "Misc") {
+                              return SizedBox(height: 1,);
+                            }
                           return GestureDetector(
                             onTap: () {
                               setState(() {
@@ -350,7 +353,7 @@ class _CommunityPageState extends State<CommunityPage> {
                         }))
                       )
                   ),
-                  SizedBox(height: 20,),
+                  SizedBox(height: 10,),
                   Text(
                     "Miscellaneous Expenses",
                     style: TextStyle(
@@ -358,6 +361,7 @@ class _CommunityPageState extends State<CommunityPage> {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
+                  SizedBox(height: 10,),
                   SingleChildScrollView(
                     child: Column(
                       children: List.of(miscExpenses(objectDataProvider)),
@@ -366,7 +370,6 @@ class _CommunityPageState extends State<CommunityPage> {
                   if(miscExpenses(objectDataProvider).isEmpty)
                     Column(
                       children: const [
-                        SizedBox(height: 20,),
                         Text(
                           "No expenses yet",
                         ),
@@ -406,9 +409,13 @@ class _CommunityPageState extends State<CommunityPage> {
     );
   }
   
-  Iterable<Widget> miscExpenses(objectDataProvider) {
-    Iterable<Widget> miscExpenses =  objectDataProvider.objectResolvedExpenseMap[widget.communityName]!["Misc"];
-    miscExpenses ??= [];
+  Iterable<Widget> miscExpenses(DataProvider objectDataProvider) {
+    Iterable<Widget> miscExpenses =  objectDataProvider.objectUnresolvedExpenseMap[widget.communityName]!["Misc"] as Iterable<Widget>;
+    if(miscExpenses == null) {
+      return [];
+    }
+    // print("Community Name: ${widget.communityName}");
+    // print("Size of miscExpenses: ${miscExpenses.length}");
     return miscExpenses;
   }
 }
