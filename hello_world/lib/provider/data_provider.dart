@@ -301,7 +301,7 @@ class DataProvider extends ChangeNotifier {
 
     CommunityDataBaseService.CommunityAddNotification(community, user!.phoneNo);
     communities.add(communityName);
-    communityObjectMap[communityName] = [];
+    communityObjectMap[communityName] = ["Misc"];
     objectUnresolvedExpenseMap[communityName] = {};
     objectResolvedExpenseMap[communityName] = {};
     communityMembersMap[communityName] = [];
@@ -309,6 +309,8 @@ class DataProvider extends ChangeNotifier {
     communitiesdb!.add(community);
 
     // await addObject(communityName, "Misc");
+    // communityObjectMap[communityName]?.add("Misc");
+    objectUnresolvedExpenseMap[communityName]!["Misc"] = [];
 
     notifyListeners();
   }
