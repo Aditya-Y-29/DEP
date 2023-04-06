@@ -350,6 +350,28 @@ class _CommunityPageState extends State<CommunityPage> {
                         }))
                       )
                   ),
+                  SizedBox(height: 20,),
+                  Text(
+                    "Miscellaneous Expenses",
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  SingleChildScrollView(
+                    child: Column(
+                      children: List.of(miscExpenses(objectDataProvider)),
+                    ),
+                  ),
+                  if(miscExpenses(objectDataProvider).isEmpty)
+                    Column(
+                      children: const [
+                        SizedBox(height: 20,),
+                        Text(
+                          "No expenses yet",
+                        ),
+                      ],
+                    ),
                 ],
               )
             ),
@@ -383,4 +405,12 @@ class _CommunityPageState extends State<CommunityPage> {
       floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
     );
   }
+  
+  Iterable<Widget> miscExpenses(objectDataProvider) {
+    Iterable<Widget> miscExpenses =  objectDataProvider.objectResolvedExpenseMap[widget.communityName]!["Misc"];
+    miscExpenses ??= [];
+    return miscExpenses;
+  }
 }
+
+
