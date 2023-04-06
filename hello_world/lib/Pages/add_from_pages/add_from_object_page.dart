@@ -18,7 +18,7 @@ class _AddFromObjectPageData extends State<AddFromObjectPage> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 3,
+      length: 2,
       initialIndex: widget.selectedPage,
       child: Scaffold(
         appBar: AppBar(

@@ -19,14 +19,14 @@ class _AddFromCommunityPageData extends State<AddFromCommunityPage> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 4,
+      length: 2,
       initialIndex: widget.selectedPage,
       child: Scaffold(
         appBar: AppBar(
           title: Text('${widget.communityName}'),
           bottom: const TabBar(
             tabs: [
-              Tab(icon: Icon(Icons.check_circle_outline),),
+              // Tab(icon: Icon(Icons.person_add),),
               Tab(icon: Icon(Icons.laptop_mac_sharp),),
               Tab(icon: Icon(Icons.currency_rupee_outlined),),
               // Tab(icon: Icon(Icons.home_repair_service),),
@@ -36,7 +36,7 @@ class _AddFromCommunityPageData extends State<AddFromCommunityPage> {
         ),
         body: TabBarView(
           children: [
-            ResolveScreen(isFromObjectPage: false, communityName: widget.communityName, objectName: "",),
+            // ResolveScreen(isFromObjectPage: false, communityName: widget.communityName, objectName: "",),
             ObjectScreen(isFromCommunityPage: true, communityName: widget.communityName),
             ExpenseScreen(isFromCommunityPage: true, isFromObjectPage: false, communityName: widget.communityName, objectName: "",),
             // ServiceScreen(isFromCommunityPage: true, isFromObjectPage: false, communityName: widget.communityName, objectName: "",),
