@@ -61,8 +61,6 @@ class DataProvider extends ChangeNotifier {
     "Default":"assets/images/communityImages/Default.jpg",
   };
 
-
-
   //***********************************************
 
   bool isSubstring(String s, String t) {
@@ -98,6 +96,28 @@ class DataProvider extends ChangeNotifier {
      return sum;
   }
 
+  Future<int> totalExpense() async{
+    int sum=0;
+    List<CommunityModel>? communityList = await UserDataBaseService.getCommunities(user!.phoneNo);
+    communityList!.forEach((element) {
+         String communityName=element!.name;
+         sum+=communityTotalExpense(communityName);
+      }
+    );
+    return sum;
+  }
+
+  Future<int> myTotalExpense() async{
+    int sum=0;
+    List<CommunityModel>? communityList = await UserDataBaseService.getCommunities(user!.phoneNo);
+    communityList!.forEach((element) {
+        String communityName=element!.name;
+        sum+=myExpenseInCommunity(communityName);
+      }
+    );
+    return sum;
+  }
+
   int myExpenseInCommunity(String communityName) {
     int sum=0;
     for(int i=0;i<communityObjectMap[communityName]!.length;i++){
@@ -121,6 +141,17 @@ class DataProvider extends ChangeNotifier {
     UserDataBaseService.createUserDb(userM);
     return true;
   }
+
+  Future<Map<String, double>> pieChartDataOfCommunities() async {
+    Map<String,double> communityTotalExpenseMap={};
+    List<CommunityModel>? communityList = await UserDataBaseService.getCommunities(user!.phoneNo);
+    for (int i = 0; i < communityList!.length; i++) {
+      communityTotalExpenseMap[communityList[i].name] = communityTotalExpense(communityList[i].name).toDouble();
+    }
+    return communityTotalExpenseMap;
+
+  }
+
   void getCommunityMembers(String phone) async {
     List<CommunityModel>? communityList =
         await UserDataBaseService.getCommunities(phone);

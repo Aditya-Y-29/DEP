@@ -179,9 +179,9 @@ class NavigationPageState extends State<NavigationPage> {
                           ),  // margin: const EdgeInsets.only(top: 20.0),
                       ),
                     );
-                  }))
+                  }
+                  ))
               ),
-
             ],
           );
         },
