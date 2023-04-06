@@ -110,6 +110,25 @@ class DataProvider extends ChangeNotifier {
     return sum;
   }
 
+  int objectTotalExpense(String communityName, String objectName) {
+    int sum=0;
+    for(int j=0;j<objectUnresolvedExpenseMap[communityName]![objectName]!.length;j++){
+      sum += objectUnresolvedExpenseMap[communityName]![objectName]![j].amount;
+    }
+    return sum;
+  }
+
+  int myExpenseInObject(String communityName, String objectName) {
+    int sum=0;
+    for(int j=0;j<objectUnresolvedExpenseMap[communityName]![objectName]!.length;j++) {
+      if (user!.name ==
+          objectUnresolvedExpenseMap[communityName]![objectName]![j].creator) {
+        sum += objectUnresolvedExpenseMap[communityName]![objectName]![j].amount;
+      }
+    }
+    return sum;
+  }
+
   bool addUser(String name,String email,String phoneNo) {
 
     UserModel userM = UserModel(

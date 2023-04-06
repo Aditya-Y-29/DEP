@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:hello_world/Pages/add_from_pages/add_from_community_page.dart';
 import 'package:hello_world/Pages/main_pages/object_page.dart';
+import 'package:provider/provider.dart';
 
 import '../Pages/add_from_pages/add_from_object_page.dart';
 import '../Pages/add_from_pages/add_home_page_floating_button.dart';
+import '../provider/data_provider.dart';
 import 'community.dart';
 
 class Object extends StatefulWidget {
@@ -18,6 +20,7 @@ class Object extends StatefulWidget {
 class _ObjectState extends State<Object> {
   @override
   Widget build(BuildContext context) {
+    final providerCommunity = Provider.of<DataProvider>(context, listen: false);
     return GestureDetector(
       onTap: () {
         Navigator.push(
@@ -93,13 +96,15 @@ class _ObjectState extends State<Object> {
             Row(
               children: [
                 Icon(Icons.person),
-                Text(" = 1000", style: TextStyle(color: Colors.blue),),
+                Text(" = "),
+                Text("₹ ${providerCommunity.myExpenseInObject(widget.communityName, widget.name)}", style: TextStyle(color: Colors.blue),),
               ],
             ),
             Row(
               children: [
                 Icon(Icons.group),
-                Text(" = 1000", style: TextStyle(color: Colors.blue)),
+                Text(" = "),
+                Text("₹ ${providerCommunity.objectTotalExpense(widget.communityName, widget.name)}", style: TextStyle(color: Colors.blue)),
               ],
             ),
             Align(
