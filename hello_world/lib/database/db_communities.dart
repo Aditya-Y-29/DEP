@@ -1,11 +1,14 @@
 import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import '../Models/objects.dart';
 import '../Models/user.dart';
 import '../Models/community.dart';
 import './db_user.dart';
 
 import 'package:http/http.dart' as http;
+
+import 'db_objects.dart';
 
 class CommunityDataBaseService {
   static final _db = FirebaseFirestore.instance;
@@ -24,6 +27,15 @@ class CommunityDataBaseService {
 
       await _db.collection('communities').add(community.toJson());
       addUserInCommunity(community, community.phoneNo,true);
+      // create misc object
+      String? communityID = await getCommunityID(community);
+      ObjectsModel object = ObjectsModel(
+          name: "Misc",
+          communityID: communityID,
+          creatorPhoneNo: community.phoneNo,
+          type: "",
+          description: "");
+      ObjectDataBaseService.createObjects(object);
       return true;
     } catch (e) {
       return false;

@@ -35,13 +35,13 @@ class _ObjectExpenseScreenState extends State<ObjectExpenseScreen> {
                 padding: const EdgeInsets.only(left: 10, top: 10, bottom: 10),
                 child: const Align(
                   alignment: Alignment.centerLeft,
-                  child: Text(
-                    "Resolved Expenses",
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.normal,
-                    ),
-                  ),
+                  // child: Text(
+                  //   "Resolved Expenses",
+                  //   style: TextStyle(
+                  //     fontSize: 20,
+                  //     fontWeight: FontWeight.normal,
+                  //   ),
+                  // ),
                 ),
               ),
               Column(

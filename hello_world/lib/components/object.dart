@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:hello_world/Pages/add_from_pages/add_from_community_page.dart';
 import 'package:hello_world/Pages/main_pages/object_page.dart';
+import 'package:provider/provider.dart';
 
 import '../Pages/add_from_pages/add_from_object_page.dart';
 import '../Pages/add_from_pages/add_home_page_floating_button.dart';
+import '../provider/data_provider.dart';
 import 'community.dart';
 
 class Object extends StatefulWidget {
@@ -18,6 +20,7 @@ class Object extends StatefulWidget {
 class _ObjectState extends State<Object> {
   @override
   Widget build(BuildContext context) {
+    final providerCommunity = Provider.of<DataProvider>(context, listen: false);
     return GestureDetector(
       onTap: () {
         Navigator.push(
@@ -52,7 +55,7 @@ class _ObjectState extends State<Object> {
           children: [
             Row(
                 mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
                   Flexible(
                       child:
@@ -66,18 +69,18 @@ class _ObjectState extends State<Object> {
                         ),
                       )
                   ),
-                  // Flexible(
-                  //   child: Container(
-                  //     child:
-                  //       Text(
-                  //         widget.name,
-                  //         style: const TextStyle(
-                  //           fontSize: 20,
-                  //         ),
-                  //         overflow: TextOverflow.ellipsis,
-                  //       ),
-                  //   )
-                  // ),
+                  Flexible(
+                    child: Container(
+                      child:
+                        Text(
+                          widget.name,
+                          style: const TextStyle(
+                            fontSize: 20,
+                          ),
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                    )
+                  ),
                   // PopupMenuButton<Choice>(
                   //   itemBuilder: (BuildContext context) {
                   //     return choices.skip(0).map((Choice choice) {
@@ -90,10 +93,24 @@ class _ObjectState extends State<Object> {
                   // ),
                 ]
             ),
+            Row(
+              children: [
+                Icon(Icons.person),
+                Text(" = "),
+                Text("₹ ${providerCommunity.myExpenseInObject(widget.communityName, widget.name)}", style: TextStyle(color: Colors.blue),),
+              ],
+            ),
+            Row(
+              children: [
+                Icon(Icons.group),
+                Text(" = "),
+                Text("₹ ${providerCommunity.objectTotalExpense(widget.communityName, widget.name)}", style: TextStyle(color: Colors.blue)),
+              ],
+            ),
             Align(
               alignment: Alignment.bottomRight,
               child: Container(
-                // margin: const EdgeInsets.only(bottom: 5.0, right: 5.0),
+                margin: const EdgeInsets.only(bottom: 5.0, right: 5.0),
                 height: 25.0,
                 width: 25.0,
                 child: FloatingActionButton(

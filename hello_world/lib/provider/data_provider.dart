@@ -42,6 +42,113 @@ class DataProvider extends ChangeNotifier {
     user = await UserDataBaseService.getUser(phoneNo);
   }
 
+  //***********************************************
+  // Images for common names
+
+  Map<String,String> communityNameToImagePath={
+    "Home": "assets/images/communityImages/Home.jpg",
+    "Office": "assets/images/communityImages/Office.png",
+    "Shop":"assets/images/communityImages/Shop.jpg",
+    // "Lab":"assets/images/communityImages/Lab.jpg",
+    // "Friends":"assets/images/communityImages/Friends.jpg",
+    // "Family":"assets/images/communityImages/Family.jpg",
+    // "Trip":"assets/images/communityImages/Trip.jpg",
+    // "Apartment":"assets/images/communityImages/Apartment.jpg",
+    // "Test":"assets/images/communityImages/Test.jpg",
+    // "Myself":"assets/images/communityImages/Myself.jpg",
+    // "Me":"assets/images/communityImages/Me.jpg",
+    // "Couple":"assets/images/communityImages/Couple.jpg",
+    "Default":"assets/images/communityImages/Default.jpg",
+  };
+
+  //***********************************************
+
+  bool isSubstring(String s, String t) {
+    if (s.isEmpty) return true;
+    if (t.isEmpty) return false;
+    if (t.length < s.length) return false;
+
+    for (int i = 0; i <= t.length - s.length; i++) {
+      if (t.substring(i, i + s.length) == s) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  String extractCommunityImagePathByName(String communityName){
+    for (String key in communityNameToImagePath.keys) {
+      String value = communityNameToImagePath[key]!;
+      if(isSubstring(communityName.toLowerCase(),key.toLowerCase())){
+        return value;
+      }
+    }
+    return communityNameToImagePath["Default"]!;
+  }
+
+  int communityTotalExpense(String communityName) {
+     int sum=0;
+     for(int i=0;i<communityObjectMap[communityName]!.length;i++){
+         for(int j=0;j<objectUnresolvedExpenseMap[communityName]![communityObjectMap[communityName]![i]]!.length;j++){
+             sum+=objectUnresolvedExpenseMap[communityName]![communityObjectMap[communityName]![i]]![j].amount;
+         }
+     }
+     return sum;
+  }
+
+  Future<int> totalExpense() async{
+    int sum=0;
+    List<CommunityModel>? communityList = await UserDataBaseService.getCommunities(user!.phoneNo);
+    communityList!.forEach((element) {
+         String communityName=element!.name;
+         sum+=communityTotalExpense(communityName);
+      }
+    );
+    return sum;
+  }
+
+  Future<int> myTotalExpense() async{
+    int sum=0;
+    List<CommunityModel>? communityList = await UserDataBaseService.getCommunities(user!.phoneNo);
+    communityList!.forEach((element) {
+        String communityName=element!.name;
+        sum+=myExpenseInCommunity(communityName);
+      }
+    );
+    return sum;
+  }
+
+  int myExpenseInCommunity(String communityName) {
+    int sum=0;
+    for(int i=0;i<communityObjectMap[communityName]!.length;i++){
+      for(int j=0;j<objectUnresolvedExpenseMap[communityName]![communityObjectMap[communityName]![i]]!.length;j++){
+        if(user!.name==objectUnresolvedExpenseMap[communityName]![communityObjectMap[communityName]![i]]![j].creator){
+          sum+=objectUnresolvedExpenseMap[communityName]![communityObjectMap[communityName]![i]]![j].amount;
+        }
+      }
+    }
+    return sum;
+  }
+
+  int objectTotalExpense(String communityName, String objectName) {
+    int sum=0;
+    for(int j=0;j<objectUnresolvedExpenseMap[communityName]![objectName]!.length;j++){
+      sum += objectUnresolvedExpenseMap[communityName]![objectName]![j].amount;
+    }
+    return sum;
+  }
+
+  int myExpenseInObject(String communityName, String objectName) {
+    int sum=0;
+    for(int j=0;j<objectUnresolvedExpenseMap[communityName]![objectName]!.length;j++) {
+      if (user!.name ==
+          objectUnresolvedExpenseMap[communityName]![objectName]![j].creator) {
+        sum += objectUnresolvedExpenseMap[communityName]![objectName]![j].amount;
+      }
+    }
+    return sum;
+  }
+
   bool addUser(String name,String email,String phoneNo) {
 
     UserModel userM = UserModel(
@@ -53,6 +160,17 @@ class DataProvider extends ChangeNotifier {
     UserDataBaseService.createUserDb(userM);
     return true;
   }
+
+  Future<Map<String, double>> pieChartDataOfCommunities() async {
+    Map<String,double> communityTotalExpenseMap={};
+    List<CommunityModel>? communityList = await UserDataBaseService.getCommunities(user!.phoneNo);
+    for (int i = 0; i < communityList!.length; i++) {
+      communityTotalExpenseMap[communityList[i].name] = communityTotalExpense(communityList[i].name).toDouble();
+    }
+    return communityTotalExpenseMap;
+
+  }
+
   void getCommunityMembers(String phone) async {
     List<CommunityModel>? communityList =
         await UserDataBaseService.getCommunities(phone);
@@ -111,6 +229,8 @@ class DataProvider extends ChangeNotifier {
 
       for (int j = 0; j < objectTemp!.length; j++) {
         communityObjectMap[communityTemp[i].name]!.add(objectTemp[j].name);
+        if(communityTemp[i].name == "Demo 7")
+          // print("Name of object " + objectTemp[j].name);
         communityObjectMapdb![communityTemp[i]]!.add(objectTemp[j]);
 
 
@@ -127,7 +247,7 @@ class DataProvider extends ChangeNotifier {
             await ObjectDataBaseService.getExpenses(objectTemp[j]);
 
         for (int k = 0; k < expenseTemp.length; k++) {
-          print("HELLO");
+          // print("HELLO");
           if (expenseTemp[k].resolverid == null) {
             objectUnresolvedExpenseMap[communityTemp[i].name]![
                     objectTemp[j].name]!
@@ -201,7 +321,7 @@ class DataProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void addCommunity(String communityName) {
+  Future<void> addCommunity(String communityName) async {
     CommunityModel community = CommunityModel(
       name: communityName,
       phoneNo: user!.phoneNo,
@@ -212,12 +332,16 @@ class DataProvider extends ChangeNotifier {
 
     CommunityDataBaseService.CommunityAddNotification(community, user!.phoneNo);
     communities.add(communityName);
-    communityObjectMap[communityName] = [];
+    communityObjectMap[communityName] = ["Misc"];
     objectUnresolvedExpenseMap[communityName] = {};
     objectResolvedExpenseMap[communityName] = {};
     communityMembersMap[communityName] = [];
     communityMembersMap[communityName]!.add(Member(name: user!.name, phone: user!.phoneNo, isCreator: true));
     communitiesdb!.add(community);
+
+    // await addObject(communityName, "Misc");
+    // communityObjectMap[communityName]?.add("Misc");
+    objectUnresolvedExpenseMap[communityName]!["Misc"] = [];
 
     notifyListeners();
   }
@@ -227,6 +351,7 @@ class DataProvider extends ChangeNotifier {
     notifyListeners();
     CommunityModel ctmp =
         communitiesdb!.firstWhere((element) => element.name == communityName);
+    // print("ctmp name: ${ctmp.name}");
     String? communityID = await CommunityDataBaseService.getCommunityID(ctmp);
     ObjectsModel object = ObjectsModel(
         name: objectName,
@@ -323,28 +448,76 @@ class DataProvider extends ChangeNotifier {
   void updateExpense(
       Expense expense,
       String newAmount,
-      String newDescription) {
+      String newDescription) async{
 
-    // Find the expense to update in the "unresolved expenses" map
-    final community = communitiesdb?.firstWhere((c) => c.name == expense.communityName);
-    final object = communityObjectMapdb?[community]?.firstWhere((o) => o.name == expense.objectName);
-    final expenseToUpdate = objectUnresolvedExpenseMapdb?[community]?[object]?.firstWhere((e) => e.name == expense.description);
-    if (expenseToUpdate != null){
-    int? index= objectUnresolvedExpenseMapdb?[community]?[object]?.indexOf(expenseToUpdate);
-    expenseToUpdate.amount = newAmount;
-    expenseToUpdate.description = newDescription;
+    CommunityModel ctmp = communitiesdb!
+        .firstWhere((element) => element.name == expense.communityName);
+    ObjectsModel? otmp = communityObjectMapdb![ctmp]!
+        .firstWhere((element) => element.name == expense.objectName);
+    ExpenseModel? rtmp = objectUnresolvedExpenseMapdb![ctmp]![otmp]!
+        .firstWhere((element) => element.name == expense.description);
 
-    print(index);
-    print(newAmount);
-    print(newDescription);
+    if(ExpenseDataBaseService.deleteExpense(rtmp)==false){
+      return;
+    }
+    objectUnresolvedExpenseMapdb![ctmp]![otmp]!.remove(rtmp);
 
-    // update in the list
+    Expense? item =
+    objectUnresolvedExpenseMap[expense.communityName]![expense.objectName]
+        ?.firstWhere((element) =>
+        element.objectName == expense.objectName &&
+        element.creator == expense.creator &&
+        element.amount == expense.amount &&
+        element.description == expense.description);
+    objectUnresolvedExpenseMap[expense.communityName]![expense.objectName]
+        ?.remove(item);
 
-    objectUnresolvedExpenseMapdb?[community]?[object]?[index!]=expenseToUpdate;
+    ExpenseModel expenseM = ExpenseModel(
+        creatorID: await UserDataBaseService.getUserID(user!.phoneNo),
+        amount: newAmount,
+        name: newDescription,
+        objectID: await ObjectDataBaseService.getObjectID(otmp),
+        resolverid: null,
+        description: "",
+        date: null);
+    if(ExpenseDataBaseService.createExpense(expenseM)==false){
+      return;
+    }
 
-    // Notify any listeners of the change
-    notifyListeners();}
+    //ExpenseDataBaseService.ExpenseEditNotification(expense);
+
+    objectUnresolvedExpenseMap[expense.communityName]![expense.objectName]?.add(
+        Expense(
+            objectName: expense.objectName,
+            creator: expense.creator,
+            amount:  int.parse(newAmount),
+            description:newDescription,
+            isPaid: false,
+            communityName: expense.communityName));
+
+    objectUnresolvedExpenseMapdb![ctmp]![otmp]!.add(expenseM);
+    notifyListeners();
   }
+
+
+  // void updateExpense(
+  //     Expense expense,
+  //     String newAmount,
+  //     String newDescription) {
+  //
+  //   // Find the expense to update in the "unresolved expenses" map
+  //   final community = communitiesdb?.firstWhere((c) => c.name == expense.communityName);
+  //   final object = communityObjectMapdb?[community]?.firstWhere((o) => o.name == expense.objectName);
+  //   final expenseToUpdate = objectUnresolvedExpenseMapdb?[community]?[object]?.firstWhere((e) => e.name == expense.description);
+  //   if (expenseToUpdate != null){
+  //   // Update the expense's fields
+  //
+  //   expenseToUpdate.amount = newAmount;
+  //   expenseToUpdate.description = newDescription;
+  //
+  //   // Notify any listeners of the change
+  //   notifyListeners();}
+  // }
 
   addMembersToCommunity(String communityName, List<dynamic> names,
       List<dynamic> phones, String phoneNo) async {

@@ -18,6 +18,7 @@ class NavigationPageState extends State<NavigationPage> {
 
   @override
   Widget build(BuildContext context) {
+    final providerCommunity = Provider.of<DataProvider>(context, listen: false);
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(50.0),
@@ -167,6 +168,9 @@ class NavigationPageState extends State<NavigationPage> {
                                     Navigator.of(context).push(_createRoute(e));
                                   },
                                   child:ListTile(
+                                    leading: Image.asset('${providerCommunity.extractCommunityImagePathByName(e)}',
+                                      width: 45,
+                                    ),
                                     tileColor: Colors.white,
                                     title: Text(e),
                                   ),),
@@ -175,9 +179,9 @@ class NavigationPageState extends State<NavigationPage> {
                           ),  // margin: const EdgeInsets.only(top: 20.0),
                       ),
                     );
-                  }))
+                  }
+                  ))
               ),
-
             ],
           );
         },

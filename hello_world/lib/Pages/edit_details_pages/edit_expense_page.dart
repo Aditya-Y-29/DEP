@@ -6,16 +6,15 @@ import 'package:hello_world/components/expense.dart';
 
 class EditExpensePage extends StatefulWidget {
 
-  final String communityName;
-  final String objectName;
+
   final Expense expense;
-  EditExpensePage({Key? key, required this.communityName, required this.objectName, required this.expense}) : super(key: key);
+  EditExpensePage({Key? key, required this.expense}) : super(key: key);
 
   @override
-  State<EditExpensePage> createState() => _AddFromObjectPageData();
+  State<EditExpensePage> createState() => _EditFromObjectPageData();
 }
 
-class _AddFromObjectPageData extends State<EditExpensePage> {
+class _EditFromObjectPageData extends State<EditExpensePage> {
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +23,7 @@ class _AddFromObjectPageData extends State<EditExpensePage> {
 
       child: Scaffold(
         appBar: AppBar(
-          title: Text('${widget.communityName}'),
+          title: Text('${widget.expense.communityName}'),
           bottom: const TabBar(
             tabs: [
               //Tab(icon: Icon(Icons.check_circle_outline),),
@@ -37,7 +36,7 @@ class _AddFromObjectPageData extends State<EditExpensePage> {
         body: TabBarView(
           children: [
            // ResolveScreen(isFromObjectPage: true, communityName: widget.communityName, objectName: widget.objectName,),
-            EditExpenseScreen(isFromCommunityPage: false, isFromObjectPage: true, communityName: widget.communityName, objectName: widget.objectName,expense:widget.expense),
+            EditExpenseScreen(isFromCommunityPage: false, isFromObjectPage: true,expense:widget.expense),
             // ServiceScreen(isFromCommunityPage: false, isFromObjectPage: true, communityName: widget.communityName, objectName: widget.objectName,),
           ],
         ),

@@ -18,7 +18,7 @@ class _AddExpenseServiceCommunityData extends State<AddFromHomePage> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 4,
+      length: 3,
       initialIndex: widget.selectedPage,
       child: Scaffold(
         appBar: AppBar(

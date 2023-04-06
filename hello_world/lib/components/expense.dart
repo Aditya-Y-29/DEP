@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../provider/data_provider.dart';
 import 'package:hello_world/Pages/edit_details_pages/edit_expense_page.dart';
+import 'package:hello_world/Pages/edit_details_pages/edit_expense_page.dart';
 
 class Expense extends StatefulWidget {
   final String creator;
@@ -83,7 +84,8 @@ class _ExpenseState extends State<Expense> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => EditExpensePage( communityName: widget.communityName, objectName: widget.objectName,expense:expense),
+                      builder: (context) => EditExpensePage(expense: expense),
+
                     ),
                   );
 

@@ -9,6 +9,7 @@ import 'package:hello_world/Pages/profile_pages/profile_page.dart';
 import 'package:hello_world/Pages/main_pages/navigation_page.dart';
 
 import '../add_from_pages/add_from_community_page.dart';
+import '../group_member_pages/add_member_page.dart';
 import '../group_member_pages/community_info_page.dart';
 
 
@@ -24,9 +25,11 @@ class _CommunityPageState extends State<CommunityPage> {
 
   int clickedObject = 0;
   String objectName = '';
+  ScrollController controller = ScrollController();
 
   @override
   Widget build(BuildContext context) {
+    final providerCommunity = Provider.of<DataProvider>(context, listen: false);
     return Scaffold(
       // floatingActionButton: clickedObject != 0 ? FloatingActionButton(
       //   onPressed: () {
@@ -41,16 +44,29 @@ class _CommunityPageState extends State<CommunityPage> {
       //   child: const Icon(Icons.arrow_forward_ios, size: 20,),
       // ) : null,
       appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.menu, size: 30,),
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => NavigationPage()),
-            );
-          },
+        leading: Container(
+          width: 50,
+          child: IconButton(
+            icon: const Icon(Icons.menu, size: 30,),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => NavigationPage()),
+              );
+            },
+          ),
         ),
-        title: Text(widget.communityName),
+        title: Row(
+          children: <Widget>[
+            Image.asset(
+              '${providerCommunity.extractCommunityImagePathByName(widget.communityName)}',
+              width: 40,
+              height: 40,
+            ),
+            SizedBox(width: 10),
+            Text(widget.communityName),
+          ],
+        ),
         actions:  [
           Container(
             margin: const EdgeInsets.all(5),
@@ -151,15 +167,15 @@ class _CommunityPageState extends State<CommunityPage> {
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (context) => AddFromCommunityPage(selectedPage: 0, communityName: widget.communityName),
+                                        builder: (context) => AddMembers(communityName: widget.communityName),
                                       ),
                                     );
                                   },
-                                  child: const Icon(Icons.check_circle_outline),
+                                  child: const Icon(Icons.person_add),
                                 ),
                               ),
                               const Text(
-                                "Resolve",
+                                "Add Member",
                                 style: TextStyle(
                                   fontSize: 12,
                                 ),
@@ -179,7 +195,7 @@ class _CommunityPageState extends State<CommunityPage> {
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (context) => AddFromCommunityPage(selectedPage: 1, communityName: widget.communityName)
+                                        builder: (context) => AddFromCommunityPage(selectedPage: 0, communityName: widget.communityName)
                                       ),
                                     );
                                   },
@@ -215,7 +231,7 @@ class _CommunityPageState extends State<CommunityPage> {
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (context) => AddFromCommunityPage(selectedPage: 2, communityName: widget.communityName),
+                                        builder: (context) => AddFromCommunityPage(selectedPage: 1, communityName: widget.communityName),
                                       ),
                                     );
                                   },
@@ -270,70 +286,96 @@ class _CommunityPageState extends State<CommunityPage> {
                       ],
                     ),
                   ),
-                  Wrap(
-                      spacing: 8,
-                      runSpacing: 4,
+                  SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
                       children: List.of(objectDataProvider.communityObjectMap[widget.communityName]!.map((e) {
-                        int k = objectDataProvider.communityObjectMap[widget.communityName]!.indexOf(e) + 1;
-                        return GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              int temp = 1 << (k-1);
-                              if(clickedObject >> (k-1) & 1 == 1)
-                                clickedObject = clickedObject ^ temp;
-                              else {
-                                clickedObject = 0;
-                                clickedObject = clickedObject | temp;
-                              }
-                              objectName = e;
-                            });
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => ObjectPage(objectName: objectName, communityName: widget.communityName),
-                              ),
-                            );
-                          },
-                          child: Column (
-                            children: [
+                          int k = objectDataProvider.communityObjectMap[widget.communityName]!.indexOf(e) + 1;
+                          if(e == "Misc") {
+                              return SizedBox(height: 1,);
+                            }
+                          return GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                int temp = 1 << (k-1);
+                                if(clickedObject >> (k-1) & 1 == 1)
+                                  clickedObject = clickedObject ^ temp;
+                                else {
+                                  clickedObject = 0;
+                                  clickedObject = clickedObject | temp;
+                                }
+                                objectName = e;
+                              });
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => ObjectPage(objectName: objectName, communityName: widget.communityName),
+                                ),
+                              );
+                            },
+                            child: Column (
+                              children: [
 
-                              AnimatedContainer(
-                                width: 90,
-                                height: 90,
-                                margin: const EdgeInsets.all(5.0),
-                                padding: const EdgeInsets.only(left: 20.0),
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  border: Border.all(
-                                    color: (clickedObject >> (k-1) & 1) == 1 ? Colors.green : Colors.green.withOpacity(0),
-                                    width: 2.0,
+                                AnimatedContainer(
+                                  width: 150,
+                                  height: 150,
+                                  margin: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+                                  padding: const EdgeInsets.only(left: 10.0),
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    border: Border.all(
+                                      color: (clickedObject >> (k-1) & 1) == 1 ? Colors.green : Colors.green.withOpacity(0),
+                                      width: 2.0,
+                                    ),
+                                    borderRadius: BorderRadius.circular(20.0),
+                                    boxShadow: const [
+                                      BoxShadow(
+                                        color: Colors.grey,
+                                        blurRadius: 15.0, // soften the shadow
+                                        spreadRadius: 1.0, //extend the shadow
+                                        offset: Offset(
+                                          1.0, // Move to right 5  horizontally
+                                          1.0, // Move to bottom 5 Vertically
+                                        ),
+                                      )
+                                    ],
                                   ),
-                                  borderRadius: BorderRadius.circular(35.0),
-                                  boxShadow: const [
-                                    BoxShadow(
-                                      color: Colors.grey,
-                                      blurRadius: 15.0, // soften the shadow
-                                      spreadRadius: 1.0, //extend the shadow
-                                      offset: Offset(
-                                        1.0, // Move to right 5  horizontally
-                                        1.0, // Move to bottom 5 Vertically
-                                      ),
-                                    )
-                                  ],
+                                  duration: const Duration(milliseconds: 250),
+                                  curve: Curves.easeInOut,
+                                  child: Object(
+                                    name: e,
+                                    communityName: widget.communityName,
+                                  ),
                                 ),
-                                duration: const Duration(milliseconds: 250),
-                                curve: Curves.easeInOut,
-                                child: Object(
-                                  name: e,
-                                  communityName: widget.communityName,
-                                ),
-                              ),
-                              Text(e),
-                            ],
-                          )
-                        );
-                      }))
+                                // Text(e),
+                              ],
+                            )
+                          );
+                        }))
+                      )
                   ),
+                  SizedBox(height: 10,),
+                  Text(
+                    "Miscellaneous Expenses",
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  SizedBox(height: 10,),
+                  SingleChildScrollView(
+                    child: Column(
+                      children: List.of(miscExpenses(objectDataProvider)),
+                    ),
+                  ),
+                  if(miscExpenses(objectDataProvider).isEmpty)
+                    Column(
+                      children: const [
+                        Text(
+                          "No expenses yet",
+                        ),
+                      ],
+                    ),
                 ],
               )
             ),
@@ -367,4 +409,16 @@ class _CommunityPageState extends State<CommunityPage> {
       floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
     );
   }
+  
+  Iterable<Widget> miscExpenses(DataProvider objectDataProvider) {
+    Iterable<Widget> miscExpenses =  objectDataProvider.objectUnresolvedExpenseMap[widget.communityName]!["Misc"] as Iterable<Widget>;
+    if(miscExpenses == null) {
+      return [];
+    }
+    // print("Community Name: ${widget.communityName}");
+    // print("Size of miscExpenses: ${miscExpenses.length}");
+    return miscExpenses;
+  }
 }
+
+

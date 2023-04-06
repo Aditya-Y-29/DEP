@@ -1,10 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:hello_world/Pages/auth_pages/splash.dart';
 import 'package:hello_world/Pages/main_pages/home_page.dart';
 import 'package:hello_world/Pages/auth_pages/phone.dart';
 import 'package:hello_world/main.dart';
 import 'package:pinput/pinput.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../provider/data_provider.dart';
 
@@ -126,6 +128,9 @@ class _MyVerifyLState extends State<MyVerifyL> {
                                 await auth.signInWithCredential(credential);
                                 // ignore: use_build_context_synchronously
                                 DataProvider dataProvider = Provider.of<DataProvider>(context, listen: false);
+
+                                var sharedPref = await SharedPreferences.getInstance();
+                                sharedPref.setString("userPhone", MyPhone.phoneNo);
 
                                 await dataProvider.getAllDetails(MyPhone.phoneNo);
 
