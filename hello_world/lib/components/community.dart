@@ -76,6 +76,12 @@ class _CommunityState extends State<Community> {
                     Flexible(
                         child:
                         Container(
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: Colors.green.shade200,
+                              width: 1.0,
+                            ),
+                          ),
                           child:
                           Image.asset(
                             '${providerCommunity.extractCommunityImagePathByName(widget.name)}',
@@ -139,32 +145,30 @@ class _CommunityState extends State<Community> {
                             color: Colors.blue,
                             fontSize: 13,
                           ),),
-                      ],
+                        ],
                       ),
                     ],
                       ),
 
-                    Flexible(child: Column(
+                    Row(
                       children: [
-                          PopupMenuButton<Choice>(
-                            itemBuilder: (BuildContext context) {
-                              return choices.skip(0).map((Choice choice) {
-                                return PopupMenuItem <Choice>(
-                                  value: choice,
-                                  child: Text(choice.name),
-                                  
-                                );
-                              }).toList();
-                              
-                            },
-                            onSelected: handleSelect,
-                          ),
-                          Align(
-                            // alignment: Alignment.bottomRight,
-                            child: Container(
+                          // PopupMenuButton<Choice>(
+                          //   itemBuilder: (BuildContext context) {
+                          //     return choices.skip(0).map((Choice choice) {
+                          //       return PopupMenuItem <Choice>(
+                          //         value: choice,
+                          //         child: Text(choice.name),
+                          //
+                          //       );
+                          //     }).toList();
+                          //
+                          //   },
+                          //   onSelected: handleSelect,
+                          // ),
+                          Container(
                               margin: const EdgeInsets.only(bottom: 1.0, right: 1.0),
-                              height: 18.0,
-                              width: 18.0,
+                              height: 30.0,
+                              width: 30.0,
                               child: FloatingActionButton(
                                 heroTag: "Comm_Btn",
                                 onPressed: (){
@@ -181,9 +185,20 @@ class _CommunityState extends State<Community> {
                                 ),
                               ),
                             ),
-                          )
-                       ])
-                    ),
+                          // ),
+                      PopupMenuButton<Choice>(
+                        itemBuilder: (BuildContext context) {
+                          return choices.skip(0).map((Choice choice) {
+                            return PopupMenuItem <Choice>(
+                              value: choice,
+                              child: Text(choice.name),
+                            );
+                          }).toList();
+                        },
+                        onSelected: handleSelect
+                        // color: Colors.black,
+                      ),
+                     ])
                   ]
               ),
             ],
