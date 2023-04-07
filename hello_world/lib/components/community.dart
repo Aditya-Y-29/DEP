@@ -137,65 +137,60 @@ class _CommunityState extends State<Community> {
                             color: Colors.blue,
                             fontSize: 13,
                           ),),
-                      ],
+                        ],
                       ),
                     ],
-                      ),
-
-                    Flexible(child: Column(
-                      children: [
-                          PopupMenuButton<Choice>(
-                            itemBuilder: (BuildContext context) {
-                              return choices.skip(0).map((Choice choice) {
-                                return PopupMenuItem <Choice>(
-                                  value: choice,
-                                  child: Text(choice.name),
-                                );
-                              }).toList();
-                            },
-                            onSelected: (value) {
-                              if(value.name == "Add Expense")
-                              {
+                  ),
+                  Row(
+                    children: [
+                        Container(
+                            margin: const EdgeInsets.only(bottom: 1.0, right: 1.0),
+                            height: 30.0,
+                            width: 30.0,
+                            child: FloatingActionButton(
+                              heroTag: "Comm_Btn",
+                              onPressed: (){
                                 Navigator.push(
                                   context,
-                                  MaterialPageRoute(builder: (context) => AddFromHomePage(selectedPage: 0)),
+                                  MaterialPageRoute(builder: (context) => AddFromCommunityPage(selectedPage: 0, communityName: widget.name,)),
                                 );
-                              }
-                              // else if (value.name == "Add Service")
-                              // {
-                              //   Navigator.push(
-                              //     context,
-                              //     MaterialPageRoute(builder: (context) => AddFromHomePage(selectedPage: 1)),
-                              //   );
-                              // }
-                            },
-                            // color: Colors.black,
-                          ),
-                          Align(
-                            // alignment: Alignment.bottomRight,
-                            child: Container(
-                              margin: const EdgeInsets.only(bottom: 1.0, right: 1.0),
-                              height: 18.0,
-                              width: 18.0,
-                              child: FloatingActionButton(
-                                heroTag: "Comm_Btn",
-                                onPressed: (){
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(builder: (context) => AddFromCommunityPage(selectedPage: 0, communityName: widget.name,)),
-                                  );
-                                },
-                                backgroundColor: Colors.green,
-                                child: FittedBox(
-                                  child: const Icon(
-                                    Icons.add,
-                                  ),
+                              },
+                              backgroundColor: Colors.green,
+                              child: FittedBox(
+                                child: const Icon(
+                                  Icons.add,
                                 ),
                               ),
                             ),
-                          )
-                       ])
-                    ),
+                          ),
+                      PopupMenuButton<Choice>(
+                        itemBuilder: (BuildContext context) {
+                          return choices.skip(0).map((Choice choice) {
+                            return PopupMenuItem <Choice>(
+                              value: choice,
+                              child: Text(choice.name),
+                            );
+                          }).toList();
+                        },
+                        onSelected: (value) {
+                          if(value.name == "Add Expense")
+                          {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => AddFromHomePage(selectedPage: 0)),
+                            );
+                          }
+                          // else if (value.name == "Add Service")
+                          // {
+                          //   Navigator.push(
+                          //     context,
+                          //     MaterialPageRoute(builder: (context) => AddFromHomePage(selectedPage: 1)),
+                          //   );
+                          // }
+                        },
+                        // color: Colors.black,
+                      ),
+                     ])
                   ]
               ),
             ],

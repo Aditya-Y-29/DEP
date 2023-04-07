@@ -283,9 +283,9 @@ class _MyHomePageState extends State<MyHomePage> {
                                 },
                                 child: AnimatedContainer(
                                   width: 340,
-                                  height: 76,
+                                  height: 100,
                                   margin: const EdgeInsets.all(5.0),
-                                  padding: const EdgeInsets.only(left: 8.0),
+                                  padding: const EdgeInsets.only(top: 25.0, bottom: 5.0, left: 5.0, right: 5.0),
                                   decoration: BoxDecoration(
                                     color: (clickedCommunity >> (k-1) & 1) == 1 ? Colors.green.shade50 : Colors.grey.shade100,
                                     border: Border.all(
