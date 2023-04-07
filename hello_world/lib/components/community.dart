@@ -74,6 +74,12 @@ class _CommunityState extends State<Community> {
                     Flexible(
                         child:
                         Container(
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: Colors.green.shade200,
+                              width: 1.0,
+                            ),
+                          ),
                           child:
                           Image.asset(
                             '${providerCommunity.extractCommunityImagePathByName(widget.name)}',

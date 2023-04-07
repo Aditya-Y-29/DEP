@@ -18,7 +18,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int clickedCommunity = 0;
+  // int clickedCommunity = 0;
   String communityName = "";
 
   NotificationServices notificationServices = NotificationServices();
@@ -273,13 +273,13 @@ class _MyHomePageState extends State<MyHomePage> {
                               return GestureDetector(
                                   onTap: () {
                                     setState(() {
-                                      int temp = 1 << (k-1);
-                                      if(clickedCommunity >> (k-1) & 1 == 1)
-                                        clickedCommunity = clickedCommunity ^ temp;
-                                      else{
-                                        clickedCommunity = 0;
-                                        clickedCommunity = clickedCommunity | temp;
-                                      }
+                                      // int temp = 1 << (k-1);
+                                      // if(clickedCommunity >> (k-1) & 1 == 1)
+                                      //   clickedCommunity = clickedCommunity ^ temp;
+                                      // else{
+                                      //   clickedCommunity = 0;
+                                      //   clickedCommunity = clickedCommunity | temp;
+                                      // }
                                       communityName = e;
                                     });
                                     Navigator.of(context).push(_createRoute(communityName));
@@ -288,26 +288,26 @@ class _MyHomePageState extends State<MyHomePage> {
                                   child: AnimatedContainer(
                                     width: 340,
                                     height: 100,
-                                    margin: const EdgeInsets.all(5.0),
-                                    padding: const EdgeInsets.only(top: 25.0, bottom: 5.0, left: 5.0, right: 5.0),
+                                    margin: const EdgeInsets.all(2.0),
+                                    padding: const EdgeInsets.only(top: 25.0, bottom: 5.0, left: 10.0, right: 5.0),
                                     decoration: BoxDecoration(
-                                      color: (clickedCommunity >> (k-1) & 1) == 1 ? Colors.green.shade50 : Colors.grey.shade100,
+                                      color: Colors.white,
                                       border: Border.all(
-                                        color: (clickedCommunity >> (k-1) & 1) == 1 ? Colors.green : Colors.green.withOpacity(0),
-                                        width: 2.0,
+                                        color: Colors.green,
+                                        width: 1.0,
                                       ),
                                       borderRadius: BorderRadius.circular(10.0),
-                                      boxShadow: const [
-                                        BoxShadow(
-                                          color: Colors.grey,
-                                          blurRadius: 15.0, // soften the shadow
-                                          spreadRadius: 1.0, //extend the shadow
-                                          offset: Offset(
-                                            1.0, // Move to right 5  horizontally
-                                            1.0, // Move to bottom 5 Vertically
-                                          ),
-                                        )
-                                      ],
+                                      // boxShadow: const [
+                                      //   BoxShadow(
+                                      //     color: Colors.grey,
+                                      //     blurRadius: 15.0, // soften the shadow
+                                      //     spreadRadius: 1.0, //extend the shadow
+                                      //     offset: Offset(
+                                      //       1.0, // Move to right 5  horizontally
+                                      //       1.0, // Move to bottom 5 Vertically
+                                      //     ),
+                                      //   )
+                                      // ],
                                     ),
                                     duration: const Duration(milliseconds: 250),
                                     curve: Curves.easeInOut,
