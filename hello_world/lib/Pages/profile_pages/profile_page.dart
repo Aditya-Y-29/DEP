@@ -238,7 +238,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                     child: Column(
                                       children: [
                                         Container(
-                                          margin: EdgeInsets.only(left: 5),
+                                          margin: EdgeInsets.only(top: 20, left: 10),
                                           child: MyPieChart(),
                                         ),
                                       ],
