@@ -25,8 +25,7 @@ class _CommunityPageState extends State<CommunityPage> {
 
   // int clickedObject = 0;
   String objectName = '';
-  ScrollController controller = ScrollController();
-
+  TextEditingController searchController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     final providerCommunity = Provider.of<DataProvider>(context, listen: false);
@@ -305,13 +304,36 @@ class _CommunityPageState extends State<CommunityPage> {
                       ],
                     ),
                   ),
+                  Container(
+                    margin: const EdgeInsets.only(left: 30, right: 30, bottom: 10),
+                    child:
+                      TextField(
+                        controller: searchController,
+                        decoration: const InputDecoration(
+                          hintText: "Search",
+                          prefixIcon: Icon(Icons.search),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(25.0)),
+                          ),
+                        ),
+                        onChanged: (value) {
+                          setState(() {
+                            // clickedObject = 0;
+                            objectName = "";
+                          });
+                        },
+                      ),
+                  ),
                   SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
                     child: Row(
                       children: List.of(objectDataProvider.communityObjectMap[widget.communityName]!.map((e) {
-                          int k = objectDataProvider.communityObjectMap[widget.communityName]!.indexOf(e) + 1;
+                          // int k = objectDataProvider.communityObjectMap[widget.communityName]!.indexOf(e) + 1;
+                        if(!e.toLowerCase().contains(searchController.text.toLowerCase().trim())) {
+                          return SizedBox(height: 0,);
+                        }
                           if(e == "Misc") {
-                              return SizedBox(height: 1,);
+                              return SizedBox(height: 0,);
                             }
                           return GestureDetector(
                             onTap: () {
