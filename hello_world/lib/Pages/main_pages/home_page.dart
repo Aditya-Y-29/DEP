@@ -35,6 +35,8 @@ class _MyHomePageState extends State<MyHomePage> {
     tokenProvider.addToken();
   }
 
+  TextEditingController searchController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -262,14 +264,37 @@ class _MyHomePageState extends State<MyHomePage> {
                         ),
                       ),
                       Container(
-                        height: 500,
+                        margin: const EdgeInsets.only(left: 30, right: 30, bottom: 20),
+                        child:
+                          TextField(
+                            decoration: InputDecoration(
+                              hintText: "Search",
+                              prefixIcon: Icon(Icons.search),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                            ),
+                            controller: searchController,
+                            onChanged: (value) {
+                              setState(() {
+                                // clickedCommunity = 0;
+                                communityName = "";
+                              });
+                            },
+                          ),
+                      ),
+                      Container(
+                        height: 420,
                         child:
                         ListView(
                           physics: AlwaysScrollableScrollPhysics(),
                             // spacing: 8,
                             // runSpacing: 1,
                             children: List.of(communityDataProvider.communities.map((e) {
-                              int k = communityDataProvider.communities.indexOf(e)+1;
+                              if(!e.toLowerCase().contains(searchController.text.toLowerCase().trim())) {
+                                return SizedBox(height: 0,);
+                              }
+                              // int k = communityDataProvider.communities.indexOf(e)+1;
                               return GestureDetector(
                                   onTap: () {
                                     setState(() {
@@ -288,7 +313,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                   child: AnimatedContainer(
                                     width: 340,
                                     height: 100,
-                                    margin: const EdgeInsets.all(2.0),
+                                    margin: const EdgeInsets.symmetric(horizontal: 4.0, vertical: 4.0),
                                     padding: const EdgeInsets.only(top: 25.0, bottom: 5.0, left: 10.0, right: 5.0),
                                     decoration: BoxDecoration(
                                       color: Colors.white,
