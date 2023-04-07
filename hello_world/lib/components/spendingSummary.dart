@@ -4,72 +4,50 @@ import '../../provider/data_provider.dart';
 import 'package:provider/provider.dart';
 
 class MySpendingSummary extends StatefulWidget {
+
   @override
   _MySpendingSummaryState createState() => _MySpendingSummaryState();
 }
 
 class _MySpendingSummaryState extends State<MySpendingSummary> {
 
-  Future<int>? _yourSpending;
-  Future<int>? _totalSpending;
-  Future<int>? dummy;
+  Future<Map<int, int>>? _dataMapFuture;
 
   @override
   void initState() {
     super.initState();
-
-  }
-
-  Future<int>? getData(){
     DataProvider providerCommunity = Provider.of<DataProvider>(context, listen: false);
-    _yourSpending=fetchDataYourSpending(providerCommunity);
-    _totalSpending=fetchDataTotalSpending(providerCommunity);
-    dummy=fetchDataTotalSpending(providerCommunity);
-    return dummy;
+    _dataMapFuture = fetchData(providerCommunity);
   }
 
-  Future<int> fetchDataYourSpending(DataProvider providerCommunity) async {
-    // Wait for some asynchronous operation to complete
-    return await providerCommunity.myTotalExpense();
-  }
-
-  Future<int> fetchDataTotalSpending(DataProvider providerCommunity) async {
-    // Wait for some asynchronous operation to complete
-    return await providerCommunity.totalExpense();
+  Future<Map<int, int>> fetchData(DataProvider providerCommunity) async {
+    // Fetch data from database and return it as a Map<String, double>
+    return await providerCommunity.spendingSummaryData();
   }
 
   Widget build(BuildContext context) {
     DataProvider providerCommunity = Provider.of<DataProvider>(context, listen: false);
-    return FutureBuilder<int>(
-      future: getData(),
-      builder: (BuildContext context, AsyncSnapshot<int> snapshot) {
-        if (snapshot.hasData) {
-          // Use the data in a Text widget
+    return FutureBuilder<Map<int,int>>(
+      future: _dataMapFuture,
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          // Show a loading spinner while waiting for data to load
+          return CircularProgressIndicator();
+        } else if (snapshot.hasData && snapshot.data!.isNotEmpty) {
+          // Build the PieChart widget once data has been loaded
+          print("hey----------------------------------");
           return Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              MySpendingSummary(),
-              Text('Your spending : ₹${_yourSpending}',
+              Text('  Your Spending: ₹${snapshot.data![0]}\n  Total Spending: ₹${snapshot.data![1]}',
                 style: TextStyle(
                   fontSize: 13.0,
                 ),),
-              Text('Total spending : ₹${_totalSpending}',
-                style: TextStyle(
-                  fontSize: 13.0,
-                ),
-              ),
             ],
           );
-          Text(
-            'Data: ${snapshot.data}',
-            style: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-            ),
-          );
         } else {
-          // Show a progress indicator while waiting for data
-          return CircularProgressIndicator();
+          // Handle the case where no data has been fetched
+          return Text('No data available');
         }
       },
     );
