@@ -588,4 +588,18 @@ class DataProvider extends ChangeNotifier {
     
   }
 
+  Future<bool> deleteObject(String communityName, String objectName) async {
+    CommunityModel ctmp = communitiesdb!.firstWhere((element) => element.name == communityName);
+    ObjectsModel otmp = communityObjectMapdb![ctmp]!.firstWhere((element) => element.name == objectName);
+    communityObjectMapdb![ctmp]!.remove(otmp);
+    objectUnresolvedExpenseMapdb![ctmp]!.remove(otmp);
+    objectResolvedExpenseMapdb![ctmp]!.remove(otmp);
+    communityObjectMap[communityName]!.remove(objectName);
+    objectUnresolvedExpenseMap[communityName]!.remove(objectName);
+    objectResolvedExpenseMap[communityName]!.remove(objectName);
+    notifyListeners();
+    ObjectDataBaseService.deleteObject(otmp);
+    return true;
+  }
+
 }

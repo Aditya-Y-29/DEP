@@ -11,13 +11,22 @@ import 'community.dart';
 class Object extends StatefulWidget {
   final String name;
   final String communityName;
-  const Object({Key? key, required this.name, required this.communityName}) : super(key: key);
+  const Object({Key? key, required this.name, required this.communityName})
+      : super(key: key);
 
   @override
   State<Object> createState() => _ObjectState();
 }
 
 class _ObjectState extends State<Object> {
+  Choice selectedOption = choices[0];
+  handleSelect(Choice choice) async {
+    if (choice.name == "Delete Object") {
+      print("Delete Object");
+      Provider.of<DataProvider>(context, listen: false).deleteObject(widget.communityName,widget.name);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final providerCommunity = Provider.of<DataProvider>(context, listen: false);
@@ -26,9 +35,10 @@ class _ObjectState extends State<Object> {
         Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => ObjectPage(objectName: widget.name, communityName: widget.communityName,)
-            )
-        );
+                builder: (context) => ObjectPage(
+                      objectName: widget.name,
+                      communityName: widget.communityName,
+                    )));
       },
       child: Container(
         // width: 150,
@@ -58,53 +68,53 @@ class _ObjectState extends State<Object> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
                   Flexible(
-                      child:
-                      Container(
-                        margin: const EdgeInsets.only(right: 12.0),
-                        child:
-                        Image.asset(
-                          'assets/images/Car.png',
-                          width: 60,
-                          height: 60,
-                        ),
-                      )
-                  ),
+                      child: Container(
+                    margin: const EdgeInsets.only(right: 12.0),
+                    child: Image.asset(
+                      'assets/images/Car.png',
+                      width: 60,
+                      height: 60,
+                    ),
+                  )),
                   Flexible(
-                    child: Container(
-                      child:
-                        Text(
-                          widget.name,
-                          style: const TextStyle(
-                            fontSize: 20,
-                          ),
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                    )
+                      child: Container(
+                    child: Text(
+                      widget.name,
+                      style: const TextStyle(
+                        fontSize: 20,
+                      ),
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  )),
+                  PopupMenuButton<Choice>(
+                    itemBuilder: (BuildContext context) {
+                      return choices.skip(0).map((Choice choice) {
+                        return PopupMenuItem<Choice>(
+                          value: choice,
+                          child: Text(choice.name),
+                        );
+                      }).toList();
+                    },
+                    onSelected: handleSelect,
                   ),
-                  // PopupMenuButton<Choice>(
-                  //   itemBuilder: (BuildContext context) {
-                  //     return choices.skip(0).map((Choice choice) {
-                  //       return PopupMenuItem <Choice>(
-                  //         value: choice,
-                  //         child: Text(choice.name),
-                  //       );
-                  //     }).toList();
-                  //   },
-                  // ),
-                ]
-            ),
+                ]),
             Row(
               children: [
                 Icon(Icons.person),
                 Text(" = "),
-                Text("₹ ${providerCommunity.myExpenseInObject(widget.communityName, widget.name)}", style: TextStyle(color: Colors.blue),),
+                Text(
+                  "₹ ${providerCommunity.myExpenseInObject(widget.communityName, widget.name)}",
+                  style: TextStyle(color: Colors.blue),
+                ),
               ],
             ),
             Row(
               children: [
                 Icon(Icons.group),
                 Text(" = "),
-                Text("₹ ${providerCommunity.objectTotalExpense(widget.communityName, widget.name)}", style: TextStyle(color: Colors.blue)),
+                Text(
+                    "₹ ${providerCommunity.objectTotalExpense(widget.communityName, widget.name)}",
+                    style: TextStyle(color: Colors.blue)),
               ],
             ),
             Align(
@@ -115,10 +125,14 @@ class _ObjectState extends State<Object> {
                 width: 25.0,
                 child: FloatingActionButton(
                   heroTag: "Comm_Btn",
-                  onPressed: (){
+                  onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => AddFromObjectPage(selectedPage: 0, communityName: widget.communityName,objectName: widget.name)),
+                      MaterialPageRoute(
+                          builder: (context) => AddFromObjectPage(
+                              selectedPage: 0,
+                              communityName: widget.communityName,
+                              objectName: widget.name)),
                     );
                   },
                   backgroundColor: Colors.green,
@@ -133,8 +147,4 @@ class _ObjectState extends State<Object> {
   }
 }
 
-
-const List<Choice> choices = <Choice> [
-  Choice(name: 'Add to Favourites'),
-  Choice(name: 'Delete Object')
-];
+const List<Choice> choices = <Choice>[Choice(name: 'Delete Object')];
