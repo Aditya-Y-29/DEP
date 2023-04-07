@@ -121,7 +121,7 @@ class _ObjectPageState extends State<ObjectPage> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => AddFromObjectPage(selectedPage: DefaultTabController.of(tabContext).index+1, communityName: widget.communityName, objectName: widget.objectName),
+                              builder: (context) => AddFromObjectPage(selectedPage: 0, communityName: widget.communityName, objectName: widget.objectName),
                             ),
                           );
                         },
