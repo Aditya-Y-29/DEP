@@ -392,7 +392,7 @@ class DataProvider extends ChangeNotifier {
     CommunityModel ctmp =
         communitiesdb!.firstWhere((element) => element.name == communityName);
 
-
+    DateTime dateTime = DateTime.parse(expenseDate);
 
     ObjectsModel otmp = communityObjectMapdb![ctmp]!.firstWhere((element) => element.name == objectName);
 

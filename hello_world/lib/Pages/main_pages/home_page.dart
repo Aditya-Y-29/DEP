@@ -35,6 +35,8 @@ class _MyHomePageState extends State<MyHomePage> {
     tokenProvider.addToken();
   }
 
+  TextEditingController searchController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -262,6 +264,26 @@ class _MyHomePageState extends State<MyHomePage> {
                         ),
                       ),
                       Container(
+                        margin: const EdgeInsets.only(left: 30, right: 30, bottom: 20),
+                        child:
+                          TextField(
+                            decoration: InputDecoration(
+                              hintText: "Search",
+                              prefixIcon: Icon(Icons.search),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                            ),
+                            controller: searchController,
+                            onChanged: (value) {
+                              setState(() {
+                                // clickedCommunity = 0;
+                                communityName = "";
+                              });
+                            },
+                          ),
+                      ),
+                      Container(
                         height: 500,
                         child:
                         ListView(
@@ -269,7 +291,10 @@ class _MyHomePageState extends State<MyHomePage> {
                             // spacing: 8,
                             // runSpacing: 1,
                             children: List.of(communityDataProvider.communities.map((e) {
-                              int k = communityDataProvider.communities.indexOf(e)+1;
+                              if(!e.toLowerCase().contains(searchController.text.toLowerCase().trim())) {
+                                return SizedBox(height: 0,);
+                              }
+                              // int k = communityDataProvider.communities.indexOf(e)+1;
                               return GestureDetector(
                                   onTap: () {
                                     setState(() {
