@@ -16,9 +16,11 @@ class _CommunityState extends State<Community> {
 
   Choice selectedOption = choices[0];
   handleSelect(Choice choice) async {
-    setState(() {
-      selectedOption = choice;
-    });
+    if(choice.name=="Delete Community"){
+      print("Delete Community");
+      Provider.of<DataProvider>(context, listen: false).deleteCommunity(widget.name);
+
+    }
   }
 
   bool clicked = false;
@@ -74,6 +76,12 @@ class _CommunityState extends State<Community> {
                     Flexible(
                         child:
                         Container(
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: Colors.green.shade200,
+                              width: 1.0,
+                            ),
+                          ),
                           child:
                           Image.asset(
                             '${providerCommunity.extractCommunityImagePathByName(widget.name)}',
@@ -137,46 +145,30 @@ class _CommunityState extends State<Community> {
                             color: Colors.blue,
                             fontSize: 13,
                           ),),
-                      ],
+                        ],
                       ),
                     ],
                       ),
 
-                    Flexible(child: Column(
+                    Row(
                       children: [
-                          PopupMenuButton<Choice>(
-                            itemBuilder: (BuildContext context) {
-                              return choices.skip(0).map((Choice choice) {
-                                return PopupMenuItem <Choice>(
-                                  value: choice,
-                                  child: Text(choice.name),
-                                );
-                              }).toList();
-                            },
-                            onSelected: (value) {
-                              if(value.name == "Add Expense")
-                              {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(builder: (context) => AddFromHomePage(selectedPage: 0)),
-                                );
-                              }
-                              // else if (value.name == "Add Service")
-                              // {
-                              //   Navigator.push(
-                              //     context,
-                              //     MaterialPageRoute(builder: (context) => AddFromHomePage(selectedPage: 1)),
-                              //   );
-                              // }
-                            },
-                            // color: Colors.black,
-                          ),
-                          Align(
-                            // alignment: Alignment.bottomRight,
-                            child: Container(
+                          // PopupMenuButton<Choice>(
+                          //   itemBuilder: (BuildContext context) {
+                          //     return choices.skip(0).map((Choice choice) {
+                          //       return PopupMenuItem <Choice>(
+                          //         value: choice,
+                          //         child: Text(choice.name),
+                          //
+                          //       );
+                          //     }).toList();
+                          //
+                          //   },
+                          //   onSelected: handleSelect,
+                          // ),
+                          Container(
                               margin: const EdgeInsets.only(bottom: 1.0, right: 1.0),
-                              height: 18.0,
-                              width: 18.0,
+                              height: 30.0,
+                              width: 30.0,
                               child: FloatingActionButton(
                                 heroTag: "Comm_Btn",
                                 onPressed: (){
@@ -193,9 +185,20 @@ class _CommunityState extends State<Community> {
                                 ),
                               ),
                             ),
-                          )
-                       ])
-                    ),
+                          // ),
+                      PopupMenuButton<Choice>(
+                        itemBuilder: (BuildContext context) {
+                          return choices.skip(0).map((Choice choice) {
+                            return PopupMenuItem <Choice>(
+                              value: choice,
+                              child: Text(choice.name),
+                            );
+                          }).toList();
+                        },
+                        onSelected: handleSelect
+                        // color: Colors.black,
+                      ),
+                     ])
                   ]
               ),
             ],
@@ -212,6 +215,5 @@ class Choice {
 }
 
 const List<Choice> choices = <Choice> [
-  Choice(name: 'Add to Favourites'),
   Choice(name: 'Delete Community')
 ];

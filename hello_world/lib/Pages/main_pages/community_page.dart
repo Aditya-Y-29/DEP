@@ -11,7 +11,7 @@ import 'package:hello_world/Pages/main_pages/navigation_page.dart';
 import '../add_from_pages/add_from_community_page.dart';
 import '../group_member_pages/add_member_page.dart';
 import '../group_member_pages/community_info_page.dart';
-
+import '../logs_notification_pages/logs_notification.dart';
 
 class CommunityPage extends StatefulWidget {
   const CommunityPage({Key? key, required this.communityName}) : super(key: key);
@@ -23,7 +23,7 @@ class CommunityPage extends StatefulWidget {
 
 class _CommunityPageState extends State<CommunityPage> {
 
-  int clickedObject = 0;
+  // int clickedObject = 0;
   String objectName = '';
   ScrollController controller = ScrollController();
 
@@ -43,6 +43,7 @@ class _CommunityPageState extends State<CommunityPage> {
       //   backgroundColor: Colors.green,
       //   child: const Icon(Icons.arrow_forward_ios, size: 20,),
       // ) : null,
+
       appBar: AppBar(
         leading: Container(
           width: 50,
@@ -68,6 +69,24 @@ class _CommunityPageState extends State<CommunityPage> {
           ],
         ),
         actions:  [
+          Container(
+            margin: const EdgeInsets.all(5),
+            padding: const EdgeInsets.all(1),
+            child: GestureDetector(
+              onTap: ()  async{
+                List<String> notification= await providerCommunity.getNotification(widget.communityName);
+                
+                // ignore: use_build_context_synchronously
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => LogsNotification(communityName: widget.communityName,notification: notification,),
+                  ),
+                );
+              },
+              child: const Icon(Icons.notifications, size: 30,),
+            )
+          ),
           Container(
             margin: const EdgeInsets.all(5),
             padding: const EdgeInsets.all(1),
@@ -204,7 +223,7 @@ class _CommunityPageState extends State<CommunityPage> {
                                     child:  Row(
                                       children: const [
                                         Text("+"),
-                                        Icon(Icons.laptop_mac_sharp),
+                                        Icon(Icons.grid_view),
                                       ],
                                     ),
                                   ),
@@ -297,13 +316,13 @@ class _CommunityPageState extends State<CommunityPage> {
                           return GestureDetector(
                             onTap: () {
                               setState(() {
-                                int temp = 1 << (k-1);
-                                if(clickedObject >> (k-1) & 1 == 1)
-                                  clickedObject = clickedObject ^ temp;
-                                else {
-                                  clickedObject = 0;
-                                  clickedObject = clickedObject | temp;
-                                }
+                                // int temp = 1 << (k-1);
+                                // if(clickedObject >> (k-1) & 1 == 1)
+                                //   clickedObject = clickedObject ^ temp;
+                                // else {
+                                //   clickedObject = 0;
+                                //   clickedObject = clickedObject | temp;
+                                // }
                                 objectName = e;
                               });
                               Navigator.push(
@@ -319,26 +338,26 @@ class _CommunityPageState extends State<CommunityPage> {
                                 AnimatedContainer(
                                   width: 150,
                                   height: 150,
-                                  margin: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+                                  margin: const EdgeInsets.symmetric(horizontal: 2, vertical: 5),
                                   padding: const EdgeInsets.only(left: 10.0),
                                   decoration: BoxDecoration(
                                     color: Colors.white,
                                     border: Border.all(
-                                      color: (clickedObject >> (k-1) & 1) == 1 ? Colors.green : Colors.green.withOpacity(0),
-                                      width: 2.0,
+                                      color: Colors.green,
+                                      width: 1.0,
                                     ),
                                     borderRadius: BorderRadius.circular(20.0),
-                                    boxShadow: const [
-                                      BoxShadow(
-                                        color: Colors.grey,
-                                        blurRadius: 15.0, // soften the shadow
-                                        spreadRadius: 1.0, //extend the shadow
-                                        offset: Offset(
-                                          1.0, // Move to right 5  horizontally
-                                          1.0, // Move to bottom 5 Vertically
-                                        ),
-                                      )
-                                    ],
+                                    // boxShadow: const [
+                                    //   BoxShadow(
+                                    //     color: Colors.grey,
+                                    //     blurRadius: 15.0, // soften the shadow
+                                    //     spreadRadius: 1.0, //extend the shadow
+                                    //     offset: Offset(
+                                    //       1.0, // Move to right 5  horizontally
+                                    //       1.0, // Move to bottom 5 Vertically
+                                    //     ),
+                                    //   )
+                                    // ],
                                   ),
                                   duration: const Duration(milliseconds: 250),
                                   curve: Curves.easeInOut,

@@ -25,7 +25,7 @@ class _AddExpenseServiceCommunityData extends State<AddFromHomePage> {
           bottom: const TabBar(
             tabs: [
               Tab(icon: Icon(Icons.home_work),),
-              Tab(icon: Icon(Icons.laptop_mac_sharp),),
+              Tab(icon: Icon(Icons.grid_view),),
               Tab(icon: Icon(Icons.currency_rupee_outlined),),
               // Tab(icon: Icon(Icons.home_repair_service),),
             ],

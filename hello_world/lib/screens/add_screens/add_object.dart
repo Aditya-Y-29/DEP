@@ -86,7 +86,7 @@ class ObjectData extends State<ObjectScreen> {
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(10.0)),
                       ),
-                      icon: Icon(Icons.data_object),
+                      icon: Icon(Icons.grid_view),
                       hintText: 'Enter the Object Name',
                     ),
                     controller: objectName,

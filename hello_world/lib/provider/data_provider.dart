@@ -61,8 +61,6 @@ class DataProvider extends ChangeNotifier {
     "Default":"assets/images/communityImages/Default.jpg",
   };
 
-
-
   //***********************************************
 
   bool isSubstring(String s, String t) {
@@ -96,6 +94,35 @@ class DataProvider extends ChangeNotifier {
          }
      }
      return sum;
+  }
+
+  Future<int> totalExpense() async{
+    int sum=0;
+    List<CommunityModel>? communityList = await UserDataBaseService.getCommunities(user!.phoneNo);
+    communityList!.forEach((element) {
+         String communityName=element!.name;
+         sum+=communityTotalExpense(communityName);
+      }
+    );
+    return sum;
+  }
+
+  Future<int> myTotalExpense() async{
+    int sum=0;
+    List<CommunityModel>? communityList = await UserDataBaseService.getCommunities(user!.phoneNo);
+    communityList!.forEach((element) {
+        String communityName=element!.name;
+        sum+=myExpenseInCommunity(communityName);
+      }
+    );
+    return sum;
+  }
+
+  Future<Map<int,int>> spendingSummaryData() async {
+    Map<int,int> spendingSummary={};
+    spendingSummary[0]=await myTotalExpense();
+    spendingSummary[1]=await totalExpense();
+    return spendingSummary;
   }
 
   int myExpenseInCommunity(String communityName) {
@@ -140,6 +167,17 @@ class DataProvider extends ChangeNotifier {
     UserDataBaseService.createUserDb(userM);
     return true;
   }
+
+  Future<Map<String, double>> pieChartDataOfCommunities() async {
+    Map<String,double> communityTotalExpenseMap={};
+    List<CommunityModel>? communityList = await UserDataBaseService.getCommunities(user!.phoneNo);
+    for (int i = 0; i < communityList!.length; i++) {
+      communityTotalExpenseMap[communityList[i].name] = communityTotalExpense(communityList[i].name).toDouble();
+    }
+    return communityTotalExpenseMap;
+
+  }
+
   void getCommunityMembers(String phone) async {
     List<CommunityModel>? communityList =
         await UserDataBaseService.getCommunities(phone);
@@ -175,6 +213,7 @@ class DataProvider extends ChangeNotifier {
     communitiesdb = communityTemp;
 
     for (int i = 0; i < communityTemp!.length; i++) {
+      print(communityTemp[i].name);
       communities.add(communityTemp[i].name);
       communityObjectMap[communityTemp[i].name] = [];
       communityObjectMapdb![communityTemp[i]] = [];
@@ -297,11 +336,11 @@ class DataProvider extends ChangeNotifier {
       name: communityName,
       phoneNo: user!.phoneNo,
     );
-    if(CommunityDataBaseService.createCommunity(community)==false){
+    if( await CommunityDataBaseService.createCommunity(community)==false){
       return;
     }
 
-    CommunityDataBaseService.CommunityAddNotification(community, user!.phoneNo);
+
     communities.add(communityName);
     communityObjectMap[communityName] = ["Misc"];
     objectUnresolvedExpenseMap[communityName] = {};
@@ -315,6 +354,9 @@ class DataProvider extends ChangeNotifier {
     objectUnresolvedExpenseMap[communityName]!["Misc"] = [];
 
     notifyListeners();
+
+    await CommunityDataBaseService.communityAddNotification(community, user!.phoneNo);
+    await CommunityDataBaseService.addCommunityLogNotification(community,"Community Created");
   }
 
   Future<void> addObject(String communityName, String objectName) async {
@@ -330,17 +372,20 @@ class DataProvider extends ChangeNotifier {
         creatorPhoneNo: user!.phoneNo,
         type: "",
         description: "");
+
     if(ObjectDataBaseService.createObjects(object)==false){
       return;
     }
 
-    ObjectDataBaseService.ObjectAddNotification(object);
 
     communityObjectMapdb![ctmp]!.add(object);
     communityObjectMap[communityName]!.add(objectName);
     objectUnresolvedExpenseMap[communityName]![objectName] = [];
     objectResolvedExpenseMap[communityName]![objectName] = [];
     notifyListeners();
+
+    ObjectDataBaseService.ObjectAddNotification(object);
+    await CommunityDataBaseService.addCommunityLogNotification(ctmp, "Object Added: " + objectName);
   }
 
   Future<void> addExpense(String objectName, String creator, int amount,String expenseDate,
@@ -366,6 +411,7 @@ class DataProvider extends ChangeNotifier {
     }
 
     ExpenseDataBaseService.ExpenseAddNotification(expense);
+    // await CommunityDataBaseService.addCommunityLogNotification(ctmp, "Expense Added: " + description + " (" + amount.toString() + ")");
 
     objectUnresolvedExpenseMap[communityName]![objectName]?.add(Expense(
         objectName: objectName,
@@ -489,8 +535,9 @@ class DataProvider extends ChangeNotifier {
         CommunityModel ctmp = communitiesdb!
             .firstWhere((element) => element.name == communityName);
         if(await CommunityDataBaseService.addUserInCommunity(ctmp, member.phone, false)){
-          CommunityDataBaseService.CommunityAddNotification(ctmp, member.phone);
           communityMembersMap[communityName]!.add(member);
+          CommunityDataBaseService.communityAddNotification(ctmp, member.phone);
+          await CommunityDataBaseService.addCommunityLogNotification(ctmp, "Member Added : ${member.name}");
         }
       }
     }
@@ -503,6 +550,32 @@ class DataProvider extends ChangeNotifier {
     if(user!=null){
       UserDataBaseService.addToken(user!.phoneNo, token);
     }
+  }
+
+  Future<List<String>> getNotification( String communityName) async {
+    CommunityModel ctmp = communitiesdb!.firstWhere((element) => element.name == communityName);
+    List<String> notification = await CommunityDataBaseService.getCommunityNotification(ctmp);
+    return notification;
+  }
+
+  Future<bool> deleteCommunity(String communityName) async{
+    CommunityModel ctmp = communitiesdb!.firstWhere((element) => element.name == communityName);
+
+
+    communitiesdb!.remove(ctmp);
+    communityMembersMap.remove(communityName);
+    communityObjectMap.remove(communityName);
+    communityObjectMapdb!.remove(ctmp);
+    objectUnresolvedExpenseMap.remove(communityName);
+    objectResolvedExpenseMap.remove(communityName);
+    objectUnresolvedExpenseMapdb!.remove(ctmp);
+    objectResolvedExpenseMapdb!.remove(ctmp);
+    communities.remove(communityName);
+
+    notifyListeners();
+    CommunityDataBaseService.deleteCommunity(ctmp);
+    return true;
+    
   }
 
 }

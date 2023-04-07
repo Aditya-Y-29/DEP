@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../provider/data_provider.dart';
 import 'package:hello_world/Pages/edit_details_pages/edit_expense_page.dart';
+import 'package:hello_world/Pages/edit_details_pages/edit_expense_page.dart';
 
 class Expense extends StatefulWidget {
   final String creator;

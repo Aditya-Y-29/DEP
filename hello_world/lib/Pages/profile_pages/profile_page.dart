@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:pie_chart/pie_chart.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../provider/data_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import '../../components/chart.dart';
+import '../../components/spendingSummary.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key }) : super(key: key);
@@ -13,11 +16,15 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   TextEditingController countryController = TextEditingController();
 
+
+  // Map<String,double> dataMap= {};
+
   @override
   void initState() {
     countryController.text = " +91";
     super.initState();
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -45,8 +52,8 @@ class _ProfilePageState extends State<ProfilePage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Container(
-                    height: 150,
-                    width: 150,
+                    height: 120,
+                    width: 120,
                     margin: EdgeInsets.only(top: 3),
                     // height: kSpacingUnit.w * 18,
                     // width: kSpacingUnit.w * 18,
@@ -54,15 +61,15 @@ class _ProfilePageState extends State<ProfilePage> {
                     child: Stack(
                       children: <Widget>[
                         CircleAvatar(
-                          radius: 75,
+                          radius: 60,
                           // radius: kSpacingUnit.w * 10,
                           backgroundImage: AssetImage('assets/images/avatar.png'),
                         ),
                         Align(
                           alignment: Alignment.bottomRight,
                           child: Container(
-                            height: 32,
-                            width: 32,
+                            height: 30,
+                            width: 30,
                             // height: kSpacingUnit.w * 4,
                             // width: kSpacingUnit.w * 5,
                             decoration: BoxDecoration(
@@ -78,7 +85,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               child: Icon(
                                 Icons.edit,
                                 color: Colors.white,
-                                size: 22,
+                                size: 18,
                               ),
                             ),
                           ),
@@ -195,7 +202,62 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
                   ),
                   SizedBox(
-                    height: 20,
+                    height: 0,
+                  ),
+                  SizedBox(
+                    height: 280,
+                    width: 310,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: Colors.grey,
+                          width: 1.0,
+                        ),
+                        borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                      ),
+                        margin: EdgeInsets.only(top: 10.0,bottom: 10),
+                      padding: EdgeInsets.only(top:22.0,bottom: 15.0,left: 10.0,right: 10),
+                        child: Column(
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Container(
+                                  // margin: EdgeInsets.only(top: 0.0, left: 0),
+                                  child: Center(
+
+                                    child: MySpendingSummary(),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Container(
+                              child: Expanded(
+                                child:
+                                  SingleChildScrollView(
+                                    child: Column(
+                                      children: [
+                                        Container(
+                                          margin: EdgeInsets.only(top: 20, left: 10),
+                                          child: MyPieChart(),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                              )
+                            ),
+                          ],
+                        ),
+                      )
+                    // child: Container(
+                    //   child: Center(
+                    //
+                    //     child: MyPieChart(),
+                    //   ),
+                    // ),
+                  ),
+                  SizedBox(
+                    height: 0,
                   ),
                   SizedBox(
                       width: 150,

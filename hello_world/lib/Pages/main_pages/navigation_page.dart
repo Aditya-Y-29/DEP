@@ -24,7 +24,7 @@ class NavigationPageState extends State<NavigationPage> {
         preferredSize: const Size.fromHeight(50.0),
 
         child:AppBar(
-          title: Text('Utility App'),
+          title: Text('Navigation'),
 
         ),
       ),
@@ -126,62 +126,98 @@ class NavigationPageState extends State<NavigationPage> {
                   },
                   child: ListTile(
                     tileColor: Colors.green,
-                    title: Text('Go To Communities >>> ',
+                    title: Row(
+                      children: [
+                        Text('Teleport anywhere!',
 
-                      style: TextStyle(
-                        fontSize: 18.0),
-                    ),
+                          style: TextStyle(
+                            fontSize: 18.0),
+                        ),
+                        SizedBox(
+                          width: 50,
+                        ),
+                        Icon(
+                          Icons.arrow_forward_ios,
+                          size: 18,
+                          color: Colors.green,
+                        ),
+                        Icon(
+                          Icons.arrow_forward_ios,
+                          size: 18,
+                          color: Colors.green,
+                        ),
+                        Icon(
+                          Icons.arrow_forward_ios,
+                          size: 18,
+                          color: Colors.green,
+                        ),
+                      ]
+                    )
                   ),
                 ),
               ),
               Divider(
-                  color: Colors.black
+                  color: Colors.green
               ),
-              Wrap(
-                  children:  List.of(communityDataProvider.communities.map((e) {
-                    int k = communityDataProvider.communities.indexOf(e)+1;
-                    return GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          int temp = 1 << (k-1);
-                          if(clickedCommunity >> (k-1) & 1 == 1)
-                            clickedCommunity = clickedCommunity ^ temp;
-                          else{
-                            clickedCommunity = 0;
-                            clickedCommunity = clickedCommunity | temp;
-                          }
-                          communityName = e;
-                        });
-                      },
-                      child: Container(
-                        margin: const EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0, bottom: 10.0),
-                        // padding: const EdgeInsets.only(left: 10.0, right: 10.0, top: 0.0, bottom: 0.0),
-                          child: IntrinsicHeight(
-                            child: Row(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-                              Expanded(
-                                child: FloatingActionButton(
-                                  backgroundColor : Colors.green.shade50,
-                                  elevation: 0,
-                                  onPressed: () {
-                                    // print(objectDropDown);
-                                    // providerCommunity.addExpense(objectDropDown, "Creator", int.parse(amountInvolved.text), description.text,communityDropDown);
-                                    Navigator.of(context).push(_createRoute(e));
-                                  },
-                                  child:ListTile(
-                                    leading: Image.asset('${providerCommunity.extractCommunityImagePathByName(e)}',
-                                      width: 45,
-                                    ),
-                                    tileColor: Colors.white,
-                                    title: Text(e),
-                                  ),),
+              Expanded(
+                child:
+                SingleChildScrollView(
+                  child:
+                    Column(
+                        children:  List.of(communityDataProvider.communities.map((e) {
+                          int k = communityDataProvider.communities.indexOf(e)+1;
+                          return GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                int temp = 1 << (k-1);
+                                if(clickedCommunity >> (k-1) & 1 == 1)
+                                  clickedCommunity = clickedCommunity ^ temp;
+                                else{
+                                  clickedCommunity = 0;
+                                  clickedCommunity = clickedCommunity | temp;
+                                }
+                                communityName = e;
+                              });
+                            },
+                            child: Container(
+                              margin: const EdgeInsets.only(left: 10.0, right: 10.0, bottom: 5.0),
+                              // padding: const EdgeInsets.only(left: 10.0, right: 10.0, top: 0.0, bottom: 0.0),
+                              decoration: BoxDecoration(
+                                // borderRadius: BorderRadius.circular(15),
+                                border: Border.all(
+                                  color: Colors.green,
+                                  width: 2,
+                                ),
+                                color: Colors.green.shade50,
                               ),
-                            ]),
-                          ),  // margin: const EdgeInsets.only(top: 20.0),
-                      ),
-                    );
-                  }))
-              ),
-
+                                child: IntrinsicHeight(
+                                  child: Row(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+                                    Expanded(
+                                      child: FloatingActionButton(
+                                        // backgroundColor : Colors.green.shade50,
+                                        elevation: 0,
+                                        onPressed: () {
+                                          // print(objectDropDown);
+                                          // providerCommunity.addExpense(objectDropDown, "Creator", int.parse(amountInvolved.text), description.text,communityDropDown);
+                                          Navigator.of(context).push(_createRoute(e));
+                                        },
+                                        child:ListTile(
+                                          leading: Image.asset('${providerCommunity.extractCommunityImagePathByName(e)}',
+                                            width: 45,
+                                          ),
+                                          tileColor: Colors.green.shade50,
+                                          title: Text(e),
+                                        ),),
+                                    ),
+                                  ]),
+                                ),  // margin: const EdgeInsets.only(top: 20.0),
+                            ),
+                          );
+                        }
+                        ))
+                    ),
+                )
+              )
             ],
           );
         },
