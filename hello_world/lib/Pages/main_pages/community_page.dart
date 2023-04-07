@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hello_world/Pages/main_pages/object_page.dart';
 import 'package:provider/provider.dart';
+import '../../components/expense.dart';
 import '../../components/object.dart';
 import '../../provider/data_provider.dart';
 import '../../components/community.dart';
@@ -324,99 +325,140 @@ class _CommunityPageState extends State<CommunityPage> {
                         },
                       ),
                   ),
-                  SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      children: List.of(objectDataProvider.communityObjectMap[widget.communityName]!.map((e) {
-                          // int k = objectDataProvider.communityObjectMap[widget.communityName]!.indexOf(e) + 1;
-                        if(!e.toLowerCase().contains(searchController.text.toLowerCase().trim())) {
-                          return SizedBox(height: 0,);
-                        }
-                          if(e == "Misc") {
-                              return SizedBox(height: 0,);
-                            }
-                          return GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                // int temp = 1 << (k-1);
-                                // if(clickedObject >> (k-1) & 1 == 1)
-                                //   clickedObject = clickedObject ^ temp;
-                                // else {
-                                //   clickedObject = 0;
-                                //   clickedObject = clickedObject | temp;
-                                // }
-                                objectName = e;
-                              });
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => ObjectPage(objectName: objectName, communityName: widget.communityName),
+                  DefaultTabController(
+                      length: 2,
+                      child: Column(
+                        children: [
+                          Container(
+                            margin: const EdgeInsets.only(left: 30, right: 30, bottom: 10),
+                            child: TabBar(
+                              labelColor: Colors.black,
+                              unselectedLabelColor: Colors.grey,
+                              indicatorColor: Colors.green,
+                              tabs: const [
+                                Tab(
+                                  icon: Icon(Icons.grid_view),
                                 ),
-                              );
-                            },
-                            child: Column (
+                                Tab(
+                                  icon: Icon(Icons.list),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Container(
+                            height: MediaQuery.of(context).size.height * 0.6,
+                            child:
+                            TabBarView(
                               children: [
+                                Wrap(
+                                  // margin: const EdgeInsets.only(left: 15, right: 15, bottom: 10),
+                                  // height: 100,
+                                  // child:
+                                  //   ListView(
+                                      // physics: AlwaysScrollableScrollPhysics(),
+                                        children: List.of(objectDataProvider.communityObjectMap[widget.communityName]!.map((e) {
+                                          // int k = objectDataProvider.communityObjectMap[widget.communityName]!.indexOf(e) + 1;
+                                          if(!e.toLowerCase().contains(searchController.text.toLowerCase().trim())) {
+                                            return SizedBox(height: 0,);
+                                          }
+                                          if(e == "Misc") {
+                                            return SizedBox(height: 0,);
+                                          }
+                                          return GestureDetector(
+                                              onTap: () {
+                                                setState(() {
+                                                  // int temp = 1 << (k-1);
+                                                  // if(clickedObject >> (k-1) & 1 == 1)
+                                                  //   clickedObject = clickedObject ^ temp;
+                                                  // else {
+                                                  //   clickedObject = 0;
+                                                  //   clickedObject = clickedObject | temp;
+                                                  // }
+                                                  objectName = e;
+                                                });
+                                                Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                    builder: (context) => ObjectPage(objectName: objectName, communityName: widget.communityName),
+                                                  ),
+                                                );
+                                              },
+                                              child: Column (
+                                                children: [
 
-                                AnimatedContainer(
-                                  width: 150,
-                                  height: 150,
-                                  margin: const EdgeInsets.symmetric(horizontal: 2, vertical: 5),
-                                  padding: const EdgeInsets.only(left: 10.0),
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    border: Border.all(
-                                      color: Colors.green,
-                                      width: 1.0,
-                                    ),
-                                    borderRadius: BorderRadius.circular(20.0),
-                                    // boxShadow: const [
-                                    //   BoxShadow(
-                                    //     color: Colors.grey,
-                                    //     blurRadius: 15.0, // soften the shadow
-                                    //     spreadRadius: 1.0, //extend the shadow
-                                    //     offset: Offset(
-                                    //       1.0, // Move to right 5  horizontally
-                                    //       1.0, // Move to bottom 5 Vertically
-                                    //     ),
-                                    //   )
-                                    // ],
-                                  ),
-                                  duration: const Duration(milliseconds: 250),
-                                  curve: Curves.easeInOut,
-                                  child: Object(
-                                    name: e,
-                                    communityName: widget.communityName,
-                                  ),
+                                                  AnimatedContainer(
+                                                    width: 176,
+                                                    height: 150,
+                                                    margin: const EdgeInsets.symmetric(horizontal: 2, vertical: 5),
+                                                    padding: const EdgeInsets.only(left: 10.0),
+                                                    decoration: BoxDecoration(
+                                                      color: Colors.white,
+                                                      border: Border.all(
+                                                        color: Colors.green,
+                                                        width: 1.0,
+                                                      ),
+                                                      borderRadius: BorderRadius.circular(20.0),
+                                                      // boxShadow: const [
+                                                      //   BoxShadow(
+                                                      //     color: Colors.grey,
+                                                      //     blurRadius: 15.0, // soften the shadow
+                                                      //     spreadRadius: 1.0, //extend the shadow
+                                                      //     offset: Offset(
+                                                      //       1.0, // Move to right 5  horizontally
+                                                      //       1.0, // Move to bottom 5 Vertically
+                                                      //     ),
+                                                      //   )
+                                                      // ],
+                                                    ),
+                                                    duration: const Duration(milliseconds: 250),
+                                                    curve: Curves.easeInOut,
+                                                    child: Object(
+                                                      name: e,
+                                                      communityName: widget.communityName,
+                                                    ),
+                                                  ),
+                                                  // Text(e),
+                                                ],
+                                              )
+                                          );
+                                        }))
+                                      // )
+                                      // ),
+                                    // ),
                                 ),
-                                // Text(e),
+                                Column(
+                                  children: [
+                                    Text(
+                                      "Miscellaneous Expenses",
+                                      style: TextStyle(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    SizedBox(height: 10,),
+                                    SingleChildScrollView(
+                                      child: Column(
+                                        children: List.of(miscExpenses(objectDataProvider, searchController)),
+                                      ),
+                                    ),
+                                    if(miscExpenses(objectDataProvider, searchController).isEmpty)
+                                      Column(
+                                        children: const [
+                                          Text(
+                                            "No expenses found",
+                                          ),
+                                        ],
+                                      ),
+                                  ],
+                                )
                               ],
                             )
-                          );
-                        }))
+                          )
+                        ],
                       )
                   ),
+
                   SizedBox(height: 10,),
-                  Text(
-                    "Miscellaneous Expenses",
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  SizedBox(height: 10,),
-                  SingleChildScrollView(
-                    child: Column(
-                      children: List.of(miscExpenses(objectDataProvider)),
-                    ),
-                  ),
-                  if(miscExpenses(objectDataProvider).isEmpty)
-                    Column(
-                      children: const [
-                        Text(
-                          "No expenses yet",
-                        ),
-                      ],
-                    ),
                 ],
               )
             ),
@@ -451,11 +493,18 @@ class _CommunityPageState extends State<CommunityPage> {
     );
   }
   
-  Iterable<Widget> miscExpenses(DataProvider objectDataProvider) {
+  Iterable<Widget> miscExpenses(DataProvider objectDataProvider, TextEditingController searchController) {
     Iterable<Widget> miscExpenses =  objectDataProvider.objectUnresolvedExpenseMap[widget.communityName]!["Misc"] as Iterable<Widget>;
     if(miscExpenses == null) {
       return [];
     }
+    for(int i=0;i<miscExpenses.length;i++)
+      {
+        Expense expense = miscExpenses.elementAt(i) as Expense;
+        if(!expense.description.toLowerCase().contains(searchController.text.toLowerCase().trim())) {
+          miscExpenses = miscExpenses.where((element) => element != expense);
+        }
+      }
     // print("Community Name: ${widget.communityName}");
     // print("Size of miscExpenses: ${miscExpenses.length}");
     return miscExpenses;

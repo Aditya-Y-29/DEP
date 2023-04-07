@@ -22,7 +22,7 @@ class _ObjectExpenseScreenState extends State<ObjectExpenseScreen> {
         
         if( objectDataProvider.objectUnresolvedExpenseMap[widget.communityName]![widget.objectName] == null ||  
             objectDataProvider.objectResolvedExpenseMap[widget.communityName]![widget.objectName] == null){
-          return const Center(child: Text("No Expenses in this Object"));
+          return const Center(child: Text("No expenses in this object"));
         } 
 
         return Column(
