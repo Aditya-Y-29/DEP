@@ -271,7 +271,7 @@ class _MyHomePageState extends State<MyHomePage> {
                               hintText: "Search",
                               prefixIcon: Icon(Icons.search),
                               border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
+                                borderRadius: BorderRadius.circular(25),
                               ),
                             ),
                             controller: searchController,
