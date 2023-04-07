@@ -186,4 +186,40 @@ class CommunityDataBaseService {
       return notifications;
     }
   }
+
+  static Future<bool> deleteCommunity(CommunityModel community) async{
+    
+    try{
+      String? communityID = await getCommunityID(community);
+      await _db.collection('communities').doc(communityID).delete();
+
+      await _db.collection("communityMembers").where("CommunityID",isEqualTo: communityID).get().then((value) {
+        for(DocumentSnapshot ds in value.docs){
+          ds.reference.delete();
+        }
+      });
+
+      List<String> objectsid=[];
+
+      await _db.collection("objects").where("CommunityID",isEqualTo: communityID).get().then((value) {
+        for(DocumentSnapshot ds in value.docs){
+          objectsid.add(ds.id);
+          ds.reference.delete();
+        }
+      });
+
+      for( var id in objectsid){
+        await _db.collection("expenses").where("ObjectID",isEqualTo: id).get().then((value) {
+          for(DocumentSnapshot ds in value.docs){
+            ds.reference.delete();
+          }
+        });
+      }
+
+      return true;
+    }catch(e){
+      return false;
+    }
+
+  }
 }

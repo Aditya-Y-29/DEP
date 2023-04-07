@@ -206,6 +206,7 @@ class DataProvider extends ChangeNotifier {
     communitiesdb = communityTemp;
 
     for (int i = 0; i < communityTemp!.length; i++) {
+      print(communityTemp[i].name);
       communities.add(communityTemp[i].name);
       communityObjectMap[communityTemp[i].name] = [];
       communityObjectMapdb![communityTemp[i]] = [];
@@ -559,4 +560,25 @@ class DataProvider extends ChangeNotifier {
     List<String> notification = await CommunityDataBaseService.getCommunityNotification(ctmp);
     return notification;
   }
+
+  Future<bool> deleteCommunity(String communityName) async{
+    CommunityModel ctmp = communitiesdb!.firstWhere((element) => element.name == communityName);
+
+
+    communitiesdb!.remove(ctmp);
+    communityMembersMap.remove(communityName);
+    communityObjectMap.remove(communityName);
+    communityObjectMapdb!.remove(ctmp);
+    objectUnresolvedExpenseMap.remove(communityName);
+    objectResolvedExpenseMap.remove(communityName);
+    objectUnresolvedExpenseMapdb!.remove(ctmp);
+    objectResolvedExpenseMapdb!.remove(ctmp);
+    communities.remove(communityName);
+
+    notifyListeners();
+    CommunityDataBaseService.deleteCommunity(ctmp);
+    return true;
+    
+  }
+
 }
