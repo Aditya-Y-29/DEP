@@ -284,7 +284,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           ),
                       ),
                       Container(
-                        height: 500,
+                        height: 420,
                         child:
                         ListView(
                           physics: AlwaysScrollableScrollPhysics(),
@@ -313,7 +313,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                   child: AnimatedContainer(
                                     width: 340,
                                     height: 100,
-                                    margin: const EdgeInsets.all(2.0),
+                                    margin: const EdgeInsets.symmetric(horizontal: 4.0, vertical: 4.0),
                                     padding: const EdgeInsets.only(top: 25.0, bottom: 5.0, left: 10.0, right: 5.0),
                                     decoration: BoxDecoration(
                                       color: Colors.white,

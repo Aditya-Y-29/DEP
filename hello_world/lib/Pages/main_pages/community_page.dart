@@ -350,81 +350,94 @@ class _CommunityPageState extends State<CommunityPage> {
                             child:
                             TabBarView(
                               children: [
-                                Wrap(
-                                  // margin: const EdgeInsets.only(left: 15, right: 15, bottom: 10),
-                                  // height: 100,
-                                  // child:
-                                  //   ListView(
-                                      // physics: AlwaysScrollableScrollPhysics(),
-                                        children: List.of(objectDataProvider.communityObjectMap[widget.communityName]!.map((e) {
-                                          // int k = objectDataProvider.communityObjectMap[widget.communityName]!.indexOf(e) + 1;
-                                          if(!e.toLowerCase().contains(searchController.text.toLowerCase().trim())) {
-                                            return SizedBox(height: 0,);
-                                          }
-                                          if(e == "Misc") {
-                                            return SizedBox(height: 0,);
-                                          }
-                                          return GestureDetector(
-                                              onTap: () {
-                                                setState(() {
-                                                  // int temp = 1 << (k-1);
-                                                  // if(clickedObject >> (k-1) & 1 == 1)
-                                                  //   clickedObject = clickedObject ^ temp;
-                                                  // else {
-                                                  //   clickedObject = 0;
-                                                  //   clickedObject = clickedObject | temp;
-                                                  // }
-                                                  objectName = e;
-                                                });
-                                                Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                    builder: (context) => ObjectPage(objectName: objectName, communityName: widget.communityName),
-                                                  ),
-                                                );
-                                              },
-                                              child: Column (
-                                                children: [
+                                Container(
+                                  child:
+                                  Wrap(
+                                    // margin: const EdgeInsets.only(left: 15, right: 15, bottom: 10),
+                                    // height: 100,
+                                    // child:
+                                    //   ListView(
+                                        // physics: AlwaysScrollableScrollPhysics(),
+                                          children: (objectDataProvider.communityObjectMap[widget.communityName]!.length > 1) ?
+                                          List.of(objectDataProvider.communityObjectMap[widget.communityName]!.map((e) {
+                                            // int k = objectDataProvider.communityObjectMap[widget.communityName]!.indexOf(e) + 1;
+                                            if(!e.toLowerCase().contains(searchController.text.toLowerCase().trim())) {
+                                              return SizedBox(height: 0,);
+                                            }
+                                            if(e == "Misc") {
+                                              return SizedBox(height: 0,);
+                                            }
+                                            return GestureDetector(
+                                                onTap: () {
+                                                  setState(() {
+                                                    // int temp = 1 << (k-1);
+                                                    // if(clickedObject >> (k-1) & 1 == 1)
+                                                    //   clickedObject = clickedObject ^ temp;
+                                                    // else {
+                                                    //   clickedObject = 0;
+                                                    //   clickedObject = clickedObject | temp;
+                                                    // }
+                                                    objectName = e;
+                                                  });
+                                                  Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                      builder: (context) => ObjectPage(objectName: objectName, communityName: widget.communityName),
+                                                    ),
+                                                  );
+                                                },
+                                                child: Column (
+                                                  children: [
 
-                                                  AnimatedContainer(
-                                                    width: 176,
-                                                    height: 150,
-                                                    margin: const EdgeInsets.symmetric(horizontal: 2, vertical: 5),
-                                                    padding: const EdgeInsets.only(left: 10.0),
-                                                    decoration: BoxDecoration(
-                                                      color: Colors.white,
-                                                      border: Border.all(
-                                                        color: Colors.green,
-                                                        width: 1.0,
+                                                    AnimatedContainer(
+                                                      width: 176,
+                                                      height: 150,
+                                                      margin: const EdgeInsets.symmetric(horizontal: 2, vertical: 5),
+                                                      padding: const EdgeInsets.only(left: 10.0),
+                                                      decoration: BoxDecoration(
+                                                        color: Colors.white,
+                                                        border: Border.all(
+                                                          color: Colors.green,
+                                                          width: 1.0,
+                                                        ),
+                                                        borderRadius: BorderRadius.circular(20.0),
+                                                        // boxShadow: const [
+                                                        //   BoxShadow(
+                                                        //     color: Colors.grey,
+                                                        //     blurRadius: 15.0, // soften the shadow
+                                                        //     spreadRadius: 1.0, //extend the shadow
+                                                        //     offset: Offset(
+                                                        //       1.0, // Move to right 5  horizontally
+                                                        //       1.0, // Move to bottom 5 Vertically
+                                                        //     ),
+                                                        //   )
+                                                        // ],
                                                       ),
-                                                      borderRadius: BorderRadius.circular(20.0),
-                                                      // boxShadow: const [
-                                                      //   BoxShadow(
-                                                      //     color: Colors.grey,
-                                                      //     blurRadius: 15.0, // soften the shadow
-                                                      //     spreadRadius: 1.0, //extend the shadow
-                                                      //     offset: Offset(
-                                                      //       1.0, // Move to right 5  horizontally
-                                                      //       1.0, // Move to bottom 5 Vertically
-                                                      //     ),
-                                                      //   )
-                                                      // ],
+                                                      duration: const Duration(milliseconds: 250),
+                                                      curve: Curves.easeInOut,
+                                                      child: Object(
+                                                        name: e,
+                                                        communityName: widget.communityName,
+                                                      ),
                                                     ),
-                                                    duration: const Duration(milliseconds: 250),
-                                                    curve: Curves.easeInOut,
-                                                    child: Object(
-                                                      name: e,
-                                                      communityName: widget.communityName,
-                                                    ),
-                                                  ),
-                                                  // Text(e),
-                                                ],
-                                              )
-                                          );
-                                        }))
-                                      // )
+                                                    // Text(e),
+                                                  ],
+                                                )
+                                            );
+                                          }))
+                                          :
+                                          [
+                                            Container(
+                                              margin: const EdgeInsets.symmetric(horizontal: 123, vertical: 100),
+                                              child: const Text(
+                                                "No objects found",
+                                              ),
+                                            )
+                                          ]
+                                        // )
+                                        // ),
                                       // ),
-                                    // ),
+                                  ),
                                 ),
                                 Column(
                                   children: [
