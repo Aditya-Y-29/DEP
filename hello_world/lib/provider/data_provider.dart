@@ -213,7 +213,6 @@ class DataProvider extends ChangeNotifier {
     communitiesdb = communityTemp;
 
     for (int i = 0; i < communityTemp!.length; i++) {
-      print(communityTemp[i].name);
       communities.add(communityTemp[i].name);
       communityObjectMap[communityTemp[i].name] = [];
       communityObjectMapdb![communityTemp[i]] = [];
@@ -237,8 +236,6 @@ class DataProvider extends ChangeNotifier {
 
       for (int j = 0; j < objectTemp!.length; j++) {
         communityObjectMap[communityTemp[i].name]!.add(objectTemp[j].name);
-        if(communityTemp[i].name == "Demo 7")
-          // print("Name of object " + objectTemp[j].name);
         communityObjectMapdb![communityTemp[i]]!.add(objectTemp[j]);
 
 
@@ -373,15 +370,17 @@ class DataProvider extends ChangeNotifier {
         type: "",
         description: "");
 
+
     if(ObjectDataBaseService.createObjects(object)==false){
       return;
     }
-
 
     communityObjectMapdb![ctmp]!.add(object);
     communityObjectMap[communityName]!.add(objectName);
     objectUnresolvedExpenseMap[communityName]![objectName] = [];
     objectResolvedExpenseMap[communityName]![objectName] = [];
+    objectResolvedExpenseMapdb![ctmp]![object] = [];
+    objectUnresolvedExpenseMapdb![ctmp]![object] = [];
     notifyListeners();
 
     ObjectDataBaseService.ObjectAddNotification(object);
@@ -392,11 +391,13 @@ class DataProvider extends ChangeNotifier {
       String description, String communityName) async {
     CommunityModel ctmp =
         communitiesdb!.firstWhere((element) => element.name == communityName);
-    ObjectsModel otmp = communityObjectMapdb![ctmp]!
-        .firstWhere((element) => element.name == objectName);
+
+
+
+    ObjectsModel otmp = communityObjectMapdb![ctmp]!.firstWhere((element) => element.name == objectName);
+
     String? objectID = await ObjectDataBaseService.getObjectID(otmp);
-    // print(objectID);
-    DateTime? dateTime = DateTime.tryParse(expenseDate);
+
     ExpenseModel expense = ExpenseModel(
         creatorID: await UserDataBaseService.getUserID(user!.phoneNo),
         amount: amount.toString(),
@@ -411,7 +412,7 @@ class DataProvider extends ChangeNotifier {
     }
 
     ExpenseDataBaseService.ExpenseAddNotification(expense);
-    // await CommunityDataBaseService.addCommunityLogNotification(ctmp, "Expense Added: " + description + " (" + amount.toString() + ")");
+    await CommunityDataBaseService.addCommunityLogNotification(ctmp, "Expense Added: " + description + " (" + amount.toString() + ")");
 
     objectUnresolvedExpenseMap[communityName]![objectName]?.add(Expense(
         objectName: objectName,
@@ -576,6 +577,20 @@ class DataProvider extends ChangeNotifier {
     CommunityDataBaseService.deleteCommunity(ctmp);
     return true;
     
+  }
+
+  Future<bool> deleteObject(String communityName, String objectName) async {
+    CommunityModel ctmp = communitiesdb!.firstWhere((element) => element.name == communityName);
+    ObjectsModel otmp = communityObjectMapdb![ctmp]!.firstWhere((element) => element.name == objectName);
+    communityObjectMapdb![ctmp]!.remove(otmp);
+    objectUnresolvedExpenseMapdb![ctmp]!.remove(otmp);
+    objectResolvedExpenseMapdb![ctmp]!.remove(otmp);
+    communityObjectMap[communityName]!.remove(objectName);
+    objectUnresolvedExpenseMap[communityName]!.remove(objectName);
+    objectResolvedExpenseMap[communityName]!.remove(objectName);
+    notifyListeners();
+    ObjectDataBaseService.deleteObject(otmp);
+    return true;
   }
 
 }

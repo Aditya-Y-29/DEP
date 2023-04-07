@@ -198,4 +198,19 @@ class ObjectDataBaseService {
     });
     return objectName;
   }
+
+  static Future<bool> deleteObject( ObjectsModel object) async{
+    
+    String? objectID=await getObjectID(object);
+
+    await _db.collection("objects").doc(objectID).delete();
+
+    await _db.collection("expenses").where("ObjectID", isEqualTo: objectID).get().then((value) => {
+      value.docs.forEach((element) {
+        _db.collection("expenses").doc(element.id).delete();
+      })
+    });
+
+    return true;
+  }
 }
