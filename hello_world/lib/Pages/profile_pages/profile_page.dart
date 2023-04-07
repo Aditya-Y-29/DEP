@@ -223,7 +223,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Container(
-                                  margin: EdgeInsets.only(top: 0.0, left: 0),
+                                  // margin: EdgeInsets.only(top: 0.0, left: 0),
                                   child: Center(
 
                                     child: MySpendingSummary(),
@@ -231,16 +231,20 @@ class _ProfilePageState extends State<ProfilePage> {
                                 ),
                               ],
                             ),
-                            Row(
-                              children: [
-                                Container(
-                                  margin: EdgeInsets.only(top: 30.0, left: 30),
-                                  child: Center(
-
-                                    child: MyPieChart(),
-                                   ),
+                            Container(
+                              child: Expanded(
+                                child:
+                                  SingleChildScrollView(
+                                    child: Column(
+                                      children: [
+                                        Container(
+                                          margin: EdgeInsets.only(left: 5),
+                                          child: MyPieChart(),
+                                        ),
+                                      ],
+                                    ),
                                   ),
-                               ],
+                              )
                             ),
                           ],
                         ),

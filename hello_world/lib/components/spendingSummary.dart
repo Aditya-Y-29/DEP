@@ -39,7 +39,7 @@ class _MySpendingSummaryState extends State<MySpendingSummary> {
           return Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('  Your Spending: ₹${snapshot.data![0]}     Total Spending: ₹${snapshot.data![1]}',
+              Text('  Your Spending: ₹${snapshot.data![0]}\n  Total Spending: ₹${snapshot.data![1]}',
                 style: TextStyle(
                   fontSize: 13.0,
                 ),),
