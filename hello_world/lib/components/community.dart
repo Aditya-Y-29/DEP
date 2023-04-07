@@ -16,9 +16,11 @@ class _CommunityState extends State<Community> {
 
   Choice selectedOption = choices[0];
   handleSelect(Choice choice) async {
-    setState(() {
-      selectedOption = choice;
-    });
+    if(choice.name=="Delete Community"){
+      print("Delete Community");
+      Provider.of<DataProvider>(context, listen: false).deleteCommunity(widget.name);
+
+    }
   }
 
   bool clicked = false;
@@ -150,26 +152,12 @@ class _CommunityState extends State<Community> {
                                 return PopupMenuItem <Choice>(
                                   value: choice,
                                   child: Text(choice.name),
+                                  
                                 );
                               }).toList();
+                              
                             },
-                            onSelected: (value) {
-                              if(value.name == "Add Expense")
-                              {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(builder: (context) => AddFromHomePage(selectedPage: 0)),
-                                );
-                              }
-                              // else if (value.name == "Add Service")
-                              // {
-                              //   Navigator.push(
-                              //     context,
-                              //     MaterialPageRoute(builder: (context) => AddFromHomePage(selectedPage: 1)),
-                              //   );
-                              // }
-                            },
-                            // color: Colors.black,
+                            onSelected: handleSelect,
                           ),
                           Align(
                             // alignment: Alignment.bottomRight,
@@ -212,6 +200,5 @@ class Choice {
 }
 
 const List<Choice> choices = <Choice> [
-  Choice(name: 'Add to Favourites'),
   Choice(name: 'Delete Community')
 ];

@@ -29,6 +29,11 @@ class ExpenseData extends State<EditExpenseScreen> {
   TextEditingController description = TextEditingController();
   TextEditingController dateController =TextEditingController();
 
+  
+
+
+
+
 
   @override
   void initState(){
@@ -41,6 +46,9 @@ class ExpenseData extends State<EditExpenseScreen> {
 
   Widget build(BuildContext context) {
 
+    description.text=widget.expense.description;
+    amountInvolved.text=widget.expense.amount.toString();
+    // dateController.text=DateFormat('dd-MM-yyyy').format(widget.expense.date);
 
     final providerCommunity = Provider.of<DataProvider>(context, listen: true);
     if(widget.isFromCommunityPage) {

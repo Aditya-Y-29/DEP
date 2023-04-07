@@ -71,6 +71,7 @@ class _SplashPageState extends State<SplashPage> {
   void whereToGo() async {
     var sharedPref = await SharedPreferences.getInstance();
     var userPhone = sharedPref.getString("userPhone") ?? "";
+    print("userPhone: $userPhone");
     Timer(Duration(seconds: 2), () async {
       if (userPhone != "") {
         DataProvider dataProvider = Provider.of<DataProvider>(context, listen: false);

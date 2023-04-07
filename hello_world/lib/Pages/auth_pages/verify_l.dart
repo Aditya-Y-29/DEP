@@ -138,6 +138,7 @@ class _MyVerifyLState extends State<MyVerifyL> {
                                 Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);
                               }
                               catch(e){
+                                print(e.toString());
                                 print("wrong otp");
                               }
                             },
