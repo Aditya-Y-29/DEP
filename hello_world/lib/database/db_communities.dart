@@ -142,6 +142,7 @@ class CommunityDataBaseService {
   static Future<bool> addCommunityLogNotification(CommunityModel community,String message) async {
     
     try{
+      
       String? communityId=await getCommunityID(community);
       final sp = await _db
           .collection('logsNotification')
