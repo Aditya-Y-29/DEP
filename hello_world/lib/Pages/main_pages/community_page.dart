@@ -204,7 +204,7 @@ class _CommunityPageState extends State<CommunityPage> {
                                     child:  Row(
                                       children: const [
                                         Text("+"),
-                                        Icon(Icons.laptop_mac_sharp),
+                                        Icon(Icons.grid_view),
                                       ],
                                     ),
                                   ),

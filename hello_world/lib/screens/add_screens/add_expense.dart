@@ -106,7 +106,7 @@ class ExpenseData extends State<ExpenseScreen> {
                 if(!widget.isFromObjectPage)
                 DropdownButtonFormField<String>(
                   decoration: const InputDecoration(
-                    icon: Icon(Icons.data_object),
+                    icon: Icon(Icons.grid_view),
                     hintText: 'Object',
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(10.0)),
