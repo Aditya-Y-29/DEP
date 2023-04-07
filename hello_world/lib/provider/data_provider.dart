@@ -118,6 +118,13 @@ class DataProvider extends ChangeNotifier {
     return sum;
   }
 
+  Future<Map<int,int>> spendingSummaryData() async {
+    Map<int,int> spendingSummary={};
+    spendingSummary[0]=await myTotalExpense();
+    spendingSummary[1]=await totalExpense();
+    return spendingSummary;
+  }
+
   int myExpenseInCommunity(String communityName) {
     int sum=0;
     for(int i=0;i<communityObjectMap[communityName]!.length;i++){

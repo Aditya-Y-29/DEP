@@ -116,6 +116,9 @@ class UserDataBaseService {
         if(sp1.docs.isNotEmpty){
           for(var i in sp1.docs){
             final sp2= await _db.collection('communities').doc(i.data()["CommunityID"]).get();
+            if(sp2.data() == null) {
+                continue;
+              }
             communities.add(CommunityModel.fromJson(sp2.data()!));
             // print(sp2.data()!);
           }
