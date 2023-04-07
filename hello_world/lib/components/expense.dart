@@ -8,10 +8,11 @@ class Expense extends StatefulWidget {
   final String creator;
   final String description;
   final int amount;
+  final String date;
   final bool isPaid;
   final String objectName;
   final String communityName;
-  const Expense({Key? key, required this.objectName, required this.creator, required this.description, required this.amount, required this.isPaid, required this.communityName}) : super(key: key);
+  const Expense({Key? key, required this.objectName, required this.creator, required this.description, required this.amount,required this.date, required this.isPaid, required this.communityName}) : super(key: key);
 
   @override
   State<Expense> createState() => _ExpenseState();
@@ -74,6 +75,7 @@ class _ExpenseState extends State<Expense> {
                   creator: widget.creator,
                   description: widget.description,
                   amount: widget.amount,
+                  date:widget.date,
                   isPaid: false,
                   objectName: widget.objectName,
                   communityName: widget.communityName,
@@ -89,7 +91,19 @@ class _ExpenseState extends State<Expense> {
                   );
 
               },
-              child: const Icon(Icons.edit, color: Colors.green, size: 35,),
+              child:  Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Icon(Icons.edit, color: Colors.green, size: 25,),
+                    Text(
+                      widget.date,
+                      style: const TextStyle(
+                        fontSize: 8,
+                      ),
+                    ),
+                  ]
+              ),
+              //const Icon(Icons.edit, color: Colors.green, size: 35,),
             )
         ],
       ),

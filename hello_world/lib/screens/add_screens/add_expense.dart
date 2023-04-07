@@ -21,6 +21,7 @@ class ExpenseData extends State<ExpenseScreen> {
 
   final _formKey = GlobalKey<FormState>();
   TextEditingController dateController =TextEditingController();
+ // DateTime expenseDate=
 
   String communityDropDown='';
   String objectDropDown='';
@@ -166,6 +167,7 @@ class ExpenseData extends State<ExpenseScreen> {
                        String formattedDate = DateFormat('yyyy-MM-dd').format(pickedDate); // format date in required form here we use yyyy-MM-dd that means time is removed
                        // print(formattedDate); //formatted date output using intl package =>  2022-07-04
                         //You can format date as per your need
+                       //expenseDate=pickedDate;
 
                         setState(() {
                           dateController.text = formattedDate.toString(); //set foratted date to TextField value.
@@ -193,7 +195,7 @@ class ExpenseData extends State<ExpenseScreen> {
                     child: FloatingActionButton(
                       onPressed: () {
                         // print(objectDropDown);
-                        providerCommunity.addExpense(objectDropDown, providerCommunity.user!.name, int.parse(amountInvolved.text), description.text,communityDropDown);
+                        providerCommunity.addExpense(objectDropDown, providerCommunity.user!.name, int.parse(amountInvolved.text), dateController.text, description.text,communityDropDown);
                         Navigator.pop(context);
                       },
                       child: const Icon(Icons.check),
