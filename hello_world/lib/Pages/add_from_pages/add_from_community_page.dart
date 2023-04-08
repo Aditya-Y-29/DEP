@@ -3,7 +3,8 @@ import 'package:hello_world/screens/add_screens/resolve_expense_service.dart';
 import '../../screens/add_screens/add_expense.dart';
 import '../../screens/add_screens/add_service.dart';
 import '../../screens/add_screens/add_object.dart';
-
+import '../../provider/data_provider.dart';
+import 'package:provider/provider.dart';
 
 class AddFromCommunityPage extends StatefulWidget {
   int selectedPage = 0;
@@ -18,12 +19,23 @@ class _AddFromCommunityPageData extends State<AddFromCommunityPage> {
 
   @override
   Widget build(BuildContext context) {
+    final providerCommunity = Provider.of<DataProvider>(context, listen: false);
     return DefaultTabController(
       length: 2,
       initialIndex: widget.selectedPage,
       child: Scaffold(
         appBar: AppBar(
-          title: Text('${widget.communityName}'),
+          title: Row(
+            children: <Widget>[
+              Image.asset(
+                '${providerCommunity.extractCommunityImagePathByName(widget.communityName)}',
+                width: 40,
+                height: 40,
+              ),
+              SizedBox(width: 10),
+              Text(widget.communityName),
+            ],
+          ),
           bottom: const TabBar(
             tabs: [
               // Tab(icon: Icon(Icons.person_add),),
