@@ -81,19 +81,19 @@ class _ObjectState extends State<Object> {
                   Flexible(
                       child: Container(
                     margin: const EdgeInsets.only(right: 12.0),
-                    child: Image.asset(
-                      'assets/images/Car.png',
-                      width: 60,
-                      height: 60,
-                    ),
+                      child: Image.asset(
+                        '${providerCommunity.extractObjectImagePathByName(widget.name)}',
+                        width: 60,
+                        height: 60,
+                      ),
                   )),
                   Flexible(
                       child: Container(
-                    child: Text(
-                      widget.name,
-                      style: const TextStyle(
-                        fontSize: 20,
-                      ),
+                        child: Text(
+                        widget.name,
+                        style: const TextStyle(
+                          fontSize: 20,
+                        ),
                       overflow: TextOverflow.ellipsis,
                     ),
                   )),
