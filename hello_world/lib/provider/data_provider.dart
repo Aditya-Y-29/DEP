@@ -178,6 +178,7 @@ class DataProvider extends ChangeNotifier {
 
   }
 
+
   void getCommunityMembers(String phone) async {
     List<CommunityModel>? communityList =
         await UserDataBaseService.getCommunities(phone);
@@ -252,7 +253,6 @@ class DataProvider extends ChangeNotifier {
             await ObjectDataBaseService.getExpenses(objectTemp[j]);
 
         for (int k = 0; k < expenseTemp.length; k++) {
-          // print("HELLO");
           if (expenseTemp[k].resolverid == null) {
             objectUnresolvedExpenseMap[communityTemp[i].name]![
                     objectTemp[j].name]!
