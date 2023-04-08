@@ -47,16 +47,16 @@ class ExpenseData extends State<ExpenseScreen> {
     }
 
 
-
     if(widget.isFromObjectPage){
         objectDropDown=widget.objectName;
       } 
     else if (providerCommunity.communityObjectMap[communityDropDown]!.isNotEmpty) {
-      providerCommunity.objectIndex=0;
+      // providerCommunity.objectIndex=0;
       objectDropDown=providerCommunity.communityObjectMap[communityDropDown]![providerCommunity.objectIndex];
     } else {
       return const Center(child: Text("No Objects in this Community"));
     }
+
 
     return Form(
       key: _formKey,
@@ -126,7 +126,7 @@ class ExpenseData extends State<ExpenseScreen> {
                     setState(() {
                       objectDropDown = newValue!;
                     });
-                    // print(objectDropDown);
+                    print(objectDropDown);
                     providerCommunity.objectListen(communityDropDown, objectDropDown);
                   },
                 ),
