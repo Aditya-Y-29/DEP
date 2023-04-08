@@ -49,6 +49,7 @@ class DataProvider extends ChangeNotifier {
     "Home": "assets/images/communityImages/Home.jpg",
     "Office": "assets/images/communityImages/Office.png",
     "Shop":"assets/images/communityImages/Shop.jpg",
+    // "Work":"assets/images/communityImages/Work.jpg",
     // "Lab":"assets/images/communityImages/Lab.jpg",
     // "Friends":"assets/images/communityImages/Friends.jpg",
     // "Family":"assets/images/communityImages/Family.jpg",
@@ -59,6 +60,24 @@ class DataProvider extends ChangeNotifier {
     // "Me":"assets/images/communityImages/Me.jpg",
     // "Couple":"assets/images/communityImages/Couple.jpg",
     "Default":"assets/images/communityImages/Default.jpg",
+  };
+
+  Map<String,String> objectNameToImagePath={
+    "Car": "assets/images/objectImages/Car.png",
+    "furniture": "assets/images/objectImages/Car.png",
+    // "Office": "assets/images/communityImages/Office.png",
+    // "Shop":"assets/images/communityImages/Shop.jpg",
+    // "Work":"assets/images/communityImages/Work.jpg",
+    // "Lab":"assets/images/communityImages/Lab.jpg",
+    // "Friends":"assets/images/communityImages/Friends.jpg",
+    // "Family":"assets/images/communityImages/Family.jpg",
+    // "Trip":"assets/images/communityImages/Trip.jpg",
+    // "Apartment":"assets/images/communityImages/Apartment.jpg",
+    // "Test":"assets/images/communityImages/Test.jpg",
+    // "Myself":"assets/images/communityImages/Myself.jpg",
+    // "Me":"assets/images/communityImages/Me.jpg",
+    // "Couple":"assets/images/communityImages/Couple.jpg",
+    "Default":"assets/images/objectImages/Car.jpg",
   };
 
   //***********************************************
@@ -79,7 +98,17 @@ class DataProvider extends ChangeNotifier {
   String extractCommunityImagePathByName(String communityName){
     for (String key in communityNameToImagePath.keys) {
       String value = communityNameToImagePath[key]!;
-      if(isSubstring(communityName.toLowerCase(),key.toLowerCase())){
+      if(isSubstring(key.toLowerCase(),communityName.toLowerCase())){
+        return value;
+      }
+    }
+    return communityNameToImagePath["Default"]!;
+  }
+
+  String extractObjectImagePathByName(String objectName){
+    for (String key in objectNameToImagePath.keys) {
+      String value = objectNameToImagePath[key]!;
+      if(isSubstring(key.toLowerCase(),objectName.toLowerCase())){
         return value;
       }
     }
