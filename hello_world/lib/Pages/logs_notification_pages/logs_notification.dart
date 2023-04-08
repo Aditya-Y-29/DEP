@@ -57,7 +57,8 @@ class _LogsNotification extends State<LogsNotification> {
               itemBuilder: (context, index) {
                 return Card(
                   child: ListTile(
-                    title: Text(notifications[index]),
+                    title: Text(notifications[index].substring(0, notifications[index].lastIndexOf('^'))),
+                    subtitle: Text(notifications[index].substring(notifications[index].lastIndexOf('^')+1, notifications[index].length)),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(0.0),
                       side: BorderSide(color: Colors.green, width: 1.0),

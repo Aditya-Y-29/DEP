@@ -154,13 +154,13 @@ class CommunityDataBaseService {
       
       if(sp.docs.isNotEmpty){
         await _db.collection('logsNotification').doc(sp.docs.first.id).update({
-          'Notification':FieldValue.arrayUnion([message+" "+date])
+          'Notification':FieldValue.arrayUnion([message+" ^"+date])
         });
       }
       else{
         await _db.collection('logsNotification').add({
           'CommunityID':communityId,
-          'Notification':[message+" "+date]
+          'Notification':[message+" ^"+date]
         });
       }
       return true;
