@@ -17,9 +17,18 @@ class _CommunityState extends State<Community> {
   Choice selectedOption = choices[0];
   handleSelect(Choice choice) async {
     if(choice.name=="Delete Community"){
-      print("Delete Community");
-      Provider.of<DataProvider>(context, listen: false).deleteCommunity(widget.name);
-
+      
+      if(await Provider.of<DataProvider>(context, listen: false).isAdmin(widget.name)==true){
+        Provider.of<DataProvider>(context, listen: false).deleteCommunity(widget.name);
+      }
+      else{
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('You are not an admin of this community'),
+          ),
+        );
+        return;
+      }
     }
   }
 

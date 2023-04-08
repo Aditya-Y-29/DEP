@@ -521,9 +521,6 @@ class DataProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-
-
-
   addMembersToCommunity(String communityName, List<dynamic> names,
       List<dynamic> phones, String phoneNo) async {
     for (int i = 0; i < names.length; i++) {
@@ -593,4 +590,10 @@ class DataProvider extends ChangeNotifier {
     return true;
   }
 
+  Future<bool> isAdmin(String communityName) async {
+
+    CommunityModel ctmp = communitiesdb!.firstWhere((element) => element.name == communityName);
+    bool res= await UserDataBaseService.isAdmin(ctmp, user!.phoneNo);
+    return res;
+  }
 }

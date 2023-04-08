@@ -231,4 +231,24 @@ class UserDataBaseService {
       return false;
     }
   } 
+
+  static Future<bool> isAdmin(CommunityModel community, String phoneNo) async{
+
+    String? userID= await getUserID(phoneNo);
+    String communityID= await _db.collection('communities').where("Name", isEqualTo: community.name).where("Phone Number", isEqualTo: community.phoneNo).get().then((value) => value.docs.first.id);
+
+    final sp= await _db.collection('communityMembers').where("CommunityID", isEqualTo: communityID).where("UserID", isEqualTo: userID).get();
+
+    if(sp.docs.isNotEmpty){
+
+      if( sp.docs.first.data()["Is Admin"]==true){
+        return true;
+      }
+      return false;
+    }
+
+
+
+    return false;
+  }
 }
