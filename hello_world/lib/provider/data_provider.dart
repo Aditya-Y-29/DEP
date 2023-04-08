@@ -397,7 +397,6 @@ class DataProvider extends ChangeNotifier {
     ObjectsModel otmp = communityObjectMapdb![ctmp]!.firstWhere((element) => element.name == objectName);
 
     String? objectID = await ObjectDataBaseService.getObjectID(otmp);
-    DateTime? dateTime = DateTime.tryParse(expenseDate);
     ExpenseModel expense = ExpenseModel(
         creatorID: await UserDataBaseService.getUserID(user!.phoneNo),
         amount: amount.toString(),
