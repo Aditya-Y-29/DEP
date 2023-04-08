@@ -59,75 +59,75 @@ class _CommunityPageState extends State<CommunityPage> {
         ),
         actions:  [
           Container(
-            margin: const EdgeInsets.all(5),
-            padding: const EdgeInsets.all(1),
-            child: GestureDetector(
-              onTap: ()  async{
-                List<String> notification= await providerCommunity.getNotification(widget.communityName);
-                
-                // ignore: use_build_context_synchronously
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => LogsNotification(communityName: widget.communityName,notification: notification,),
-                  ),
-                );
-              },
-              child: const Icon(Icons.notifications, size: 30,),
-            )
-          ),
-          Container(
-            margin: const EdgeInsets.all(5),
-            padding: const EdgeInsets.all(1),
-            child: GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => CommunityInfo(communityName: widget.communityName,),
-                  ),
-                );
-              },
-              child: const Icon(Icons.group, size: 30,),
-            )
-          ),
-          Container(
-            margin: const EdgeInsets.all(5),
-            padding: const EdgeInsets.all(1),
-            child: GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const ProfilePage(),
-                  ),
-                );
-              },
-                child:
-                Container(
-                  margin: const EdgeInsets.all(5),
-                  // padding: const EdgeInsets.all(1),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(50),
-                    border: Border.all(
-                      color: Colors.white,
-                      width: 1,
+              margin: const EdgeInsets.all(5),
+              padding: const EdgeInsets.all(1),
+              child: GestureDetector(
+                onTap: ()  async{
+                  List<String> notification= await providerCommunity.getNotification(widget.communityName);
+
+                  // ignore: use_build_context_synchronously
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => LogsNotification(communityName: widget.communityName,notification: notification,),
                     ),
-                  ),
-                  child: Image.asset(
-                    'assets/images/avatar.png',
-                    width: 30,
-                    height: 30,
-                    errorBuilder: ( context,  exception,  stackTrace) {
+                  );
+                },
+                child: const Icon(Icons.notifications, size: 30,),
+              )
+          ),
+          Container(
+              margin: const EdgeInsets.all(5),
+              padding: const EdgeInsets.all(1),
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => CommunityInfo(communityName: widget.communityName,),
+                    ),
+                  );
+                },
+                child: const Icon(Icons.group, size: 30,),
+              )
+          ),
+          Container(
+              margin: const EdgeInsets.all(5),
+              padding: const EdgeInsets.all(1),
+              child: GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const ProfilePage(),
+                      ),
+                    );
+                  },
+                  child:
+                  Container(
+                    margin: const EdgeInsets.all(5),
+                    // padding: const EdgeInsets.all(1),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(50),
+                      border: Border.all(
+                        color: Colors.white,
+                        width: 1,
+                      ),
+                    ),
+                    child: Image.asset(
+                      'assets/images/avatar.png',
+                      width: 30,
+                      height: 30,
+                      errorBuilder: ( context,  exception,  stackTrace) {
                         return Image.asset(
-                              'assets/img1.png',
-                              width: 30,
-                              height: 30,
-                            );                  
-                    },
-                  ),
-                )
-            )
+                          'assets/img1.png',
+                          width: 30,
+                          height: 30,
+                        );
+                      },
+                    ),
+                  )
+              )
           )
         ],
       ),
@@ -135,140 +135,140 @@ class _CommunityPageState extends State<CommunityPage> {
         builder: (context, objectDataProvider, child) {
           return Container(
             child: SingleChildScrollView(
-              child:
+                child:
                 Column(
-                // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Container(
-                    height: 100,
-                    width: 300,
-                    margin: const EdgeInsets.only(left: 30, right: 30, top: 20, bottom: 20),
-                    padding: const EdgeInsets.all(10),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      border: Border.all(
-                        color: Colors.green,
-                        width: 2,
+                  // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Container(
+                      height: 100,
+                      width: 300,
+                      margin: const EdgeInsets.only(left: 30, right: 30, top: 20, bottom: 20),
+                      padding: const EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(
+                          color: Colors.green,
+                          width: 2,
+                        ),
+                        color: Colors.green.shade50,
+                        boxShadow: const [
+                          BoxShadow(
+                            color: Colors.black26,
+                            blurRadius: 10,
+                            spreadRadius: 1,
+                            offset: Offset(0, 2),
+                          ),
+                        ],
                       ),
-                      color: Colors.green.shade50,
-                      boxShadow: const [
-                        BoxShadow(
-                          color: Colors.black26,
-                          blurRadius: 10,
-                          spreadRadius: 1,
-                          offset: Offset(0, 2),
-                        ),
-                      ],
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Container(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              Container(
-                                height: 50,
-                                width: 50,
-                                child: FloatingActionButton(
-                                  onPressed: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => AddMembers(communityName: widget.communityName),
-                                      ),
-                                    );
-                                  },
-                                  child: const Icon(Icons.person_add),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Container(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                Container(
+                                  height: 50,
+                                  width: 50,
+                                  child: FloatingActionButton(
+                                    onPressed: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => AddMembers(communityName: widget.communityName),
+                                        ),
+                                      );
+                                    },
+                                    child: const Icon(Icons.person_add),
+                                  ),
                                 ),
-                              ),
-                              const Text(
-                                "Add Member",
-                                style: TextStyle(
-                                  fontSize: 12,
+                                const Text(
+                                  "Add Member",
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
-                        ),
-                        Container(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              Container(
-                                height: 50,
-                                width: 50,
-                                child: FloatingActionButton(
-                                  onPressed: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => AddFromCommunityPage(selectedPage: 0, communityName: widget.communityName)
+                          Container(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                Container(
+                                  height: 50,
+                                  width: 50,
+                                  child: FloatingActionButton(
+                                    onPressed: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => AddFromCommunityPage(selectedPage: 0, communityName: widget.communityName)
+                                        ),
+                                      );
+                                    },
+                                    child: Container(
+                                      margin: const EdgeInsets.all(5),
+                                      child:  Row(
+                                        children: const [
+                                          Text("+"),
+                                          Icon(Icons.grid_view),
+                                        ],
                                       ),
-                                    );
-                                  },
-                                  child: Container(
-                                    margin: const EdgeInsets.all(5),
-                                    child:  Row(
-                                      children: const [
-                                        Text("+"),
-                                        Icon(Icons.grid_view),
-                                      ],
                                     ),
                                   ),
                                 ),
-                              ),
-                              const Text(
-                                "Add Object",
-                                style: TextStyle(
-                                  fontSize: 12,
+                                const Text(
+                                  "Add Object",
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
-                        ),
-                        Container(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              Container(
-                                height: 50,
-                                width: 50,
-                                child: FloatingActionButton(
-                                  onPressed: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => AddFromCommunityPage(selectedPage: 1, communityName: widget.communityName),
+                          Container(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                Container(
+                                  height: 50,
+                                  width: 50,
+                                  child: FloatingActionButton(
+                                    onPressed: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => AddFromCommunityPage(selectedPage: 1, communityName: widget.communityName),
+                                        ),
+                                      );
+                                    },
+                                    child: Container(
+                                      margin: const EdgeInsets.all(8),
+                                      child:  Row(
+                                        children: const [
+                                          Text("+"),
+                                          Icon(Icons.currency_rupee_outlined),
+                                        ],
                                       ),
-                                    );
-                                  },
-                                  child: Container(
-                                    margin: const EdgeInsets.all(8),
-                                    child:  Row(
-                                      children: const [
-                                        Text("+"),
-                                        Icon(Icons.currency_rupee_outlined),
-                                      ],
                                     ),
                                   ),
                                 ),
-                              ),
-                              const Text(
-                                "Add Expense",
-                                style: TextStyle(
-                                  fontSize: 12,
+                                const Text(
+                                  "Add Expense",
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
-                  Container(
-                    margin: const EdgeInsets.only(left: 30, right: 30, bottom: 10),
-                    child:
+                    Container(
+                      margin: const EdgeInsets.only(left: 30, right: 30, bottom: 10),
+                      child:
                       TextField(
                         controller: searchController,
                         decoration: const InputDecoration(
@@ -285,35 +285,35 @@ class _CommunityPageState extends State<CommunityPage> {
                           });
                         },
                       ),
-                  ),
-                  DefaultTabController(
-                      length: 2,
-                      child: Column(
-                        children: [
-                          Container(
-                            margin: const EdgeInsets.only(left: 30, right: 30, bottom: 10),
-                            child: TabBar(
-                              labelColor: Colors.black,
-                              unselectedLabelColor: Colors.grey,
-                              indicatorColor: Colors.green,
-                              tabs: const [
-                                Tab(
-                                  icon: Icon(Icons.grid_view),
-                                ),
-                                Tab(
-                                  icon: Icon(Icons.list),
-                                ),
-                              ],
+                    ),
+                    DefaultTabController(
+                        length: 2,
+                        child: Column(
+                          children: [
+                            Container(
+                              margin: const EdgeInsets.only(left: 30, right: 30, bottom: 10),
+                              child: TabBar(
+                                labelColor: Colors.black,
+                                unselectedLabelColor: Colors.grey,
+                                indicatorColor: Colors.green,
+                                tabs: const [
+                                  Tab(
+                                    icon: Icon(Icons.grid_view),
+                                  ),
+                                  Tab(
+                                    icon: Icon(Icons.list),
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
-                          Container(
-                            height: MediaQuery.of(context).size.height * 0.6,
-                            child:
-                            TabBarView(
-                              children: [
-                                Container(
-                                  child:
-                                  Wrap(
+                            Container(
+                                height: MediaQuery.of(context).size.height * 0.6,
+                                child:
+                                TabBarView(
+                                  children: [
+                                    Container(
+                                      child:
+                                      Wrap(
                                           children: (objectDataProvider.communityObjectMap[widget.communityName]!.length >= 1) ?
                                           List.of(objectDataProvider.communityObjectMap[widget.communityName]!.map((e) {
                                             if(!e.toLowerCase().contains(searchController.text.toLowerCase().trim())) {
@@ -364,7 +364,7 @@ class _CommunityPageState extends State<CommunityPage> {
                                                 )
                                             );
                                           }))
-                                          :
+                                              :
                                           [
                                             Container(
                                               margin: const EdgeInsets.symmetric(horizontal: 123, vertical: 100),
@@ -375,44 +375,44 @@ class _CommunityPageState extends State<CommunityPage> {
                                           ]
                                         // )
                                         // ),
-                                      // ),
-                                  ),
-                                ),
-                                Column(
-                                  children: [
-                                    Text(
-                                      "Miscellaneous Expenses",
-                                      style: TextStyle(
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.bold,
+                                        // ),
                                       ),
                                     ),
-                                    SizedBox(height: 10,),
-                                    SingleChildScrollView(
-                                      child: Column(
-                                        children: List.of(miscExpenses(objectDataProvider, searchController)),
-                                      ),
-                                    ),
-                                    if(miscExpenses(objectDataProvider, searchController).isEmpty)
-                                      Column(
-                                        children: const [
-                                          Text(
-                                            "No expenses found",
+                                    Column(
+                                      children: [
+                                        Text(
+                                          "Miscellaneous Expenses",
+                                          style: TextStyle(
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.bold,
                                           ),
-                                        ],
-                                      ),
+                                        ),
+                                        SizedBox(height: 10,),
+                                        SingleChildScrollView(
+                                          child: Column(
+                                            children: List.of(miscExpenses(objectDataProvider, searchController)),
+                                          ),
+                                        ),
+                                        if(miscExpenses(objectDataProvider, searchController).isEmpty)
+                                          Column(
+                                            children: const [
+                                              Text(
+                                                "No expenses found",
+                                              ),
+                                            ],
+                                          ),
+                                      ],
+                                    )
                                   ],
                                 )
-                              ],
                             )
-                          )
-                        ],
-                      )
-                  ),
+                          ],
+                        )
+                    ),
 
-                  SizedBox(height: 10,),
-                ],
-              )
+                    SizedBox(height: 10,),
+                  ],
+                )
             ),
           );
         },
@@ -444,23 +444,22 @@ class _CommunityPageState extends State<CommunityPage> {
       floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
     );
   }
-  
+
   Iterable<Widget> miscExpenses(DataProvider objectDataProvider, TextEditingController searchController) {
     Iterable<Widget> miscExpenses =  objectDataProvider.objectUnresolvedExpenseMap[widget.communityName]!["Misc"] as Iterable<Widget>;
     if(miscExpenses == null) {
       return [];
     }
     for(int i=0;i<miscExpenses.length;i++)
-      {
-        Expense expense = miscExpenses.elementAt(i) as Expense;
-        if(!expense.description.toLowerCase().contains(searchController.text.toLowerCase().trim())) {
-          miscExpenses = miscExpenses.where((element) => element != expense);
-        }
+    {
+      Expense expense = miscExpenses.elementAt(i) as Expense;
+      if(!expense.description.toLowerCase().contains(searchController.text.toLowerCase().trim())) {
+        miscExpenses = miscExpenses.where((element) => element != expense);
       }
+    }
     // print("Community Name: ${widget.communityName}");
     // print("Size of miscExpenses: ${miscExpenses.length}");
     return miscExpenses;
   }
 }
-
 

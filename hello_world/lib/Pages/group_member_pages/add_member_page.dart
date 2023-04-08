@@ -48,11 +48,13 @@ class _AddMemberState extends State<AddMembers> {
       for( var j = 0; j < providerCommunity.allUserPhones.length; j++){
         if(_contacts![i].phones.isNotEmpty){
           String phone = _contacts![i].phones.first.number.toString().replaceAll(' ', '');
+          var flag=0;
+
           if(phone.startsWith('+91')) {
             phone = phone.substring(3);
           }
-          _contacts![i].phones.first.number = phone;
-          if(phone == providerCommunity.allUserPhones[j].toString()) {
+
+          if(phone == providerCommunity.allUserPhones[j].toString()&&flag==0) {
             contactsOnPlatform.add(_contacts![i]);
           }
         }
@@ -80,15 +82,15 @@ class _AddMemberState extends State<AddMembers> {
     if (contactsOnPlatform == null) return Center(child: CircularProgressIndicator());
     return Container(
       child: Column(
-        children: [
-          Container(
-            height: selectedContacts.isEmpty ? 0 : 100,
-            child:
+          children: [
+            Container(
+              height: selectedContacts.isEmpty ? 0 : 100,
+              child:
               ListView(
                 scrollDirection: Axis.horizontal,
                 children: List.of(
                   selectedContacts.map(
-                    (contact) => Container(
+                        (contact) => Container(
                       margin: const EdgeInsets.all(0.0),
                       padding: const EdgeInsets.all(8.0),
                       child: CircleAvatar(
@@ -99,57 +101,70 @@ class _AddMemberState extends State<AddMembers> {
                   ),
                 ),
               ),
-          ),
-          Expanded(
-            child:
-              ListView.builder(
-                itemCount: contactsOnPlatform!.length,
-                itemBuilder: (context, i) => ListTile(
-                    leading: CircleAvatar(
-                      child: Text(contactsOnPlatform![i].displayName[0]),
-                    ),
-                    title: Text(contactsOnPlatform![i].displayName),
-                    subtitle: Text(contactsOnPlatform![i].phones.length > 0 ? contactsOnPlatform![i].phones.first.number : '(none)'),
-                    trailing: Checkbox(
-                      value: selectedContacts.contains(contactsOnPlatform![i]),
-                      onChanged: (value) {
-                        if (value == true) {
-                          setState(() {
-                            selectedContacts.add(contactsOnPlatform![i]);
-                          });
-                        } else {
-                          setState(() {
-                            selectedContacts.remove(contactsOnPlatform![i]);
-                          });
-                        }
-                      },
-                    ),
-                  )
-            )
-          ),
-          Container(
-            margin: const EdgeInsets.all(10.0),
-            child:
+            ),
+            Expanded(
+                child: Container(
+                    child:ListView.builder(
+                        itemCount: contactsOnPlatform!.length,
+                        itemBuilder: (context, i) =>
+                            Container(
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                    color: Colors.green,
+                                    width: 2.0,
+                                  ),
+                                ),
+                                margin: const EdgeInsets.only(top: 5,right: 5,left: 5),
+                                padding: const EdgeInsets.all(0),
+                                child: ListTile(
+                                  leading: CircleAvatar(
+                                    child: Text(contactsOnPlatform![i].displayName[0]),
+                                  ),
+                                  title: Text(contactsOnPlatform![i].displayName),
+                                  subtitle: Text(contactsOnPlatform![i].phones.length > 0 ? contactsOnPlatform![i].phones.first.number : '(none)'),
+                                  trailing: Checkbox(
+                                    value: selectedContacts.contains(contactsOnPlatform![i]),
+                                    onChanged: (value) {
+                                      if (value == true) {
+                                        setState(() {
+                                          selectedContacts.add(contactsOnPlatform![i]);
+                                        });
+                                      } else {
+                                        setState(() {
+                                          selectedContacts.remove(contactsOnPlatform![i]);
+                                        });
+                                      }
+                                    },
+                                  ),
+                                )
+                            )
+
+                    )
+                ),
+            ),
+            Container(
+              margin: const EdgeInsets.all(10.0),
+              child:
               FloatingActionButton.extended(
-                onPressed: () {
-                  var selectedNames = selectedContacts.map((contact) => contact.name.first).toList();
-                  var selectedPhones = selectedContacts.map((contact) => contact.phones.first.number).toList();
-                  providerCommunity.addMembersToCommunity(widget.communityName, selectedNames, selectedPhones, MyPhone.phoneNo);
-                  providerCommunity.memberListener(MyPhone.phoneNo);
-                  // Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(builder: (context) => CommunityInfo(communityName: widget.communityName)),
-                  // );
-                  Navigator.pop(context);
-                },
-                label: Row(
-                  children: const [
-                    Text("Add Members"),
-                  ],
-                )
+                  onPressed: () {
+                    var selectedNames = selectedContacts.map((contact) => contact.name.first).toList();
+                    var selectedPhones = selectedContacts.map((contact) => contact.phones.first.number).toList();
+                    providerCommunity.addMembersToCommunity(widget.communityName, selectedNames, selectedPhones, MyPhone.phoneNo);
+                    providerCommunity.memberListener(MyPhone.phoneNo);
+                    // Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(builder: (context) => CommunityInfo(communityName: widget.communityName)),
+                    // );
+                    Navigator.pop(context);
+                  },
+                  label: Row(
+                    children: const [
+                      Text("Add Members",style: TextStyle(fontSize: 17),),
+                    ],
+                  )
               ),
-          ),
-        ]
+            ),
+          ]
       ),
     );
   }

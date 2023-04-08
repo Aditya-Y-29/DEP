@@ -20,34 +20,17 @@ class _MemberState extends State<Member> {
         ),
       ),
       margin: const EdgeInsets.only(top: 5,right: 5,left: 5),
-      padding: const EdgeInsets.all(10),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          CircleAvatar(
-            radius: 20,
-            child: Text(
-              widget.name[0],
-              style: const TextStyle(fontSize: 25),
+      padding: const EdgeInsets.all(0),
+      child: Expanded(
+          child :  ListTile(
+            leading: CircleAvatar(
+              child: Text(widget.name[0]),
             ),
-          ),
-          Column(
-            // crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(widget.name, style: const TextStyle(fontSize: 18),),
-              Text(widget.phone, style: const TextStyle(fontSize: 12),),
-            ],
-          ),
-          const SizedBox(width: 60,),
-          Column(
-            // crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              widget.isCreator ? const Text('Creator', style: TextStyle(fontSize: 15, color: Colors.blue),) : const Text('Member', style: TextStyle(fontSize: 15, color: Colors.grey),)
-            ],
+            title: Text(widget.name),
+            subtitle: Text(widget.phone),
+            trailing:  widget.isCreator ? const Text('Creator', style: TextStyle(fontSize: 15, color: Colors.blue),) : const Text('Member', style: TextStyle(fontSize: 15, color: Colors.grey),),
           )
-        ],
       ),
-
     );
   }
 }
