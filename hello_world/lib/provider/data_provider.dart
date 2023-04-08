@@ -249,8 +249,10 @@ class DataProvider extends ChangeNotifier {
             [];
         objectResolvedExpenseMapdb![communityTemp[i]]![objectTemp[j]] = [];
 
+        print("HELLO1");
         List<ExpenseModel>? expenseTemp =
             await ObjectDataBaseService.getExpenses(objectTemp[j]);
+        print("HELLO2");
 
         for (int k = 0; k < expenseTemp.length; k++) {
           if (expenseTemp[k].resolverid == null) {

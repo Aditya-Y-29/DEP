@@ -98,8 +98,6 @@ class ObjectDataBaseService {
                   expenses.add(ExpenseModel.fromJson(element.data()));
                 })
               });
-      
-      print( objectid);
       return expenses;
     } catch (e) {
       print(e);
