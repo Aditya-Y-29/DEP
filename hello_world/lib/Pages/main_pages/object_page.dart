@@ -21,8 +21,10 @@ class ObjectPage extends StatefulWidget {
 class _ObjectPageState extends State<ObjectPage> {
   @override
   Widget build(BuildContext context) {
+    final providerCommunity = Provider.of<DataProvider>(context, listen: false);
     return Scaffold(
       appBar: AppBar(
+        elevation: 1,
           leading: IconButton(
             icon: const Icon(Icons.menu, size: 30.0),
             onPressed: (){
@@ -32,9 +34,17 @@ class _ObjectPageState extends State<ObjectPage> {
               );
             },
           ),
-          title: Text(
-            widget.objectName
-          ),
+          title: Row(
+            children: <Widget>[
+              Image.asset(
+                '${providerCommunity.extractCommunityImagePathByName(widget.communityName)}',
+                width: 40,
+                height: 40,
+              ),
+              SizedBox(width: 10),
+              Text(widget.communityName),
+            ],
+          ) ,
           actions: [
             Container(
               margin: const EdgeInsets.all(5),
@@ -82,6 +92,45 @@ class _ObjectPageState extends State<ObjectPage> {
                 )
             )
           ],
+          bottom: PreferredSize(
+              preferredSize: Size.fromHeight(48.0),
+              child: Container(
+                margin: EdgeInsets.only(left: 90),
+                child: Column(
+                    children:[
+                      Row(
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.only(bottom: 13.0,),
+                            child: Text('↳ ',
+                              style: TextStyle(
+                                fontSize: 30.0,
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(bottom: 10.0,top: 3),
+                            child: Image.asset(
+                              '${providerCommunity.extractObjectImagePathByName(widget.objectName)}',
+                              width: 40,
+                              height: 40,
+                            ),
+                          ),
+
+                          Text(' ${widget.objectName}',
+                            style: TextStyle(
+                              fontSize: 20.0,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ]
+                ),
+              )
+          ),
         ),
       body: DefaultTabController(
         length: 2,
@@ -91,6 +140,7 @@ class _ObjectPageState extends State<ObjectPage> {
               appBar: PreferredSize(
                 preferredSize: const Size.fromHeight(50.0),
                 child: AppBar(
+                  elevation: 0,
                   bottom: const TabBar(
                   tabs: [
                     Tab(icon: Icon(Icons.currency_rupee_outlined),),
