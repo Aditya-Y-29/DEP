@@ -89,11 +89,11 @@ class _ObjectState extends State<Object> {
                   )),
                   Flexible(
                       child: Container(
-                    child: Text(
-                      widget.name,
-                      style: const TextStyle(
-                        fontSize: 20,
-                      ),
+                        child: Text(
+                        widget.name,
+                        style: const TextStyle(
+                          fontSize: 20,
+                        ),
                       overflow: TextOverflow.ellipsis,
                     ),
                   )),

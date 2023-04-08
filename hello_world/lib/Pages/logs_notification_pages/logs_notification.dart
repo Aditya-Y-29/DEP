@@ -21,13 +21,36 @@ class _LogsNotification extends State<LogsNotification> {
 
   @override
   Widget build(BuildContext context) {
-
+    final providerCommunity = Provider.of<DataProvider>(context, listen: true);
     List<String> notifications=widget.notification.reversed.toList();
     
     return Scaffold(
         appBar: AppBar(
-          title: Text('Notification: ${widget.communityName}'),
+            title: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Image.asset(
+                      '${providerCommunity.extractCommunityImagePathByName(widget.communityName)}',
+                      width: 40,
+                      height: 40,
+                    ),
+                    SizedBox(width: 10.0),
+                    Text(
+                      "${widget.communityName} Logs",
+                      style: TextStyle(fontSize: 20.0),
+                    ),
+                  ],
+                ),
+                // SizedBox(height: 10.0),
+                // Text("Notifications",
+                //   style: TextStyle(fontSize: 20.0),
+                // ),
+              ],
+            ), // title: Text('Notification: ${widget.communityName}'),
         ),
+
         body: Container(
           child: ListView.builder(
               itemCount: notifications.length,
@@ -35,6 +58,10 @@ class _LogsNotification extends State<LogsNotification> {
                 return Card(
                   child: ListTile(
                     title: Text(notifications[index]),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(0.0),
+                      side: BorderSide(color: Colors.green, width: 1.0),
+                    ),
                   ),
                 );
               }),

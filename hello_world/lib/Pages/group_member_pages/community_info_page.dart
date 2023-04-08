@@ -21,7 +21,17 @@ class _CommunityInfoState extends State<CommunityInfo> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('${widget.communityName} Info'),
+        title: Row(
+          children: <Widget>[
+            Image.asset(
+              '${providerCommunity.extractCommunityImagePathByName(widget.communityName)}',
+              width: 40,
+              height: 40,
+            ),
+            SizedBox(width: 10),
+            Text('${widget.communityName} Info'),
+          ],
+        ),
       ),
       body: Container(
         child: Column(
@@ -32,16 +42,16 @@ class _CommunityInfoState extends State<CommunityInfo> {
               },
               child: Container(
                 color: Colors.green.shade100,
-                padding: const EdgeInsets.all(10),
+                padding: const EdgeInsets.all(13),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: const [
                     CircleAvatar(
-                        radius: 25,
+                        radius: 20,
                         child:  Icon(Icons.person_add),
                     ),
                     SizedBox(width: 10,),
-                    Text('Add Member', style: TextStyle(fontSize: 20),)
+                    Text('Add Member', style: TextStyle(fontSize: 18),)
                   ],
                 ),
               )
@@ -53,7 +63,7 @@ class _CommunityInfoState extends State<CommunityInfo> {
                 borderRadius: BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10), bottomLeft: Radius.circular(10), bottomRight: Radius.circular(10)),
                 border: Border.all(color: Colors.green, width: 2),
               ),
-              child: const Text('Members', style: TextStyle(fontSize: 20),)
+              child: const Text('Members', style: TextStyle(fontSize: 17),)
             ),
             Expanded(
               child: 
