@@ -10,6 +10,8 @@ import 'package:http/http.dart' as http;
 
 import 'db_objects.dart';
 
+import  'package:intl/intl.dart';
+
 class CommunityDataBaseService {
   static final _db = FirebaseFirestore.instance;
 
@@ -142,7 +144,8 @@ class CommunityDataBaseService {
   static Future<bool> addCommunityLogNotification(CommunityModel community,String message) async {
     
     try{
-      
+
+      String date = DateFormat("dd, MMMM, yyyy").format(DateTime.now());
       String? communityId=await getCommunityID(community);
       final sp = await _db
           .collection('logsNotification')
@@ -151,13 +154,13 @@ class CommunityDataBaseService {
       
       if(sp.docs.isNotEmpty){
         await _db.collection('logsNotification').doc(sp.docs.first.id).update({
-          'Notification':FieldValue.arrayUnion([message])
+          'Notification':FieldValue.arrayUnion([message+" "+date])
         });
       }
       else{
         await _db.collection('logsNotification').add({
           'CommunityID':communityId,
-          'Notification':[message]
+          'Notification':[message+" "+date]
         });
       }
       return true;
@@ -223,4 +226,5 @@ class CommunityDataBaseService {
     }
 
   }
+
 }

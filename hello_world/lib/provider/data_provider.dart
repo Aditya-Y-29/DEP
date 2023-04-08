@@ -397,7 +397,6 @@ class DataProvider extends ChangeNotifier {
     ObjectsModel otmp = communityObjectMapdb![ctmp]!.firstWhere((element) => element.name == objectName);
 
     String? objectID = await ObjectDataBaseService.getObjectID(otmp);
-    DateTime? dateTime = DateTime.tryParse(expenseDate);
     ExpenseModel expense = ExpenseModel(
         creatorID: await UserDataBaseService.getUserID(user!.phoneNo),
         amount: amount.toString(),
@@ -521,9 +520,6 @@ class DataProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-
-
-
   addMembersToCommunity(String communityName, List<dynamic> names,
       List<dynamic> phones, String phoneNo) async {
     for (int i = 0; i < names.length; i++) {
@@ -593,4 +589,10 @@ class DataProvider extends ChangeNotifier {
     return true;
   }
 
+  Future<bool> isAdmin(String communityName) async {
+
+    CommunityModel ctmp = communitiesdb!.firstWhere((element) => element.name == communityName);
+    bool res= await UserDataBaseService.isAdmin(ctmp, user!.phoneNo);
+    return res;
+  }
 }

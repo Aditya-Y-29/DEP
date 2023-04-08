@@ -22,8 +22,19 @@ class _ObjectState extends State<Object> {
   Choice selectedOption = choices[0];
   handleSelect(Choice choice) async {
     if (choice.name == "Delete Object") {
-      print("Delete Object");
-      Provider.of<DataProvider>(context, listen: false).deleteObject(widget.communityName,widget.name);
+
+      if( await Provider.of<DataProvider>(context, listen: false).isAdmin(widget.communityName)==true){
+        print("HELLO");
+        Provider.of<DataProvider>(context, listen: false).deleteObject(widget.communityName, widget.name);
+      }
+      else{
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('You are not an admin of this community'),
+          ),
+        );
+        return;
+      }
     }
   }
 
