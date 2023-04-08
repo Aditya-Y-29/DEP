@@ -31,18 +31,7 @@ class _CommunityPageState extends State<CommunityPage> {
   Widget build(BuildContext context) {
     final providerCommunity = Provider.of<DataProvider>(context, listen: false);
     return Scaffold(
-      // floatingActionButton: clickedObject != 0 ? FloatingActionButton(
-      //   onPressed: () {
-      //     Navigator.push(
-      //       context,
-      //       MaterialPageRoute(
-      //         builder: (context) => ObjectPage(objectName: objectName, communityName: widget.communityName),
-      //       ),
-      //     );
-      //   },
-      //   backgroundColor: Colors.green,
-      //   child: const Icon(Icons.arrow_forward_ios, size: 20,),
-      // ) : null,
+
 
       appBar: AppBar(
         leading: Container(
@@ -274,34 +263,6 @@ class _CommunityPageState extends State<CommunityPage> {
                             ],
                           ),
                         ),
-                        // Container(
-                        //   child: Column(
-                        //     mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        //     children: [
-                        //       Container(
-                        //         height: 50,
-                        //         width: 50,
-                        //         child: FloatingActionButton(
-                        //           onPressed: () {
-                        //             Navigator.push(
-                        //               context,
-                        //               MaterialPageRoute(
-                        //                 builder: (context) => AddFromCommunityPage(selectedPage: 2, communityName: widget.communityName),
-                        //               ),
-                        //             );
-                        //           },
-                        //           child: const Icon(Icons.home_repair_service),
-                        //         ),
-                        //       ),
-                        //       const Text(
-                        //         "Service",
-                        //         style: TextStyle(
-                        //           fontSize: 12,
-                        //         ),
-                        //       ),
-                        //     ],
-                        //   ),
-                        // ),
                       ],
                     ),
                   ),
@@ -353,14 +314,8 @@ class _CommunityPageState extends State<CommunityPage> {
                                 Container(
                                   child:
                                   Wrap(
-                                    // margin: const EdgeInsets.only(left: 15, right: 15, bottom: 10),
-                                    // height: 100,
-                                    // child:
-                                    //   ListView(
-                                        // physics: AlwaysScrollableScrollPhysics(),
-                                          children: (objectDataProvider.communityObjectMap[widget.communityName]!.length > 1) ?
+                                          children: (objectDataProvider.communityObjectMap[widget.communityName]!.length >= 1) ?
                                           List.of(objectDataProvider.communityObjectMap[widget.communityName]!.map((e) {
-                                            // int k = objectDataProvider.communityObjectMap[widget.communityName]!.indexOf(e) + 1;
                                             if(!e.toLowerCase().contains(searchController.text.toLowerCase().trim())) {
                                               return SizedBox(height: 0,);
                                             }
@@ -370,13 +325,7 @@ class _CommunityPageState extends State<CommunityPage> {
                                             return GestureDetector(
                                                 onTap: () {
                                                   setState(() {
-                                                    // int temp = 1 << (k-1);
-                                                    // if(clickedObject >> (k-1) & 1 == 1)
-                                                    //   clickedObject = clickedObject ^ temp;
-                                                    // else {
-                                                    //   clickedObject = 0;
-                                                    //   clickedObject = clickedObject | temp;
-                                                    // }
+
                                                     objectName = e;
                                                   });
                                                   Navigator.push(
@@ -401,17 +350,7 @@ class _CommunityPageState extends State<CommunityPage> {
                                                           width: 1.0,
                                                         ),
                                                         borderRadius: BorderRadius.circular(20.0),
-                                                        // boxShadow: const [
-                                                        //   BoxShadow(
-                                                        //     color: Colors.grey,
-                                                        //     blurRadius: 15.0, // soften the shadow
-                                                        //     spreadRadius: 1.0, //extend the shadow
-                                                        //     offset: Offset(
-                                                        //       1.0, // Move to right 5  horizontally
-                                                        //       1.0, // Move to bottom 5 Vertically
-                                                        //     ),
-                                                        //   )
-                                                        // ],
+
                                                       ),
                                                       duration: const Duration(milliseconds: 250),
                                                       curve: Curves.easeInOut,

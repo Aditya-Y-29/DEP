@@ -16,7 +16,7 @@ class ExpenseModel{
       creatorID: json['CreatorID'],
       amount: json['Amount'],
       description: json['Description'],
-      date: json['Date'],
+      date: json['Date'].toDate(),
       resolverid: json['Resolverid'],
     );
   }
