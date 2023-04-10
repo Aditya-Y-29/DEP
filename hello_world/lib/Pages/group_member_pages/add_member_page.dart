@@ -48,13 +48,11 @@ class _AddMemberState extends State<AddMembers> {
       for( var j = 0; j < providerCommunity.allUserPhones.length; j++){
         if(_contacts![i].phones.isNotEmpty){
           String phone = _contacts![i].phones.first.number.toString().replaceAll(' ', '');
-          var flag=0;
-
           if(phone.startsWith('+91')) {
             phone = phone.substring(3);
           }
-
-          if(phone == providerCommunity.allUserPhones[j].toString()&&flag==0) {
+          _contacts![i].phones.first.number = phone;
+          if(phone == providerCommunity.allUserPhones[j].toString()) {
             contactsOnPlatform.add(_contacts![i]);
           }
         }
