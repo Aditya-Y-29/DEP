@@ -133,7 +133,7 @@ class _ObjectPageState extends State<ObjectPage> {
           ),
         ),
       body: DefaultTabController(
-        length: 2,
+        length: 1,
         child: Builder(
           builder: (BuildContext tabContext) =>
             Scaffold(
