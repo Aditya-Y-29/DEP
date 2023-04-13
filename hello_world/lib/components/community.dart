@@ -20,7 +20,7 @@ class _CommunityState extends State<Community> {
       builder: (BuildContext context) {
         return AlertDialog(
           title: Text('Confirm Delete'),
-          content: Text('Are you sure you want to delete this item?'),
+          content: Text('Are you sure you want to delete ${widget.name} community?'),
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context, false),
@@ -41,9 +41,9 @@ class _CommunityState extends State<Community> {
   Choice selectedOption = choices[0];
   handleSelect(Choice choice) async {
     if(choice.name=="Delete Community"){
-      Future<bool> rt= showDeleteDialog(context);
-      bool result = await rt;
-      if(result==true){
+      Future<bool> returnValue= showDeleteDialog(context);
+      bool alertResponse = await returnValue;
+      if(alertResponse==true){
         if(await Provider.of<DataProvider>(context, listen: false).isAdmin(widget.name)==true){
           Provider.of<DataProvider>(context, listen: false).deleteCommunity(widget.name);
         }
