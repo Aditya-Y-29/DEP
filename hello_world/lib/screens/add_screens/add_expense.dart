@@ -42,8 +42,10 @@ class ExpenseData extends State<ExpenseScreen> {
     final providerCommunity = Provider.of<DataProvider>(context, listen: true);
     if(widget.isFromCommunityPage) {
       communityDropDown=widget.communityName;
+      // providerCommunity.objectIndex=0;
     } else {
       communityDropDown=providerCommunity.communities[providerCommunity.communitiesIndex];
+      // providerCommunity.objectIndex=0;
     }
 
 
@@ -97,7 +99,8 @@ class ExpenseData extends State<ExpenseScreen> {
                     onChanged: (String? newValue) {
                       setState(() {
                         communityDropDown = newValue!;
-                        objectDropDown=providerCommunity.communityObjectMap[communityDropDown]![0];
+                        // objectDropDown=providerCommunity.communityObjectMap[communityDropDown]![0];
+                        providerCommunity.objectIndex = 0;
                         providerCommunity.communityListen(communityDropDown);
                       });
                     },
