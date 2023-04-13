@@ -14,19 +14,49 @@ class Community extends StatefulWidget {
 
 class _CommunityState extends State<Community> {
 
+  Future<bool> showDeleteDialog(BuildContext context) async {
+    bool? confirmDelete = await showDialog<bool>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Confirm Delete'),
+          content: Text('Are you sure you want to delete this item?'),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context, false),
+              child: Text('Cancel'),
+            ),
+            TextButton(
+              onPressed: () => Navigator.pop(context, true),
+              child: Text('Delete'),
+            ),
+          ],
+        );
+      },
+    );
+    return confirmDelete ?? false;
+  }
+
+
   Choice selectedOption = choices[0];
   handleSelect(Choice choice) async {
     if(choice.name=="Delete Community"){
-      
-      if(await Provider.of<DataProvider>(context, listen: false).isAdmin(widget.name)==true){
-        Provider.of<DataProvider>(context, listen: false).deleteCommunity(widget.name);
+      Future<bool> rt= showDeleteDialog(context);
+      bool result = await rt;
+      if(result==true){
+        if(await Provider.of<DataProvider>(context, listen: false).isAdmin(widget.name)==true){
+          Provider.of<DataProvider>(context, listen: false).deleteCommunity(widget.name);
+        }
+        else{
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('You are not an admin of this community'),
+            ),
+          );
+          return;
+        }
       }
       else{
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('You are not an admin of this community'),
-          ),
-        );
         return;
       }
     }
