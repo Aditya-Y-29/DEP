@@ -2,8 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hello_world/Models/objects.dart';
 
 import '../Models/expense.dart';
-import '../Models/service.dart';
-import './db_user.dart';
 import './db_communities.dart';
 
 import 'package:http/http.dart' as http;
@@ -105,25 +103,7 @@ class ObjectDataBaseService {
     }
   }
 
-  static Future<List<ServiceModel>> getServices(ObjectsModel object) async {
-    try {
-      List<ServiceModel> services = [];
-      String? objectid=await getObjectID(object);
-      await _db
-          .collection('services')
-          .where("ObjectID", isEqualTo: objectid)
-          .get()
-          .then((value) => {
-                value.docs.forEach((element) {
-                  services.add(ServiceModel.fromJson(element.data()));
-                })
-              });
-      return services;
-    } catch (e) {
-      print(e);
-      return [];
-    }
-  }
+
 
   static Future<List<String>> getTokens(String? CommunityID) async{
 

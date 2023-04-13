@@ -1,8 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import '../../provider/data_provider.dart';
-import 'verify.dart';
 import 'signup.dart';
 import 'verify_l.dart';
 
@@ -21,7 +18,6 @@ class _MyPhoneState extends State<MyPhone> {
 
   @override
   void initState() {
-    // TODO: implement initState
     countryController.text = "  +91";
     super.initState();
   }

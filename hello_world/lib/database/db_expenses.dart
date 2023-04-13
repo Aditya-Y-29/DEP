@@ -1,6 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-
-import './db_user.dart';
 import './db_objects.dart';
 import './db_communities.dart';
 
@@ -50,28 +48,6 @@ class ExpenseDataBaseService {
       return true; // Expense deleted successfully
     } catch (e) {
       return false; // Failed to delete expense
-    }
-  }
-
-  static Future<bool> resolveExpense(ExpenseModel expense, String phoneNo) async {
-    try {
-      String? expenseID = await getExpenseID(expense);
-      String? userID = await UserDataBaseService.getUserID(phoneNo);
-
-      if(expenseID == null){
-        return false;
-      }
-
-      if(userID == null){
-        return false;
-      }
-
-      await _db.collection('expenses').doc(expenseID).update({
-        'Resolverid': userID,
-      });
-      return true;
-    } catch (e) {
-      return false;
     }
   }
 

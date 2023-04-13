@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_contacts/flutter_contacts.dart';
 import 'package:hello_world/Pages/auth_pages/phone.dart';
-import 'package:hello_world/Pages/group_member_pages/community_info_page.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 
@@ -41,7 +40,6 @@ class _AddMemberState extends State<AddMembers> {
   Widget build(BuildContext context) {
 
     if(_contacts == null) return Center(child: CircularProgressIndicator(),);
-    // else print("contacts: $_contacts");
     final providerCommunity = Provider.of<DataProvider>(context, listen: true);
     List<Contact> contactsOnPlatform = [];
     for (var i = 0; i < _contacts!.length; i++) {
@@ -58,7 +56,6 @@ class _AddMemberState extends State<AddMembers> {
         }
       }
     }
-    // print("on platform: $contactsOnPlatform");
 
 
     return Scaffold(

@@ -1,7 +1,6 @@
 // import 'dart:ffi';
 
 import 'package:flutter/material.dart';
-import 'package:hello_world/Pages/auth_pages/phone.dart';
 import '../../provider/data_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
@@ -136,7 +135,7 @@ class ExpenseData extends State<EditExpenseScreen> {
                         setState(() {
                           objectDropDown = newValue!;
                         });
-                        // print(objectDropDown);
+
                         providerCommunity.objectListen(communityDropDown, objectDropDown);
                       },
                     ),
@@ -174,10 +173,7 @@ class ExpenseData extends State<EditExpenseScreen> {
                           lastDate: DateTime.now(),
                         );
                         if(pickedDate != null ){
-                          // print(pickedDate);  //get the picked date in the format => 2022-07-04 00:00:00.000
                           String formattedDate = DateFormat('yyyy-MM-dd').format(pickedDate); // format date in required form here we use yyyy-MM-dd that means time is removed
-                          // print(formattedDate); //formatted date output using intl package =>  2022-07-04
-                          //You can format date as per your need
 
                           setState(() {
                             dateController.text = formattedDate.toString(); //set foratted date to TextField value.
@@ -204,7 +200,6 @@ class ExpenseData extends State<EditExpenseScreen> {
                       margin: const EdgeInsets.only(top: 20.0),
                       child: FloatingActionButton(
                         onPressed: () {
-                          // print(objectDropDown);
                           providerCommunity.updateExpense(widget.expense,amountInvolved.text,dateController.text, description.text);
                           Navigator.pop(context);
                         },

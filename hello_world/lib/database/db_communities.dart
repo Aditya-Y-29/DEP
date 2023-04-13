@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../Models/objects.dart';
-import '../Models/user.dart';
 import '../Models/community.dart';
 import './db_user.dart';
 
@@ -28,7 +27,6 @@ class CommunityDataBaseService {
       }
 
       await _db.collection('communities').add(community.toJson());
-      // await _db.collection('logsNotification').add();
 
       addUserInCommunity(community, community.phoneNo,true);
       // create misc object
@@ -82,11 +80,10 @@ class CommunityDataBaseService {
           .where("UserID", isEqualTo: userID)
           .get();
 
-      print("HELLO1");
+
       if (sp.docs.isNotEmpty) {
         return false;
       }
-      print("HELLO2");
 
 
       await _db.collection('communityMembers').add({

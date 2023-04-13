@@ -1,7 +1,6 @@
 import 'dart:math';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 class NotificationServices {
@@ -76,7 +75,6 @@ class NotificationServices {
     NotificationDetails notificationDetails =
         NotificationDetails(android: androidNotificationDetails);
 
-    print("HELLO2");
 
     Future.delayed(Duration.zero, () {
       _flutterLocalNotificationsPlugin.show(

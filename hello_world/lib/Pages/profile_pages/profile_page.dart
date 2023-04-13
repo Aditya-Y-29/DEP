@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:pie_chart/pie_chart.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../provider/data_provider.dart';
 import 'package:provider/provider.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import '../../components/chart.dart';
 import '../../components/spendingSummary.dart';
 
@@ -55,9 +53,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     height: 120,
                     width: 120,
                     margin: EdgeInsets.only(top: 3),
-                    // height: kSpacingUnit.w * 18,
-                    // width: kSpacingUnit.w * 18,
-                    // margin: EdgeInsets.only(top: kSpacingUnit.w * 3),
+
                     child: Stack(
                       children: <Widget>[
                         CircleAvatar(

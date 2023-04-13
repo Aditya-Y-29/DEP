@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:hello_world/components/expense.dart';
 import 'package:provider/provider.dart';
 
 import '../../provider/data_provider.dart';
@@ -20,8 +19,7 @@ class _ObjectExpenseScreenState extends State<ObjectExpenseScreen> {
     return Consumer<DataProvider>(
       builder: (context, objectDataProvider, child) {
         
-        if( objectDataProvider.objectUnresolvedExpenseMap[widget.communityName]![widget.objectName] == null ||  
-            objectDataProvider.objectResolvedExpenseMap[widget.communityName]![widget.objectName] == null){
+        if( objectDataProvider.objectUnresolvedExpenseMap[widget.communityName]![widget.objectName] == null ){
           return const Center(child: Text("No expenses in this object"));
         } 
 
@@ -43,10 +41,6 @@ class _ObjectExpenseScreenState extends State<ObjectExpenseScreen> {
                   //   ),
                   // ),
                 ),
-              ),
-              Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: List.of(objectDataProvider.objectResolvedExpenseMap[widget.communityName]![widget.objectName] as Iterable<Widget>)
               ),
             ]
         );

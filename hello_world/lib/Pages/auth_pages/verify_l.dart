@@ -1,9 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:hello_world/Pages/auth_pages/splash.dart';
-import 'package:hello_world/Pages/main_pages/home_page.dart';
 import 'package:hello_world/Pages/auth_pages/phone.dart';
-import 'package:hello_world/main.dart';
+
 import 'package:pinput/pinput.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -20,29 +18,6 @@ class _MyVerifyLState extends State<MyVerifyL> {
   final FirebaseAuth auth=FirebaseAuth.instance;
   @override
   Widget build(BuildContext context) {
-    final defaultPinTheme = PinTheme(
-      width: 56,
-      height: 56,
-      textStyle: TextStyle(
-          fontSize: 20,
-          color: Color.fromRGBO(30, 60, 87, 1),
-          fontWeight: FontWeight.w600),
-      decoration: BoxDecoration(
-        border: Border.all(color: Color.fromRGBO(234, 239, 243, 1)),
-        borderRadius: BorderRadius.circular(20),
-      ),
-    );
-
-    final focusedPinTheme = defaultPinTheme.copyDecorationWith(
-      border: Border.all(color: Color.fromRGBO(114, 178, 238, 1)),
-      borderRadius: BorderRadius.circular(8),
-    );
-
-    final submittedPinTheme = defaultPinTheme.copyWith(
-      decoration: defaultPinTheme.decoration?.copyWith(
-        color: Color.fromRGBO(234, 239, 243, 1),
-      ),
-    );
 
     var code="";
 
@@ -101,9 +76,7 @@ class _MyVerifyLState extends State<MyVerifyL> {
                           code=value;
                         },
                         length: 6,
-                        // defaultPinTheme: defaultPinTheme,
-                        // focusedPinTheme: focusedPinTheme,
-                        // submittedPinTheme: submittedPinTheme,
+
 
                         showCursor: true,
                         onCompleted: (pin) => print(pin),
@@ -138,7 +111,6 @@ class _MyVerifyLState extends State<MyVerifyL> {
                                 Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);
                               }
                               catch(e){
-                                print(e.toString());
                                 print("wrong otp");
                               }
                             },

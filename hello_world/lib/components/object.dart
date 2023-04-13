@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:hello_world/Pages/add_from_pages/add_from_community_page.dart';
 import 'package:hello_world/Pages/main_pages/object_page.dart';
 import 'package:provider/provider.dart';
 
 import '../Pages/add_from_pages/add_from_object_page.dart';
-import '../Pages/add_from_pages/add_home_page_floating_button.dart';
 import '../provider/data_provider.dart';
 import 'community.dart';
 
@@ -24,7 +22,6 @@ class _ObjectState extends State<Object> {
     if (choice.name == "Delete Object") {
 
       if( await Provider.of<DataProvider>(context, listen: false).isAdmin(widget.communityName)==true){
-        print("HELLO");
         Provider.of<DataProvider>(context, listen: false).deleteObject(widget.communityName, widget.name);
       }
       else{

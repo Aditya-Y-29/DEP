@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:pie_chart/pie_chart.dart';
 import '../../provider/data_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -26,7 +25,6 @@ class _MySpendingSummaryState extends State<MySpendingSummary> {
   }
 
   Widget build(BuildContext context) {
-    DataProvider providerCommunity = Provider.of<DataProvider>(context, listen: false);
     return FutureBuilder<Map<int,int>>(
       future: _dataMapFuture,
       builder: (context, snapshot) {
@@ -35,7 +33,6 @@ class _MySpendingSummaryState extends State<MySpendingSummary> {
           return CircularProgressIndicator();
         } else if (snapshot.hasData && snapshot.data!.isNotEmpty) {
           // Build the PieChart widget once data has been loaded
-          print("hey----------------------------------");
           return Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
