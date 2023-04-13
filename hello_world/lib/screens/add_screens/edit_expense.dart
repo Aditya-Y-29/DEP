@@ -38,7 +38,7 @@ class ExpenseData extends State<EditExpenseScreen> {
   @override
   void initState(){
     super.initState();
-    dateController.text="";
+    dateController.text='${widget.expense.date}';
     description.text='${widget.expense.description}';
     amountInvolved.text='${widget.expense.amount}';
   }
