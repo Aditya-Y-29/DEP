@@ -415,7 +415,7 @@ class DataProvider extends ChangeNotifier {
     notifyListeners();
 
     ObjectDataBaseService.ObjectAddNotification(object);
-    await CommunityDataBaseService.addCommunityLogNotification(ctmp, "Object Added: " + objectName);
+    await CommunityDataBaseService.addCommunityLogNotification(ctmp, "Object Added : " + objectName+ " by ${user?.name}");
   }
 
   Future<void> addExpense(String objectName, String creator, int amount,String expenseDate,
