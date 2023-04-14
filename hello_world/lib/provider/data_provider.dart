@@ -252,57 +252,118 @@ class DataProvider extends ChangeNotifier {
 
   Future<void> getAllDetails(String phoneNo) async {
 
-    deleteState();
+    // deleteState();
     checkuser(phoneNo);
     List<CommunityModel>? communityTemp = await UserDataBaseService.getCommunities(phoneNo);
-    communitiesdb = communityTemp;
+    // communitiesdb = communityTemp;
 
     for (int i = 0; i < communityTemp!.length; i++) {
 
-      communities.add(communityTemp[i].name);
+      bool check=false;
 
-      communityObjectMap[communityTemp[i].name] = [];
-      communityObjectMapdb![communityTemp[i]] = [];
+      for( int j=0;j<communitiesdb!.length;j++){
+        if(communityTemp[i].name==communitiesdb![j].name && communityTemp[i].phoneNo==communitiesdb![j].phoneNo){
+          check=true;
+          break;
+        }
+      }
 
-      objectUnresolvedExpenseMap[communityTemp[i].name] = {};
-      objectUnresolvedExpenseMapdb![communityTemp[i]] = {};
+      if(!check){
+        
+        communitiesdb!.add(communityTemp[i]);
+        communities.add(communityTemp[i].name);
 
-      communityMembersMap[communityTemp[i].name] = [];
+        communityObjectMap[communityTemp[i].name] = [];
+        communityObjectMapdb![communityTemp[i]] = [];
+
+        objectUnresolvedExpenseMap[communityTemp[i].name] = {};
+        objectUnresolvedExpenseMapdb![communityTemp[i]] = {};
+
+      }
+
 
     }
 
     getAllUserPhones();
     getCommunityMembers(communityTemp,phoneNo);
 
-    for (int i = 0; i < communityTemp.length; i++) {
-      String? communityID = await CommunityDataBaseService.getCommunityID(communityTemp[i]);
+
+    for (int i = 0; i < communitiesdb!.length; i++) {
+      String? communityID = await CommunityDataBaseService.getCommunityID(communitiesdb![i]);
       List<ObjectsModel>? objectTemp = await ObjectDataBaseService.getObjects(communityID!);
 
+      CommunityModel currCommunity = communitiesdb![i];
+
       for (int j = 0; j < objectTemp!.length; j++) {
-        communityObjectMap[communityTemp[i].name]!.add(objectTemp[j].name);
-        communityObjectMapdb![communityTemp[i]]!.add(objectTemp[j]);
+
+        bool check=false;
 
 
-        objectUnresolvedExpenseMap[communityTemp[i].name]![objectTemp[j].name] = [];
-        objectUnresolvedExpenseMapdb![communityTemp[i]]![objectTemp[j]] = [];
+        for( int k=0;k<communityObjectMapdb![currCommunity]!.length;k++){
+          if(objectTemp[j].name==communityObjectMapdb![currCommunity]![k].name && objectTemp[j].communityID==communityObjectMapdb![currCommunity]![k].communityID){
+            check=true;
+            break;
+          }
+        }
+
+
+
+        if(!check){
+          communityObjectMap[currCommunity.name]!.add(objectTemp[j].name);
+          communityObjectMapdb![currCommunity]!.add(objectTemp[j]);
+
+
+          objectUnresolvedExpenseMap[currCommunity.name]![objectTemp[j].name] = [];
+          objectUnresolvedExpenseMapdb![currCommunity]![objectTemp[j]] = [];
+        }
+
+
 
         List<ExpenseModel>? expenseTemp = await ObjectDataBaseService.getExpenses(objectTemp[j]);
 
+        ObjectsModel? currObject=null;
 
-        for (int k = 0; k < expenseTemp.length; k++) {
-            objectUnresolvedExpenseMap[communityTemp[i].name]![objectTemp[j].name]!.add(Expense(
-              communityName: communityTemp[i].name,
-              objectName: objectTemp[j].name,
-              creator:await UserDataBaseService.getName(expenseTemp[k].creatorID!),
-              description: expenseTemp[k].name,
-              isPaid: false,
-              amount: int.parse(expenseTemp[k].amount),
-              date:expenseTemp[k].date.toString(),
-            ));
+        for( int k=0;k<communityObjectMapdb![currCommunity]!.length;k++){
+          if(objectTemp[j].name==communityObjectMapdb![currCommunity]![k].name && objectTemp[j].communityID==communityObjectMapdb![currCommunity]![k].communityID){
+            currObject=communityObjectMapdb![currCommunity]![k];
+            break;
+          }
+        }
 
-            objectUnresolvedExpenseMapdb![communityTemp[i]]![objectTemp[j]]!.add(expenseTemp[k]);
+        if(currObject!=null){
+
+          for (int k = 0; k < expenseTemp.length; k++) {
+
+                bool check=false;
+
+                for( int l=0;l<objectUnresolvedExpenseMapdb![currCommunity]![currObject]!.length;l++){
+                  if(expenseTemp[k].name==objectUnresolvedExpenseMapdb![currCommunity]![currObject]![l].name && expenseTemp[k].objectID==objectUnresolvedExpenseMapdb![currCommunity]![currObject]![l].objectID){
+                    check=true;
+                    break;
+                  }
+                }
+
+                if(check){
+                  continue;
+                }
+
+                objectUnresolvedExpenseMap[currCommunity.name]![currObject.name]!.add(Expense(
+                  communityName: currCommunity.name,
+                  objectName: currObject.name,
+                  creator:await UserDataBaseService.getName(expenseTemp[k].creatorID!),
+                  description: expenseTemp[k].name,
+                  isPaid: false,
+                  amount: int.parse(expenseTemp[k].amount),
+                  date:expenseTemp[k].date.toString(),
+                ));
+
+                objectUnresolvedExpenseMapdb![currCommunity]![currObject]!.add(expenseTemp[k]);
+          }
+
         }
       }
+
+
     }
 
     notifyListeners();
