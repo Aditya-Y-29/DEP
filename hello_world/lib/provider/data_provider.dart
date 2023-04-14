@@ -49,6 +49,7 @@ class DataProvider extends ChangeNotifier {
     "Home": "assets/images/communityImages/Home.jpg",
     "Office": "assets/images/communityImages/Office.png",
     "Shop":"assets/images/communityImages/Shop.jpg",
+    "Mess":"assets/img1.png",
     // "Work":"assets/images/communityImages/Work.jpg",
     // "Lab":"assets/images/communityImages/Lab.jpg",
     // "Friends":"assets/images/communityImages/Friends.jpg",
@@ -59,6 +60,7 @@ class DataProvider extends ChangeNotifier {
     // "Myself":"assets/images/communityImages/Myself.jpg",
     // "Me":"assets/images/communityImages/Me.jpg",
     // "Couple":"assets/images/communityImages/Couple.jpg",
+    //"Hospital":"assets/images/communityImages/Hospital.jpg",
     "Default":"assets/images/communityImages/Default.jpg",
   };
 

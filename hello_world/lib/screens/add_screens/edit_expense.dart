@@ -35,20 +35,20 @@ class ExpenseData extends State<EditExpenseScreen> {
 
 
 
-  @override
+
   void initState(){
     super.initState();
-    dateController.text='${widget.expense.date}';
     description.text='${widget.expense.description}';
     amountInvolved.text='${widget.expense.amount}';
+    dateController.text='${widget.expense.date}';
   }
 
 
   Widget build(BuildContext context) {
 
-    description.text=widget.expense.description;
-    amountInvolved.text=widget.expense.amount.toString();
-    // dateController.text=DateFormat('dd-MM-yyyy').format(widget.expense.date);
+    //description.text=widget.expense.description;
+    //amountInvolved.text=widget.expense.amount.toString();
+    //dateController.text=DateFormat('dd-MM-yyyy').format(widget.expense.date);
 
     final providerCommunity = Provider.of<DataProvider>(context, listen: true);
     if(widget.isFromCommunityPage) {
