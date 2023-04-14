@@ -252,118 +252,104 @@ class DataProvider extends ChangeNotifier {
 
   Future<void> getAllDetails(String phoneNo) async {
 
-    // deleteState();
+    deleteState();
     checkuser(phoneNo);
     List<CommunityModel>? communityTemp = await UserDataBaseService.getCommunities(phoneNo);
-    // communitiesdb = communityTemp;
+    communitiesdb = communityTemp;
 
     for (int i = 0; i < communityTemp!.length; i++) {
-
-      bool check=false;
-
-      for( int j=0;j<communitiesdb!.length;j++){
-        if(communityTemp[i].name==communitiesdb![j].name && communityTemp[i].phoneNo==communitiesdb![j].phoneNo){
-          check=true;
-          break;
-        }
-      }
-
-      if(!check){
-        
-        communitiesdb!.add(communityTemp[i]);
-        communities.add(communityTemp[i].name);
-
-        communityObjectMap[communityTemp[i].name] = [];
-        communityObjectMapdb![communityTemp[i]] = [];
-
-        objectUnresolvedExpenseMap[communityTemp[i].name] = {};
-        objectUnresolvedExpenseMapdb![communityTemp[i]] = {};
-
-      }
-
-
+      communities.add(communityTemp[i].name);
     }
 
     getAllUserPhones();
     getCommunityMembers(communityTemp,phoneNo);
 
+    for (int i = 0; i < communityTemp.length; i++) {
+      getCommunityDetails(communityTemp[i].name);
+    }
 
-    for (int i = 0; i < communitiesdb!.length; i++) {
-      String? communityID = await CommunityDataBaseService.getCommunityID(communitiesdb![i]);
-      List<ObjectsModel>? objectTemp = await ObjectDataBaseService.getObjects(communityID!);
+    notifyListeners();
+  }
 
-      CommunityModel currCommunity = communitiesdb![i];
-
-      for (int j = 0; j < objectTemp!.length; j++) {
-
-        bool check=false;
+  Future<void> getCommunityDetails(String CommunityName) async {
 
 
-        for( int k=0;k<communityObjectMapdb![currCommunity]!.length;k++){
-          if(objectTemp[j].name==communityObjectMapdb![currCommunity]![k].name && objectTemp[j].communityID==communityObjectMapdb![currCommunity]![k].communityID){
-            check=true;
-            break;
-          }
-        }
-
-
-
-        if(!check){
-          communityObjectMap[currCommunity.name]!.add(objectTemp[j].name);
-          communityObjectMapdb![currCommunity]!.add(objectTemp[j]);
-
-
-          objectUnresolvedExpenseMap[currCommunity.name]![objectTemp[j].name] = [];
-          objectUnresolvedExpenseMapdb![currCommunity]![objectTemp[j]] = [];
-        }
-
-
-
-        List<ExpenseModel>? expenseTemp = await ObjectDataBaseService.getExpenses(objectTemp[j]);
-
-        ObjectsModel? currObject=null;
-
-        for( int k=0;k<communityObjectMapdb![currCommunity]!.length;k++){
-          if(objectTemp[j].name==communityObjectMapdb![currCommunity]![k].name && objectTemp[j].communityID==communityObjectMapdb![currCommunity]![k].communityID){
-            currObject=communityObjectMapdb![currCommunity]![k];
-            break;
-          }
-        }
-
-        if(currObject!=null){
-
-          for (int k = 0; k < expenseTemp.length; k++) {
-
-                bool check=false;
-
-                for( int l=0;l<objectUnresolvedExpenseMapdb![currCommunity]![currObject]!.length;l++){
-                  if(expenseTemp[k].name==objectUnresolvedExpenseMapdb![currCommunity]![currObject]![l].name && expenseTemp[k].objectID==objectUnresolvedExpenseMapdb![currCommunity]![currObject]![l].objectID){
-                    check=true;
-                    break;
-                  }
-                }
-
-                if(check){
-                  continue;
-                }
-
-                objectUnresolvedExpenseMap[currCommunity.name]![currObject.name]!.add(Expense(
-                  communityName: currCommunity.name,
-                  objectName: currObject.name,
-                  creator:await UserDataBaseService.getName(expenseTemp[k].creatorID!),
-                  description: expenseTemp[k].name,
-                  isPaid: false,
-                  amount: int.parse(expenseTemp[k].amount),
-                  date:expenseTemp[k].date.toString(),
-                ));
-
-                objectUnresolvedExpenseMapdb![currCommunity]![currObject]!.add(expenseTemp[k]);
-          }
-
-        }
+    CommunityModel? currCommunity=null;
+    for(int i=0;i<communitiesdb!.length;i++){
+      if(communitiesdb![i].name==CommunityName){
+        currCommunity = communitiesdb![i];
+        break;
       }
+    }
+
+    if(currCommunity==null){
+      return;
+    }
+
+    communityObjectMap[currCommunity.name] = [];
+    communityObjectMapdb![currCommunity] = [];
+    objectUnresolvedExpenseMap[currCommunity.name] = {};
+    objectUnresolvedExpenseMapdb![currCommunity] = {};
+
+    String? communityID = await CommunityDataBaseService.getCommunityID(currCommunity);
+    List<ObjectsModel>? objectTemp = await ObjectDataBaseService.getObjects(communityID!);
+
+    for (int j = 0; j < objectTemp!.length; j++) {
+
+      communityObjectMap[currCommunity.name]!.add(objectTemp[j].name);
+      communityObjectMapdb![currCommunity]!.add(objectTemp[j]);
 
 
+      getObjectDetails(CommunityName, objectTemp[j].name);
+    }
+
+    notifyListeners();
+
+
+  }
+
+  Future<void> getObjectDetails(String CommunityName,String ObjectName) async{
+
+
+    CommunityModel? currCommunity=null;
+    for(int i=0;i<communitiesdb!.length;i++){
+      if(communitiesdb![i].name==CommunityName){
+        currCommunity = communitiesdb![i];
+        break;
+      }
+    }
+
+    if(currCommunity==null){
+      return;
+    }
+
+    ObjectsModel? currObject=null;
+    for(int i=0;i<communityObjectMapdb![currCommunity]!.length;i++){
+      if(communityObjectMapdb![currCommunity]![i].name==ObjectName){
+        currObject = communityObjectMapdb![currCommunity]![i];
+        break;
+      }
+    }
+
+    if(currObject==null){
+      return;
+    }
+
+      objectUnresolvedExpenseMap[currCommunity.name]![currObject.name] = [];
+      objectUnresolvedExpenseMapdb![currCommunity]![currObject] = [];
+    List<ExpenseModel>? expenseTemp = await ObjectDataBaseService.getExpenses(currObject);
+
+    for (int k = 0; k < expenseTemp.length; k++) {
+        objectUnresolvedExpenseMap[currCommunity.name]![currObject.name]!.add(Expense(
+          communityName: currCommunity.name,
+          objectName: currObject.name,
+          creator:await UserDataBaseService.getName(expenseTemp[k].creatorID!),
+          description: expenseTemp[k].name,
+          isPaid: false,
+          amount: int.parse(expenseTemp[k].amount),
+          date:expenseTemp[k].date.toString(),
+        ));
+        objectUnresolvedExpenseMapdb![currCommunity]![currObject]!.add(expenseTemp[k]);
     }
 
     notifyListeners();

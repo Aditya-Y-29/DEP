@@ -364,7 +364,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 onPressed: () async {
                   DataProvider dataProvider =
                   Provider.of<DataProvider>(context, listen: false);
-                  const snackbar1 = SnackBar(content: Text("Refreshing..."), duration: Duration(seconds: 8),);
+                  const snackbar1 = SnackBar(content: Text("Refreshing..."), duration: Duration(seconds: 6),);
                   ScaffoldMessenger.of(context).showSnackBar(snackbar1);
                   await dataProvider.getAllDetails(dataProvider.user!.phoneNo);
                 },
@@ -374,7 +374,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
   }
 }
