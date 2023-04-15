@@ -17,6 +17,29 @@ class _ProfilePageState extends State<ProfilePage> {
 
   // Map<String,double> dataMap= {};
 
+  Future<bool> showLogoutDialog(BuildContext context) async {
+    bool? confirmLogout = await showDialog<bool>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Confirm Logout'),
+          content: Text('Are you sure you want to logout?'),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context, false),
+              child: Text('No'),
+            ),
+            TextButton(
+              onPressed: () => Navigator.pop(context, true),
+              child: Text('Yes'),
+            ),
+          ],
+        );
+      },
+    );
+    return confirmLogout ?? false;
+  }
+
   @override
   void initState() {
     countryController.text = " +91";
@@ -265,10 +288,18 @@ class _ProfilePageState extends State<ProfilePage> {
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10))),
                         onPressed: () async {
-                          var sharedPref = await SharedPreferences.getInstance();
-                          sharedPref.setString("userPhone", "");
-                          providerCommunity.deleteState();
-                          Navigator.pushNamedAndRemoveUntil(context, '/login', (route) => false);
+                          Future<bool> returnValue= showLogoutDialog(context);
+                          bool alertResponse = await returnValue;
+                          if(alertResponse==true){
+                            var sharedPref = await SharedPreferences.getInstance();
+                            sharedPref.setString("userPhone", "");
+                            providerCommunity.deleteState();
+                            Navigator.pushNamedAndRemoveUntil(context, '/login', (route) => false);
+
+                          }
+                          else{
+
+                          }
                         },
                         child: Text("Log Out", style: TextStyle(fontSize: 15)),
                       )

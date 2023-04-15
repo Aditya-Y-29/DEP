@@ -46,7 +46,8 @@ class DataProvider extends ChangeNotifier {
   Map<String, String> communityNameToImagePath = {
     "Home": "assets/images/communityImages/Home.jpg",
     "Office": "assets/images/communityImages/Office.png",
-    "Shop": "assets/images/communityImages/Shop.jpg",
+    "Shop":"assets/images/communityImages/Shop.jpg",
+    "Mess":"assets/img1.png",
     // "Work":"assets/images/communityImages/Work.jpg",
     // "Lab":"assets/images/communityImages/Lab.jpg",
     // "Friends":"assets/images/communityImages/Friends.jpg",
@@ -57,7 +58,8 @@ class DataProvider extends ChangeNotifier {
     // "Myself":"assets/images/communityImages/Myself.jpg",
     // "Me":"assets/images/communityImages/Me.jpg",
     // "Couple":"assets/images/communityImages/Couple.jpg",
-    "Default": "assets/images/communityImages/Default.jpg",
+    //"Hospital":"assets/images/communityImages/Hospital.jpg",
+    "Default":"assets/images/communityImages/Default.jpg",
   };
 
   Map<String, String> objectNameToImagePath = {
@@ -441,8 +443,7 @@ class DataProvider extends ChangeNotifier {
     notifyListeners();
 
     ObjectDataBaseService.ObjectAddNotification(object);
-    await CommunityDataBaseService.addCommunityLogNotification(
-        ctmp, "Object Added: " + objectName);
+    await CommunityDataBaseService.addCommunityLogNotification(ctmp, "Object Added : " + objectName+ " by ${user?.name}");
   }
 
   Future<void> addExpense(String objectName, String creator, int amount,
@@ -470,8 +471,7 @@ class DataProvider extends ChangeNotifier {
 
     ExpenseDataBaseService.ExpenseAddNotification(expense);
     // await CommunityDataBaseService.addCommunityLogNotification(ctmp, "Expense Added: " + description + " (" + amount.toString() + ")");
-    await CommunityDataBaseService.addCommunityLogNotification(
-        ctmp, "Expense Added In ${objectName}: ₹" + amount.toString());
+    await CommunityDataBaseService.addCommunityLogNotification(ctmp, "Expense Added In ${objectName}: ₹" + amount.toString()+" by ${user?.name}");
     objectUnresolvedExpenseMap[communityName]![objectName]?.add(Expense(
         objectName: objectName,
         creator: creator,
