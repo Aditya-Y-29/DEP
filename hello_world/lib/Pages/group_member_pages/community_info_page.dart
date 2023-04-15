@@ -19,8 +19,10 @@ class _CommunityInfoState extends State<CommunityInfo> {
 
     final providerCommunity = Provider.of<DataProvider>(context, listen: true);
     bool hasCreatorPower = false;
-    for(var i=0;i<providerCommunity.communityMembersMap.length;i++){
+    int len = providerCommunity.communityMembersMap[widget.communityName]!.length;
+    for(var i=0;i<len;i++){
       Member member = providerCommunity.communityMembersMap[widget.communityName]![i];
+      // print("index: $i, name: ${member.name}, phone: ${member.phone}, isCreator: ${member.isCreator}");
       if(member.isCreator && member.phone == providerCommunity.user!.phoneNo){
           hasCreatorPower = true;
       }
@@ -74,47 +76,88 @@ class _CommunityInfoState extends State<CommunityInfo> {
               // ),
               Expanded(
                   child:
-                  ListView(
-                      children: List.of(providerCommunity.communityMembersMap[widget.communityName]!.map(
-                            (member) =>
-                                GestureDetector(
-                                onLongPress: () {
-                                  if(!hasCreatorPower || member.phone == providerCommunity.user!.phoneNo){
-                                    return;
-                                  }
-                                  showMenu(
-                                    items: <PopupMenuEntry>[
-                                      PopupMenuItem(
-                                        //value: this._index,
-                                        child: Row(
-                                          children: [
-                                            Text("Remove ${member.name}"),
-                                          ],
-                                        ),
-                                      ),
-                                      PopupMenuItem(
-                                        //value: this._index,
-                                        child: Row(
-                                          children: [
-                                            member.isCreator ? Text("Remove creator power") :
-                                            Text("Give creator power"),
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                    context: context,
-                                    position: RelativeRect.fromLTRB(100, 100, 100, 100), // TODO: fix positioning
-                                  );
-                                },
-                                child: Member(
-                                        name: member.name,
-                                        phone: member.phone,
-                                        isCreator: member.isCreator,
-                                      ),
-
+                      Column(
+                      children: [
+                        Expanded(
+                            child:
+                          Container(
+                            margin: const EdgeInsets.all(5),
+                            decoration: BoxDecoration(
+                              border: Border.all(color: Colors.green, width: 2),
                             ),
-                      ),
-                    ))
+                            child:
+                            ListView(
+                                children: List.of(providerCommunity.communityMembersMap[widget.communityName]!.map(
+                                      (member) =>
+                                          GestureDetector(
+                                          onLongPress: () {
+                                            if(!hasCreatorPower || member.phone == providerCommunity.user!.phoneNo){
+                                              return;
+                                            }
+                                            showMenu(
+                                              items: <PopupMenuEntry>[
+                                                PopupMenuItem(
+                                                  //value: this._index,
+                                                  child: Row(
+                                                    children: [
+                                                      Text("Remove ${member.name}"),
+                                                    ],
+                                                  ),
+                                                ),
+                                                PopupMenuItem(
+                                                  //value: this._index,
+                                                  child: Row(
+                                                    children: [
+                                                      member.isCreator ? Text("Remove creator power") :
+                                                      Text("Give creator power"),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ],
+                                              context: context,
+                                              position: RelativeRect.fromLTRB(100, 100, 100, 100), // TODO: fix positioning
+                                            );
+                                          },
+                                          child: Member(
+                                                  name: member.name,
+                                                  phone: member.phone,
+                                                  isCreator: member.isCreator,
+                                                ),
+                                      ),
+                                ),
+                              ))
+                          ),
+                        ),
+                        Container(
+                          margin: const EdgeInsets.all(5),
+                          padding: const EdgeInsets.all(20),
+                          decoration: BoxDecoration(
+                            border: Border.all(color: Colors.red, width: 2),
+                            color: Colors.red.shade50,
+                          ),
+                          child:
+                          Column(
+                            children: [
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                children: [
+                                  Text(
+                                    "Exit Community ${widget.communityName}",
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                      // fontWeight: FontWeight.bold,
+                                      color: Colors.red,
+                                    ),
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                  Icon(Icons.output_sharp, color: Colors.red,)
+                                ],
+                              )
+                            ],
+                          )
+                        )
+                    ],
+                  )
                   )
                 ],
               )

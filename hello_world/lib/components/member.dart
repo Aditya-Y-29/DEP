@@ -15,10 +15,10 @@ class _MemberState extends State<Member> {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        border: Border.all(
-          color: Colors.green,
-          width: 2.0,
-        ),
+        // border: Border.all(
+        //   color: Colors.green,
+        //   width: 2.0,
+        // ),
       ),
       margin: const EdgeInsets.only(top: 5,right: 5,left: 5),
       padding: const EdgeInsets.all(0),
