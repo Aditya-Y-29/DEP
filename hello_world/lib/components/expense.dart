@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 
 import '../provider/data_provider.dart';
 import 'package:hello_world/Pages/edit_details_pages/edit_expense_page.dart';
-import 'package:hello_world/Pages/edit_details_pages/edit_expense_page.dart';
 
 class Expense extends StatefulWidget {
   final String creator;
@@ -22,9 +21,6 @@ class Expense extends StatefulWidget {
 class _ExpenseState extends State<Expense> {
   @override
   Widget build(BuildContext context) {
-
-    final providerCommunity = Provider.of<DataProvider>(context, listen: true);
-
     return Container(
       height: 60,
       padding: const EdgeInsets.all(10),
@@ -81,7 +77,6 @@ class _ExpenseState extends State<Expense> {
                   objectName: widget.objectName,
                   communityName: widget.communityName,
                 );
-                //providerCommunity.resolveExpense(expense);
 
                   Navigator.push(
                     context,

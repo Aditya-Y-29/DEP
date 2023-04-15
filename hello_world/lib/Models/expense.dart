@@ -5,9 +5,8 @@ class ExpenseModel{
   String amount;
   String description;
   DateTime? date;
-  String? resolverid;
 
-  ExpenseModel({required this.name, required this.objectID ,required this.creatorID,required this.amount,required this.description,required this.date, required this.resolverid});
+  ExpenseModel({required this.name, required this.objectID ,required this.creatorID,required this.amount,required this.description,required this.date});
 
   factory ExpenseModel.fromJson(Map<String, dynamic> json){
     return ExpenseModel(
@@ -17,7 +16,6 @@ class ExpenseModel{
       amount: json['Amount'],
       description: json['Description'],
       date: json['Date'].toDate(),
-      resolverid: json['Resolverid'],
     );
   }
 
@@ -28,6 +26,5 @@ class ExpenseModel{
     'Amount': amount,
     'Description': description,
     'Date': date,
-    'Resolverid': resolverid,
   };
 }

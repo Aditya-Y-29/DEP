@@ -4,7 +4,6 @@ import 'package:hello_world/Pages/main_pages/community_page.dart';
 import 'package:hello_world/Pages/profile_pages/profile_page.dart';
 import 'package:provider/provider.dart';
 import '../../components/community.dart';
-import '../../screens/add_screens/add_community.dart';
 import '../add_from_pages/add_home_page_floating_button.dart';
 import '../../provider/data_provider.dart';
 import 'package:hello_world/Pages/main_pages/navigation_page.dart';
@@ -365,7 +364,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 onPressed: () async {
                   DataProvider dataProvider =
                   Provider.of<DataProvider>(context, listen: false);
-                  const snackbar1 = SnackBar(content: Text("Refreshing..."), duration: Duration(seconds: 8),);
+                  const snackbar1 = SnackBar(content: Text("Refreshing..."), duration: Duration(seconds: 6),);
                   ScaffoldMessenger.of(context).showSnackBar(snackbar1);
                   await dataProvider.getAllDetails(dataProvider.user!.phoneNo);
                 },
@@ -375,7 +374,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
   }
 }

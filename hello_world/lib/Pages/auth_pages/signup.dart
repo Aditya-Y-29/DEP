@@ -1,9 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import '../../provider/data_provider.dart';
 import 'verify.dart';
-import 'phone.dart';
 
 class MySignUp extends StatefulWidget {
   const MySignUp({Key? key }) : super(key: key);
@@ -25,7 +22,7 @@ class _MySignUpState extends State<MySignUp> {
 
   @override
   void initState() {
-    // TODO: implement initState
+
     countryController.text = " +91";
     super.initState();
   }

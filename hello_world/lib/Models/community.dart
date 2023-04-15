@@ -8,6 +8,7 @@ class CommunityModel{
     return CommunityModel(
       name: json['Name'],
       phoneNo: json['Phone Number'],
+
     );
   }
 

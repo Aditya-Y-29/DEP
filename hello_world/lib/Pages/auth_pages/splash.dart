@@ -15,8 +15,6 @@ class SplashPage extends StatefulWidget {
 
 class _SplashPageState extends State<SplashPage> {
 
-  static const KEYLOGIN = "Login";
-
   @override
   void initState() {
     super.initState();

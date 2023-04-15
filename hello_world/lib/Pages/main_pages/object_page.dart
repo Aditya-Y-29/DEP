@@ -3,9 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:hello_world/Pages/add_from_pages/add_from_object_page.dart';
 import 'package:hello_world/Pages/profile_pages/profile_page.dart';
 import 'package:hello_world/screens/objects_screens/object_expense.dart';
-import 'package:hello_world/screens/objects_screens/object_service.dart';
 import 'package:hello_world/Pages/main_pages/navigation_page.dart';
-import '../add_from_pages/add_home_page_floating_button.dart';
+
 import '../../provider/data_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -184,9 +183,9 @@ class _ObjectPageState extends State<ObjectPage> {
                         onPressed: () async {
                           DataProvider dataProvider =
                           Provider.of<DataProvider>(context, listen: false);
-                          const snackbar1 = SnackBar(content: Text("Refreshing..."), duration: Duration(seconds: 8),);
+                          const snackbar1 = SnackBar(content: Text("Refreshing..."), duration: Duration(seconds: 2),);
                           ScaffoldMessenger.of(context).showSnackBar(snackbar1);
-                          await dataProvider.getAllDetails(dataProvider.user!.phoneNo);
+                          await dataProvider.getObjectDetails(widget.communityName, widget.objectName);
                         },
                         child: Icon(Icons.sync),
                       ),
@@ -194,7 +193,7 @@ class _ObjectPageState extends State<ObjectPage> {
                   ],
                 ),
               ),
-              floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
+              floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
             )
         ),
       ),

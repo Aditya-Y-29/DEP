@@ -4,8 +4,6 @@ import 'package:provider/provider.dart';
 import '../../components/expense.dart';
 import '../../components/object.dart';
 import '../../provider/data_provider.dart';
-import '../../components/community.dart';
-import 'package:hello_world/Pages/main_pages/object_page.dart';
 import 'package:hello_world/Pages/profile_pages/profile_page.dart';
 import 'package:hello_world/Pages/main_pages/navigation_page.dart';
 
@@ -431,9 +429,9 @@ class _CommunityPageState extends State<CommunityPage> {
                 onPressed: () async {
                   DataProvider dataProvider =
                   Provider.of<DataProvider>(context, listen: false);
-                  const snackbar1 = SnackBar(content: Text("Refreshing..."), duration: Duration(seconds: 8),);
+                  const snackbar1 = SnackBar(content: Text("Refreshing..."), duration: Duration(seconds: 4),);
                   ScaffoldMessenger.of(context).showSnackBar(snackbar1);
-                  await dataProvider.getAllDetails(dataProvider.user!.phoneNo);
+                  await dataProvider.getCommunityDetails(widget.communityName);
                 },
                 child: Icon(Icons.sync),
               ),
@@ -441,7 +439,7 @@ class _CommunityPageState extends State<CommunityPage> {
           ],
         ),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
   }
 
@@ -457,8 +455,6 @@ class _CommunityPageState extends State<CommunityPage> {
         miscExpenses = miscExpenses.where((element) => element != expense);
       }
     }
-    // print("Community Name: ${widget.communityName}");
-    // print("Size of miscExpenses: ${miscExpenses.length}");
     return miscExpenses;
   }
 }

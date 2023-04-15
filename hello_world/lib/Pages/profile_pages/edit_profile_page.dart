@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:hello_world/Pages/profile_pages/profile_page.dart';
 
 class EditProfilePage extends StatefulWidget {
   const EditProfilePage({Key? key}) : super(key: key);

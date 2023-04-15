@@ -125,7 +125,6 @@ class UserDataBaseService {
       }
       return communities;
     } catch (e) {
-      print("IN ERROR");
       print(e.toString());
       return null;
     }
@@ -163,8 +162,6 @@ class UserDataBaseService {
   static Future<List<dynamic>> getCommunityMembers(String communityName, String creatorPhone) async{
     try{
       List<dynamic> group=[];
-      print(communityName);
-      print(creatorPhone);
       String communityID="";
       final sp= await _db.collection('communities').where("Name", isEqualTo: communityName).where("Phone Number", isEqualTo: creatorPhone).get();
       if(sp.docs.isNotEmpty){
@@ -174,7 +171,6 @@ class UserDataBaseService {
         if(sp1.docs.isNotEmpty){
           for(var i in sp1.docs){
             final sp2= await _db.collection('users').doc(i.data()["UserID"]).get();
-            print(sp2.data()!);
             var groupMember = {
               ...sp2.data()!,
               "Is Admin": i.data()["Is Admin"],
