@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hello_world/Pages/group_member_pages/add_member_page.dart';
 import 'package:provider/provider.dart';
+import '../../components/member.dart';
 import '../../provider/data_provider.dart';
 import '../main_pages/home_page.dart';
 
