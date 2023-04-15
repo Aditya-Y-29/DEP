@@ -582,7 +582,7 @@ class DataProvider extends ChangeNotifier {
           .firstWhere((element) => element.phone == phoneNo);
       communityMembersMap[communityName]!.remove(member);
       CommunityDataBaseService.communityAddNotification(ctmp, phoneNo);
-      await CommunityDataBaseService.addCommunityLogNotification(ctmp, "Member Removed : ${member.name}");
+      // await CommunityDataBaseService.addCommunityLogNotification(ctmp, "Member Removed : ${member.name}");
     }
     notifyListeners();
   }

@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 
 import '../../components/member.dart';
 import '../../provider/data_provider.dart';
+import '../main_pages/home_page.dart';
 
 class CommunityInfo extends StatefulWidget {
   const CommunityInfo({Key? key, required this.communityName}) : super(key: key);
@@ -19,7 +20,7 @@ class _CommunityInfoState extends State<CommunityInfo> {
 
     final providerCommunity = Provider.of<DataProvider>(context, listen: true);
     bool hasCreatorPower = false;
-    int len = providerCommunity.communityMembersMap[widget.communityName]!.length;
+    int len = providerCommunity.communityMembersMap[widget.communityName] == null ? 0 : providerCommunity.communityMembersMap[widget.communityName]!.length;
     for(var i=0;i<len;i++){
       Member member = providerCommunity.communityMembersMap[widget.communityName]![i];
       // print("index: $i, name: ${member.name}, phone: ${member.phone}, isCreator: ${member.isCreator}");
@@ -43,8 +44,7 @@ class _CommunityInfoState extends State<CommunityInfo> {
         ),
       ),
       body: Container(
-          child: Column(
-            children: [
+          child:
               // GestureDetector(
               //   onTap: () {
               //     Navigator.push(context, MaterialPageRoute(builder: (context) => AddMembers(communityName: widget.communityName)));
@@ -74,9 +74,7 @@ class _CommunityInfoState extends State<CommunityInfo> {
               //   ),
               //   child: const Text('Members', style: TextStyle(fontSize: 17),)
               // ),
-              Expanded(
-                  child:
-                      Column(
+              Column(
                       children: [
                         GestureDetector(
                           onTap: () {
@@ -115,7 +113,7 @@ class _CommunityInfoState extends State<CommunityInfo> {
                             // ),
                             child:
                             ListView(
-                                children: List.of(providerCommunity.communityMembersMap[widget.communityName]!.map(
+                                children: providerCommunity.communityMembersMap[widget.communityName] == null ? [] : List.of(providerCommunity.communityMembersMap[widget.communityName]!.map(
                                       (member) =>
                                           GestureDetector(
                                           onLongPress: () async {
@@ -162,41 +160,53 @@ class _CommunityInfoState extends State<CommunityInfo> {
                               ))
                           ),
                         ),
-                        Container(
-                          margin: const EdgeInsets.all(5),
-                          padding: const EdgeInsets.all(20),
-                          decoration: BoxDecoration(
-                            border: Border.all(color: Colors.red, width: 2),
-                            color: Colors.red.shade50,
-                          ),
+                        GestureDetector(
+                          onTap: () {
+                            if(providerCommunity.communityMembersMap[widget.communityName]!.length == 1) {
+                              providerCommunity.deleteCommunity(widget.communityName);
+                              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => MyHomePage()));
+                              return;
+                            }
+                            providerCommunity.removeMemberFromCommunity(widget.communityName, providerCommunity.user!.phoneNo);
+                            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => MyHomePage()));
+                          },
                           child:
-                          Column(
-                            children: [
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                children: [
-                                  Flexible(
-                                    child: Text(
-                                      "Exit Community ${widget.communityName}",
-                                      style: TextStyle(
-                                        fontSize: 18,
-                                        // fontWeight: FontWeight.bold,
-                                        color: Colors.red,
+                          Container(
+                            margin: const EdgeInsets.all(5),
+                            padding: const EdgeInsets.all(20),
+                            decoration: BoxDecoration(
+                              border: Border.all(color: Colors.red, width: 2),
+                              color: Colors.red.shade50,
+                            ),
+                            child:
+                            Column(
+                              children: [
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                  children: [
+                                    Flexible(
+                                      child: Text(
+                                        "Exit Community ${widget.communityName}",
+                                        style: TextStyle(
+                                          fontSize: 18,
+                                          // fontWeight: FontWeight.bold,
+                                          color: Colors.red,
+                                        ),
+                                        overflow: TextOverflow.ellipsis,
                                       ),
-                                      overflow: TextOverflow.ellipsis,
                                     ),
-                                  ),
-                                  Icon(Icons.output_sharp, color: Colors.red,)
-                                ],
-                              )
-                            ],
+                                    Icon(Icons.output_sharp, color: Colors.red,)
+                                  ],
+                                )
+                              ],
+                            )
                           )
                         )
                     ],
                   )
-                  )
-                ],
-              )
+                  // )
+                // ],
+              // )
           ),
       bottomNavigationBar: BottomAppBar(
         color: Colors.green.shade50,
