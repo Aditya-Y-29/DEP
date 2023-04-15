@@ -149,7 +149,7 @@ class _CommunityInfoState extends State<CommunityInfo> {
                                               providerCommunity.removeMemberFromCommunity(widget.communityName, member.phone);
                                             }
                                             else if(selected == 1){
-                                              // providerCommunity.toggleCreatorPower(widget.communityName, member.phone);
+                                              providerCommunity.toggleCreatorPower(widget.communityName, member.phone);
                                             }
                                           },
                                           child: Member(

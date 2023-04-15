@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
 class Member extends StatefulWidget {
-  const Member({Key? key, required this.name,required this.isCreator, required this.phone}) : super(key: key);
+  Member({Key? key, required this.name,required this.isCreator, required this.phone}) : super(key: key);
   final String name;
   final String phone;
-  final bool isCreator;
+  bool isCreator;
   @override
   State<Member> createState() => _MemberState();
 }

@@ -587,18 +587,18 @@ class DataProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  // void toggleCreatorPower(String communityName, String phoneNo) async {
-  //   CommunityModel ctmp = communitiesdb!
-  //       .firstWhere((element) => element.name == communityName);
-  //   if(await CommunityDataBaseService.toggleCreatorPower(ctmp, phoneNo)){
-  //     Member member = communityMembersMap[communityName]!
-  //         .firstWhere((element) => element.phone == phoneNo);
-  //     member.isCreator = !member.isCreator;
-  //     // CommunityDataBaseService.communityAddNotification(ctmp, phoneNo);
-  //     await CommunityDataBaseService.addCommunityLogNotification(ctmp, "Creator Power Toggled : ${member.name}");
-  //   }
-  //   notifyListeners();
-  // }
+  void toggleCreatorPower(String communityName, String phoneNo) async {
+    CommunityModel ctmp = communitiesdb!
+        .firstWhere((element) => element.name == communityName);
+    if(await CommunityDataBaseService.toggleCreatorPower(ctmp, phoneNo)){
+      Member member = communityMembersMap[communityName]!
+          .firstWhere((element) => element.phone == phoneNo);
+      member.isCreator = !member.isCreator;
+      // CommunityDataBaseService.communityAddNotification(ctmp, phoneNo);
+      await CommunityDataBaseService.addCommunityLogNotification(ctmp, "Creator Power Toggled : ${member.name}");
+    }
+    notifyListeners();
+  }
 
   void addToken(  ) async {
     NotificationServices notificationServices = NotificationServices();
