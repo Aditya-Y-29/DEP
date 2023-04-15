@@ -15,19 +15,27 @@ class CommunityInfo extends StatefulWidget {
 }
 
 class _CommunityInfoState extends State<CommunityInfo> {
+
+  bool isLongPressed = false;
+
   @override
   Widget build(BuildContext context) {
 
     final providerCommunity = Provider.of<DataProvider>(context, listen: true);
     bool hasCreatorPower = false;
+    int creators = 0;
     int len = providerCommunity.communityMembersMap[widget.communityName] == null ? 0 : providerCommunity.communityMembersMap[widget.communityName]!.length;
     for(var i=0;i<len;i++){
       Member member = providerCommunity.communityMembersMap[widget.communityName]![i];
       // print("index: $i, name: ${member.name}, phone: ${member.phone}, isCreator: ${member.isCreator}");
-      if(member.isCreator && member.phone == providerCommunity.user!.phoneNo){
-          hasCreatorPower = true;
+      if(member.isCreator){
+        creators++;
+        if(member.phone == providerCommunity.user!.phoneNo) {
+            hasCreatorPower = true;
+          }
       }
     }
+    print("creators: $creators, hasCreatorPower: $hasCreatorPower");
 
     return Scaffold(
       appBar: AppBar(
@@ -116,7 +124,15 @@ class _CommunityInfoState extends State<CommunityInfo> {
                                 children: providerCommunity.communityMembersMap[widget.communityName] == null ? [] : List.of(providerCommunity.communityMembersMap[widget.communityName]!.map(
                                       (member) =>
                                           GestureDetector(
+                                          // onLongPressCancel: () {
+                                          //   setState(() {
+                                          //     isLongPressed = false;
+                                          //   });
+                                          // },
                                           onLongPress: () async {
+                                            // setState(() {
+                                            //   isLongPressed = true;
+                                            // });
                                             if(!hasCreatorPower || member.phone == providerCommunity.user!.phoneNo){
                                               return;
                                             }
@@ -150,11 +166,15 @@ class _CommunityInfoState extends State<CommunityInfo> {
                                               providerCommunity.toggleCreatorPower(widget.communityName, member.phone);
                                             }
                                           },
-                                          child: Member(
-                                                  name: member.name,
-                                                  phone: member.phone,
-                                                  isCreator: member.isCreator,
-                                                ),
+                                          child: Container(
+                                            color: isLongPressed ? Colors.green.shade100 : Colors.green.shade50,
+                                            child:
+                                              Member(
+                                                      name: member.name,
+                                                      phone: member.phone,
+                                                      isCreator: member.isCreator,
+                                                    ),
+                                          ),
                                       ),
                                 ),
                               ))
@@ -165,6 +185,15 @@ class _CommunityInfoState extends State<CommunityInfo> {
                             if(providerCommunity.communityMembersMap[widget.communityName]!.length == 1) {
                               providerCommunity.deleteCommunity(widget.communityName);
                               Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => MyHomePage()));
+                              return;
+                            }
+                            else if(hasCreatorPower && creators == 1) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text("You are the only creator, make another creator before leaving!"),
+                                  duration: Duration(seconds: 2),
+                                )
+                              );
                               return;
                             }
                             providerCommunity.removeMemberFromCommunity(widget.communityName, providerCommunity.user!.phoneNo);
