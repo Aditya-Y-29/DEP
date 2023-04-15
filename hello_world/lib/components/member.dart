@@ -10,6 +10,7 @@ class Member extends StatefulWidget {
 }
 
 class _MemberState extends State<Member> {
+  final GlobalKey widgetKey = GlobalKey();
   @override
   Widget build(BuildContext context) {
     return Container(

@@ -18,6 +18,13 @@ class _CommunityInfoState extends State<CommunityInfo> {
   Widget build(BuildContext context) {
 
     final providerCommunity = Provider.of<DataProvider>(context, listen: true);
+    bool hasCreatorPower = false;
+    for(var i=0;i<providerCommunity.communityMembersMap.length;i++){
+      Member member = providerCommunity.communityMembersMap[widget.communityName]![i];
+      if(member.isCreator && member.phone == providerCommunity.user!.phoneNo){
+          hasCreatorPower = true;
+      }
+    }
 
     return Scaffold(
       appBar: AppBar(
@@ -68,13 +75,50 @@ class _CommunityInfoState extends State<CommunityInfo> {
               Expanded(
                   child:
                   ListView(
-                      children: List.of(providerCommunity.communityMembersMap[widget.communityName] as Iterable<Widget>)
-                  )
-              )
+                      children: List.of(providerCommunity.communityMembersMap[widget.communityName]!.map(
+                            (member) =>
+                                GestureDetector(
+                                onLongPress: () {
+                                  if(!hasCreatorPower || member.phone == providerCommunity.user!.phoneNo){
+                                    return;
+                                  }
+                                  showMenu(
+                                    items: <PopupMenuEntry>[
+                                      PopupMenuItem(
+                                        //value: this._index,
+                                        child: Row(
+                                          children: [
+                                            Text("Remove ${member.name}"),
+                                          ],
+                                        ),
+                                      ),
+                                      PopupMenuItem(
+                                        //value: this._index,
+                                        child: Row(
+                                          children: [
+                                            member.isCreator ? Text("Remove creator power") :
+                                            Text("Give creator power"),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                    context: context,
+                                    position: RelativeRect.fromLTRB(100, 100, 100, 100), // TODO: fix positioning
+                                  );
+                                },
+                                child: Member(
+                                        name: member.name,
+                                        phone: member.phone,
+                                        isCreator: member.isCreator,
+                                      ),
 
-            ],
-          )
-      ),
+                            ),
+                      ),
+                    ))
+                  )
+                ],
+              )
+          ),
       bottomNavigationBar: BottomAppBar(
         color: Colors.green.shade50,
         elevation: 0,
