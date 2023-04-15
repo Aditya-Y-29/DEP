@@ -118,14 +118,14 @@ class _CommunityInfoState extends State<CommunityInfo> {
                                 children: List.of(providerCommunity.communityMembersMap[widget.communityName]!.map(
                                       (member) =>
                                           GestureDetector(
-                                          onLongPress: () {
+                                          onLongPress: () async {
                                             if(!hasCreatorPower || member.phone == providerCommunity.user!.phoneNo){
                                               return;
                                             }
-                                            showMenu(
+                                           int selected = await showMenu(
                                               items: <PopupMenuEntry>[
                                                 PopupMenuItem(
-                                                  //value: this._index,
+                                                  value: 0,
                                                   child: Row(
                                                     children: [
                                                       Text("Remove ${member.name}"),
@@ -133,7 +133,7 @@ class _CommunityInfoState extends State<CommunityInfo> {
                                                   ),
                                                 ),
                                                 PopupMenuItem(
-                                                  //value: this._index,
+                                                  value: 1,
                                                   child: Row(
                                                     children: [
                                                       member.isCreator ? Text("Remove creator power") :
@@ -143,8 +143,14 @@ class _CommunityInfoState extends State<CommunityInfo> {
                                                 ),
                                               ],
                                               context: context,
-                                              position: RelativeRect.fromLTRB(100, 100, 100, 100), // TODO: fix positioning
+                                              position: RelativeRect.fromLTRB(100, 100, 100, 100), // TODO: fix positioning,
                                             );
+                                            if(selected == 0){
+                                              providerCommunity.removeMemberFromCommunity(widget.communityName, member.phone);
+                                            }
+                                            else if(selected == 1){
+                                              // providerCommunity.toggleCreatorPower(widget.communityName, member.phone);
+                                            }
                                           },
                                           child: Member(
                                                   name: member.name,
