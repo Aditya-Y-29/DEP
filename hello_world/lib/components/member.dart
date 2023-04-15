@@ -1,23 +1,24 @@
 import 'package:flutter/material.dart';
 
 class Member extends StatefulWidget {
-  const Member({Key? key, required this.name,required this.isCreator, required this.phone}) : super(key: key);
+  Member({Key? key, required this.name,required this.isCreator, required this.phone}) : super(key: key);
   final String name;
   final String phone;
-  final bool isCreator;
+  bool isCreator;
   @override
   State<Member> createState() => _MemberState();
 }
 
 class _MemberState extends State<Member> {
+  final GlobalKey widgetKey = GlobalKey();
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        border: Border.all(
-          color: Colors.green,
-          width: 2.0,
-        ),
+        // border: Border.all(
+        //   color: Colors.green,
+        //   width: 2.0,
+        // ),
       ),
       margin: const EdgeInsets.only(top: 5,right: 5,left: 5),
       padding: const EdgeInsets.all(0),

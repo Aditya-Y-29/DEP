@@ -98,6 +98,68 @@ class CommunityDataBaseService {
     }
   }
 
+  static Future<bool> removeUserFromCommunity(CommunityModel community, String memberPhoneNo) async {
+    try {
+      String? communityID = await getCommunityID(community);
+      String? userID = await UserDataBaseService.getUserID(memberPhoneNo);
+
+      if (communityID == null) {
+        return false;
+      }
+
+      if (userID == null) {
+        return false;
+      }
+
+      final sp = await _db
+          .collection('communityMembers')
+          .where("CommunityID", isEqualTo: communityID)
+          .where("UserID", isEqualTo: userID)
+          .get();
+
+      if (sp.docs.isEmpty) {
+        return false;
+      }
+
+      await _db.collection('communityMembers').doc(sp.docs.first.id).delete();
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  static Future<bool> toggleCreatorPower(CommunityModel communityName, String memberPhoneNo) async {
+    try {
+      String? communityID = await getCommunityID(communityName);
+      String? userID = await UserDataBaseService.getUserID(memberPhoneNo);
+
+      if (communityID == null) {
+        return false;
+      }
+
+      if (userID == null) {
+        return false;
+      }
+
+      final sp = await _db
+          .collection('communityMembers')
+          .where("CommunityID", isEqualTo: communityID)
+          .where("UserID", isEqualTo: userID)
+          .get();
+
+      if (sp.docs.isEmpty) {
+        return false;
+      }
+
+      await _db.collection('communityMembers').doc(sp.docs.first.id).update({
+        'Is Admin': !sp.docs.first.data()['Is Admin']
+      });
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
   static Future<String> getCommunityName(String? communityID) async {
     try {
       final sp = await _db.collection('communities').doc(communityID).get();
@@ -110,19 +172,23 @@ class CommunityDataBaseService {
     }
   }
 
-  static Future<bool> communityAddNotification(CommunityModel community, String phoneNo) async {
+  static Future<bool> communityAddRemoveNotification(CommunityModel community, String phoneNo, bool isAdd) async {
 
     String token= await UserDataBaseService.getUserToken(phoneNo);
 
     if(token==""){
       return false;
     }
+
+    String msgTitle = isAdd ? "New Community Added" : "Community Removed";
+    String msgBody = isAdd ? "You have been added to ${community.name}" : "You have been removed from ${community.name}";
+
     var data={
       'to':token.toString(),
       'priority':'high',
       'notification':{
-        'title':'New Community Added',
-        'body':'You have been added to ${community.name}'
+        'title': msgTitle,
+        'body': msgBody,
       }
     };
 

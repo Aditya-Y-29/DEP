@@ -52,7 +52,7 @@ class _CommunityPageState extends State<CommunityPage> {
               height: 40,
             ),
             SizedBox(width: 10),
-            Text(widget.communityName),
+            Flexible(child: Text(widget.communityName, overflow: TextOverflow.ellipsis,)),
           ],
         ),
         actions:  [
@@ -312,7 +312,7 @@ class _CommunityPageState extends State<CommunityPage> {
                                     Container(
                                       child:
                                       Wrap(
-                                          children: (objectDataProvider.communityObjectMap[widget.communityName]!.length >= 1) ?
+                                          children: (objectDataProvider.communityObjectMap[widget.communityName]!.length > 1) ?
                                           List.of(objectDataProvider.communityObjectMap[widget.communityName]!.map((e) {
                                             if(!e.toLowerCase().contains(searchController.text.toLowerCase().trim())) {
                                               return SizedBox(height: 0,);
@@ -365,9 +365,9 @@ class _CommunityPageState extends State<CommunityPage> {
                                               :
                                           [
                                             Container(
-                                              margin: const EdgeInsets.symmetric(horizontal: 123, vertical: 100),
+                                              margin: const EdgeInsets.symmetric(horizontal: 70, vertical: 100),
                                               child: const Text(
-                                                "No objects found",
+                                                "Waiting for objects to be added!",
                                               ),
                                             )
                                           ]

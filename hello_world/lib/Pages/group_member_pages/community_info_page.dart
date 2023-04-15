@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:hello_world/Pages/group_member_pages/add_member_page.dart';
 import 'package:provider/provider.dart';
 import '../../provider/data_provider.dart';
+import '../main_pages/home_page.dart';
+
 class CommunityInfo extends StatefulWidget {
   const CommunityInfo({Key? key, required this.communityName}) : super(key: key);
   final String communityName;
@@ -11,10 +13,27 @@ class CommunityInfo extends StatefulWidget {
 }
 
 class _CommunityInfoState extends State<CommunityInfo> {
+
+  bool isLongPressed = false;
+
   @override
   Widget build(BuildContext context) {
 
     final providerCommunity = Provider.of<DataProvider>(context, listen: true);
+    bool hasCreatorPower = false;
+    int creators = 0;
+    int len = providerCommunity.communityMembersMap[widget.communityName] == null ? 0 : providerCommunity.communityMembersMap[widget.communityName]!.length;
+    for(var i=0;i<len;i++){
+      Member member = providerCommunity.communityMembersMap[widget.communityName]![i];
+      // print("index: $i, name: ${member.name}, phone: ${member.phone}, isCreator: ${member.isCreator}");
+      if(member.isCreator){
+        creators++;
+        if(member.phone == providerCommunity.user!.phoneNo) {
+            hasCreatorPower = true;
+          }
+      }
+    }
+    print("creators: $creators, hasCreatorPower: $hasCreatorPower");
 
     return Scaffold(
       appBar: AppBar(
@@ -31,8 +50,7 @@ class _CommunityInfoState extends State<CommunityInfo> {
         ),
       ),
       body: Container(
-          child: Column(
-            children: [
+          child:
               // GestureDetector(
               //   onTap: () {
               //     Navigator.push(context, MaterialPageRoute(builder: (context) => AddMembers(communityName: widget.communityName)));
@@ -62,16 +80,161 @@ class _CommunityInfoState extends State<CommunityInfo> {
               //   ),
               //   child: const Text('Members', style: TextStyle(fontSize: 17),)
               // ),
-              Expanded(
-                  child:
-                  ListView(
-                      children: List.of(providerCommunity.communityMembersMap[widget.communityName] as Iterable<Widget>)
+              Column(
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => AddMembers(communityName: widget.communityName)));
+                          },
+                          child:
+                          Container(
+                            padding: const EdgeInsets.all(10),
+                            decoration: BoxDecoration(
+                              // border: Border.all(color: Colors.green, width: 2),
+                              color: Colors.green.shade100,
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Container(
+                                  height: 45,
+                                  width: 45,
+                                  child:
+                                    CircleAvatar(
+                                      child: Icon(Icons.person_add),
+                                    ),
+                                  ),
+                                SizedBox(width: 10,),
+                                Text('Add Member', style: TextStyle(fontSize: 18),)
+                              ]
+                            )
+                          ),
+                        ),
+                        Expanded(
+                            child:
+                          Container(
+                            margin: const EdgeInsets.all(5),
+                            // decoration: BoxDecoration(
+                            //   border: Border.all(color: Colors.green, width: 2),
+                            // ),
+                            child:
+                            ListView(
+                                children: providerCommunity.communityMembersMap[widget.communityName] == null ? [] : List.of(providerCommunity.communityMembersMap[widget.communityName]!.map(
+                                      (member) =>
+                                          GestureDetector(
+                                          // onLongPressCancel: () {
+                                          //   setState(() {
+                                          //     isLongPressed = false;
+                                          //   });
+                                          // },
+                                          onLongPress: () async {
+                                            // setState(() {
+                                            //   isLongPressed = true;
+                                            // });
+                                            if(!hasCreatorPower || member.phone == providerCommunity.user!.phoneNo){
+                                              return;
+                                            }
+                                           int selected = await showMenu(
+                                              items: <PopupMenuEntry>[
+                                                PopupMenuItem(
+                                                  value: 0,
+                                                  child: Row(
+                                                    children: [
+                                                      Text("Remove ${member.name}"),
+                                                    ],
+                                                  ),
+                                                ),
+                                                PopupMenuItem(
+                                                  value: 1,
+                                                  child: Row(
+                                                    children: [
+                                                      member.isCreator ? Text("Remove creator power") :
+                                                      Text("Give creator power"),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ],
+                                              context: context,
+                                              position: RelativeRect.fromLTRB(100, 100, 100, 100), // TODO: fix positioning,
+                                            );
+                                            if(selected == 0){
+                                              providerCommunity.removeMemberFromCommunity(widget.communityName, member.phone);
+                                            }
+                                            else if(selected == 1){
+                                              providerCommunity.toggleCreatorPower(widget.communityName, member.phone);
+                                            }
+                                          },
+                                          child: Container(
+                                            color: isLongPressed ? Colors.green.shade100 : Colors.green.shade50,
+                                            child:
+                                              Member(
+                                                      name: member.name,
+                                                      phone: member.phone,
+                                                      isCreator: member.isCreator,
+                                                    ),
+                                          ),
+                                      ),
+                                ),
+                              ))
+                          ),
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            if(providerCommunity.communityMembersMap[widget.communityName]!.length == 1) {
+                              providerCommunity.deleteCommunity(widget.communityName);
+                              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => MyHomePage()));
+                              return;
+                            }
+                            else if(hasCreatorPower && creators == 1) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text("You are the only creator, make another creator before leaving!"),
+                                  duration: Duration(seconds: 2),
+                                )
+                              );
+                              return;
+                            }
+                            providerCommunity.removeMemberFromCommunity(widget.communityName, providerCommunity.user!.phoneNo);
+                            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => MyHomePage()));
+                          },
+                          child:
+                          Container(
+                            margin: const EdgeInsets.all(5),
+                            padding: const EdgeInsets.all(20),
+                            decoration: BoxDecoration(
+                              border: Border.all(color: Colors.red, width: 2),
+                              color: Colors.red.shade50,
+                            ),
+                            child:
+                            Column(
+                              children: [
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                  children: [
+                                    Flexible(
+                                      child: Text(
+                                        "Exit Community ${widget.communityName}",
+                                        style: TextStyle(
+                                          fontSize: 18,
+                                          // fontWeight: FontWeight.bold,
+                                          color: Colors.red,
+                                        ),
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                    ),
+                                    Icon(Icons.output_sharp, color: Colors.red,)
+                                  ],
+                                )
+                              ],
+                            )
+                          )
+                        )
+                    ],
                   )
-              )
-
-            ],
-          )
-      ),
+                  // )
+                // ],
+              // )
+          ),
       bottomNavigationBar: BottomAppBar(
         color: Colors.green.shade50,
         elevation: 0,
@@ -80,15 +243,15 @@ class _CommunityInfoState extends State<CommunityInfo> {
           mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[
             SizedBox(width: 16.0,height: 10,),
-            Padding(
-              padding: const EdgeInsets.only(right: 85.0,bottom: 8),
-              child: FloatingActionButton(
-                onPressed:(){
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => AddMembers(communityName: widget.communityName)));
-                },
-                child: Icon(Icons.person_add),
-              ),
-            ),
+            // Padding(
+            //   padding: const EdgeInsets.only(right: 85.0,bottom: 8),
+            //   child: FloatingActionButton(
+            //     onPressed:(){
+            //       Navigator.push(context, MaterialPageRoute(builder: (context) => AddMembers(communityName: widget.communityName)));
+            //     },
+            //     child: Icon(Icons.person_add),
+            //   ),
+            // ),
             Padding(
               padding: const EdgeInsets.only(right: 8.0,bottom: 8,top: 4),
               child: FloatingActionButton(

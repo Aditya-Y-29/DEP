@@ -413,10 +413,8 @@ class DataProvider extends ChangeNotifier {
 
     notifyListeners();
 
-    await CommunityDataBaseService.communityAddNotification(
-        community, user!.phoneNo);
-    await CommunityDataBaseService.addCommunityLogNotification(
-        community, "Community Created");
+    await CommunityDataBaseService.communityAddRemoveNotification(community, user!.phoneNo, true);
+    await CommunityDataBaseService.addCommunityLogNotification(community,"Community Created");
   }
 
   Future<void> addObject(String communityName, String objectName) async {
@@ -550,16 +548,41 @@ class DataProvider extends ChangeNotifier {
         if (await CommunityDataBaseService.addUserInCommunity(
             ctmp, member.phone, false)) {
           communityMembersMap[communityName]!.add(member);
-          CommunityDataBaseService.communityAddNotification(ctmp, member.phone);
-          await CommunityDataBaseService.addCommunityLogNotification(
-              ctmp, "Member Added : ${member.name}");
+          CommunityDataBaseService.communityAddRemoveNotification(ctmp, member.phone, true);
+          await CommunityDataBaseService.addCommunityLogNotification(ctmp, "Member Added : ${member.name}");
         }
       }
     }
     notifyListeners();
   }
 
-  void addToken() async {
+  void removeMemberFromCommunity(String communityName, String phoneNo) async {
+    CommunityModel ctmp = communitiesdb!
+        .firstWhere((element) => element.name == communityName);
+    if(await CommunityDataBaseService.removeUserFromCommunity(ctmp, phoneNo)){
+      Member member = communityMembersMap[communityName]!
+          .firstWhere((element) => element.phone == phoneNo);
+      communityMembersMap[communityName]!.remove(member);
+      communities.remove(communityName);
+      CommunityDataBaseService.communityAddRemoveNotification(ctmp, phoneNo, false);
+      await CommunityDataBaseService.addCommunityLogNotification(ctmp, "No longer in $communityName : ${member.name}");
+    }
+    notifyListeners();
+  }
+
+  void toggleCreatorPower(String communityName, String phoneNo) async {
+    CommunityModel ctmp = communitiesdb!
+        .firstWhere((element) => element.name == communityName);
+    if(await CommunityDataBaseService.toggleCreatorPower(ctmp, phoneNo)){
+      Member member = communityMembersMap[communityName]!
+          .firstWhere((element) => element.phone == phoneNo);
+      member.isCreator = !member.isCreator;
+      await CommunityDataBaseService.addCommunityLogNotification(ctmp, "Creator Power Toggled : ${member.name}");
+    }
+    notifyListeners();
+  }
+
+  void addToken(  ) async {
     NotificationServices notificationServices = NotificationServices();
     String token = await notificationServices.getToken();
     if (user != null) {
