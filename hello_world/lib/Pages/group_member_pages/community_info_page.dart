@@ -169,14 +169,16 @@ class _CommunityInfoState extends State<CommunityInfo> {
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                                 children: [
-                                  Text(
-                                    "Exit Community ${widget.communityName}",
-                                    style: TextStyle(
-                                      fontSize: 18,
-                                      // fontWeight: FontWeight.bold,
-                                      color: Colors.red,
+                                  Flexible(
+                                    child: Text(
+                                      "Exit Community ${widget.communityName}",
+                                      style: TextStyle(
+                                        fontSize: 18,
+                                        // fontWeight: FontWeight.bold,
+                                        color: Colors.red,
+                                      ),
+                                      overflow: TextOverflow.ellipsis,
                                     ),
-                                    overflow: TextOverflow.ellipsis,
                                   ),
                                   Icon(Icons.output_sharp, color: Colors.red,)
                                 ],
