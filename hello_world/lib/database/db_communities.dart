@@ -175,19 +175,23 @@ class CommunityDataBaseService {
     }
   }
 
-  static Future<bool> communityAddNotification(CommunityModel community, String phoneNo) async {
+  static Future<bool> communityAddRemoveNotification(CommunityModel community, String phoneNo, bool isAdd) async {
 
     String token= await UserDataBaseService.getUserToken(phoneNo);
 
     if(token==""){
       return false;
     }
+
+    String msgTitle = isAdd ? "New Community Added" : "Community Removed";
+    String msgBody = isAdd ? "You have been added to ${community.name}" : "You have been removed from ${community.name}";
+
     var data={
       'to':token.toString(),
       'priority':'high',
       'notification':{
-        'title':'New Community Added',
-        'body':'You have been added to ${community.name}'
+        'title': msgTitle,
+        'body': msgBody,
       }
     };
 

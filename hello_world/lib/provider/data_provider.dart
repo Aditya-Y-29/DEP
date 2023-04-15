@@ -385,7 +385,7 @@ class DataProvider extends ChangeNotifier {
 
     notifyListeners();
 
-    await CommunityDataBaseService.communityAddNotification(community, user!.phoneNo);
+    await CommunityDataBaseService.communityAddRemoveNotification(community, user!.phoneNo, true);
     await CommunityDataBaseService.addCommunityLogNotification(community,"Community Created");
   }
 
@@ -566,7 +566,7 @@ class DataProvider extends ChangeNotifier {
             .firstWhere((element) => element.name == communityName);
         if(await CommunityDataBaseService.addUserInCommunity(ctmp, member.phone, false)){
           communityMembersMap[communityName]!.add(member);
-          CommunityDataBaseService.communityAddNotification(ctmp, member.phone);
+          CommunityDataBaseService.communityAddRemoveNotification(ctmp, member.phone, true);
           await CommunityDataBaseService.addCommunityLogNotification(ctmp, "Member Added : ${member.name}");
         }
       }
@@ -581,8 +581,9 @@ class DataProvider extends ChangeNotifier {
       Member member = communityMembersMap[communityName]!
           .firstWhere((element) => element.phone == phoneNo);
       communityMembersMap[communityName]!.remove(member);
-      CommunityDataBaseService.communityAddNotification(ctmp, phoneNo);
-      // await CommunityDataBaseService.addCommunityLogNotification(ctmp, "Member Removed : ${member.name}");
+      communities.remove(communityName);
+      CommunityDataBaseService.communityAddRemoveNotification(ctmp, phoneNo, false);
+      await CommunityDataBaseService.addCommunityLogNotification(ctmp, "No longer in $communityName : ${member.name}");
     }
     notifyListeners();
   }
@@ -594,7 +595,6 @@ class DataProvider extends ChangeNotifier {
       Member member = communityMembersMap[communityName]!
           .firstWhere((element) => element.phone == phoneNo);
       member.isCreator = !member.isCreator;
-      // CommunityDataBaseService.communityAddNotification(ctmp, phoneNo);
       await CommunityDataBaseService.addCommunityLogNotification(ctmp, "Creator Power Toggled : ${member.name}");
     }
     notifyListeners();
