@@ -78,13 +78,41 @@ class _CommunityInfoState extends State<CommunityInfo> {
                   child:
                       Column(
                       children: [
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => AddMembers(communityName: widget.communityName)));
+                          },
+                          child:
+                          Container(
+                            padding: const EdgeInsets.all(10),
+                            decoration: BoxDecoration(
+                              // border: Border.all(color: Colors.green, width: 2),
+                              color: Colors.green.shade100,
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Container(
+                                  height: 45,
+                                  width: 45,
+                                  child:
+                                    CircleAvatar(
+                                      child: Icon(Icons.person_add),
+                                    ),
+                                  ),
+                                SizedBox(width: 10,),
+                                Text('Add Member', style: TextStyle(fontSize: 18),)
+                              ]
+                            )
+                          ),
+                        ),
                         Expanded(
                             child:
                           Container(
                             margin: const EdgeInsets.all(5),
-                            decoration: BoxDecoration(
-                              border: Border.all(color: Colors.green, width: 2),
-                            ),
+                            // decoration: BoxDecoration(
+                            //   border: Border.all(color: Colors.green, width: 2),
+                            // ),
                             child:
                             ListView(
                                 children: List.of(providerCommunity.communityMembersMap[widget.communityName]!.map(
@@ -170,15 +198,15 @@ class _CommunityInfoState extends State<CommunityInfo> {
           mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[
             SizedBox(width: 16.0,height: 10,),
-            Padding(
-              padding: const EdgeInsets.only(right: 85.0,bottom: 8),
-              child: FloatingActionButton(
-                onPressed:(){
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => AddMembers(communityName: widget.communityName)));
-                },
-                child: Icon(Icons.person_add),
-              ),
-            ),
+            // Padding(
+            //   padding: const EdgeInsets.only(right: 85.0,bottom: 8),
+            //   child: FloatingActionButton(
+            //     onPressed:(){
+            //       Navigator.push(context, MaterialPageRoute(builder: (context) => AddMembers(communityName: widget.communityName)));
+            //     },
+            //     child: Icon(Icons.person_add),
+            //   ),
+            // ),
             Padding(
               padding: const EdgeInsets.only(right: 8.0,bottom: 8,top: 4),
               child: FloatingActionButton(
