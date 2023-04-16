@@ -448,8 +448,10 @@ class DataProvider extends ChangeNotifier {
       String expenseDate, String description, String communityName) async {
     CommunityModel ctmp =
         communitiesdb!.firstWhere((element) => element.name == communityName);
-
+    DateTime time = DateTime.now().toLocal();
     DateTime dateTime = DateTime.parse(expenseDate);
+    expenseDate += " " + time.hour.toString() + ":" + time.minute.toString() + ":" + time.second.toString() + "." + time.millisecond.toString();
+    dateTime = new DateTime( dateTime.year, dateTime.month, dateTime.day, time.hour, time.minute, time.second, time.millisecond);
 
     ObjectsModel otmp = communityObjectMapdb![ctmp]!
         .firstWhere((element) => element.name == objectName);

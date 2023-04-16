@@ -159,10 +159,10 @@ class _ObjectState extends State<Object> {
               alignment: Alignment.bottomRight,
               child: Container(
                 margin: const EdgeInsets.only(bottom: 5.0, right: 5.0),
-                height: 25.0,
-                width: 25.0,
-                child: FloatingActionButton(
-                  heroTag: "Comm_Btn",
+                height: 30.0,
+                width: 30.0,
+                child: new FloatingActionButton(
+                  heroTag: null,
                   onPressed: () {
                     Navigator.push(
                       context,

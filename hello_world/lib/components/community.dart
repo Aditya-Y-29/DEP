@@ -206,8 +206,8 @@ class _CommunityState extends State<Community> {
                               margin: const EdgeInsets.only(bottom: 1.0, right: 1.0),
                               height: 30.0,
                               width: 30.0,
-                              child: FloatingActionButton(
-                                heroTag: "Comm_Btn",
+                              child: new FloatingActionButton(
+                                heroTag: null,
                                 onPressed: (){
                                   Navigator.push(
                                     context,
