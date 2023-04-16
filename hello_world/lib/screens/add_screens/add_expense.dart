@@ -39,20 +39,17 @@ class ExpenseData extends State<ExpenseScreen> {
 
 
     final providerCommunity = Provider.of<DataProvider>(context, listen: true);
-    if(widget.isFromCommunityPage) {
+    if(widget.isFromCommunityPage || widget.isFromObjectPage) {
       communityDropDown=widget.communityName;
-      // providerCommunity.objectIndex=0;
+
     } else {
       communityDropDown=providerCommunity.communities[providerCommunity.communitiesIndex];
-      // providerCommunity.objectIndex=0;
     }
-
 
     if(widget.isFromObjectPage){
         objectDropDown=widget.objectName;
       } 
     else if (providerCommunity.communityObjectMap[communityDropDown]!.isNotEmpty) {
-      // providerCommunity.objectIndex=0;
       objectDropDown=providerCommunity.communityObjectMap[communityDropDown]![providerCommunity.objectIndex];
     } else {
       return const Center(child: Text("No Objects in this Community"));

@@ -85,9 +85,7 @@ class _AddFromObjectPageData extends State<AddFromObjectPage> {
         ),
         body: TabBarView(
           children: [
-            // ResolveScreen(isFromObjectPage: true, communityName: widget.communityName, objectName: widget.objectName,),
             ExpenseScreen(isFromCommunityPage: false, isFromObjectPage: true, communityName: widget.communityName, objectName: widget.objectName,),
-            // ServiceScreen(isFromCommunityPage: false, isFromObjectPage: true, communityName: widget.communityName, objectName: widget.objectName,),
           ],
         ),
       ),

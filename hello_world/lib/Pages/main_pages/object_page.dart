@@ -152,7 +152,6 @@ class _ObjectPageState extends State<ObjectPage> {
               body: TabBarView(
                 children: [
                   ObjectExpenseScreen(objectName: widget.objectName,communityName: widget.communityName,),
-                  // ObjectServiceScreen(objectName: widget.objectName,communityName: widget.communityName,),
                 ],
               ),
               bottomNavigationBar: BottomAppBar(
@@ -164,7 +163,7 @@ class _ObjectPageState extends State<ObjectPage> {
                   children: <Widget>[
                     SizedBox(width: 16.0,),
                     Padding(
-                      padding: const EdgeInsets.only(right: 85.0,bottom: 8),
+                      padding: const EdgeInsets.only(right: 95.0,bottom: 8),
                       child: FloatingActionButton(
                         heroTag: "BTN-15",
                         onPressed: () async {

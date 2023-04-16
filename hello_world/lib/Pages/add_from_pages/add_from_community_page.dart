@@ -46,10 +46,8 @@ class _AddFromCommunityPageData extends State<AddFromCommunityPage> {
         ),
         body: TabBarView(
           children: [
-            // ResolveScreen(isFromObjectPage: false, communityName: widget.communityName, objectName: "",),
             ObjectScreen(isFromCommunityPage: true, communityName: widget.communityName),
             ExpenseScreen(isFromCommunityPage: true, isFromObjectPage: false, communityName: widget.communityName, objectName: "",),
-            // ServiceScreen(isFromCommunityPage: true, isFromObjectPage: false, communityName: widget.communityName, objectName: "",),
           ],
         ),
       ),
