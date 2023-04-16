@@ -16,9 +16,13 @@ class CommunityInfo extends StatefulWidget {
 class _CommunityInfoState extends State<CommunityInfo> {
 
   bool isLongPressed = false;
+  late Offset tapXY;
+  late RenderBox overlay;
 
   @override
   Widget build(BuildContext context) {
+
+    overlay = Overlay.of(context).context.findRenderObject() as RenderBox;
 
     final providerCommunity = Provider.of<DataProvider>(context, listen: true);
     bool hasCreatorPower = false;
@@ -111,10 +115,19 @@ class _CommunityInfoState extends State<CommunityInfo> {
                             )
                           ),
                         ),
+                        const SizedBox(height: 10,),
+                        Container(
+                          padding: const EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10), bottomLeft: Radius.circular(10), bottomRight: Radius.circular(10)),
+                            border: Border.all(color: Colors.green, width: 2),
+                          ),
+                          child: const Text('Members', style: TextStyle(fontSize: 17),)
+                        ),
                         Expanded(
                             child:
                           Container(
-                            margin: const EdgeInsets.all(5),
+                            margin: const EdgeInsets.only(top: 10),
                             // decoration: BoxDecoration(
                             //   border: Border.all(color: Colors.green, width: 2),
                             // ),
@@ -128,6 +141,7 @@ class _CommunityInfoState extends State<CommunityInfo> {
                                           //     isLongPressed = false;
                                           //   });
                                           // },
+                                          onTapDown: getPosition,
                                           onLongPress: () async {
                                             // setState(() {
                                             //   isLongPressed = true;
@@ -156,7 +170,7 @@ class _CommunityInfoState extends State<CommunityInfo> {
                                                 ),
                                               ],
                                               context: context,
-                                              position: RelativeRect.fromLTRB(100, 100, 100, 100), // TODO: fix positioning,
+                                              position: relRectSize, // TODO: fix positioning,
                                             );
                                             if(selected == 0){
                                               providerCommunity.removeMemberFromCommunity(widget.communityName, member.phone);
@@ -264,4 +278,9 @@ class _CommunityInfoState extends State<CommunityInfo> {
       ),
     );
   }
+  RelativeRect get relRectSize => RelativeRect.fromSize(tapXY & const Size(40, 40), overlay.size);
+  void getPosition(TapDownDetails details) {
+    tapXY = details.globalPosition;
+  }
 }
+

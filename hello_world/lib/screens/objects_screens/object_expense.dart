@@ -23,27 +23,28 @@ class _ObjectExpenseScreenState extends State<ObjectExpenseScreen> {
           return const Center(child: Text("No expenses in this object"));
         } 
 
-        return Column(
-            children: [
-              Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: List.of(objectDataProvider.objectUnresolvedExpenseMap[widget.communityName]![widget.objectName] as Iterable<Widget>)
-              ),
-              Container (
-                padding: const EdgeInsets.only(left: 10, top: 10, bottom: 10),
-                child: const Align(
-                  alignment: Alignment.centerLeft,
-                  // child: Text(
-                  //   "Resolved Expenses",
-                  //   style: TextStyle(
-                  //     fontSize: 20,
-                  //     fontWeight: FontWeight.normal,
-                  //   ),
-                  // ),
-                ),
-              ),
-            ]
+        return SingleChildScrollView(
+          child:
+            Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: List.of(objectDataProvider.objectUnresolvedExpenseMap[widget.communityName]![widget.objectName] as Iterable<Widget>)
+                )
         );
+              // Container (
+              //   padding: const EdgeInsets.only(left: 10, top: 10, bottom: 10),
+              //   child: const Align(
+              //     alignment: Alignment.centerLeft,
+              //     // child: Text(
+              //     //   "Resolved Expenses",
+              //     //   style: TextStyle(
+              //     //     fontSize: 20,
+              //     //     fontWeight: FontWeight.normal,
+              //     //   ),
+              //     // ),
+              //   ),
+              // ),
+            // ]
+        // );
       },
     );
   }

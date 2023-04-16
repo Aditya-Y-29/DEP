@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 class Member extends StatefulWidget {
@@ -11,6 +13,7 @@ class Member extends StatefulWidget {
 
 class _MemberState extends State<Member> {
   final GlobalKey widgetKey = GlobalKey();
+  Random random = Random();
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -25,6 +28,7 @@ class _MemberState extends State<Member> {
       child: Expanded(
           child :  ListTile(
             leading: CircleAvatar(
+              backgroundColor: Colors.green[100],
               child: Text(widget.name[0]),
             ),
             title: Text(widget.name),
