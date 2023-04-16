@@ -229,24 +229,6 @@ class DataProvider extends ChangeNotifier {
     return communityTotalExpenseMap;
   }
 
-  void getCommunityMembers(List<CommunityModel>? communityList,String phone) async {
-    for (int i = 0; i < communityList!.length; i++) {
-      List<Member> memberList = [];
-      List<dynamic>? group = await UserDataBaseService.getCommunityMembers(communityList[i].name, communityList[i].phoneNo);
-      
-      for (int j = 0; j < group.length; j++) {
-        memberList.add(Member(
-          name: group[j]["Name"],
-          phone: group[j]["Phone Number"],
-          isCreator: group[j]["Is Admin"],
-        ));
-      }
-
-      communityMembersMap[communityList[i].name] = memberList;
-    }
-    notifyListeners();
-  }
-
   void getAllUserPhones() async {
     allUserPhones = await UserDataBaseService.getAllUserPhones();
     notifyListeners();
@@ -264,7 +246,6 @@ class DataProvider extends ChangeNotifier {
     }
 
     getAllUserPhones();
-    getCommunityMembers(communityTemp,phoneNo);
 
     for (int i = 0; i < communityTemp.length; i++) {
       getCommunityDetails(communityTemp[i].name);
@@ -274,7 +255,6 @@ class DataProvider extends ChangeNotifier {
   }
 
   Future<void> getCommunityDetails(String CommunityName) async {
-
 
     CommunityModel? currCommunity=null;
     for(int i=0;i<communitiesdb!.length;i++){
@@ -304,6 +284,8 @@ class DataProvider extends ChangeNotifier {
 
       getObjectDetails(CommunityName, objectTemp[j].name);
     }
+
+    getIndividualCommunityMembers(currCommunity);
 
     notifyListeners();
 
@@ -355,6 +337,20 @@ class DataProvider extends ChangeNotifier {
     }
 
     notifyListeners();
+  }
+
+  void getIndividualCommunityMembers(CommunityModel community) async{
+    List<Member> memberList = [];
+    List<dynamic>? group = await UserDataBaseService.getCommunityMembers(community.name, community.phoneNo);
+    for (int j = 0; j < group.length; j++) {
+      memberList.add(Member(
+        name: group[j]["Name"],
+        phone: group[j]["Phone Number"],
+        isCreator: group[j]["Is Admin"],
+      ));
+    }
+    communityMembersMap[community.name] = memberList;
+
   }
 
   void deleteState() {
@@ -453,6 +449,11 @@ class DataProvider extends ChangeNotifier {
     expenseDate += " " + time.hour.toString() + ":" + time.minute.toString() + ":" + time.second.toString() + "." + time.millisecond.toString();
     dateTime = new DateTime( dateTime.year, dateTime.month, dateTime.day, time.hour, time.minute, time.second, time.millisecond);
 
+    print(ctmp.name);
+    print(ctmp.phoneNo);
+    print(communityObjectMapdb![ctmp]!);
+    print(objectName);
+    
     ObjectsModel otmp = communityObjectMapdb![ctmp]!
         .firstWhere((element) => element.name == objectName);
 
@@ -465,12 +466,13 @@ class DataProvider extends ChangeNotifier {
         description: "",
         date: dateTime);
 
+    print("1");
     if (ExpenseDataBaseService.createExpense(expense) == false) {
       return;
     }
 
+    print("2");
     ExpenseDataBaseService.ExpenseAddNotification(expense);
-    // await CommunityDataBaseService.addCommunityLogNotification(ctmp, "Expense Added: " + description + " (" + amount.toString() + ")");
     await CommunityDataBaseService.addCommunityLogNotification(ctmp, "Expense Added In ${objectName}: ₹" + amount.toString()+" by ${user?.name}");
     objectUnresolvedExpenseMap[communityName]![objectName]?.add(Expense(
         objectName: objectName,

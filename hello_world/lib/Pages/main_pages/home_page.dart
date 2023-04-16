@@ -39,13 +39,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // floatingActionButton: clickedCommunity != 0 ? FloatingActionButton(
-      //   onPressed: () {
-      //     Navigator.of(context).push(_createRoute(communityName));
-      //   },
-      //   backgroundColor: Colors.green,
-      //   child: const Icon(Icons.arrow_forward_ios, size: 20,),
-      // ) : null,
+
       appBar: AppBar(
         leading: IconButton(
           icon: const Icon(
@@ -135,6 +129,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                     height: 50,
                                     width: 50,
                                     child: FloatingActionButton(
+                                      heroTag: "BTN-9",
                                       onPressed: () {
                                         Navigator.push(
                                           context,
@@ -164,6 +159,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                     height: 50,
                                     width: 50,
                                     child: FloatingActionButton(
+                                        heroTag: "BTN-10",
                                         onPressed: () {
                                           Navigator.push(
                                             context,
@@ -201,6 +197,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                     height: 50,
                                     width: 50,
                                     child: FloatingActionButton(
+                                        heroTag: "BTN-11",
                                         onPressed: () {
                                           Navigator.push(
                                             context,
@@ -230,35 +227,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 ],
                               ),
                             ),
-                            // Container(
-                            //   child: Column(
-                            //     mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            //     children: [
-                            //       Container(
-                            //         height: 50,
-                            //         width: 50,
-                            //         child: FloatingActionButton(
-                            //           onPressed: () {
-                            //             Navigator.push(
-                            //               context,
-                            //               MaterialPageRoute(
-                            //                 builder: (context) => AddFromHomePage(selectedPage: 2),
-                            //               ),
-                            //             );
-                            //           },
-                            //           backgroundColor: Colors.green,
-                            //           child: const Icon(Icons.home_repair_service),
-                            //         ),
-                            //       ),
-                            //       const Text(
-                            //         "Service",
-                            //         style: TextStyle(
-                            //           fontSize: 12,
-                            //         ),
-                            //       ),
-                            //     ],
-                            //   ),
-                            // ),
+
                           ],
                         ),
                       ),
@@ -361,6 +330,7 @@ class _MyHomePageState extends State<MyHomePage> {
             Padding(
               padding: const EdgeInsets.only(right: 8.0,bottom: 8,top: 4),
               child: FloatingActionButton(
+                heroTag: "BTN-12",
                 onPressed: () async {
                   DataProvider dataProvider =
                   Provider.of<DataProvider>(context, listen: false);

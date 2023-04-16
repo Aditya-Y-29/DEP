@@ -244,18 +244,11 @@ class _CommunityInfoState extends State<CommunityInfo> {
           mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[
             SizedBox(width: 16.0,height: 10,),
-            // Padding(
-            //   padding: const EdgeInsets.only(right: 85.0,bottom: 8),
-            //   child: FloatingActionButton(
-            //     onPressed:(){
-            //       Navigator.push(context, MaterialPageRoute(builder: (context) => AddMembers(communityName: widget.communityName)));
-            //     },
-            //     child: Icon(Icons.person_add),
-            //   ),
-            // ),
+
             Padding(
               padding: const EdgeInsets.only(right: 8.0,bottom: 8,top: 4),
               child: FloatingActionButton(
+                heroTag: "BTN-4",
                 onPressed: () async {
                   DataProvider dataProvider =
                   Provider.of<DataProvider>(context, listen: false);

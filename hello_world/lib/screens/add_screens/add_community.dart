@@ -59,6 +59,7 @@ class CommunityData extends State<CommunityScreen> {
             Container(
                 margin: const EdgeInsets.only(top: 20.0),
                 child: FloatingActionButton(
+                  heroTag: "BTN-19",
                   onPressed: () async {
                     providerCommunity.addCommunity(communityName.text);
                     Navigator.pop(context);

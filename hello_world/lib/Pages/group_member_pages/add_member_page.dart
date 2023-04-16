@@ -141,6 +141,7 @@ class _AddMemberState extends State<AddMembers> {
               margin: const EdgeInsets.all(10.0),
               child:
               FloatingActionButton.extended(
+                  heroTag:"BTN-3",
                   onPressed: () {
                     var selectedNames = selectedContacts.map((contact) => contact.name.first).toList();
                     var selectedPhones = selectedContacts.map((contact) => contact.phones.first.number).toList();
