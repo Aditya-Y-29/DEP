@@ -72,7 +72,7 @@ class _ExpenseState extends State<Expense> {
                   creator: widget.creator,
                   description: widget.description,
                   amount: widget.amount,
-                  date:widget.date.substring(0, widget.date.length - 13),
+                  date:widget.date.substring(0, 10),
                   isPaid: false,
                   objectName: widget.objectName,
                   communityName: widget.communityName,
@@ -92,7 +92,7 @@ class _ExpenseState extends State<Expense> {
                   children: [
                     const Icon(Icons.edit, color: Colors.green, size: 25,),
                     Text(
-                      widget.date.substring(0, widget.date.length - 7),
+                      widget.date.substring(0, 10),
                       style: const TextStyle(
                         fontSize: 8,
                       ),
