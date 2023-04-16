@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import '../Pages/add_from_pages/add_from_object_page.dart';
 import '../provider/data_provider.dart';
 import 'community.dart';
+import 'dart:math';
 
 class Object extends StatefulWidget {
   final String name;
@@ -64,7 +65,7 @@ class _ObjectState extends State<Object> {
       }
     }
   }
-
+  Random random = Random();
   @override
   Widget build(BuildContext context) {
     final providerCommunity = Provider.of<DataProvider>(context, listen: false);
@@ -162,7 +163,7 @@ class _ObjectState extends State<Object> {
                 height: 30.0,
                 width: 30.0,
                 child: new FloatingActionButton(
-                  heroTag: null,
+                  heroTag: "${random.nextInt(1000000)}",
                   onPressed: () {
                     Navigator.push(
                       context,

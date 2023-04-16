@@ -105,6 +105,7 @@ class ObjectData extends State<ObjectScreen> {
                   Container(
                       margin: const EdgeInsets.only(top: 20.0),
                       child: FloatingActionButton(
+                        heroTag: "BTN-21",
                         onPressed: () {
                           providerCommunity.addObject(communityDropDown, objectName.text);
                           Navigator.pop(context);

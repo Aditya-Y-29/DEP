@@ -166,6 +166,7 @@ class _ObjectPageState extends State<ObjectPage> {
                     Padding(
                       padding: const EdgeInsets.only(right: 85.0,bottom: 8),
                       child: FloatingActionButton(
+                        heroTag: "BTN-15",
                         onPressed: () async {
                           Navigator.push(
                             context,
@@ -180,6 +181,7 @@ class _ObjectPageState extends State<ObjectPage> {
                     Padding(
                       padding: const EdgeInsets.only(right: 8.0,bottom: 8),
                       child: FloatingActionButton(
+                        heroTag: "BTN-16",
                         onPressed: () async {
                           DataProvider dataProvider =
                           Provider.of<DataProvider>(context, listen: false);

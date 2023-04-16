@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../Pages/add_from_pages/add_from_community_page.dart';
 import '../../provider/data_provider.dart';
 import 'package:provider/provider.dart';
+import 'dart:math';
 
 class Community extends StatefulWidget {
   final String name;
@@ -62,6 +63,7 @@ class _CommunityState extends State<Community> {
 
   bool clicked = false;
 
+  Random random = Random();
   @override
   Widget build(BuildContext context) {
     final providerCommunity = Provider.of<DataProvider>(context, listen: false);
@@ -207,7 +209,7 @@ class _CommunityState extends State<Community> {
                               height: 30.0,
                               width: 30.0,
                               child: new FloatingActionButton(
-                                heroTag: null,
+                                heroTag: "${random.nextInt(1000000)}",
                                 onPressed: (){
                                   Navigator.push(
                                     context,

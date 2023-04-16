@@ -199,6 +199,7 @@ class ExpenseData extends State<EditExpenseScreen> {
                   Container(
                       margin: const EdgeInsets.only(top: 20.0),
                       child: FloatingActionButton(
+                        heroTag: "BTN-22",
                         onPressed: () {
                           providerCommunity.updateExpense(widget.expense,amountInvolved.text,dateController.text, description.text);
                           Navigator.pop(context);

@@ -101,6 +101,7 @@ class EditProfilePageState extends State<EditProfilePage> {
           ],
         ),
         floatingActionButton: FloatingActionButton(
+          heroTag: "BTN-18",
         onPressed: () {
 
     },

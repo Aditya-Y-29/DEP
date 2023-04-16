@@ -169,6 +169,7 @@ class _CommunityPageState extends State<CommunityPage> {
                                   height: 50,
                                   width: 50,
                                   child: FloatingActionButton(
+                                    heroTag: "BTN-5",
                                     onPressed: () {
                                       Navigator.push(
                                         context,
@@ -197,6 +198,7 @@ class _CommunityPageState extends State<CommunityPage> {
                                   height: 50,
                                   width: 50,
                                   child: FloatingActionButton(
+                                    heroTag: "BTN-6",
                                     onPressed: () {
                                       Navigator.push(
                                         context,
@@ -233,6 +235,7 @@ class _CommunityPageState extends State<CommunityPage> {
                                   height: 50,
                                   width: 50,
                                   child: FloatingActionButton(
+                                    heroTag: "BTN-7",
                                     onPressed: () {
                                       Navigator.push(
                                         context,
@@ -426,6 +429,7 @@ class _CommunityPageState extends State<CommunityPage> {
             Padding(
               padding: const EdgeInsets.only(right: 8.0,bottom: 8),
               child: FloatingActionButton(
+                heroTag: "BTN-8",
                 onPressed: () async {
                   DataProvider dataProvider =
                   Provider.of<DataProvider>(context, listen: false);
