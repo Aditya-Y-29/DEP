@@ -94,7 +94,6 @@ class _MyHomePageState extends State<MyHomePage> {
           return Container(
               child: SingleChildScrollView(
                   child: Column(
-                    // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Container (
                         height: 100,
@@ -262,17 +261,10 @@ class _MyHomePageState extends State<MyHomePage> {
                               if(!e.toLowerCase().contains(searchController.text.toLowerCase().trim())) {
                                 return SizedBox(height: 0,);
                               }
-                              // int k = communityDataProvider.communities.indexOf(e)+1;
                               return GestureDetector(
                                   onTap: () {
                                     setState(() {
-                                      // int temp = 1 << (k-1);
-                                      // if(clickedCommunity >> (k-1) & 1 == 1)
-                                      //   clickedCommunity = clickedCommunity ^ temp;
-                                      // else{
-                                      //   clickedCommunity = 0;
-                                      //   clickedCommunity = clickedCommunity | temp;
-                                      // }
+
                                       communityName = e;
                                     });
                                     Navigator.of(context).push(_createRoute(communityName));
@@ -290,17 +282,6 @@ class _MyHomePageState extends State<MyHomePage> {
                                         width: 1.0,
                                       ),
                                       borderRadius: BorderRadius.circular(10.0),
-                                      // boxShadow: const [
-                                      //   BoxShadow(
-                                      //     color: Colors.grey,
-                                      //     blurRadius: 15.0, // soften the shadow
-                                      //     spreadRadius: 1.0, //extend the shadow
-                                      //     offset: Offset(
-                                      //       1.0, // Move to right 5  horizontally
-                                      //       1.0, // Move to bottom 5 Vertically
-                                      //     ),
-                                      //   )
-                                      // ],
                                     ),
                                     duration: const Duration(milliseconds: 250),
                                     curve: Curves.easeInOut,
@@ -334,7 +315,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 onPressed: () async {
                   DataProvider dataProvider =
                   Provider.of<DataProvider>(context, listen: false);
-                  const snackbar1 = SnackBar(content: Text("Refreshing..."), duration: Duration(seconds: 6),);
+                  const snackbar1 = SnackBar(content: Text("Refreshing..."), duration: Duration(seconds: 4),);
                   ScaffoldMessenger.of(context).showSnackBar(snackbar1);
                   await dataProvider.getAllDetails(dataProvider.user!.phoneNo);
                 },

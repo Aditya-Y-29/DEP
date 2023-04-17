@@ -245,6 +245,7 @@ class DataProvider extends ChangeNotifier {
       communities.add(communityTemp[i].name);
     }
 
+    notifyListeners();
     getAllUserPhones();
 
     for (int i = 0; i < communityTemp.length; i++) {
@@ -281,14 +282,12 @@ class DataProvider extends ChangeNotifier {
       communityObjectMap[currCommunity.name]!.add(objectTemp[j].name);
       communityObjectMapdb![currCommunity]!.add(objectTemp[j]);
 
-
       getObjectDetails(CommunityName, objectTemp[j].name);
     }
 
     getIndividualCommunityMembers(currCommunity);
 
     notifyListeners();
-
 
   }
 
