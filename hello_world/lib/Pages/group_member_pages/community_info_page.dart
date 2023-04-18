@@ -284,3 +284,15 @@ class _CommunityInfoState extends State<CommunityInfo> {
   }
 }
 
+int sortCreators(Member a, Member b){
+  if(a.isCreator && !b.isCreator){
+    return -1;
+  }
+  else if(!a.isCreator && b.isCreator){
+    return 1;
+  }
+  else{
+    return 0;
+  }
+}
+
