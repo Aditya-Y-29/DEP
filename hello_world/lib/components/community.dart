@@ -67,44 +67,7 @@ class _CommunityState extends State<Community> {
   @override
   Widget build(BuildContext context) {
     final providerCommunity = Provider.of<DataProvider>(context, listen: false);
-    return GestureDetector(
-        onTap: () {
-          // Navigator.push(
-          //     context,
-          //     MaterialPageRoute(
-          //         builder: (context) => CommunityPage(communityName: widget.name,)
-          //     )
-          // );
-          setState(() {
-            clicked = !clicked;
-          });
-        },
-        child: Container(
-          // width: 150,
-          // height: 150,
-          // margin: const EdgeInsets.all(5.0),
-          // padding: const EdgeInsets.only(left: 20.0),
-          // decoration: BoxDecoration(
-          //   color: clicked ? Colors.blue.shade50 : Colors.grey.shade100,
-          //   border: Border.all(
-          //     color: clicked ? Colors.blue : Colors.blue.withOpacity(0),
-          //     width: 2.0,
-          //   ),
-          //   borderRadius: BorderRadius.circular(20.0),
-          //   boxShadow: const [
-          //     BoxShadow(
-          //       color: Colors.grey,
-          //       blurRadius: 15.0, // soften the shadow
-          //       spreadRadius: 1.0, //extend the shadow
-          //       offset: Offset(
-          //         1.0, // Move to right 5  horizontally
-          //         1.0, // Move to bottom 5 Vertically
-          //       ),
-          //     )
-          //   ],
-          // ),
-          // duration: const Duration(milliseconds: 250),
-          // curve: Curves.easeIn,
+    return Container(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -242,8 +205,8 @@ class _CommunityState extends State<Community> {
               ),
             ],
           ),
-        )
-    );
+        );
+    // );
   }
 }
 

@@ -5,6 +5,7 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 
 import '../../provider/data_provider.dart';
+import 'community_info_page.dart';
 
 class AddMembers extends StatefulWidget {
   const AddMembers({Key? key, required this.communityName}) : super(key: key);
@@ -46,11 +47,23 @@ class _AddMemberState extends State<AddMembers> {
       for( var j = 0; j < providerCommunity.allUserPhones.length; j++){
         if(_contacts![i].phones.isNotEmpty){
           String phone = _contacts![i].phones.first.number.toString().replaceAll(' ', '');
+          // only Indian country code
           if(phone.startsWith('+91')) {
             phone = phone.substring(3);
           }
           _contacts![i].phones.first.number = phone;
-          if(phone == providerCommunity.allUserPhones[j].toString()) {
+          bool inComm = false;
+          for(var k = 0; k < providerCommunity.communityMembersMap[widget.communityName]!.length; k++){
+            String memberPhone = providerCommunity.communityMembersMap[widget.communityName]![k].phone.toString().replaceAll(' ', '');
+            if(memberPhone.startsWith('+91')) {
+              memberPhone = memberPhone.substring(3);
+            }
+            if(phone == memberPhone) {
+              inComm = true;
+              break;
+            }
+          }
+          if(!inComm && phone == providerCommunity.allUserPhones[j].toString()) {
             contactsOnPlatform.add(_contacts![i]);
           }
         }
@@ -75,6 +88,7 @@ class _AddMemberState extends State<AddMembers> {
   Widget _body(contactsOnPlatform, providerCommunity) {
     if (_permissionDenied) return Center(child: Text('Permission denied'));
     if (contactsOnPlatform == null) return Center(child: CircularProgressIndicator());
+    if (contactsOnPlatform.isEmpty) return Center(child: Text('No new contacts found on UtilMan!'));
 
     Future<bool> showAddMemberDialog(BuildContext context) async {
       bool? confirm = await showDialog<bool>(
@@ -161,7 +175,7 @@ class _AddMemberState extends State<AddMembers> {
                 ),
             ),
             Container(
-              margin: const EdgeInsets.all(10.0),
+              margin: const EdgeInsets.only(bottom: 50.0, top: 10),
               child:
               FloatingActionButton.extended(
                   heroTag:"BTN-3",
@@ -183,6 +197,11 @@ class _AddMemberState extends State<AddMembers> {
                     //   context,
                     //   MaterialPageRoute(builder: (context) => CommunityInfo(communityName: widget.communityName)),
                     // );
+                    // Navigator.pushReplacement(
+                    //     context,
+                    //     MaterialPageRoute(builder: (context) => CommunityInfo(communityName: widget.communityName))
+                    // );
+                    Navigator.pop(context);
                   },
                   label: Row(
                     children: const [
