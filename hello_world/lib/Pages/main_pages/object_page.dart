@@ -48,13 +48,6 @@ class _ObjectPageState extends State<ObjectPage> {
             Container(
               margin: const EdgeInsets.all(5),
               padding: const EdgeInsets.all(1),
-              // decoration: BoxDecoration(
-              //   borderRadius: BorderRadius.circular(100),
-              //   border: Border.all(
-              //     color: Colors.white,
-              //     width: 2,
-              //   ),
-              // )
             ),
             GestureDetector(
                 onTap: () {
@@ -136,7 +129,6 @@ class _ObjectPageState extends State<ObjectPage> {
                   bottom: const TabBar(
                   tabs: [
                     Tab(icon: Icon(Icons.currency_rupee_outlined),),
-                    // Tab(icon: Icon(Icons.home_repair_service),),
                   ],
                   indicatorColor: Colors.white,
                 ),
