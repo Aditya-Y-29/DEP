@@ -46,6 +46,10 @@ class ExpenseData extends State<ExpenseScreen> {
       communityDropDown=providerCommunity.communities[providerCommunity.communitiesIndex];
     }
 
+    if( providerCommunity.objectIndex>=providerCommunity.communityObjectMap[communityDropDown]!.length){
+      providerCommunity.objectIndex=0;
+    }
+
     if(widget.isFromObjectPage){
         objectDropDown=widget.objectName;
       } 
