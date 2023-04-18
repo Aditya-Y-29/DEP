@@ -251,68 +251,64 @@ class _MyHomePageState extends State<MyHomePage> {
                             },
                           ),
                       ),
-                      Container(
-                        height: 420,
-                        child:
-                        ListView(
-                          physics: AlwaysScrollableScrollPhysics(),
-                            // spacing: 8,
-                            // runSpacing: 1,
-                            children: List.of(communityDataProvider.communities.map((e) {
-                              if(!e.toLowerCase().contains(searchController.text.toLowerCase().trim())) {
-                                return SizedBox(height: 0,);
-                              }
-                              // int k = communityDataProvider.communities.indexOf(e)+1;
-                              return GestureDetector(
-                                  onTap: () {
-                                    setState(() {
-                                      // int temp = 1 << (k-1);
-                                      // if(clickedCommunity >> (k-1) & 1 == 1)
-                                      //   clickedCommunity = clickedCommunity ^ temp;
-                                      // else{
-                                      //   clickedCommunity = 0;
-                                      //   clickedCommunity = clickedCommunity | temp;
-                                      // }
-                                      communityName = e;
-                                    });
-                                    Navigator.of(context).push(_createRoute(communityName));
+                      Column(
+                        children:
+                          List.of(communityDataProvider.communities.map((e) {
+                                  if(!e.toLowerCase().contains(searchController.text.toLowerCase().trim())) {
+                                    return SizedBox(height: 0,);
+                                  }
+                                  // int k = communityDataProvider.communities.indexOf(e)+1;
+                                  return GestureDetector(
+                                      onTap: () {
+                                        setState(() {
+                                          // int temp = 1 << (k-1);
+                                          // if(clickedCommunity >> (k-1) & 1 == 1)
+                                          //   clickedCommunity = clickedCommunity ^ temp;
+                                          // else{
+                                          //   clickedCommunity = 0;
+                                          //   clickedCommunity = clickedCommunity | temp;
+                                          // }
+                                          communityName = e;
+                                        });
+                                        Navigator.of(context).push(_createRoute(communityName));
 
-                                  },
-                                  child: AnimatedContainer(
-                                    width: 340,
-                                    height: 100,
-                                    margin: const EdgeInsets.symmetric(horizontal: 4.0, vertical: 4.0),
-                                    padding: const EdgeInsets.only(top: 25.0, bottom: 5.0, left: 10.0, right: 5.0),
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      border: Border.all(
-                                        color: Colors.green,
-                                        width: 1.0,
-                                      ),
-                                      borderRadius: BorderRadius.circular(10.0),
-                                      // boxShadow: const [
-                                      //   BoxShadow(
-                                      //     color: Colors.grey,
-                                      //     blurRadius: 15.0, // soften the shadow
-                                      //     spreadRadius: 1.0, //extend the shadow
-                                      //     offset: Offset(
-                                      //       1.0, // Move to right 5  horizontally
-                                      //       1.0, // Move to bottom 5 Vertically
-                                      //     ),
-                                      //   )
-                                      // ],
-                                    ),
-                                    duration: const Duration(milliseconds: 250),
-                                    curve: Curves.easeInOut,
-                                    child: Community(
-                                      name: e,
-                                    ),
-                                  )
-                              );
-                            })
+                                      },
+                                      child: AnimatedContainer(
+                                        width: 340,
+                                        height: 100,
+                                        margin: const EdgeInsets.symmetric(horizontal: 4.0, vertical: 4.0),
+                                        padding: const EdgeInsets.only(top: 25.0, bottom: 5.0, left: 10.0, right: 5.0),
+                                        decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          border: Border.all(
+                                            color: Colors.green,
+                                            width: 1.0,
+                                          ),
+                                          borderRadius: BorderRadius.circular(10.0),
+                                          // boxShadow: const [
+                                          //   BoxShadow(
+                                          //     color: Colors.grey,
+                                          //     blurRadius: 15.0, // soften the shadow
+                                          //     spreadRadius: 1.0, //extend the shadow
+                                          //     offset: Offset(
+                                          //       1.0, // Move to right 5  horizontally
+                                          //       1.0, // Move to bottom 5 Vertically
+                                          //     ),
+                                          //   )
+                                          // ],
+                                        ),
+                                        duration: const Duration(milliseconds: 250),
+                                        curve: Curves.easeInOut,
+                                        child: Community(
+                                          name: e,
+                                        ),
+                                      )
+                                  );
+                                })
+                              )
                           )
-                        ),
-                      )
+                        // ),
+                      // )
                     ],
                   )
               )
