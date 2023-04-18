@@ -71,7 +71,7 @@ class _CommunityPageState extends State<CommunityPage> {
                     ),
                   );
                 },
-                child: const Icon(Icons.notifications, size: 30,),
+                child: const Icon(Icons.notifications, size: 25,),
               )
           ),
           Container(
@@ -308,7 +308,7 @@ class _CommunityPageState extends State<CommunityPage> {
                               ),
                             ),
                             Container(
-                                height: MediaQuery.of(context).size.height * 0.6,
+                                height: MediaQuery.of(context).size.height * 1.0,
                                 child:
                                 TabBarView(
                                   children: [
