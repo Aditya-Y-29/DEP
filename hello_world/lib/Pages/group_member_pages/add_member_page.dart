@@ -5,6 +5,7 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 
 import '../../provider/data_provider.dart';
+import 'community_info_page.dart';
 
 class AddMembers extends StatefulWidget {
   const AddMembers({Key? key, required this.communityName}) : super(key: key);
@@ -151,18 +152,22 @@ class _AddMemberState extends State<AddMembers> {
                 ),
             ),
             Container(
-              margin: const EdgeInsets.all(10.0),
+              margin: const EdgeInsets.only(bottom: 50.0, top: 10),
               child:
               FloatingActionButton.extended(
                   heroTag:"BTN-3",
-                  onPressed: () {
+                  onPressed: () async {
                     var selectedNames = selectedContacts.map((contact) => contact.name.first).toList();
                     var selectedPhones = selectedContacts.map((contact) => contact.phones.first.number).toList();
                     providerCommunity.addMembersToCommunity(widget.communityName, selectedNames, selectedPhones, MyPhone.phoneNo);
-                    providerCommunity.memberListener(MyPhone.phoneNo);
+                    // providerCommunity.memberListener(MyPhone.phoneNo);
                     // Navigator.push(
                     //   context,
                     //   MaterialPageRoute(builder: (context) => CommunityInfo(communityName: widget.communityName)),
+                    // );
+                    // Navigator.pushReplacement(
+                    //     context,
+                    //     MaterialPageRoute(builder: (context) => CommunityInfo(communityName: widget.communityName))
                     // );
                     Navigator.pop(context);
                   },
