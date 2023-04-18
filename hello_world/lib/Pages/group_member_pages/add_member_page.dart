@@ -186,22 +186,8 @@ class _AddMemberState extends State<AddMembers> {
                       var selectedNames = selectedContacts.map((contact) => contact.name.first).toList();
                       var selectedPhones = selectedContacts.map((contact) => contact.phones.first.number).toList();
                       providerCommunity.addMembersToCommunity(widget.communityName, selectedNames, selectedPhones, MyPhone.phoneNo);
-                      providerCommunity.memberListener(MyPhone.phoneNo);
                       Navigator.pop(context);
                     }
-                    else{
-
-                    }
-
-                    // Navigator.push(
-                    //   context,
-                    //   MaterialPageRoute(builder: (context) => CommunityInfo(communityName: widget.communityName)),
-                    // );
-                    // Navigator.pushReplacement(
-                    //     context,
-                    //     MaterialPageRoute(builder: (context) => CommunityInfo(communityName: widget.communityName))
-                    // );
-                    Navigator.pop(context);
                   },
                   label: Row(
                     children: const [
