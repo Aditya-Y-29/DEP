@@ -439,19 +439,14 @@ class DataProvider extends ChangeNotifier {
     await CommunityDataBaseService.addCommunityLogNotification(ctmp, "Object Added : " + objectName+ " by ${user?.name}");
   }
 
-  Future<void> addExpense(String objectName, String creator, int amount,
-      String expenseDate, String description, String communityName) async {
-    CommunityModel ctmp =
-        communitiesdb!.firstWhere((element) => element.name == communityName);
+  Future<void> addExpense(String objectName, String creator, int amount,String expenseDate, String description, String communityName) async {
+    
+    CommunityModel ctmp =communitiesdb!.firstWhere((element) => element.name == communityName);
     DateTime time = DateTime.now().toLocal();
     DateTime dateTime = DateTime.parse(expenseDate);
     expenseDate += " " + time.hour.toString() + ":" + time.minute.toString() + ":" + time.second.toString() + "." + time.millisecond.toString();
     dateTime = new DateTime( dateTime.year, dateTime.month, dateTime.day, time.hour, time.minute, time.second, time.millisecond);
 
-    print(ctmp.name);
-    print(ctmp.phoneNo);
-    print(communityObjectMapdb![ctmp]!);
-    print(objectName);
     
     ObjectsModel otmp = communityObjectMapdb![ctmp]!
         .firstWhere((element) => element.name == objectName);
@@ -465,12 +460,10 @@ class DataProvider extends ChangeNotifier {
         description: "",
         date: dateTime);
 
-    print("1");
     if (ExpenseDataBaseService.createExpense(expense) == false) {
       return;
     }
 
-    print("2");
     ExpenseDataBaseService.ExpenseAddNotification(expense);
     await CommunityDataBaseService.addCommunityLogNotification(ctmp, "Expense Added In ${objectName}: ₹" + amount.toString()+" by ${user?.name}");
     objectUnresolvedExpenseMap[communityName]![objectName]?.add(Expense(
@@ -486,29 +479,30 @@ class DataProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void updateExpense(Expense expense, String newAmount, String newDate,
-      String newDescription) async {
-    CommunityModel ctmp = communitiesdb!
-        .firstWhere((element) => element.name == expense.communityName);
-    ObjectsModel? otmp = communityObjectMapdb![ctmp]!
-        .firstWhere((element) => element.name == expense.objectName);
-    ExpenseModel? rtmp = objectUnresolvedExpenseMapdb![ctmp]![otmp]!
-        .firstWhere((element) => element.name == expense.description);
+  void updateExpense(Expense expense, String newAmount, String newDate,String newDescription) async {
+
+    CommunityModel ctmp = communitiesdb!.firstWhere((element) => element.name == expense.communityName);
+    ObjectsModel? otmp = communityObjectMapdb![ctmp]!.firstWhere((element) => element.name == expense.objectName);
+    ExpenseModel? rtmp = objectUnresolvedExpenseMapdb![ctmp]![otmp]!.firstWhere((element) => element.name == expense.description);
 
     if (ExpenseDataBaseService.deleteExpense(rtmp) == false) {
       return;
     }
+    
+
     objectUnresolvedExpenseMapdb![ctmp]![otmp]!.remove(rtmp);
 
     Expense? item =
-        objectUnresolvedExpenseMap[expense.communityName]![expense.objectName]
-            ?.firstWhere((element) =>
+        objectUnresolvedExpenseMap[expense.communityName]![expense.objectName]?.firstWhere((element) =>
                 element.objectName == expense.objectName &&
                 element.creator == expense.creator &&
                 element.amount == expense.amount &&
                 element.description == expense.description);
+
     objectUnresolvedExpenseMap[expense.communityName]![expense.objectName]
         ?.remove(item);
+
+
     DateTime? dateTime = DateTime.tryParse(newDate);
     ExpenseModel expenseM = ExpenseModel(
         creatorID: await UserDataBaseService.getUserID(user!.phoneNo),
@@ -517,11 +511,12 @@ class DataProvider extends ChangeNotifier {
         objectID: await ObjectDataBaseService.getObjectID(otmp),
         description: "",
         date: dateTime);
+
     if (ExpenseDataBaseService.createExpense(expenseM) == false) {
       return;
     }
 
-    //ExpenseDataBaseService.ExpenseEditNotification(expense);
+    // //ExpenseDataBaseService.ExpenseEditNotification(expense);
 
     objectUnresolvedExpenseMap[expense.communityName]![expense.objectName]?.add(
         Expense(
@@ -535,6 +530,7 @@ class DataProvider extends ChangeNotifier {
 
     objectUnresolvedExpenseMapdb![ctmp]![otmp]!.add(expenseM);
     notifyListeners();
+
   }
 
   addMembersToCommunity(String communityName, List<dynamic> names,

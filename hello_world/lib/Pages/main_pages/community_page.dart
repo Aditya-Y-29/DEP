@@ -419,7 +419,7 @@ class _CommunityPageState extends State<CommunityPage> {
         },
       ),
       bottomNavigationBar: BottomAppBar(
-        color: Colors.green.shade50.withOpacity(0),
+        color: Colors.green.withOpacity(0),
         elevation: 0,
         shape: CircularNotchedRectangle(),
         child: Row(

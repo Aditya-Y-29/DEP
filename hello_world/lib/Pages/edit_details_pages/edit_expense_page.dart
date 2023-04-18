@@ -20,7 +20,7 @@ class _EditFromObjectPageData extends State<EditExpensePage> {
   Widget build(BuildContext context) {
     final providerCommunity = Provider.of<DataProvider>(context, listen: false);
     return DefaultTabController(
-      length: 3,
+      length: 1,
 
       child: Scaffold(
         appBar: AppBar(
@@ -86,9 +86,7 @@ class _EditFromObjectPageData extends State<EditExpensePage> {
         ),
         body: TabBarView(
           children: [
-           // ResolveScreen(isFromObjectPage: true, communityName: widget.communityName, objectName: widget.objectName,),
             EditExpenseScreen(isFromCommunityPage: false, isFromObjectPage: true,expense:widget.expense),
-            // ServiceScreen(isFromCommunityPage: false, isFromObjectPage: true, communityName: widget.communityName, objectName: widget.objectName,),
           ],
         ),
       ),

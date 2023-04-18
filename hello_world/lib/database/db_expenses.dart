@@ -39,10 +39,16 @@ class ExpenseDataBaseService {
 
   static Future<bool> deleteExpense(ExpenseModel expense) async {
     try {
-      final sp = await _db.collection('expenses').where("ObjectID", isEqualTo: expense.objectID).get();
+      final sp = await _db.collection('expenses').
+                      where("ObjectID", isEqualTo: expense.objectID).
+                      where("CreatorID",isEqualTo: expense.creatorID).
+                      where("Amount",isEqualTo: expense.amount).
+                      where("Name",isEqualTo: expense.name).get();
+
       if (sp.docs.isEmpty) {
         return false; // Expense not found
       }
+
       final expenseDoc = sp.docs.first;
       await expenseDoc.reference.delete();
       return true; // Expense deleted successfully
