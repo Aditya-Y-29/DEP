@@ -75,6 +75,29 @@ class _AddMemberState extends State<AddMembers> {
   Widget _body(contactsOnPlatform, providerCommunity) {
     if (_permissionDenied) return Center(child: Text('Permission denied'));
     if (contactsOnPlatform == null) return Center(child: CircularProgressIndicator());
+
+    Future<bool> showAddMemberDialog(BuildContext context) async {
+      bool? confirm = await showDialog<bool>(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Confirm Add Member'),
+            content: Text('Are you sure you want to add?'),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(context, false),
+                child: Text('No'),
+              ),
+              TextButton(
+                onPressed: () => Navigator.pop(context, true),
+                child: Text('Yes'),
+              ),
+            ],
+          );
+        },
+      );
+      return confirm ?? false;
+    }
     return Container(
       child: Column(
           children: [
@@ -142,16 +165,24 @@ class _AddMemberState extends State<AddMembers> {
               child:
               FloatingActionButton.extended(
                   heroTag:"BTN-3",
-                  onPressed: () {
-                    var selectedNames = selectedContacts.map((contact) => contact.name.first).toList();
-                    var selectedPhones = selectedContacts.map((contact) => contact.phones.first.number).toList();
-                    providerCommunity.addMembersToCommunity(widget.communityName, selectedNames, selectedPhones, MyPhone.phoneNo);
-                    providerCommunity.memberListener(MyPhone.phoneNo);
+                  onPressed: () async {
+                    Future<bool> returnValue= showAddMemberDialog(context);
+                    bool alertResponse = await returnValue;
+                    if(alertResponse==true){
+                      var selectedNames = selectedContacts.map((contact) => contact.name.first).toList();
+                      var selectedPhones = selectedContacts.map((contact) => contact.phones.first.number).toList();
+                      providerCommunity.addMembersToCommunity(widget.communityName, selectedNames, selectedPhones, MyPhone.phoneNo);
+                      providerCommunity.memberListener(MyPhone.phoneNo);
+                      Navigator.pop(context);
+                    }
+                    else{
+
+                    }
+
                     // Navigator.push(
                     //   context,
                     //   MaterialPageRoute(builder: (context) => CommunityInfo(communityName: widget.communityName)),
                     // );
-                    Navigator.pop(context);
                   },
                   label: Row(
                     children: const [
