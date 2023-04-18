@@ -19,6 +19,75 @@ class _CommunityInfoState extends State<CommunityInfo> {
   late Offset tapXY;
   late RenderBox overlay;
 
+  Future<bool> showLogoutDialog(BuildContext context) async {
+    bool? confirm = await showDialog<bool>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Confirm Exit community'),
+          content: Text('Are you sure you want to Exit the community?'),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context, false),
+              child: Text('No'),
+            ),
+            TextButton(
+              onPressed: () => Navigator.pop(context, true),
+              child: Text('Yes'),
+            ),
+          ],
+        );
+      },
+    );
+    return confirm ?? false;
+  }
+
+  Future<bool> showRemoveDialog(BuildContext context,String memberName) async {
+    bool? confirm = await showDialog<bool>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Confirm Remove Action'),
+          content: Text('Are you sure you want to remove ${memberName} from community?'),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context, false),
+              child: Text('No'),
+            ),
+            TextButton(
+              onPressed: () => Navigator.pop(context, true),
+              child: Text('Yes'),
+            ),
+          ],
+        );
+      },
+    );
+    return confirm ?? false;
+  }
+
+  Future<bool> showTogglePowerDialog(BuildContext context,String memberName) async {
+    bool? confirm = await showDialog<bool>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Confirm Toggle Power'),
+          content: Text('Are you sure you want to make ${memberName} creator?'),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context, false),
+              child: Text('No'),
+            ),
+            TextButton(
+              onPressed: () => Navigator.pop(context, true),
+              child: Text('Yes'),
+            ),
+          ],
+        );
+      },
+    );
+    return confirm ?? false;
+  }
+
   @override
   Widget build(BuildContext context) {
 
@@ -173,10 +242,25 @@ class _CommunityInfoState extends State<CommunityInfo> {
                                               position: relRectSize, // TODO: fix positioning,
                                             );
                                             if(selected == 0){
-                                              providerCommunity.removeMemberFromCommunity(widget.communityName, member.phone);
+                                              Future<bool> returnValue= showRemoveDialog(context,member.name);
+                                              bool alertResponse = await returnValue;
+                                              if(alertResponse==true){
+                                                providerCommunity.removeMemberFromCommunity(widget.communityName, providerCommunity.user!.phoneNo);
+                                              }
+                                              else{
+
+                                              }
                                             }
                                             else if(selected == 1){
-                                              providerCommunity.toggleCreatorPower(widget.communityName, member.phone);
+                                              Future<bool> returnValue= showTogglePowerDialog(context,member.name);
+                                              bool alertResponse = await returnValue;
+                                              if(alertResponse==true){
+                                                providerCommunity.toggleCreatorPower(widget.communityName, member.phone);
+                                              }
+                                              else{
+
+                                              }
+
                                             }
                                           },
                                           child: Container(
@@ -194,7 +278,7 @@ class _CommunityInfoState extends State<CommunityInfo> {
                           ),
                         ),
                         GestureDetector(
-                          onTap: () {
+                          onTap: () async {
                             if(providerCommunity.communityMembersMap[widget.communityName]!.length == 1) {
                               providerCommunity.deleteCommunity(widget.communityName);
                               Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => MyHomePage()));
@@ -209,8 +293,15 @@ class _CommunityInfoState extends State<CommunityInfo> {
                               );
                               return;
                             }
-                            providerCommunity.removeMemberFromCommunity(widget.communityName, providerCommunity.user!.phoneNo);
-                            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => MyHomePage()));
+                            Future<bool> returnValue= showLogoutDialog(context);
+                            bool alertResponse = await returnValue;
+                            if(alertResponse==true){
+                              providerCommunity.removeMemberFromCommunity(widget.communityName, providerCommunity.user!.phoneNo);
+                              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => MyHomePage()));
+                            }
+                            else{
+
+                            }
                           },
                           child:
                           Container(

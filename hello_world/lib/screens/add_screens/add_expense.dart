@@ -41,7 +41,6 @@ class ExpenseData extends State<ExpenseScreen> {
     final providerCommunity = Provider.of<DataProvider>(context, listen: true);
     if(widget.isFromCommunityPage || widget.isFromObjectPage) {
       communityDropDown=widget.communityName;
-
     } else {
       communityDropDown=providerCommunity.communities[providerCommunity.communitiesIndex];
     }

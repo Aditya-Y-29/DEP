@@ -45,27 +45,8 @@ class ExpenseData extends State<EditExpenseScreen> {
 
   Widget build(BuildContext context) {
 
-    //description.text=widget.expense.description;
-    //amountInvolved.text=widget.expense.amount.toString();
-    //dateController.text=DateFormat('dd-MM-yyyy').format(widget.expense.date);
 
     final providerCommunity = Provider.of<DataProvider>(context, listen: true);
-    if(widget.isFromCommunityPage) {
-      communityDropDown=widget.expense.communityName;
-    } else {
-      communityDropDown=providerCommunity.communities[providerCommunity.communitiesIndex];
-    }
-
-
-
-    if(widget.isFromObjectPage){
-      objectDropDown=widget.expense.objectName;
-    }
-    else if (providerCommunity.communityObjectMap[communityDropDown]!.isNotEmpty) {
-      objectDropDown=providerCommunity.communityObjectMap[communityDropDown]![providerCommunity.objectIndex];
-    } else {
-      return const Center(child: Text("No Objects in this Community"));
-    }
 
     return Form(
         key: _formKey,
@@ -83,63 +64,7 @@ class ExpenseData extends State<EditExpenseScreen> {
                       fontSize: 30,
                       fontWeight: FontWeight.bold,
                     ),
-                  ),
-                  SizedBox(height: 10,),
-
-                  if(!widget.isFromCommunityPage && !widget.isFromObjectPage)
-                    DropdownButtonFormField<String>(
-                      decoration: const InputDecoration(
-                        icon: Icon(Icons.home_work),
-                        hintText: 'Community',
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                        ),
-                      ),
-                      value : communityDropDown,
-                      items: providerCommunity.communities.map<DropdownMenuItem<String>>((String chosenValue) {
-                        return DropdownMenuItem<String>(
-                          value: chosenValue,
-                          child: Text(chosenValue),
-                        );
-                      }).toList(),
-
-                      onChanged: (String? newValue) {
-                        setState(() {
-                          communityDropDown = newValue!;
-                          objectDropDown=providerCommunity.communityObjectMap[communityDropDown]![0];
-                          providerCommunity.communityListen(communityDropDown);
-                        });
-                      },
-                    ),
-
-                  SizedBox(height: 10,),
-
-                  if(!widget.isFromObjectPage)
-                    DropdownButtonFormField<String>(
-                      decoration: const InputDecoration(
-                        icon: Icon(Icons.data_object),
-                        hintText: 'Object',
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                        ),
-                      ),
-                      value : objectDropDown,
-                      items: providerCommunity.communityObjectMap[communityDropDown]?.map<DropdownMenuItem<String>>((String chosenValue) {
-                        return DropdownMenuItem<String>(
-                          value: chosenValue,
-                          child: Text(chosenValue),
-                        );
-                      }).toList(),
-
-                      onChanged: (String? newValue) {
-                        setState(() {
-                          objectDropDown = newValue!;
-                        });
-
-                        providerCommunity.objectListen(communityDropDown, objectDropDown);
-                      },
-                    ),
-
+                  ),  
 
                   SizedBox(height: 10,),
 
@@ -185,10 +110,8 @@ class ExpenseData extends State<EditExpenseScreen> {
 
                   ),
 
-
                   SizedBox(height: 10,),
-
-
+                  
                   TextFormField(
                     decoration: const InputDecoration(
                       icon: Icon(Icons.edit),

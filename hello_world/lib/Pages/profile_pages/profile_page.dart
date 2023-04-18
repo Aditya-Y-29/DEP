@@ -82,32 +82,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         CircleAvatar(
                           radius: 60,
                           // radius: kSpacingUnit.w * 10,
-                          backgroundImage: AssetImage('assets/images/avatar.png'),
-                        ),
-                        Align(
-                          alignment: Alignment.bottomRight,
-                          child: Container(
-                            height: 30,
-                            width: 30,
-                            // height: kSpacingUnit.w * 4,
-                            // width: kSpacingUnit.w * 5,
-                            decoration: BoxDecoration(
-                              color: Colors.green,
-                              shape: BoxShape.circle,
-                            ),
-                            child: Center(
-                              heightFactor: 2,
-                              widthFactor: 2,
-                              // heightFactor: kSpacingUnit.w * 1.5,
-                              // widthFactor: kSpacingUnit.w * 1.5,
-
-                              child: Icon(
-                                Icons.edit,
-                                color: Colors.white,
-                                size: 18,
-                              ),
-                            ),
-                          ),
+                          child: Text("${providerCommunity.user?.username[0]}",style: TextStyle(fontSize: 70),),
                         ),
                       ],
                     ),

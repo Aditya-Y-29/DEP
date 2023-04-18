@@ -38,6 +38,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final providerCommunity = Provider.of<DataProvider>(context, listen: false);
     return Scaffold(
 
       appBar: AppBar(
@@ -73,17 +74,10 @@ class _MyHomePageState extends State<MyHomePage> {
                     width: 1,
                   ),
                 ),
-                child: Image.asset(
-                  'assets/images/avatar.png',
-                  width: 30,
-                  height: 30,
-                  errorBuilder: ( context,  exception,  stackTrace) {
-                    return Image.asset(
-                      'assets/img1.png',
-                      width: 30,
-                      height: 30,
-                    );
-                  },
+                child: CircleAvatar(
+                  radius: 15,
+                  // radius: kSpacingUnit.w * 10,
+                  child: Text("${providerCommunity.user?.username[0]}",style: TextStyle(fontSize: 20),),
                 ),
               )
           )
@@ -94,7 +88,6 @@ class _MyHomePageState extends State<MyHomePage> {
           return Container(
               child: SingleChildScrollView(
                   child: Column(
-                    // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Container (
                         height: 100,
@@ -330,7 +323,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 onPressed: () async {
                   DataProvider dataProvider =
                   Provider.of<DataProvider>(context, listen: false);
-                  const snackbar1 = SnackBar(content: Text("Refreshing..."), duration: Duration(seconds: 6),);
+                  const snackbar1 = SnackBar(content: Text("Refreshing..."), duration: Duration(seconds: 4),);
                   ScaffoldMessenger.of(context).showSnackBar(snackbar1);
                   await dataProvider.getAllDetails(dataProvider.user!.phoneNo);
                 },

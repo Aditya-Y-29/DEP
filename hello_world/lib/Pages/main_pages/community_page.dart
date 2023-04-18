@@ -112,17 +112,10 @@ class _CommunityPageState extends State<CommunityPage> {
                         width: 1,
                       ),
                     ),
-                    child: Image.asset(
-                      'assets/images/avatar.png',
-                      width: 30,
-                      height: 30,
-                      errorBuilder: ( context,  exception,  stackTrace) {
-                        return Image.asset(
-                          'assets/img1.png',
-                          width: 30,
-                          height: 30,
-                        );
-                      },
+                    child: CircleAvatar(
+                      radius: 15,
+                      // radius: kSpacingUnit.w * 10,
+                      child: Text("${providerCommunity.user?.username[0]}",style: TextStyle(fontSize: 20),),
                     ),
                   )
               )
@@ -419,13 +412,13 @@ class _CommunityPageState extends State<CommunityPage> {
         },
       ),
       bottomNavigationBar: BottomAppBar(
-        color: Colors.green.shade50,
+        color: Colors.green.withOpacity(0),
         elevation: 0,
         shape: CircularNotchedRectangle(),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[
-            SizedBox(width: 16.0,),
+            SizedBox(width: 16.0),
             Padding(
               padding: const EdgeInsets.only(right: 8.0,bottom: 8),
               child: FloatingActionButton(
