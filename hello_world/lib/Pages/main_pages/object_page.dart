@@ -67,7 +67,7 @@ class _ObjectPageState extends State<ObjectPage> {
                 },
                 child:
                 Container(
-                  margin: const EdgeInsets.all(10),
+                  margin: const EdgeInsets.all(8),
                   // padding: const EdgeInsets.all(1),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(50),
@@ -76,18 +76,11 @@ class _ObjectPageState extends State<ObjectPage> {
                       width: 1,
                     ),
                   ),
-                  child: Image.asset(
-                    'assets/images/avatar.png',
-                    width: 30,
-                    height: 30,
-                    errorBuilder: ( context,  exception,  stackTrace) {
-                        return Image.asset(
-                              'assets/img1.png',
-                              width: 30,
-                              height: 30,
-                            );                  
-                    },
-                  ),
+                      child: CircleAvatar(
+                      radius: 15,
+                      // radius: kSpacingUnit.w * 10,
+                      child: Text("${providerCommunity.user?.username[0]}",style: TextStyle(fontSize: 20),),
+                      ),
                 )
             )
           ],
