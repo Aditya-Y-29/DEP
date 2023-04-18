@@ -49,7 +49,6 @@ class ExpenseData extends State<ExpenseScreen> {
       providerCommunity.objectIndex=0;
     }
 
-
     if(widget.isFromObjectPage){
         objectDropDown=widget.objectName;
       } 

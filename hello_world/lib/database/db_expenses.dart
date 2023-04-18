@@ -12,7 +12,7 @@ class ExpenseDataBaseService {
   static Future<bool> createExpense(ExpenseModel expense) async {
     try {
 
-      final sp= await _db.collection('expenses').where("Name", isEqualTo: expense.name).where("ObjectID", isEqualTo: expense.objectID).get();
+      final sp= await _db.collection('expenses').where("Name", isEqualTo: expense.name).where("ObjectID", isEqualTo: expense.objectID).where("Date", isEqualTo: expense.date).get();
 
       if(sp.docs.isNotEmpty){
         return false;
