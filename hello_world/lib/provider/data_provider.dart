@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hello_world/components/expense.dart';
 import 'package:hello_world/components/member.dart';
+import 'package:collection/collection.dart';
+
 // import 'package:hello_world/components/service.dart';
 
 import '../Models/user.dart';
@@ -48,7 +50,7 @@ class DataProvider extends ChangeNotifier {
     "Office": "assets/images/communityImages/Office.png",
     "Shop":"assets/images/communityImages/Shop.jpg",
     "Mess":"assets/img1.png",
-    // "Work":"assets/images/communityImages/Work.jpg",
+    // "Work":"assets/images/communityImages/Work.png",
     // "Lab":"assets/images/communityImages/Lab.jpg",
     // "Friends":"assets/images/communityImages/Friends.jpg",
     // "Family":"assets/images/communityImages/Family.jpg",
@@ -417,6 +419,17 @@ class DataProvider extends ChangeNotifier {
     CommunityModel ctmp =
         communitiesdb!.firstWhere((element) => element.name == communityName);
     String? communityID = await CommunityDataBaseService.getCommunityID(ctmp);
+    
+    //checking if object already present?
+
+    ObjectsModel? otmp = communityObjectMapdb![ctmp]!
+        .firstWhereOrNull((element) => element.name == objectName);
+
+    if(otmp!=null){
+      return;
+    }
+    
+    
     ObjectsModel object = ObjectsModel(
         name: objectName,
         communityID: communityID,
