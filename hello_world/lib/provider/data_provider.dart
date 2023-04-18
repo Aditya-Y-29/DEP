@@ -417,14 +417,14 @@ class DataProvider extends ChangeNotifier {
     CommunityModel ctmp =
         communitiesdb!.firstWhere((element) => element.name == communityName);
     String? communityID = await CommunityDataBaseService.getCommunityID(ctmp);
-    //checking if object already present?
-    ObjectsModel otmp = communityObjectMapdb![ctmp]!
-        .firstWhere((element) => element.name == objectName);
+//     //checking if object already present?
+//     ObjectsModel otmp = communityObjectMapdb![ctmp]!
+//         .firstWhere((element) => element.name == objectName);
 
-    String? objectID = await ObjectDataBaseService.getObjectID(otmp);
-    if(objectID!=null){
-      return;
-    }
+//     String? objectID = await ObjectDataBaseService.getObjectID(otmp);
+//     if(objectID!=null){
+//       return;
+//     }
     
     ObjectsModel object = ObjectsModel(
         name: objectName,
