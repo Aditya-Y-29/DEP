@@ -66,7 +66,7 @@ class DataProvider extends ChangeNotifier {
     "Couple":"assets/images/communityImages/Love.jpeg",
     "Love":"assets/images/communityImages/Love.jpeg",
     "Test":"assets/images/communityImages/Test.jpeg",
-    "Default":"assets/images/communityImages/Default.jpeg",
+    "Default":"assets/images/communityImages/Default.jpg",
   };
 
   Map<String, String> objectNameToImagePath = {
