@@ -71,20 +71,16 @@ class DataProvider extends ChangeNotifier {
 
   Map<String, String> objectNameToImagePath = {
     "Car": "assets/images/objectImages/Car.png",
-    "furniture": "assets/images/objectImages/Car.png",
-    // "Office": "assets/images/communityImages/Office.png",
-    // "Shop":"assets/images/communityImages/Shop.jpg",
-    // "Work":"assets/images/communityImages/Work.jpg",
-    // "Lab":"assets/images/communityImages/Lab.jpg",
-    // "Friends":"assets/images/communityImages/Friends.jpg",
-    // "Family":"assets/images/communityImages/Family.jpg",
-    // "Trip":"assets/images/communityImages/Trip.jpg",
-    // "Apartment":"assets/images/communityImages/Apartment.jpg",
-    // "Test":"assets/images/communityImages/Test.jpg",
-    // "Myself":"assets/images/communityImages/Myself.jpg",
-    // "Me":"assets/images/communityImages/Me.jpg",
-    // "Couple":"assets/images/communityImages/Couple.jpg",
-    "Default": "assets/images/objectImages/Car.jpg",
+    "furniture": "assets/images/objectImages/Furniture.jpeg",
+    "fridge": "assets/images/objectImages/Fridge.jpeg",
+    "Mobile": "assets/images/objectImages/Mobile.jpeg",
+    "RO": "assets/images/objectImages/RO.jpeg",
+    "Server": "assets/images/objectImages/Server.jpeg",
+    "Shopping": "assets/images/objectImages/Shopping.jpeg",
+    "Snacks": "assets/images/objectImages/Snacks.jpeg",
+    "Table": "assets/images/objectImages/Table.jpeg",
+    "Washing": "assets/images/objectImages/Washing Machine.jpeg",
+    "Default": "assets/images/objectImages/Default.jpeg",
   };
 
   //***********************************************
