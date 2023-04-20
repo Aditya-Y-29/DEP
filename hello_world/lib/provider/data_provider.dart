@@ -98,7 +98,10 @@ class DataProvider extends ChangeNotifier {
     return false;
   }
 
-  String extractCommunityImagePathByName(String communityName) {
+  String extractCommunityImagePathByName(String creatorTuple) {
+
+    String communityName = creatorTuple.split(":")[0];
+
     for (String key in communityNameToImagePath.keys) {
       String value = communityNameToImagePath[key]!;
       if (isSubstring(key.toLowerCase(), communityName.toLowerCase())) {
@@ -164,21 +167,21 @@ class DataProvider extends ChangeNotifier {
     return spendingSummary;
   }
 
-  int myExpenseInCommunity(String communityName) {
+  int myExpenseInCommunity(String creatorTuple) {
     int sum = 0;
-    for (int i = 0; i < communityObjectMap[communityName]!.length; i++) {
+    for (int i = 0; i < communityObjectMap[creatorTuple]!.length; i++) {
       for (int j = 0;
           j <
-              objectUnresolvedExpenseMap[communityName]![
-                      communityObjectMap[communityName]![i]]!
+              objectUnresolvedExpenseMap[creatorTuple]![
+                      communityObjectMap[creatorTuple]![i]]!
                   .length;
           j++) {
         if (user!.name ==
-            objectUnresolvedExpenseMap[communityName]![
-                    communityObjectMap[communityName]![i]]![j]
+            objectUnresolvedExpenseMap[creatorTuple]![
+                    communityObjectMap[creatorTuple]![i]]![j]
                 .creator) {
-          sum += objectUnresolvedExpenseMap[communityName]![
-                  communityObjectMap[communityName]![i]]![j]
+          sum += objectUnresolvedExpenseMap[creatorTuple]![
+                  communityObjectMap[creatorTuple]![i]]![j]
               .amount;
         }
       }
@@ -245,24 +248,29 @@ class DataProvider extends ChangeNotifier {
     communitiesdb = communityTemp;
 
     for (int i = 0; i < communityTemp!.length; i++) {
-      communities.add(communityTemp[i].name);
+      String creatorTuple = '${communityTemp[i].name}:${communityTemp[i].phoneNo}';
+      communities.add(creatorTuple);
     }
 
     notifyListeners();
     getAllUserPhones();
 
     for (int i = 0; i < communityTemp.length; i++) {
-      getCommunityDetails(communityTemp[i].name);
+      getCommunityDetails('${communityTemp[i].name}:${communityTemp[i].phoneNo}');
     }
 
     notifyListeners();
   }
 
-  Future<void> getCommunityDetails(String CommunityName) async {
+  Future<void> getCommunityDetails(String creatorTuple) async {
+
+    List<String> extractedTupleInfo = creatorTuple.split(':');
+    String communityName = extractedTupleInfo[0];
+    String creatorPhoneNo = extractedTupleInfo[1];
 
     CommunityModel? currCommunity=null;
     for(int i=0;i<communitiesdb!.length;i++){
-      if(communitiesdb![i].name==CommunityName){
+      if(communitiesdb![i].name==communityName && communitiesdb![i].phoneNo==creatorPhoneNo){
         currCommunity = communitiesdb![i];
         break;
       }
@@ -272,9 +280,9 @@ class DataProvider extends ChangeNotifier {
       return;
     }
 
-    communityObjectMap[currCommunity.name] = [];
+    communityObjectMap[creatorTuple] = [];
     communityObjectMapdb![currCommunity] = [];
-    objectUnresolvedExpenseMap[currCommunity.name] = {};
+    objectUnresolvedExpenseMap[creatorTuple] = {};
     objectUnresolvedExpenseMapdb![currCommunity] = {};
 
     String? communityID = await CommunityDataBaseService.getCommunityID(currCommunity);
@@ -282,10 +290,10 @@ class DataProvider extends ChangeNotifier {
 
     for (int j = 0; j < objectTemp!.length; j++) {
 
-      communityObjectMap[currCommunity.name]!.add(objectTemp[j].name);
+      communityObjectMap[creatorTuple]!.add(objectTemp[j].name);
       communityObjectMapdb![currCommunity]!.add(objectTemp[j]);
 
-      getObjectDetails(CommunityName, objectTemp[j].name);
+      getObjectDetails(creatorTuple, objectTemp[j].name);
     }
 
     getIndividualCommunityMembers(currCommunity);
@@ -294,12 +302,15 @@ class DataProvider extends ChangeNotifier {
 
   }
 
-  Future<void> getObjectDetails(String CommunityName,String ObjectName) async{
+  Future<void> getObjectDetails(String creatorTuple,String ObjectName) async{
 
+    List<String> extractedTupleInfo = creatorTuple.split(':');
+    String communityName = extractedTupleInfo[0];
+    String creatorPhoneNo = extractedTupleInfo[1];
 
     CommunityModel? currCommunity=null;
     for(int i=0;i<communitiesdb!.length;i++){
-      if(communitiesdb![i].name==CommunityName){
+      if(communitiesdb![i].name==communityName && communitiesdb![i].phoneNo==creatorPhoneNo){
         currCommunity = communitiesdb![i];
         break;
       }
@@ -321,13 +332,13 @@ class DataProvider extends ChangeNotifier {
       return;
     }
 
-      objectUnresolvedExpenseMap[currCommunity.name]![currObject.name] = [];
+      objectUnresolvedExpenseMap[creatorTuple]![currObject.name] = [];
       objectUnresolvedExpenseMapdb![currCommunity]![currObject] = [];
     List<ExpenseModel>? expenseTemp = await ObjectDataBaseService.getExpenses(currObject);
 
     for (int k = 0; k < expenseTemp.length; k++) {
-        objectUnresolvedExpenseMap[currCommunity.name]![currObject.name]!.add(Expense(
-          communityName: currCommunity.name,
+        objectUnresolvedExpenseMap[creatorTuple]![currObject.name]!.add(Expense(
+          creatorTuple: creatorTuple,
           objectName: currObject.name,
           creator:await UserDataBaseService.getName(expenseTemp[k].creatorID!),
           description: expenseTemp[k].name,
@@ -351,7 +362,8 @@ class DataProvider extends ChangeNotifier {
         isCreator: group[j]["Is Admin"],
       ));
     }
-    communityMembersMap[community.name] = memberList;
+    String creatorTuple = '${community.name}:${community.phoneNo}';
+    communityMembersMap[creatorTuple] = memberList;
 
   }
 
@@ -371,8 +383,8 @@ class DataProvider extends ChangeNotifier {
     // notifyListeners();
   }
 
-  void communityListen(String communityName) {
-    communitiesIndex = communities.indexOf(communityName);
+  void communityListen(String creatorTuple) {
+    communitiesIndex = communities.indexOf(creatorTuple);
     notifyListeners();
   }
 
@@ -383,7 +395,7 @@ class DataProvider extends ChangeNotifier {
 
   void expenseListen(Expense expense) {
     expenseIndex =
-        objectUnresolvedExpenseMap[expense.communityName]![expense.objectName]!
+        objectUnresolvedExpenseMap[expense.creatorTuple]![expense.objectName]!
             .indexOf(expense);
     notifyListeners();
   }
@@ -397,17 +409,18 @@ class DataProvider extends ChangeNotifier {
       return;
     }
 
-    communities.add(communityName);
-    communityObjectMap[communityName] = ["Misc"];
-    objectUnresolvedExpenseMap[communityName] = {};
-    communityMembersMap[communityName] = [];
-    communityMembersMap[communityName]!
+    String creatorTuple = '${communityName}:${user!.phoneNo}';
+    communities.add(creatorTuple);
+    communityObjectMap[creatorTuple] = ["Misc"];
+    objectUnresolvedExpenseMap[creatorTuple] = {};
+    communityMembersMap[creatorTuple] = [];
+    communityMembersMap[creatorTuple]!
         .add(Member(name: user!.name, phone: user!.phoneNo, isCreator: true));
     communitiesdb!.add(community);
 
     // await addObject(communityName, "Misc");
     // communityObjectMap[communityName]?.add("Misc");
-    objectUnresolvedExpenseMap[communityName]!["Misc"] = [];
+    objectUnresolvedExpenseMap[creatorTuple]!["Misc"] = [];
 
     notifyListeners();
 
@@ -415,10 +428,13 @@ class DataProvider extends ChangeNotifier {
     await CommunityDataBaseService.addCommunityLogNotification(community,"Community Created");
   }
 
-  Future<void> addObject(String communityName, String objectName) async {
+  Future<void> addObject(String creatorTuple, String objectName) async {
     notifyListeners();
+    List<String> extractedTupleInfo = creatorTuple.split(':');
+    String communityName = extractedTupleInfo[0];
+    String creatorPhoneNo = extractedTupleInfo[1];
     CommunityModel ctmp =
-        communitiesdb!.firstWhere((element) => element.name == communityName);
+        communitiesdb!.firstWhere((element) => element.name == communityName && element.phoneNo == creatorPhoneNo);
     String? communityID = await CommunityDataBaseService.getCommunityID(ctmp);
     
     //checking if object already present?
@@ -443,8 +459,8 @@ class DataProvider extends ChangeNotifier {
     }
 
     communityObjectMapdb![ctmp]!.add(object);
-    communityObjectMap[communityName]!.add(objectName);
-    objectUnresolvedExpenseMap[communityName]![objectName] = [];
+    communityObjectMap[creatorTuple]!.add(objectName);
+    objectUnresolvedExpenseMap[creatorTuple]![objectName] = [];
 
     objectUnresolvedExpenseMapdb![ctmp]![object] = [];
     notifyListeners();
@@ -453,9 +469,12 @@ class DataProvider extends ChangeNotifier {
     await CommunityDataBaseService.addCommunityLogNotification(ctmp, "Object Added : " + objectName+ " by ${user?.name}");
   }
 
-  Future<void> addExpense(String objectName, String creator, int amount,String expenseDate, String description, String communityName) async {
-    
-    CommunityModel ctmp =communitiesdb!.firstWhere((element) => element.name == communityName);
+  Future<void> addExpense(String objectName, String creator, int amount,String expenseDate, String description, String creatorTuple) async {
+
+    List<String> extractedTupleInfo = creatorTuple.split(':');
+    String communityName = extractedTupleInfo[0];
+    String creatorPhoneNo = extractedTupleInfo[1];
+    CommunityModel ctmp =communitiesdb!.firstWhere((element) => element.name == communityName && element.phoneNo == creatorPhoneNo);
     DateTime time = DateTime.now().toLocal();
     DateTime dateTime = DateTime.parse(expenseDate);
     expenseDate += " " + time.hour.toString() + ":" + time.minute.toString() + ":" + time.second.toString() + "." + time.millisecond.toString();
@@ -480,14 +499,14 @@ class DataProvider extends ChangeNotifier {
 
     ExpenseDataBaseService.ExpenseAddNotification(expense);
     await CommunityDataBaseService.addCommunityLogNotification(ctmp, "Expense Added In ${objectName}: ₹" + amount.toString()+" by ${user?.name}");
-    objectUnresolvedExpenseMap[communityName]![objectName]?.add(Expense(
+    objectUnresolvedExpenseMap[creatorTuple]![objectName]?.add(Expense(
         objectName: objectName,
         creator: creator,
         amount: amount,
         date: expenseDate,
         description: description,
         isPaid: false,
-        communityName: communityName));
+        creatorTuple: creatorTuple));
     objectUnresolvedExpenseMapdb![ctmp]![otmp]!.add(expense);
 
     notifyListeners();
@@ -495,7 +514,11 @@ class DataProvider extends ChangeNotifier {
 
   void updateExpense(Expense expense, String newAmount, String newDate,String newDescription) async {
 
-    CommunityModel ctmp = communitiesdb!.firstWhere((element) => element.name == expense.communityName);
+    List<String> extractedTupleInfo = expense.creatorTuple.split(':');
+    String communityName = extractedTupleInfo[0];
+    String creatorPhoneNo = extractedTupleInfo[1];
+
+    CommunityModel ctmp = communitiesdb!.firstWhere((element) => element.name == communityName && element.phoneNo == creatorPhoneNo);
     ObjectsModel? otmp = communityObjectMapdb![ctmp]!.firstWhere((element) => element.name == expense.objectName);
     ExpenseModel? rtmp = objectUnresolvedExpenseMapdb![ctmp]![otmp]!.firstWhere((element) => element.name == expense.description);
 
@@ -507,13 +530,13 @@ class DataProvider extends ChangeNotifier {
     objectUnresolvedExpenseMapdb![ctmp]![otmp]!.remove(rtmp);
 
     Expense? item =
-        objectUnresolvedExpenseMap[expense.communityName]![expense.objectName]?.firstWhere((element) =>
+        objectUnresolvedExpenseMap[expense.creatorTuple]![expense.objectName]?.firstWhere((element) =>
                 element.objectName == expense.objectName &&
                 element.creator == expense.creator &&
                 element.amount == expense.amount &&
                 element.description == expense.description);
 
-    objectUnresolvedExpenseMap[expense.communityName]![expense.objectName]
+    objectUnresolvedExpenseMap[expense.creatorTuple]![expense.objectName]
         ?.remove(item);
 
 
@@ -532,7 +555,7 @@ class DataProvider extends ChangeNotifier {
 
     // //ExpenseDataBaseService.ExpenseEditNotification(expense);
 
-    objectUnresolvedExpenseMap[expense.communityName]![expense.objectName]?.add(
+    objectUnresolvedExpenseMap[expense.creatorTuple]![expense.objectName]?.add(
         Expense(
             objectName: expense.objectName,
             creator: expense.creator,
@@ -540,27 +563,32 @@ class DataProvider extends ChangeNotifier {
             date: newDate,
             description: newDescription,
             isPaid: false,
-            communityName: expense.communityName));
+            creatorTuple: expense.creatorTuple));
 
     objectUnresolvedExpenseMapdb![ctmp]![otmp]!.add(expenseM);
     notifyListeners();
 
   }
 
-  addMembersToCommunity(String communityName, List<dynamic> names,
+  addMembersToCommunity(String creatorTuple, List<dynamic> names,
       List<dynamic> phones, String phoneNo) async {
+
+    List<String> extractedTupleInfo = creatorTuple.split(":");
+    String communityName = extractedTupleInfo[0];
+    String creatorPhoneNo = extractedTupleInfo[1];
+
     for (int i = 0; i < names.length; i++) {
       Member member = Member(
         name: names[i],
         phone: phones[i],
         isCreator: false,
       );
-      if (!communityMembersMap[communityName]!.contains(member)) {
+      if (!communityMembersMap[creatorTuple]!.contains(member)) {
         CommunityModel ctmp = communitiesdb!
-            .firstWhere((element) => element.name == communityName);
+            .firstWhere((element) => element.name == communityName && element.phoneNo == creatorPhoneNo);
         if (await CommunityDataBaseService.addUserInCommunity(
             ctmp, member.phone, false)) {
-          communityMembersMap[communityName]!.add(member);
+          communityMembersMap[creatorTuple]!.add(member);
           CommunityDataBaseService.communityAddRemoveNotification(ctmp, member.phone, true);
           await CommunityDataBaseService.addCommunityLogNotification(ctmp, "Member Added : ${member.name}");
         }
@@ -569,25 +597,35 @@ class DataProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void removeMemberFromCommunity(String communityName, String phoneNo) async {
+  void removeMemberFromCommunity(String creatorTuple, String phoneNo) async {
+
+    List<String> extractedTupleInfo = creatorTuple.split(":");
+    String communityName = extractedTupleInfo[0];
+    String creatorPhone = extractedTupleInfo[1];
+
     CommunityModel ctmp = communitiesdb!
-        .firstWhere((element) => element.name == communityName);
+        .firstWhere((element) => element.name == communityName && element.phoneNo == creatorPhone);
     if(await CommunityDataBaseService.removeUserFromCommunity(ctmp, phoneNo)){
-      Member member = communityMembersMap[communityName]!
+      Member member = communityMembersMap[creatorTuple]!
           .firstWhere((element) => element.phone == phoneNo);
-      communityMembersMap[communityName]!.remove(member);
-      communities.remove(communityName);
+      communityMembersMap[creatorTuple]!.remove(member);
+      communities.remove(creatorTuple);
       CommunityDataBaseService.communityAddRemoveNotification(ctmp, phoneNo, false);
       await CommunityDataBaseService.addCommunityLogNotification(ctmp, "No longer in $communityName : ${member.name}");
     }
     notifyListeners();
   }
 
-  void toggleCreatorPower(String communityName, String phoneNo) async {
+  void toggleCreatorPower(String creatorTuple, String phoneNo) async {
+
+    List<String> extractedTupleInfo = creatorTuple.split(":");
+    String communityName = extractedTupleInfo[0];
+    String creatorPhone = extractedTupleInfo[1];
+
     CommunityModel ctmp = communitiesdb!
-        .firstWhere((element) => element.name == communityName);
+        .firstWhere((element) => element.name == communityName && element.phoneNo == creatorPhone);
     if(await CommunityDataBaseService.toggleCreatorPower(ctmp, phoneNo)){
-      Member member = communityMembersMap[communityName]!
+      Member member = communityMembersMap[creatorTuple]!
           .firstWhere((element) => element.phone == phoneNo);
       member.isCreator = !member.isCreator;
       await CommunityDataBaseService.addCommunityLogNotification(ctmp, "Creator Power Toggled : ${member.name}");
@@ -603,49 +641,69 @@ class DataProvider extends ChangeNotifier {
     }
   }
 
-  Future<List<String>> getNotification(String communityName) async {
+  Future<List<String>> getNotification(String creatorTuple) async {
+
+    List<String> extractedTupleInfo = creatorTuple.split(":");
+    String communityName = extractedTupleInfo[0];
+    String creatorPhone = extractedTupleInfo[1];
+
     CommunityModel ctmp =
-        communitiesdb!.firstWhere((element) => element.name == communityName);
+        communitiesdb!.firstWhere((element) => element.name == communityName && element.phoneNo == creatorPhone);
     List<String> notification =
         await CommunityDataBaseService.getCommunityNotification(ctmp);
     return notification;
   }
 
-  Future<bool> deleteCommunity(String communityName) async {
+  Future<bool> deleteCommunity(String creatorTuple) async {
+
+    List<String> extractedTupleInfo = creatorTuple.split(":");
+    String communityName = extractedTupleInfo[0];
+    String creatorPhone = extractedTupleInfo[1];
+
     CommunityModel ctmp =
-        communitiesdb!.firstWhere((element) => element.name == communityName);
+        communitiesdb!.firstWhere((element) => element.name == communityName && element.phoneNo == creatorPhone);
 
     communitiesdb!.remove(ctmp);
-    communityMembersMap.remove(communityName);
-    communityObjectMap.remove(communityName);
+    communityMembersMap.remove(creatorTuple);
+    communityObjectMap.remove(creatorTuple);
     communityObjectMapdb!.remove(ctmp);
-    objectUnresolvedExpenseMap.remove(communityName);
+    objectUnresolvedExpenseMap.remove(creatorTuple);
     objectUnresolvedExpenseMapdb!.remove(ctmp);
 
-    communities.remove(communityName);
+    communities.remove(creatorTuple);
 
     notifyListeners();
     CommunityDataBaseService.deleteCommunity(ctmp);
     return true;
   }
 
-  Future<bool> deleteObject(String communityName, String objectName) async {
+  Future<bool> deleteObject(String creatorTuple, String objectName) async {
+
+    List<String> extractedTupleInfo = creatorTuple.split(":");
+    String communityName = extractedTupleInfo[0];
+    String creatorPhone = extractedTupleInfo[1];
+
     CommunityModel ctmp =
-        communitiesdb!.firstWhere((element) => element.name == communityName);
+        communitiesdb!.firstWhere((element) => element.name == communityName && element.phoneNo == creatorPhone);
     ObjectsModel otmp = communityObjectMapdb![ctmp]!
         .firstWhere((element) => element.name == objectName);
     communityObjectMapdb![ctmp]!.remove(otmp);
     objectUnresolvedExpenseMapdb![ctmp]!.remove(otmp);
-    communityObjectMap[communityName]!.remove(objectName);
-    objectUnresolvedExpenseMap[communityName]!.remove(objectName);
+    communityObjectMap[creatorTuple]!.remove(objectName);
+    objectUnresolvedExpenseMap[creatorTuple]!.remove(objectName);
     notifyListeners();
     ObjectDataBaseService.deleteObject(otmp);
     return true;
   }
 
-  Future<bool> isAdmin(String communityName) async {
+  Future<bool> isAdmin(String creatorTuple) async {
+
+    List<String> extractedTupleInfo = creatorTuple.split(":");
+    String communityName = extractedTupleInfo[0];
+    String creatorPhone = extractedTupleInfo[1];
+
     CommunityModel ctmp =
-        communitiesdb!.firstWhere((element) => element.name == communityName);
+        communitiesdb!.firstWhere((element) => element.name == communityName && element.phoneNo == creatorPhone);
     bool res = await UserDataBaseService.isAdmin(ctmp, user!.phoneNo);
     return res;
   }

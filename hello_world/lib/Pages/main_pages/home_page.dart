@@ -293,7 +293,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                         duration: const Duration(milliseconds: 250),
                                         curve: Curves.easeInOut,
                                         child: Community(
-                                          name: e,
+                                          creatorTuple: e,
                                         ),
                                       )
                                   );
@@ -341,7 +341,7 @@ class _MyHomePageState extends State<MyHomePage> {
 Route _createRoute(String communityName) {
   return PageRouteBuilder(
     pageBuilder: (context, animation, secondaryAnimation) =>
-        CommunityPage(communityName: communityName),
+        CommunityPage(creatorTuple: communityName),
     transitionsBuilder: (context, animation, secondaryAnimation, child) {
       var begin = const Offset(1.0, 0.0);
       var end = Offset.zero;

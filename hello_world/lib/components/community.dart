@@ -5,8 +5,8 @@ import 'package:provider/provider.dart';
 import 'dart:math';
 
 class Community extends StatefulWidget {
-  final String name;
-  const Community({ Key? key, required this.name }): super(key: key);
+  final String creatorTuple;
+  const Community({ Key? key, required this.creatorTuple }): super(key: key);
   @override
   State<Community> createState() => _CommunityState();
 }
@@ -19,7 +19,7 @@ class _CommunityState extends State<Community> {
       builder: (BuildContext context) {
         return AlertDialog(
           title: Text('Confirm Delete'),
-          content: Text('Are you sure you want to delete ${widget.name} community?'),
+          content: Text('Are you sure you want to delete ${widget.creatorTuple} community?'),
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context, false),
@@ -43,8 +43,8 @@ class _CommunityState extends State<Community> {
       Future<bool> returnValue= showDeleteDialog(context);
       bool alertResponse = await returnValue;
       if(alertResponse==true){
-        if(await Provider.of<DataProvider>(context, listen: false).isAdmin(widget.name)==true){
-          Provider.of<DataProvider>(context, listen: false).deleteCommunity(widget.name);
+        if(await Provider.of<DataProvider>(context, listen: false).isAdmin(widget.creatorTuple)==true){
+          Provider.of<DataProvider>(context, listen: false).deleteCommunity(widget.creatorTuple);
         }
         else{
           ScaffoldMessenger.of(context).showSnackBar(
@@ -86,7 +86,7 @@ class _CommunityState extends State<Community> {
                           ),
                           child:
                           Image.asset(
-                            '${providerCommunity.extractCommunityImagePathByName(widget.name)}',
+                            '${providerCommunity.extractCommunityImagePathByName(widget.creatorTuple)}',
                             // 'assets/images/Home.jpg',
                             width: 45,
                             height: 45,
@@ -98,7 +98,7 @@ class _CommunityState extends State<Community> {
                         Container(
                           child:
                           Text(
-                            widget.name,
+                            widget.creatorTuple,
                             style: const TextStyle(
                               color: Colors.black,
                               fontSize: 20,
@@ -121,7 +121,7 @@ class _CommunityState extends State<Community> {
                               color: Colors.black,
                               fontSize: 13,
                             ),),
-                          Text("₹ ${providerCommunity.myExpenseInCommunity(widget.name)}",
+                          Text("₹ ${providerCommunity.myExpenseInCommunity(widget.creatorTuple)}",
                             style: const TextStyle(
                               color: Colors.blue,
                               fontSize: 13,
@@ -142,7 +142,7 @@ class _CommunityState extends State<Community> {
                             color: Colors.black,
                             fontSize: 13,
                           ),),
-                        Text("₹ ${providerCommunity.communityTotalExpense(widget.name)}",
+                        Text("₹ ${providerCommunity.communityTotalExpense(widget.creatorTuple)}",
                           style: const TextStyle(
                             color: Colors.blue,
                             fontSize: 13,
@@ -176,7 +176,7 @@ class _CommunityState extends State<Community> {
                                 onPressed: (){
                                   Navigator.push(
                                     context,
-                                    MaterialPageRoute(builder: (context) => AddFromCommunityPage(selectedPage: 0, communityName: widget.name,)),
+                                    MaterialPageRoute(builder: (context) => AddFromCommunityPage(selectedPage: 0, communityName: widget.creatorTuple,)),
                                   );
                                 },
                                 backgroundColor: Colors.green,

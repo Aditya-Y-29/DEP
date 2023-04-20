@@ -28,12 +28,12 @@ class _EditFromObjectPageData extends State<EditExpensePage> {
           title: Row(
             children: <Widget>[
               Image.asset(
-                '${providerCommunity.extractCommunityImagePathByName(widget.expense.communityName)}',
+                '${providerCommunity.extractCommunityImagePathByName(widget.expense.creatorTuple)}',
                 width: 40,
                 height: 40,
               ),
               SizedBox(width: 10),
-              Text(widget.expense.communityName),
+              Text(widget.expense.creatorTuple),
             ],
           ) ,
           bottom: PreferredSize(

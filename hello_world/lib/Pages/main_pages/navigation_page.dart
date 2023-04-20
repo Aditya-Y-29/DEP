@@ -160,7 +160,7 @@ class NavigationPageState extends State<NavigationPage> {
 
 Route _createRoute(String communityName) {
   return PageRouteBuilder(
-    pageBuilder: (context, animation, secondaryAnimation) => CommunityPage(communityName: communityName),
+    pageBuilder: (context, animation, secondaryAnimation) => CommunityPage(creatorTuple: communityName),
     transitionsBuilder: (context, animation, secondaryAnimation, child) {
       var begin = const Offset(1.0, 0.0);
       var end = Offset.zero;

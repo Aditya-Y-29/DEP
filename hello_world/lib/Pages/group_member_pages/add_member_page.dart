@@ -8,8 +8,8 @@ import '../../provider/data_provider.dart';
 import 'community_info_page.dart';
 
 class AddMembers extends StatefulWidget {
-  const AddMembers({Key? key, required this.communityName}) : super(key: key);
-  final String communityName;
+  const AddMembers({Key? key, required this.creatorTuple}) : super(key: key);
+  final String creatorTuple;
 
   @override
   State<AddMembers> createState() => _AddMemberState();
@@ -53,8 +53,8 @@ class _AddMemberState extends State<AddMembers> {
           }
           _contacts![i].phones.first.number = phone;
           bool inComm = false;
-          for(var k = 0; k < providerCommunity.communityMembersMap[widget.communityName]!.length; k++){
-            String memberPhone = providerCommunity.communityMembersMap[widget.communityName]![k].phone.toString().replaceAll(' ', '');
+          for(var k = 0; k < providerCommunity.communityMembersMap[widget.creatorTuple]!.length; k++){
+            String memberPhone = providerCommunity.communityMembersMap[widget.creatorTuple]![k].phone.toString().replaceAll(' ', '');
             if(memberPhone.startsWith('+91')) {
               memberPhone = memberPhone.substring(3);
             }
@@ -185,7 +185,7 @@ class _AddMemberState extends State<AddMembers> {
                     if(alertResponse==true){
                       var selectedNames = selectedContacts.map((contact) => contact.name.first).toList();
                       var selectedPhones = selectedContacts.map((contact) => contact.phones.first.number).toList();
-                      providerCommunity.addMembersToCommunity(widget.communityName, selectedNames, selectedPhones, MyPhone.phoneNo);
+                      providerCommunity.addMembersToCommunity(widget.creatorTuple, selectedNames, selectedPhones, MyPhone.phoneNo);
                       Navigator.pop(context);
                     }
                   },

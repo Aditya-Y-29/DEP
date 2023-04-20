@@ -6,8 +6,8 @@ import '../../provider/data_provider.dart';
 import '../main_pages/home_page.dart';
 
 class CommunityInfo extends StatefulWidget {
-  const CommunityInfo({Key? key, required this.communityName}) : super(key: key);
-  final String communityName;
+  const CommunityInfo({Key? key, required this.creatorTuple}) : super(key: key);
+  final String creatorTuple;
 
   @override
   State<CommunityInfo> createState() => _CommunityInfoState();
@@ -96,9 +96,9 @@ class _CommunityInfoState extends State<CommunityInfo> {
     final providerCommunity = Provider.of<DataProvider>(context, listen: true);
     bool hasCreatorPower = false;
     int creators = 0;
-    int len = providerCommunity.communityMembersMap[widget.communityName] == null ? 0 : providerCommunity.communityMembersMap[widget.communityName]!.length;
+    int len = providerCommunity.communityMembersMap[widget.creatorTuple] == null ? 0 : providerCommunity.communityMembersMap[widget.creatorTuple]!.length;
     for(var i=0;i<len;i++){
-      Member member = providerCommunity.communityMembersMap[widget.communityName]![i];
+      Member member = providerCommunity.communityMembersMap[widget.creatorTuple]![i];
       // print("index: $i, name: ${member.name}, phone: ${member.phone}, isCreator: ${member.isCreator}");
       if(member.isCreator){
         creators++;
@@ -114,12 +114,12 @@ class _CommunityInfoState extends State<CommunityInfo> {
         title: Row(
           children: <Widget>[
             Image.asset(
-              '${providerCommunity.extractCommunityImagePathByName(widget.communityName)}',
+              '${providerCommunity.extractCommunityImagePathByName(widget.creatorTuple)}',
               width: 40,
               height: 40,
             ),
             SizedBox(width: 10),
-            Text('${widget.communityName} Info'),
+            Text('${widget.creatorTuple} Info'),
           ],
         ),
       ),
@@ -158,7 +158,7 @@ class _CommunityInfoState extends State<CommunityInfo> {
                       children: [
                         GestureDetector(
                           onTap: () {
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => AddMembers(communityName: widget.communityName)));
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => AddMembers(creatorTuple: widget.creatorTuple)));
                           },
                           child:
                           Container(
@@ -202,7 +202,7 @@ class _CommunityInfoState extends State<CommunityInfo> {
                             // ),
                             child:
                             ListView(
-                                children: providerCommunity.communityMembersMap[widget.communityName] == null ? [] : List.of(providerCommunity.communityMembersMap[widget.communityName]!.map(
+                                children: providerCommunity.communityMembersMap[widget.creatorTuple] == null ? [] : List.of(providerCommunity.communityMembersMap[widget.creatorTuple]!.map(
                                       (member) =>
                                           GestureDetector(
                                           // onLongPressCancel: () {
@@ -245,7 +245,7 @@ class _CommunityInfoState extends State<CommunityInfo> {
                                               Future<bool> returnValue= showRemoveDialog(context,member.name);
                                               bool alertResponse = await returnValue;
                                               if(alertResponse==true){
-                                                providerCommunity.removeMemberFromCommunity(widget.communityName, providerCommunity.user!.phoneNo);
+                                                providerCommunity.removeMemberFromCommunity(widget.creatorTuple, member.phone);
                                               }
                                               else{
 
@@ -255,7 +255,7 @@ class _CommunityInfoState extends State<CommunityInfo> {
                                               Future<bool> returnValue= showTogglePowerDialog(context,member.name);
                                               bool alertResponse = await returnValue;
                                               if(alertResponse==true){
-                                                providerCommunity.toggleCreatorPower(widget.communityName, member.phone);
+                                                providerCommunity.toggleCreatorPower(widget.creatorTuple, member.phone);
                                               }
                                               else{
 
@@ -279,8 +279,8 @@ class _CommunityInfoState extends State<CommunityInfo> {
                         ),
                         GestureDetector(
                           onTap: () async {
-                            if(providerCommunity.communityMembersMap[widget.communityName]!.length == 1) {
-                              providerCommunity.deleteCommunity(widget.communityName);
+                            if(providerCommunity.communityMembersMap[widget.creatorTuple]!.length == 1) {
+                              providerCommunity.deleteCommunity(widget.creatorTuple);
                               Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => MyHomePage()));
                               return;
                             }
@@ -296,7 +296,7 @@ class _CommunityInfoState extends State<CommunityInfo> {
                             Future<bool> returnValue= showLogoutDialog(context);
                             bool alertResponse = await returnValue;
                             if(alertResponse==true){
-                              providerCommunity.removeMemberFromCommunity(widget.communityName, providerCommunity.user!.phoneNo);
+                              providerCommunity.removeMemberFromCommunity(widget.creatorTuple, providerCommunity.user!.phoneNo);
                               Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => MyHomePage()));
                             }
                             else{
@@ -319,7 +319,7 @@ class _CommunityInfoState extends State<CommunityInfo> {
                                   children: [
                                     Flexible(
                                       child: Text(
-                                        "Exit Community ${widget.communityName}",
+                                        "Exit Community ${widget.creatorTuple}",
                                         style: TextStyle(
                                           fontSize: 18,
                                           // fontWeight: FontWeight.bold,

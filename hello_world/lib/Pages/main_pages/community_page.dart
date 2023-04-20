@@ -13,8 +13,8 @@ import '../group_member_pages/community_info_page.dart';
 import '../logs_notification_pages/logs_notification.dart';
 
 class CommunityPage extends StatefulWidget {
-  const CommunityPage({Key? key, required this.communityName}) : super(key: key);
-  final String communityName;
+  const CommunityPage({Key? key, required this.creatorTuple}) : super(key: key);
+  final String creatorTuple;
 
   @override
   State<CommunityPage> createState() => _CommunityPageState();
@@ -47,12 +47,12 @@ class _CommunityPageState extends State<CommunityPage> {
         title: Row(
           children: <Widget>[
             Image.asset(
-              '${providerCommunity.extractCommunityImagePathByName(widget.communityName)}',
+              '${providerCommunity.extractCommunityImagePathByName(widget.creatorTuple)}',
               width: 40,
               height: 40,
             ),
             SizedBox(width: 10),
-            Flexible(child: Text(widget.communityName, overflow: TextOverflow.ellipsis,)),
+            Flexible(child: Text(widget.creatorTuple, overflow: TextOverflow.ellipsis,)),
           ],
         ),
         actions:  [
@@ -61,13 +61,13 @@ class _CommunityPageState extends State<CommunityPage> {
               padding: const EdgeInsets.all(1),
               child: GestureDetector(
                 onTap: ()  async{
-                  List<String> notification= await providerCommunity.getNotification(widget.communityName);
+                  List<String> notification= await providerCommunity.getNotification(widget.creatorTuple);
 
                   // ignore: use_build_context_synchronously
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => LogsNotification(communityName: widget.communityName,notification: notification,),
+                      builder: (context) => LogsNotification(communityName: widget.creatorTuple,notification: notification,),
                     ),
                   );
                 },
@@ -82,7 +82,7 @@ class _CommunityPageState extends State<CommunityPage> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => CommunityInfo(communityName: widget.communityName,),
+                      builder: (context) => CommunityInfo(creatorTuple: widget.creatorTuple,),
                     ),
                   );
                 },
@@ -167,7 +167,7 @@ class _CommunityPageState extends State<CommunityPage> {
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                          builder: (context) => AddMembers(communityName: widget.communityName),
+                                          builder: (context) => AddMembers(creatorTuple: widget.creatorTuple),
                                         ),
                                       );
                                     },
@@ -196,7 +196,7 @@ class _CommunityPageState extends State<CommunityPage> {
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                            builder: (context) => AddFromCommunityPage(selectedPage: 0, communityName: widget.communityName)
+                                            builder: (context) => AddFromCommunityPage(selectedPage: 0, communityName: widget.creatorTuple)
                                         ),
                                       );
                                     },
@@ -233,7 +233,7 @@ class _CommunityPageState extends State<CommunityPage> {
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                          builder: (context) => AddFromCommunityPage(selectedPage: 1, communityName: widget.communityName),
+                                          builder: (context) => AddFromCommunityPage(selectedPage: 1, communityName: widget.creatorTuple),
                                         ),
                                       );
                                     },
@@ -308,8 +308,8 @@ class _CommunityPageState extends State<CommunityPage> {
                                     Container(
                                       child:
                                       Wrap(
-                                          children: (objectDataProvider.communityObjectMap[widget.communityName]!.length > 1) ?
-                                          List.of(objectDataProvider.communityObjectMap[widget.communityName]!.map((e) {
+                                          children: (objectDataProvider.communityObjectMap[widget.creatorTuple]!.length > 1) ?
+                                          List.of(objectDataProvider.communityObjectMap[widget.creatorTuple]!.map((e) {
                                             if(!e.toLowerCase().contains(searchController.text.toLowerCase().trim())) {
                                               return SizedBox(height: 0,);
                                             }
@@ -325,7 +325,7 @@ class _CommunityPageState extends State<CommunityPage> {
                                                   Navigator.push(
                                                     context,
                                                     MaterialPageRoute(
-                                                      builder: (context) => ObjectPage(objectName: objectName, communityName: widget.communityName),
+                                                      builder: (context) => ObjectPage(objectName: objectName, communityName: widget.creatorTuple),
                                                     ),
                                                   );
                                                 },
@@ -350,7 +350,7 @@ class _CommunityPageState extends State<CommunityPage> {
                                                       curve: Curves.easeInOut,
                                                       child: Object(
                                                         name: e,
-                                                        communityName: widget.communityName,
+                                                        creatorTuple: widget.creatorTuple,
                                                       ),
                                                     ),
                                                     // Text(e),
@@ -428,7 +428,7 @@ class _CommunityPageState extends State<CommunityPage> {
                   Provider.of<DataProvider>(context, listen: false);
                   const snackbar1 = SnackBar(content: Text("Refreshing..."), duration: Duration(seconds: 4),);
                   ScaffoldMessenger.of(context).showSnackBar(snackbar1);
-                  await dataProvider.getCommunityDetails(widget.communityName);
+                  await dataProvider.getCommunityDetails(widget.creatorTuple);
                 },
                 child: Icon(Icons.sync),
               ),
@@ -441,7 +441,7 @@ class _CommunityPageState extends State<CommunityPage> {
   }
 
   Iterable<Widget> miscExpenses(DataProvider objectDataProvider, TextEditingController searchController) {
-    Iterable<Widget> miscExpenses =  objectDataProvider.objectUnresolvedExpenseMap[widget.communityName]!["Misc"] as Iterable<Widget>;
+    Iterable<Widget> miscExpenses =  objectDataProvider.objectUnresolvedExpenseMap[widget.creatorTuple]!["Misc"] as Iterable<Widget>;
     if(miscExpenses == null) {
       return [];
     }
