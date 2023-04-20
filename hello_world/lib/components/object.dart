@@ -111,8 +111,8 @@ class _ObjectState extends State<Object> {
                     margin: const EdgeInsets.only(right: 12.0),
                       child: Image.asset(
                         '${providerCommunity.extractObjectImagePathByName(widget.name)}',
-                        width: 60,
-                        height: 60,
+                        width: 40,
+                        height: 40,
                       ),
                   )),
                   Flexible(
@@ -120,11 +120,12 @@ class _ObjectState extends State<Object> {
                         child: Text(
                         widget.name,
                         style: const TextStyle(
-                          fontSize: 20,
+                          fontSize: 18,
                         ),
                       overflow: TextOverflow.ellipsis,
                     ),
                   )),
+                  if(widget.name != "Misc")
                   PopupMenuButton<Choice>(
                     itemBuilder: (BuildContext context) {
                       return choices.skip(0).map((Choice choice) {

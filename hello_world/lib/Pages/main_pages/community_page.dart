@@ -301,7 +301,7 @@ class _CommunityPageState extends State<CommunityPage> {
                               ),
                             ),
                             Container(
-                                height: MediaQuery.of(context).size.height * 1.0,
+                                height: MediaQuery.of(context).size.height * 1.5,
                                 child:
                                 TabBarView(
                                   children: [
