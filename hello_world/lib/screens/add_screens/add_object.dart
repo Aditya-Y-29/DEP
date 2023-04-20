@@ -28,6 +28,10 @@ class ObjectData extends State<ObjectScreen> {
 
     final providerCommunity = Provider.of<DataProvider>(context, listen: true);
 
+    if(providerCommunity.communities.isEmpty){
+      return const Center(child: Text("No Communities to Add Objects"));
+    }
+
     if(widget.isFromCommunityPage) {
       communityDropDown=widget.communityName;
     } else {
