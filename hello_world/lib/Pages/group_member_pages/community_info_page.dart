@@ -239,8 +239,7 @@ class _CommunityInfoState extends State<CommunityInfo> {
                                                 ),
                                               ],
                                               context: context,
-                                              position: relRectSize, // TODO: fix positioning,
-                                            );
+                                              position: relRectSize,);
                                             if(selected == 0){
                                               Future<bool> returnValue= showRemoveDialog(context,member.name);
                                               bool alertResponse = await returnValue;

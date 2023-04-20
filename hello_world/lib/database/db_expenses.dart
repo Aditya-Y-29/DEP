@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import './db_objects.dart';
 import './db_communities.dart';
-
+import './db_user.dart';
 import '../Models/expense.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -99,7 +99,7 @@ class ExpenseDataBaseService {
         'priority':'high',
         'notification':{
           'title':'Expense Added in ${objectName}',
-          'body':'${expense.name} has been added in ${objectName} of ${communityName}',
+          'body':'${expense.name} has been added in ${objectName} of ${communityName} of Amount ${expense.amount}',
         }
       };
 
@@ -115,4 +115,40 @@ class ExpenseDataBaseService {
 
     return true;
   }
+
+  static Future<bool> ExpenseEditNotification(ExpenseModel OldExpense, ExpenseModel NewExpense, String phoneNo) async {
+
+    String communitiesID= await ObjectDataBaseService.getCommunityID(OldExpense.objectID);
+    String communityName= await CommunityDataBaseService.getCommunityName(communitiesID);
+    String objectName= await ObjectDataBaseService.getObjectName(OldExpense.objectID);
+
+    List<String> tokens= await getTokens(communitiesID);
+
+    String creatorName= await UserDataBaseService.getNameFromPhone(phoneNo);
+
+    for( var token in tokens){
+        
+      var data={
+        'to':token.toString(),
+        'priority':'high',
+        'notification':{
+          'title':'Expense Edited in ${objectName}',
+          'body':'${OldExpense.name} has been Edited in ${objectName} \nof ${communityName} to ${NewExpense.name} \nof Amount ${NewExpense.amount} by ${creatorName}',
+        }
+      };
+
+      await http.post(
+        Uri.parse('https://fcm.googleapis.com/fcm/send'),
+        body:jsonEncode(data),
+        headers:{
+          'Content-Type':'application/json; charset=UTF-8',
+          'Authorization':'key=AAAAsXT8mZo:APA91bEjQMOMbx42wNSYYqsQsFQcQX3QEWrjeSVE0kKtvkxtoJrhhvJvqb2yCjPRHFlQQ05YZRkjgYkHJvNtO0O4n5b8w35-XMNQHda0Y_D7XPoF5oZWRN7U6HhmsymK7hEzK2qrms74'
+        }
+      );
+    }
+
+    return true;
+
+  }
+
 }

@@ -5,7 +5,6 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 
 import '../../provider/data_provider.dart';
-import 'community_info_page.dart';
 
 class AddMembers extends StatefulWidget {
   const AddMembers({Key? key, required this.communityName}) : super(key: key);
