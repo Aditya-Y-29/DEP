@@ -530,7 +530,7 @@ class DataProvider extends ChangeNotifier {
       return;
     }
 
-    // //ExpenseDataBaseService.ExpenseEditNotification(expense);
+    ExpenseDataBaseService.ExpenseEditNotification(rtmp, expenseM, user!.phoneNo);
 
     objectUnresolvedExpenseMap[expense.communityName]![expense.objectName]?.add(
         Expense(

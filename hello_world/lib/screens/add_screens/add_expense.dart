@@ -39,6 +39,11 @@ class ExpenseData extends State<ExpenseScreen> {
 
 
     final providerCommunity = Provider.of<DataProvider>(context, listen: true);
+
+    if(providerCommunity.communities.isEmpty){
+      return const Center(child: Text("No Communities to Add Expense"));
+    }
+
     if(widget.isFromCommunityPage || widget.isFromObjectPage) {
       communityDropDown=widget.communityName;
     } else {
