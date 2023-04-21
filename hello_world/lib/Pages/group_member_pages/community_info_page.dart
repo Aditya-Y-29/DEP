@@ -319,7 +319,7 @@ class _CommunityInfoState extends State<CommunityInfo> {
                                   children: [
                                     Flexible(
                                       child: Text(
-                                        "Exit Community ${widget.creatorTuple}",
+                                        "Exit Community ${(widget.creatorTuple).split(":")[0]}",
                                         style: TextStyle(
                                           fontSize: 18,
                                           // fontWeight: FontWeight.bold,

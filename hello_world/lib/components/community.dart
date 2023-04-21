@@ -112,15 +112,18 @@ class _CommunityState extends State<Community> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Icon(Icons.person_pin_circle_outlined, size: 14,),
-                                    Text(
-                                      providerCommunity.communityMembersMap.isEmpty ? "Creator" :
-                                      providerCommunity.communityMembersMap[widget.creatorTuple]!.firstWhere((member) => member.phone == (widget.creatorTuple).split(":")[1], orElse: () => providerCommunity.communityMembersMap[widget.creatorTuple]!.firstWhere((member) => member.isCreator == true)).name,
-                                      style: const TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 10,
-                                      ),
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
+                                    Flexible(
+                                      child:
+                                        Text(
+                                          providerCommunity.communityMembersMap.isEmpty ? "Creator" :
+                                          providerCommunity.communityMembersMap[widget.creatorTuple]!.firstWhere((member) => member.phone == (widget.creatorTuple).split(":")[1], orElse: () => providerCommunity.communityMembersMap[widget.creatorTuple]!.firstWhere((member) => member.isCreator == true)).name,
+                                          style: const TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 10,
+                                          ),
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                    )
                                   ],
                                 )
                               ],
