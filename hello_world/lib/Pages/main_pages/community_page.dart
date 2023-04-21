@@ -52,7 +52,7 @@ class _CommunityPageState extends State<CommunityPage> {
               height: 40,
             ),
             SizedBox(width: 10),
-            Flexible(child: Text(widget.creatorTuple, overflow: TextOverflow.ellipsis,)),
+            Flexible(child: Text((widget.creatorTuple).split(":")[0], overflow: TextOverflow.ellipsis,)),
           ],
         ),
         actions:  [
@@ -196,7 +196,7 @@ class _CommunityPageState extends State<CommunityPage> {
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                            builder: (context) => AddFromCommunityPage(selectedPage: 0, communityName: widget.creatorTuple)
+                                            builder: (context) => AddFromCommunityPage(selectedPage: 0, creatorTuple: widget.creatorTuple)
                                         ),
                                       );
                                     },
@@ -233,7 +233,7 @@ class _CommunityPageState extends State<CommunityPage> {
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                          builder: (context) => AddFromCommunityPage(selectedPage: 1, communityName: widget.creatorTuple),
+                                          builder: (context) => AddFromCommunityPage(selectedPage: 1, creatorTuple: widget.creatorTuple),
                                         ),
                                       );
                                     },
@@ -325,7 +325,7 @@ class _CommunityPageState extends State<CommunityPage> {
                                                   Navigator.push(
                                                     context,
                                                     MaterialPageRoute(
-                                                      builder: (context) => ObjectPage(objectName: objectName, communityName: widget.creatorTuple),
+                                                      builder: (context) => ObjectPage(objectName: objectName, creatorTuple: widget.creatorTuple),
                                                     ),
                                                   );
                                                 },

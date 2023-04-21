@@ -6,8 +6,8 @@ import 'package:provider/provider.dart';
 
 class AddFromCommunityPage extends StatefulWidget {
   int selectedPage = 0;
-  final String communityName;
-  AddFromCommunityPage({Key? key, required this.selectedPage, required this.communityName}) : super(key: key);
+  final String creatorTuple;
+  AddFromCommunityPage({Key? key, required this.selectedPage, required this.creatorTuple}) : super(key: key);
 
   @override
   State<AddFromCommunityPage> createState() => _AddFromCommunityPageData();
@@ -26,12 +26,12 @@ class _AddFromCommunityPageData extends State<AddFromCommunityPage> {
           title: Row(
             children: <Widget>[
               Image.asset(
-                '${providerCommunity.extractCommunityImagePathByName(widget.communityName)}',
+                '${providerCommunity.extractCommunityImagePathByName(widget.creatorTuple)}',
                 width: 40,
                 height: 40,
               ),
               SizedBox(width: 10),
-              Text(widget.communityName),
+              Flexible(child: Text((widget.creatorTuple).split(":")[0], overflow: TextOverflow.ellipsis,)),
             ],
           ),
           bottom: const TabBar(
@@ -46,8 +46,8 @@ class _AddFromCommunityPageData extends State<AddFromCommunityPage> {
         ),
         body: TabBarView(
           children: [
-            ObjectScreen(isFromCommunityPage: true, communityName: widget.communityName),
-            ExpenseScreen(isFromCommunityPage: true, isFromObjectPage: false, communityName: widget.communityName, objectName: "",),
+            ObjectScreen(isFromCommunityPage: true, creatorTuple: widget.creatorTuple),
+            ExpenseScreen(isFromCommunityPage: true, isFromObjectPage: false, creatorTuple: widget.creatorTuple, objectName: "",),
           ],
         ),
       ),

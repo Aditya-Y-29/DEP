@@ -3,9 +3,9 @@ import '../../provider/data_provider.dart';
 import 'package:provider/provider.dart';
 
 class ObjectScreen extends StatefulWidget {
-  const ObjectScreen({Key? key, required this.isFromCommunityPage, required this.communityName}) : super(key: key);
+  const ObjectScreen({Key? key, required this.isFromCommunityPage, required this.creatorTuple}) : super(key: key);
   final bool isFromCommunityPage;
-  final String communityName;
+  final String creatorTuple;
 
   @override
   State<ObjectScreen> createState() => ObjectData();
@@ -29,7 +29,7 @@ class ObjectData extends State<ObjectScreen> {
     final providerCommunity = Provider.of<DataProvider>(context, listen: true);
 
     if(widget.isFromCommunityPage) {
-      communityDropDown=widget.communityName;
+      communityDropDown=widget.creatorTuple;
     } else {
       communityDropDown=providerCommunity.communities[providerCommunity.communitiesIndex];
     }
@@ -55,6 +55,8 @@ class ObjectData extends State<ObjectScreen> {
 
                   if(!widget.isFromCommunityPage)
                   DropdownButtonFormField<String>(
+                    isExpanded: true,
+                    itemHeight: null,
                     decoration: const InputDecoration(
                       icon: Icon(Icons.home_work),
                       hintText: 'Community',
@@ -66,7 +68,7 @@ class ObjectData extends State<ObjectScreen> {
                     items: providerCommunity.communities.map<DropdownMenuItem<String>>((String chosenValue) {
                       return DropdownMenuItem<String>(
                         value: chosenValue,
-                        child: Text(chosenValue),
+                        child: Text((chosenValue).split(":")[0] + " - " + providerCommunity.communityMembersMap[chosenValue]!.firstWhere((member) => member.phone == (chosenValue).split(":")[1], orElse: () => providerCommunity.communityMembersMap[chosenValue]!.firstWhere((member) => member.isCreator == true)).name,),
                       );
                     }).toList(),
 

@@ -5,9 +5,9 @@ import 'package:provider/provider.dart';
 
 class AddFromObjectPage extends StatefulWidget {
   int selectedPage = 0;
-  final String communityName;
+  final String creatorTuple;
   final String objectName;
-  AddFromObjectPage({Key? key, required this.selectedPage, required this.communityName, required this.objectName}) : super(key: key);
+  AddFromObjectPage({Key? key, required this.selectedPage, required this.creatorTuple, required this.objectName}) : super(key: key);
 
   @override
   State<AddFromObjectPage> createState() => _AddFromObjectPageData();
@@ -27,12 +27,12 @@ class _AddFromObjectPageData extends State<AddFromObjectPage> {
           title: Row(
             children: <Widget>[
               Image.asset(
-                '${providerCommunity.extractCommunityImagePathByName(widget.communityName)}',
+                '${providerCommunity.extractCommunityImagePathByName(widget.creatorTuple)}',
                 width: 40,
                 height: 40,
               ),
               SizedBox(width: 10),
-              Text(widget.communityName),
+              Flexible(child: Text((widget.creatorTuple).split(":")[0], overflow: TextOverflow.ellipsis,)),
             ],
           ) ,
           bottom: PreferredSize(
@@ -85,7 +85,7 @@ class _AddFromObjectPageData extends State<AddFromObjectPage> {
         ),
         body: TabBarView(
           children: [
-            ExpenseScreen(isFromCommunityPage: false, isFromObjectPage: true, communityName: widget.communityName, objectName: widget.objectName,),
+            ExpenseScreen(isFromCommunityPage: false, isFromObjectPage: true, creatorTuple: widget.creatorTuple, objectName: widget.objectName,),
           ],
         ),
       ),

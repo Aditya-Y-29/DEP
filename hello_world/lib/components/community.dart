@@ -194,7 +194,7 @@ class _CommunityState extends State<Community> {
                                 onPressed: (){
                                   Navigator.push(
                                     context,
-                                    MaterialPageRoute(builder: (context) => AddFromCommunityPage(selectedPage: 0, communityName: widget.creatorTuple,)),
+                                    MaterialPageRoute(builder: (context) => AddFromCommunityPage(selectedPage: 0, creatorTuple: widget.creatorTuple,)),
                                   );
                                 },
                                 backgroundColor: Colors.green,

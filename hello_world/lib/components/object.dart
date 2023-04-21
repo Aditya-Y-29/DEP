@@ -76,7 +76,7 @@ class _ObjectState extends State<Object> {
             MaterialPageRoute(
                 builder: (context) => ObjectPage(
                       objectName: widget.name,
-                      communityName: widget.creatorTuple,
+                      creatorTuple: widget.creatorTuple,
                     )));
       },
       child: Container(
@@ -171,7 +171,7 @@ class _ObjectState extends State<Object> {
                       MaterialPageRoute(
                           builder: (context) => AddFromObjectPage(
                               selectedPage: 0,
-                              communityName: widget.creatorTuple,
+                              creatorTuple: widget.creatorTuple,
                               objectName: widget.name)),
                     );
                   },

@@ -9,9 +9,9 @@ import '../../provider/data_provider.dart';
 import 'package:provider/provider.dart';
 
 class ObjectPage extends StatefulWidget {
-  final String communityName;
+  final String creatorTuple;
   final String objectName;
-  const ObjectPage({Key? key, required this.objectName, required this.communityName}) : super(key: key);
+  const ObjectPage({Key? key, required this.objectName, required this.creatorTuple}) : super(key: key);
 
   @override
   State<ObjectPage> createState() => _ObjectPageState();
@@ -36,12 +36,12 @@ class _ObjectPageState extends State<ObjectPage> {
           title: Row(
             children: <Widget>[
               Image.asset(
-                '${providerCommunity.extractCommunityImagePathByName(widget.communityName)}',
+                '${providerCommunity.extractCommunityImagePathByName(widget.creatorTuple)}',
                 width: 40,
                 height: 40,
               ),
               SizedBox(width: 10),
-              Text(widget.communityName),
+              Flexible(child: Text((widget.creatorTuple).split(":")[0], overflow: TextOverflow.ellipsis,)),
             ],
           ) ,
           actions: [
@@ -136,7 +136,7 @@ class _ObjectPageState extends State<ObjectPage> {
               ),
               body: TabBarView(
                 children: [
-                  ObjectExpenseScreen(objectName: widget.objectName,communityName: widget.communityName,),
+                  ObjectExpenseScreen(objectName: widget.objectName,communityName: widget.creatorTuple,),
                 ],
               ),
               bottomNavigationBar: BottomAppBar(
@@ -155,7 +155,7 @@ class _ObjectPageState extends State<ObjectPage> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => AddFromObjectPage(selectedPage: 0, communityName: widget.communityName, objectName: widget.objectName),
+                              builder: (context) => AddFromObjectPage(selectedPage: 0, creatorTuple: widget.creatorTuple, objectName: widget.objectName),
                             ),
                           );
                         },
@@ -171,7 +171,7 @@ class _ObjectPageState extends State<ObjectPage> {
                           Provider.of<DataProvider>(context, listen: false);
                           const snackbar1 = SnackBar(content: Text("Refreshing..."), duration: Duration(seconds: 2),);
                           ScaffoldMessenger.of(context).showSnackBar(snackbar1);
-                          await dataProvider.getObjectDetails(widget.communityName, widget.objectName);
+                          await dataProvider.getObjectDetails(widget.creatorTuple, widget.objectName);
                         },
                         child: Icon(Icons.sync),
                       ),
