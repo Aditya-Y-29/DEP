@@ -48,7 +48,7 @@ class _MyPhoneState extends State<MyPhone> {
                 height: 10,
               ),
               Text(
-                "We need to register your phone without getting started!",
+                "We need to register your phone to get you started!",
                 style: TextStyle(
                   fontSize: 16,
                 ),

@@ -5,7 +5,7 @@ import '../Models/user.dart';
 class UserDataBaseService {
   static final _db = FirebaseFirestore.instance;
 
-  static createUserDb(UserModel user) async {
+  static Future<bool> createUserDb(UserModel user) async {
     try {
       final sp1 = await _db
           .collection('users')

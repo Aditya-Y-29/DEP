@@ -103,6 +103,8 @@ class _MyVerifyState extends State<MyVerify> {
 
                             await dataProvider.addUser(MySignUp.name, MySignUp.emailId, MySignUp.phoneNo) ;
 
+                            await dataProvider.getAllDetails(MySignUp.phoneNo);
+
                             // ignore: use_build_context_synchronously
                             Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);
                           }

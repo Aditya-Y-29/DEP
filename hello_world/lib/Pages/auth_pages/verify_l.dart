@@ -107,6 +107,9 @@ class _MyVerifyLState extends State<MyVerifyL> {
 
                                 await dataProvider.getAllDetails(MyPhone.phoneNo);
 
+                                if(dataProvider.user==null){
+                                  return;
+                                }
                                 // ignore: use_build_context_synchronously
                                 Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);
                               }

@@ -39,7 +39,10 @@ class DataProvider extends ChangeNotifier {
 
 
   void checkuser(String phoneNo) async {
+    // print(phoneNo);
     user = await UserDataBaseService.getUser(phoneNo);
+    print("IN CHECKUSER ");
+    // print(user);
   }
 
   //***********************************************
@@ -213,14 +216,14 @@ class DataProvider extends ChangeNotifier {
     return sum;
   }
 
-  bool addUser(String name, String email, String phoneNo) {
+  Future<bool> addUser(String name, String email, String phoneNo) async {
     UserModel userM = UserModel(
       name: name,
       username: name,
       phoneNo: phoneNo,
       email: email,
     );
-    UserDataBaseService.createUserDb(userM);
+    await UserDataBaseService.createUserDb(userM);
     return true;
   }
 
@@ -246,6 +249,7 @@ class DataProvider extends ChangeNotifier {
 
     deleteState();
     checkuser(phoneNo);
+
     List<CommunityModel>? communityTemp = await UserDataBaseService.getCommunities(phoneNo);
     communitiesdb = communityTemp;
 
