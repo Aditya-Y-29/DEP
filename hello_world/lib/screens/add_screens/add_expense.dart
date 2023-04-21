@@ -6,10 +6,10 @@ import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
 
 class ExpenseScreen extends StatefulWidget {
-  const ExpenseScreen({Key? key, required this.isFromCommunityPage, required this.isFromObjectPage, required this.communityName, required this.objectName}) : super(key: key);
+  const ExpenseScreen({Key? key, required this.isFromCommunityPage, required this.isFromObjectPage, required this.creatorTuple, required this.objectName}) : super(key: key);
   final bool isFromCommunityPage;
   final bool isFromObjectPage;
-  final String communityName;
+  final String creatorTuple;
   final String objectName;
 
   @override
@@ -45,7 +45,7 @@ class ExpenseData extends State<ExpenseScreen> {
     }
 
     if(widget.isFromCommunityPage || widget.isFromObjectPage) {
-      communityDropDown=widget.communityName;
+      communityDropDown=widget.creatorTuple;
     } else {
       communityDropDown=providerCommunity.communities[providerCommunity.communitiesIndex];
     }
@@ -85,6 +85,8 @@ class ExpenseData extends State<ExpenseScreen> {
 
                 if(!widget.isFromCommunityPage && !widget.isFromObjectPage)
                   DropdownButtonFormField<String>(
+                    isExpanded: true,
+                    itemHeight: null,
                     decoration: const InputDecoration(
                       icon: Icon(Icons.home_work),
                       hintText: 'Community',
@@ -96,7 +98,8 @@ class ExpenseData extends State<ExpenseScreen> {
                     items: providerCommunity.communities.map<DropdownMenuItem<String>>((String chosenValue) {
                       return DropdownMenuItem<String>(
                         value: chosenValue,
-                        child: Text(chosenValue),
+                        child:
+                          Text((chosenValue).split(":")[0] + " - " + providerCommunity.communityMembersMap[chosenValue]!.firstWhere((member) => member.phone == (chosenValue).split(":")[1], orElse: () => providerCommunity.communityMembersMap[chosenValue]!.firstWhere((member) => member.isCreator == true)).name),
                       );
                     }).toList(),
 

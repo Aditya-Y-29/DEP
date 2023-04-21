@@ -19,8 +19,8 @@ class _ObjectExpenseScreenState extends State<ObjectExpenseScreen> {
     return Consumer<DataProvider>(
       builder: (context, objectDataProvider, child) {
         
-        if( objectDataProvider.objectUnresolvedExpenseMap[widget.communityName]![widget.objectName] == null ){
-          return const Center(child: Text("No expenses in this object"));
+        if( objectDataProvider.objectUnresolvedExpenseMap[widget.communityName]![widget.objectName] == null || objectDataProvider.objectUnresolvedExpenseMap[widget.communityName]![widget.objectName]!.isEmpty){
+          return Container(padding: EdgeInsets.symmetric(horizontal: 30, vertical: 150),child: Text("Hey there! Add your first expense in this object by tapping the + button below!",style: TextStyle(fontSize: 30),));
         } 
 
         return SingleChildScrollView(

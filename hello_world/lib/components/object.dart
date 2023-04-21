@@ -9,8 +9,8 @@ import 'dart:math';
 
 class Object extends StatefulWidget {
   final String name;
-  final String communityName;
-  const Object({Key? key, required this.name, required this.communityName})
+  final String creatorTuple;
+  const Object({Key? key, required this.name, required this.creatorTuple})
       : super(key: key);
 
   @override
@@ -48,8 +48,8 @@ class _ObjectState extends State<Object> {
       Future<bool> returnValue= showDeleteDialog(context);
       bool alertResponse = await returnValue;
       if(alertResponse==true){
-        if( await Provider.of<DataProvider>(context, listen: false).isAdmin(widget.communityName)==true){
-          Provider.of<DataProvider>(context, listen: false).deleteObject(widget.communityName, widget.name);
+        if( await Provider.of<DataProvider>(context, listen: false).isAdmin(widget.creatorTuple)==true){
+          Provider.of<DataProvider>(context, listen: false).deleteObject(widget.creatorTuple, widget.name);
         }
         else{
           ScaffoldMessenger.of(context).showSnackBar(
@@ -76,7 +76,7 @@ class _ObjectState extends State<Object> {
             MaterialPageRoute(
                 builder: (context) => ObjectPage(
                       objectName: widget.name,
-                      communityName: widget.communityName,
+                      creatorTuple: widget.creatorTuple,
                     )));
       },
       child: Container(
@@ -111,8 +111,8 @@ class _ObjectState extends State<Object> {
                     margin: const EdgeInsets.only(right: 12.0),
                       child: Image.asset(
                         '${providerCommunity.extractObjectImagePathByName(widget.name)}',
-                        width: 60,
-                        height: 60,
+                        width: 40,
+                        height: 40,
                       ),
                   )),
                   Flexible(
@@ -120,11 +120,12 @@ class _ObjectState extends State<Object> {
                         child: Text(
                         widget.name,
                         style: const TextStyle(
-                          fontSize: 20,
+                          fontSize: 18,
                         ),
                       overflow: TextOverflow.ellipsis,
                     ),
                   )),
+                  if(widget.name != "Misc")
                   PopupMenuButton<Choice>(
                     itemBuilder: (BuildContext context) {
                       return choices.skip(0).map((Choice choice) {
@@ -142,7 +143,7 @@ class _ObjectState extends State<Object> {
                 Icon(Icons.person),
                 Text(" = "),
                 Text(
-                  "₹ ${providerCommunity.myExpenseInObject(widget.communityName, widget.name)}",
+                  "₹ ${providerCommunity.myExpenseInObject(widget.creatorTuple, widget.name)}",
                   style: TextStyle(color: Colors.blue),
                 ),
               ],
@@ -152,7 +153,7 @@ class _ObjectState extends State<Object> {
                 Icon(Icons.group),
                 Text(" = "),
                 Text(
-                    "₹ ${providerCommunity.objectTotalExpense(widget.communityName, widget.name)}",
+                    "₹ ${providerCommunity.objectTotalExpense(widget.creatorTuple, widget.name)}",
                     style: TextStyle(color: Colors.blue)),
               ],
             ),
@@ -170,7 +171,7 @@ class _ObjectState extends State<Object> {
                       MaterialPageRoute(
                           builder: (context) => AddFromObjectPage(
                               selectedPage: 0,
-                              communityName: widget.communityName,
+                              creatorTuple: widget.creatorTuple,
                               objectName: widget.name)),
                     );
                   },

@@ -8,8 +8,8 @@ class Expense extends StatefulWidget {
   final String date;
   final bool isPaid;
   final String objectName;
-  final String communityName;
-  const Expense({Key? key, required this.objectName, required this.creator, required this.description, required this.amount,required this.date, required this.isPaid, required this.communityName}) : super(key: key);
+  final String creatorTuple;
+  const Expense({Key? key, required this.objectName, required this.creator, required this.description, required this.amount,required this.date, required this.isPaid, required this.creatorTuple}) : super(key: key);
 
   @override
   State<Expense> createState() => _ExpenseState();
@@ -72,7 +72,7 @@ class _ExpenseState extends State<Expense> {
                   date:widget.date.substring(0, 10),
                   isPaid: false,
                   objectName: widget.objectName,
-                  communityName: widget.communityName,
+                  creatorTuple: widget.creatorTuple,
                 );
 
                   Navigator.push(

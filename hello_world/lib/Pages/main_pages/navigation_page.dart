@@ -99,13 +99,6 @@ class NavigationPageState extends State<NavigationPage> {
                           return GestureDetector(
                             onTap: () {
                               setState(() {
-                                int temp = 1 << (k-1);
-                                if(clickedCommunity >> (k-1) & 1 == 1)
-                                  clickedCommunity = clickedCommunity ^ temp;
-                                else{
-                                  clickedCommunity = 0;
-                                  clickedCommunity = clickedCommunity | temp;
-                                }
                                 communityName = e;
                               });
                             },
@@ -114,7 +107,7 @@ class NavigationPageState extends State<NavigationPage> {
                               decoration: BoxDecoration(
                                 border: Border.all(
                                   color: Colors.green,
-                                  width: 2,
+                                  width: 1,
                                 ),
                                 color: Colors.green.shade50,
                               ),
@@ -133,7 +126,7 @@ class NavigationPageState extends State<NavigationPage> {
                                             width: 45,
                                           ),
                                           tileColor: Colors.green.shade50,
-                                          title: Text(e),
+                                          title: Text(e.split(":")[0] + " - " + providerCommunity.communityMembersMap[e]!.firstWhere((member) => member.phone == (e).split(":")[1], orElse: () => providerCommunity.communityMembersMap[e]!.firstWhere((member) => member.isCreator == true)).name),
                                         ),),
                                     ),
                                   ]),
@@ -160,7 +153,7 @@ class NavigationPageState extends State<NavigationPage> {
 
 Route _createRoute(String communityName) {
   return PageRouteBuilder(
-    pageBuilder: (context, animation, secondaryAnimation) => CommunityPage(communityName: communityName),
+    pageBuilder: (context, animation, secondaryAnimation) => CommunityPage(creatorTuple: communityName),
     transitionsBuilder: (context, animation, secondaryAnimation, child) {
       var begin = const Offset(1.0, 0.0);
       var end = Offset.zero;
