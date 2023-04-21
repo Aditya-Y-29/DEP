@@ -99,15 +99,15 @@ class ObjectData extends State<ObjectScreen> {
 
                   SizedBox(height: 10,),
 
-
-                  TextFormField(
-                    keyboardType: TextInputType.multiline,
-                    maxLines: null,
-                    decoration: const InputDecoration(
-                      icon: Icon(Icons.edit),
-                      hintText: 'Description',
-                    ),
-                  ),
+                  //
+                  // TextFormField(
+                  //   keyboardType: TextInputType.multiline,
+                  //   maxLines: null,
+                  //   decoration: const InputDecoration(
+                  //     icon: Icon(Icons.edit),
+                  //     hintText: 'Description',
+                  //   ),
+                  // ),
                   Container(
                       margin: const EdgeInsets.only(top: 20.0),
                       child: FloatingActionButton(

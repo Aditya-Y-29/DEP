@@ -50,12 +50,12 @@ class CommunityData extends State<CommunityScreen> {
 
             SizedBox(height: 10,),
 
-            TextFormField(
-              decoration: const InputDecoration(
-                icon: Icon(Icons.edit),
-                hintText: 'Description',
-              ),
-            ),
+            // TextFormField(
+            //   decoration: const InputDecoration(
+            //     icon: Icon(Icons.edit),
+            //     hintText: 'Description',
+            //   ),
+            // ),
             Container(
                 margin: const EdgeInsets.only(top: 20.0),
                 child: FloatingActionButton(
