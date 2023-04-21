@@ -19,7 +19,7 @@ class _CommunityState extends State<Community> {
       builder: (BuildContext context) {
         return AlertDialog(
           title: Text('Confirm Delete'),
-          content: Text('Are you sure you want to delete ${widget.creatorTuple} community?'),
+          content: Text('Are you sure you want to delete ${(widget.creatorTuple).split(":")[0]} community?'),
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context, false),
