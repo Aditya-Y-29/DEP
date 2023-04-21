@@ -229,14 +229,18 @@ class _ProfilePageState extends State<ProfilePage> {
                               child: Expanded(
                                 child:
                                   SingleChildScrollView(
-                                    child: Column(
-                                      children: [
-                                        Container(
-                                          margin: EdgeInsets.only(top: 20, left: 10),
-                                          child: MyPieChart(),
-                                        ),
-                                      ],
-                                    ),
+                                    scrollDirection: Axis.horizontal,
+                                    child: SingleChildScrollView(
+                                      scrollDirection: Axis.vertical,
+                                      child: Column(
+                                        children: [
+                                          Container(
+                                            margin: EdgeInsets.only(top: 20, left: 10),
+                                            child: MyPieChart(),
+                                          ),
+                                        ],
+                                      ),
+                                    )
                                   ),
                               )
                             ),

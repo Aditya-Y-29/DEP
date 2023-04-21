@@ -121,17 +121,17 @@ class DataProvider extends ChangeNotifier {
     return communityNameToImagePath["Default"]!;
   }
 
-  int communityTotalExpense(String communityName) {
+  int communityTotalExpense(String creatorTuple) {
     int sum = 0;
-    for (int i = 0; i < communityObjectMap[communityName]!.length; i++) {
+    for (int i = 0; i < communityObjectMap[creatorTuple]!.length; i++) {
       for (int j = 0;
           j <
-              objectUnresolvedExpenseMap[communityName]![
-                      communityObjectMap[communityName]![i]]!
+              objectUnresolvedExpenseMap[creatorTuple]![
+                      communityObjectMap[creatorTuple]![i]]!
                   .length;
           j++) {
-        sum += objectUnresolvedExpenseMap[communityName]![
-                communityObjectMap[communityName]![i]]![j]
+        sum += objectUnresolvedExpenseMap[creatorTuple]![
+                communityObjectMap[creatorTuple]![i]]![j]
             .amount;
       }
     }
@@ -143,8 +143,8 @@ class DataProvider extends ChangeNotifier {
     List<CommunityModel>? communityList =
         await UserDataBaseService.getCommunities(user!.phoneNo);
     communityList!.forEach((element) {
-      String communityName = element!.name;
-      sum += communityTotalExpense(communityName);
+      String creatorTuple = "${element.name}:${element.phoneNo}";
+      sum += communityTotalExpense(creatorTuple);
     });
     return sum;
   }
@@ -154,8 +154,8 @@ class DataProvider extends ChangeNotifier {
     List<CommunityModel>? communityList =
         await UserDataBaseService.getCommunities(user!.phoneNo);
     communityList!.forEach((element) {
-      String communityName = element!.name;
-      sum += myExpenseInCommunity(communityName);
+      String creatorTuple = "${element.name}:${element.phoneNo}";
+      sum += myExpenseInCommunity(creatorTuple);
     });
     return sum;
   }
@@ -229,8 +229,10 @@ class DataProvider extends ChangeNotifier {
     List<CommunityModel>? communityList =
         await UserDataBaseService.getCommunities(user!.phoneNo);
     for (int i = 0; i < communityList!.length; i++) {
-      communityTotalExpenseMap[communityList[i].name] =
-          communityTotalExpense(communityList[i].name).toDouble();
+      String creatorTuple = "${communityList[i].name}:${communityList[i].phoneNo}";
+      String commCreatorName = creatorTuple.split(":")[0] + " - " + communityMembersMap[creatorTuple]!.firstWhere((member) => member.phone == (creatorTuple).split(":")[1], orElse: () => communityMembersMap[creatorTuple]!.firstWhere((member) => member.isCreator == true)).name;
+      communityTotalExpenseMap[commCreatorName] =
+          communityTotalExpense(creatorTuple).toDouble();
     }
     return communityTotalExpenseMap;
   }
