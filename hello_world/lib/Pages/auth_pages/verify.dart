@@ -112,23 +112,23 @@ class _MyVerifyState extends State<MyVerify> {
                         },
                         child: Text("Verify Phone Number")),
                   ),
-                  Row(
-                    children: [
-                      TextButton(
-                          onPressed: () {
-                            Navigator.pushNamedAndRemoveUntil(
-                              context,
-                              'phone',
-                                  (route) => false,
-                            );
-                          },
-                          child: Text(
-                            "Edit Phone Number ?",
-                            style: TextStyle(color: Colors.black),
-                          )
-                      )
-                    ],
-                  )
+                  // Row(
+                  //   children: [
+                  //     TextButton(
+                  //         onPressed: () {
+                  //           Navigator.pushNamedAndRemoveUntil(
+                  //             context,
+                  //             'phone',
+                  //                 (route) => false,
+                  //           );
+                  //         },
+                  //         child: Text(
+                  //           "Edit Phone Number ?",
+                  //           style: TextStyle(color: Colors.black),
+                  //         )
+                  //     )
+                  //   ],
+                  // )
                 ],
               ),
             ),

@@ -116,23 +116,23 @@ class _MyVerifyLState extends State<MyVerifyL> {
                             },
                             child: Text("Verify Phone Number")),
                       ),
-                      Row(
-                        children: [
-                          TextButton(
-                              onPressed: () {
-                                Navigator.pushNamedAndRemoveUntil(
-                                  context,
-                                  'phone',
-                                      (route) => false,
-                                );
-                              },
-                              child: Text(
-                                "Edit Phone Number ?",
-                                style: TextStyle(color: Colors.black),
-                              )
-                          )
-                        ],
-                      )
+                      // Row(
+                      //   children: [
+                      //     TextButton(
+                      //         onPressed: () {
+                      //           Navigator.pushNamedAndRemoveUntil(
+                      //             context,
+                      //             'phone',
+                      //                 (route) => false,
+                      //           );
+                      //         },
+                      //         child: Text(
+                      //           "Edit Phone Number ?",
+                      //           style: TextStyle(color: Colors.black),
+                      //         )
+                      //     )
+                      //   ],
+                      // )
                     ],
                   ),
                 ),
