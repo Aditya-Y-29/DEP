@@ -97,14 +97,32 @@ class _CommunityState extends State<Community> {
                         child:
                         Container(
                           child:
-                          Text(
-                            widget.creatorTuple,
-                            style: const TextStyle(
-                              color: Colors.black,
-                              fontSize: 20,
-                            ),
-                            overflow: TextOverflow.ellipsis,
-                          ),
+                              Column(
+                              children: [
+                                Text(
+                                  (widget.creatorTuple).split(":")[0],
+                                  style: const TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 20,
+                                  ),
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                                // Row(
+                                //   mainAxisAlignment: MainAxisAlignment.center,
+                                //   children: [
+                                //     Icon(Icons.person_pin_circle_outlined, size: 14,),
+                                //     Text(
+                                //       providerCommunity.communityMembersMap[widget.creatorTuple]!.firstWhere((member) => member.phone == (widget.creatorTuple).split(":")[1], orElse: () => providerCommunity.communityMembersMap[widget.creatorTuple]!.firstWhere((member) => member.isCreator == true)).name,
+                                //       style: const TextStyle(
+                                //         color: Colors.black,
+                                //         fontSize: 10,
+                                //       ),
+                                //       overflow: TextOverflow.ellipsis,
+                                //     ),
+                                //   ],
+                                // )
+                              ],
+                              )
                         )
                     ),
                     Column(
