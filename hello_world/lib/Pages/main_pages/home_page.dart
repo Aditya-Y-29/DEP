@@ -249,7 +249,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             communityDataProvider.communities.isEmpty ? [
                               Container(
                                   margin: const EdgeInsets.symmetric(horizontal: 30, vertical: 100),
-                                  child: Text("Hey there! Welcome to UtilMan! Add your first community using the button in the top left!", style: TextStyle(fontSize: 30),)
+                                  child: Text("Hey there! Welcome to UtilMan! Add your first community using the Add Community button above!", style: TextStyle(fontSize: 30),)
                               )
                             ] :
                           List.of(communityDataProvider.communities.map((e) {
