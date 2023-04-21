@@ -41,7 +41,7 @@ class ExpenseData extends State<ExpenseScreen> {
     final providerCommunity = Provider.of<DataProvider>(context, listen: true);
 
     if(providerCommunity.communities.isEmpty){
-      return const Center(child: Text("No Communities to Add Expense"));
+      return Container(margin: EdgeInsets.symmetric(horizontal: 30, vertical: 150),child: Text("Hey there! Double-swipe left to add your first community! Then come back here to add an expense!", style: TextStyle(fontSize: 30),));
     }
 
     if(widget.isFromCommunityPage || widget.isFromObjectPage) {
@@ -60,7 +60,7 @@ class ExpenseData extends State<ExpenseScreen> {
     else if (providerCommunity.communityObjectMap[communityDropDown]!.isNotEmpty) {
       objectDropDown=providerCommunity.communityObjectMap[communityDropDown]![providerCommunity.objectIndex];
     } else {
-      return const Center(child: Text("No Objects in this Community"));
+      return Container(margin: EdgeInsets.symmetric(horizontal: 30, vertical: 150),child: Text("Hey there! Swipe left to add your first object! Then come back here to add an expense!", style: TextStyle(fontSize: 30),));
     }
 
 
