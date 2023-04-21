@@ -119,7 +119,8 @@ class _CommunityInfoState extends State<CommunityInfo> {
               height: 40,
             ),
             SizedBox(width: 10),
-            Text('${widget.creatorTuple} Info'),
+            Flexible(child: Text('${widget.creatorTuple}', overflow: TextOverflow.ellipsis,)),
+            Text(' Info')
           ],
         ),
       ),

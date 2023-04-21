@@ -3,9 +3,9 @@ import '../../provider/data_provider.dart';
 import 'package:provider/provider.dart';
 
 class LogsNotification extends StatefulWidget {
-  const LogsNotification({Key? key, required this.communityName, required this.notification})
+  const LogsNotification({Key? key, required this.creatorTuple, required this.notification})
       : super(key: key);
-  final String communityName;
+  final String creatorTuple;
   final List<String> notification;
 
   @override
@@ -32,15 +32,20 @@ class _LogsNotification extends State<LogsNotification> {
                 Row(
                   children: [
                     Image.asset(
-                      '${providerCommunity.extractCommunityImagePathByName(widget.communityName)}',
+                      '${providerCommunity.extractCommunityImagePathByName(widget.creatorTuple)}',
                       width: 40,
                       height: 40,
                     ),
                     SizedBox(width: 10.0),
-                    Text(
-                      "${widget.communityName} Logs",
-                      style: TextStyle(fontSize: 20.0),
+                    Flexible(
+                      child:
+                      Text(
+                        (widget.creatorTuple.split(':')[0]),
+                        style: TextStyle(fontSize: 20.0),
+                        overflow: TextOverflow.ellipsis,
+                      ),
                     ),
+                    Text(' Logs', style: TextStyle(fontSize: 20.0))
                   ],
                 ),
                 // SizedBox(height: 10.0),

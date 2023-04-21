@@ -67,7 +67,7 @@ class _CommunityPageState extends State<CommunityPage> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => LogsNotification(communityName: widget.creatorTuple,notification: notification,),
+                      builder: (context) => LogsNotification(creatorTuple: widget.creatorTuple,notification: notification,),
                     ),
                   );
                 },
