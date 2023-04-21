@@ -246,6 +246,12 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                       Column(
                         children:
+                            communityDataProvider.communities.isEmpty ? [
+                              Container(
+                                  margin: const EdgeInsets.symmetric(horizontal: 30, vertical: 100),
+                                  child: Text("Hey there! Welcome to UtilMan! Add your first community using the button in the top left!", style: TextStyle(fontSize: 30),)
+                              )
+                            ] :
                           List.of(communityDataProvider.communities.map((e) {
                                   if(!e.toLowerCase().contains(searchController.text.toLowerCase().trim())) {
                                     return SizedBox(height: 0,);

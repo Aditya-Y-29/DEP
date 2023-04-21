@@ -361,9 +361,13 @@ class _CommunityPageState extends State<CommunityPage> {
                                               :
                                           [
                                             Container(
-                                              margin: const EdgeInsets.symmetric(horizontal: 70, vertical: 100),
+                                              margin: const EdgeInsets.symmetric(horizontal: 30, vertical: 50),
                                               child: const Text(
-                                                "Waiting for objects to be added!",
+                                                "Hey there! Add your first object in this community using the Add Object button above!",
+                                                style: TextStyle(
+                                                  fontSize: 30,
+                                                  // fontWeight: FontWeight.bold,
+                                                )
                                               ),
                                             )
                                           ]
@@ -389,10 +393,15 @@ class _CommunityPageState extends State<CommunityPage> {
                                         ),
                                         if(miscExpenses(objectDataProvider, searchController).isEmpty)
                                           Column(
-                                            children: const [
-                                              Text(
-                                                "No expenses found",
-                                              ),
+                                            children: [
+                                              Container(
+                                                margin: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+                                                child:
+                                                  Text(
+                                                    "Hey there! Add your first miscellaneous expense in this community using the Add Expense button above and selecting the Misc object!",
+                                                    style: TextStyle(fontSize: 30,)
+                                                    ),
+                                              )
                                             ],
                                           ),
                                       ],

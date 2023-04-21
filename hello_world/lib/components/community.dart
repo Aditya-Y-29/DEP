@@ -49,7 +49,7 @@ class _CommunityState extends State<Community> {
         else{
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
-              content: Text('You are not an admin of this community'),
+              content: Text('Only creators have delete power! Become a creator to delete this community!'),
             ),
           );
           return;
