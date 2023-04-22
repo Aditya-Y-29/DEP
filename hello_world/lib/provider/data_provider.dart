@@ -41,7 +41,7 @@ class DataProvider extends ChangeNotifier {
   void checkuser(String phoneNo) async {
     // print(phoneNo);
     user = await UserDataBaseService.getUser(phoneNo);
-    print("IN CHECKUSER ");
+    // print("IN CHECKUSER ");
     // print(user);
   }
 
