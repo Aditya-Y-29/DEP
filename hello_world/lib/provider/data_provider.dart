@@ -121,7 +121,7 @@ class DataProvider extends ChangeNotifier {
         return value;
       }
     }
-    return communityNameToImagePath["Default"]!;
+    return objectNameToImagePath["Default"]!;
   }
 
   int communityTotalExpense(String creatorTuple) {
