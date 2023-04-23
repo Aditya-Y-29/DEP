@@ -33,7 +33,7 @@ class _EditFromObjectPageData extends State<EditExpensePage> {
                 height: 40,
               ),
               SizedBox(width: 10),
-              Text(widget.expense.creatorTuple),
+              Text((widget.expense.creatorTuple).split(":")[0]),
             ],
           ) ,
           bottom: PreferredSize(
