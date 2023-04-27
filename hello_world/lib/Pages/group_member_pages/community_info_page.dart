@@ -107,7 +107,7 @@ class _CommunityInfoState extends State<CommunityInfo> {
           }
       }
     }
-    print("creators: $creators, hasCreatorPower: $hasCreatorPower");
+    // print("creators: $creators, hasCreatorPower: $hasCreatorPower");
 
     return Scaffold(
       appBar: AppBar(
@@ -124,37 +124,9 @@ class _CommunityInfoState extends State<CommunityInfo> {
           ],
         ),
       ),
-      body: Container(
-          child:
-              // GestureDetector(
-              //   onTap: () {
-              //     Navigator.push(context, MaterialPageRoute(builder: (context) => AddMembers(communityName: widget.communityName)));
-              //   },
-              //   child: Container(
-              //     color: Colors.green.shade100,
-              //     padding: const EdgeInsets.all(13),
-              //     child: Row(
-              //       mainAxisAlignment: MainAxisAlignment.center,
-              //       children: const [
-              //         CircleAvatar(
-              //             radius: 20,
-              //             child:  Icon(Icons.person_add),
-              //         ),
-              //         SizedBox(width: 10,),
-              //         Text('Add Member', style: TextStyle(fontSize: 18),)
-              //       ],
-              //     ),
-              //   )
-              // ),
-              // const SizedBox(height: 10,),
-              // Container(
-              //   padding: const EdgeInsets.all(10),
-              //   decoration: BoxDecoration(
-              //     borderRadius: BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10), bottomLeft: Radius.circular(10), bottomRight: Radius.circular(10)),
-              //     border: Border.all(color: Colors.green, width: 2),
-              //   ),
-              //   child: const Text('Members', style: TextStyle(fontSize: 17),)
-              // ),
+      body:
+      // Container(
+      //     child:
               Column(
                       children: [
                         GestureDetector(
@@ -197,25 +169,20 @@ class _CommunityInfoState extends State<CommunityInfo> {
                         Expanded(
                             child:
                           Container(
-                            margin: const EdgeInsets.only(top: 10),
+                            margin: const EdgeInsets.only(top: 0),
                             // decoration: BoxDecoration(
                             //   border: Border.all(color: Colors.green, width: 2),
                             // ),
                             child:
                             ListView(
-                                children: providerCommunity.communityMembersMap[widget.creatorTuple] == null ? [] : List.of(providerCommunity.communityMembersMap[widget.creatorTuple]!.map(
+                                children: providerCommunity.communityMembersMap[widget.creatorTuple] == null ?
+                                []
+                                    :
+                                List.of(providerCommunity.communityMembersMap[widget.creatorTuple]!.map(
                                       (member) =>
                                           GestureDetector(
-                                          // onLongPressCancel: () {
-                                          //   setState(() {
-                                          //     isLongPressed = false;
-                                          //   });
-                                          // },
                                           onTapDown: getPosition,
                                           onLongPress: () async {
-                                            // setState(() {
-                                            //   isLongPressed = true;
-                                            // });
                                             if(!hasCreatorPower || member.phone == providerCommunity.user!.phoneNo){
                                               return;
                                             }
@@ -247,9 +214,6 @@ class _CommunityInfoState extends State<CommunityInfo> {
                                               if(alertResponse==true){
                                                 providerCommunity.removeMemberFromCommunity(widget.creatorTuple, member.phone);
                                               }
-                                              else{
-
-                                              }
                                             }
                                             else if(selected == 1){
                                               Future<bool> returnValue= showTogglePowerDialog(context,member.name);
@@ -257,10 +221,6 @@ class _CommunityInfoState extends State<CommunityInfo> {
                                               if(alertResponse==true){
                                                 providerCommunity.toggleCreatorPower(widget.creatorTuple, member.phone);
                                               }
-                                              else{
-
-                                              }
-
                                             }
                                           },
                                           child: Container(
@@ -274,7 +234,8 @@ class _CommunityInfoState extends State<CommunityInfo> {
                                           ),
                                       ),
                                 ),
-                              ))
+                              )
+                                )
                           ),
                         ),
                         GestureDetector(
@@ -298,9 +259,6 @@ class _CommunityInfoState extends State<CommunityInfo> {
                             if(alertResponse==true){
                               providerCommunity.removeMemberFromCommunity(widget.creatorTuple, providerCommunity.user!.phoneNo);
                               Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => MyHomePage()));
-                            }
-                            else{
-
                             }
                           },
                           child:
@@ -336,11 +294,11 @@ class _CommunityInfoState extends State<CommunityInfo> {
                           )
                         )
                     ],
-                  )
+                  ),
                   // )
                 // ],
               // )
-          ),
+          // ),
       bottomNavigationBar: BottomAppBar(
         color: Colors.green.shade50,
         elevation: 0,
