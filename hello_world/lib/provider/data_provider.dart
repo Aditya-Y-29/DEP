@@ -411,6 +411,14 @@ class DataProvider extends ChangeNotifier {
       name: communityName,
       phoneNo: user!.phoneNo,
     );
+    // creating misc object model here
+    String? communityID = await CommunityDataBaseService.getCommunityID(community);
+    ObjectsModel object = ObjectsModel(
+        name: "Misc",
+        communityID: communityID,
+        creatorPhoneNo: community.phoneNo,
+        type: "",
+        description: "");
     if (await CommunityDataBaseService.createCommunity(community) == false) {
       return;
     }
@@ -423,6 +431,11 @@ class DataProvider extends ChangeNotifier {
     communityMembersMap[creatorTuple]!
         .add(Member(name: user!.name, phone: user!.phoneNo, isCreator: true));
     communitiesdb!.add(community);
+
+    // added init code here
+    communityObjectMapdb![community] = [object];
+    objectUnresolvedExpenseMapdb![community] = {};
+    objectUnresolvedExpenseMapdb![community]![object] = [];
 
     // await addObject(communityName, "Misc");
     // communityObjectMap[communityName]?.add("Misc");

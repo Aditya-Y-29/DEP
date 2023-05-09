@@ -114,7 +114,22 @@ class _MyVerifyLState extends State<MyVerifyL> {
                                 Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);
                               }
                               catch(e){
-                                print("wrong otp");
+                                // modified to show error message
+                                if(e.toString().contains("invalid-verification-code")){
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      content: Text("Wrong OTP"),
+                                      duration: Duration(seconds: 5),
+                                    ),
+                                  );
+                                  return;
+                                }
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text("Something went wrong"),
+                                    duration: Duration(seconds: 5),
+                                  ),
+                                );
                               }
                             },
                             child: Text("Verify Phone Number")),

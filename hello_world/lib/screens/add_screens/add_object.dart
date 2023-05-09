@@ -112,7 +112,13 @@ class ObjectData extends State<ObjectScreen> {
                       margin: const EdgeInsets.only(top: 20.0),
                       child: FloatingActionButton(
                         heroTag: "BTN-21",
+                        // added checks for empty fields
                         onPressed: () {
+                          if(objectName.text.isEmpty){
+                            ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(content: Text('Please enter the object name!'), duration: Duration(seconds: 3)));
+                            return;
+                          }
                           providerCommunity.addObject(communityDropDown, objectName.text);
                           Navigator.pop(context);
                         },

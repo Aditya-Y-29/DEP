@@ -123,7 +123,21 @@ class ExpenseData extends State<EditExpenseScreen> {
                       margin: const EdgeInsets.only(top: 20.0),
                       child: FloatingActionButton(
                         heroTag: "BTN-22",
+                        // added checks for empty fields
                         onPressed: () {
+                          if(RegExp(r'[,.-]').hasMatch(amountInvolved.text)){
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(content: Text('Amount should be valid'),duration: Duration(seconds: 3)),
+                            );
+                            return;
+                          }
+
+                          if(dateController.text.isEmpty){
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(content: Text('Date cannot be empty'),duration: Duration(seconds: 3),),
+                            );
+                            return;
+                          }
                           providerCommunity.updateExpense(widget.expense,amountInvolved.text,dateController.text, description.text);
                           Navigator.pop(context);
                         },

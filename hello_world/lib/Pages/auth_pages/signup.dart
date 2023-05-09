@@ -173,6 +173,7 @@ class _MySignUpState extends State<MySignUp> {
                       width: 40,
                       child: TextField(
                         controller: countryController,
+                        enabled: false,
                         keyboardType: TextInputType.number,
                         decoration: InputDecoration(
                           border: InputBorder.none,
@@ -212,6 +213,31 @@ class _MySignUpState extends State<MySignUp> {
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10))),
                     onPressed: () async {
+                      // added checks for valid input
+                      if(nam.isEmpty){
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text('Please enter your name'),duration: Duration(seconds: 3)),
+                        );
+                        return;
+                      }
+
+                      RegExp regex = RegExp(r'^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$');
+
+                      if(!regex.hasMatch(email)){
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text('Please enter a valid email'),duration: Duration(seconds: 3)),
+                        );
+                        return;
+                      }
+
+                      regex = RegExp(r'^[0-9]{10}$');
+                      if(!regex.hasMatch(phone)){
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text('Please enter a valid phone number'),duration: Duration(seconds: 3)),
+                        );
+                        return;
+                      }
+
                       await FirebaseAuth.instance.verifyPhoneNumber(
                         phoneNumber: countryController.text+phone,
                         verificationCompleted: (PhoneAuthCredential credential) {},

@@ -60,7 +60,14 @@ class CommunityData extends State<CommunityScreen> {
                 margin: const EdgeInsets.only(top: 20.0),
                 child: FloatingActionButton(
                   heroTag: "BTN-19",
+                  // added empty comm check
                   onPressed: () async {
+                    if(communityName.text.isEmpty){
+                      ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text('Please enter the community name'),duration: Duration(seconds: 3))
+                      );
+                      return;
+                    }
                     providerCommunity.addCommunity(communityName.text);
                     Navigator.pop(context);
                   },
