@@ -214,7 +214,22 @@ class ExpenseData extends State<ExpenseScreen> {
                           );
                           return;
                         }
-                        providerCommunity.addExpense(objectDropDown, providerCommunity.user!.name, int.parse(amountInvolved.text), dateController.text, description.text,communityDropDown);
+                        int amount = int.parse(amountInvolved.text);
+                        if(amount > 100000000) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(content: Text('Amount is too high! Please check and try again!'),duration: Duration(seconds: 3),),
+                          );
+                          return;
+                        }
+
+                        if(description.text.length > 15) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(content: Text('Description is too long! Try describing your expense in lesser characters!'),duration: Duration(seconds: 3),),
+                          );
+                          return;
+                        }
+
+                        providerCommunity.addExpense(objectDropDown, providerCommunity.user!.name, amount, dateController.text, description.text,communityDropDown);
                         Navigator.pop(context);
                       },
                       child: const Icon(Icons.check),
