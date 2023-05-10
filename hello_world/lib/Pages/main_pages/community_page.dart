@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:hello_world/Pages/main_pages/object_page.dart';
 import 'package:provider/provider.dart';
@@ -301,80 +303,84 @@ class _CommunityPageState extends State<CommunityPage> {
                               ),
                             ),
                             Container(
-                                height: MediaQuery.of(context).size.height * 1.5,
+                                height: 200 + max<int>((objectDataProvider.objectUnresolvedExpenseMap[widget.creatorTuple]!["Misc"]!.length + 1), (objectDataProvider.communityObjectMap[widget.creatorTuple]!.length)) * 80.0,
                                 child:
                                 TabBarView(
                                   children: [
-                                    Container(
-                                      child:
-                                      Wrap(
-                                          children: (objectDataProvider.communityObjectMap[widget.creatorTuple]!.length > 1) ?
-                                          List.of(objectDataProvider.communityObjectMap[widget.creatorTuple]!.map((e) {
-                                            if(!e.toLowerCase().contains(searchController.text.toLowerCase().trim())) {
-                                              return SizedBox(height: 0,);
-                                            }
-                                            if(e == "Misc") {
-                                              return SizedBox(height: 0,);
-                                            }
-                                            return GestureDetector(
-                                                onTap: () {
-                                                  setState(() {
+                                    SingleChildScrollView(
+                                        child:
+                                        Container(
+                                          child:
+                                          Wrap(
+                                            alignment: WrapAlignment.center,
+                                              children: (objectDataProvider.communityObjectMap[widget.creatorTuple]!.length > 1) ?
+                                              List.of(objectDataProvider.communityObjectMap[widget.creatorTuple]!.map((e) {
+                                                if(!e.toLowerCase().contains(searchController.text.toLowerCase().trim())) {
+                                                  return SizedBox(height: 0,);
+                                                }
+                                                if(e == "Misc") {
+                                                  return SizedBox(height: 0,);
+                                                }
+                                                return GestureDetector(
+                                                    onTap: () {
+                                                      setState(() {
 
-                                                    objectName = e;
-                                                  });
-                                                  Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                      builder: (context) => ObjectPage(objectName: objectName, creatorTuple: widget.creatorTuple),
-                                                    ),
-                                                  );
-                                                },
-                                                child: Column (
-                                                  children: [
-
-                                                    AnimatedContainer(
-                                                      width: 176,
-                                                      height: 150,
-                                                      margin: const EdgeInsets.symmetric(horizontal: 2, vertical: 5),
-                                                      padding: const EdgeInsets.only(left: 10.0),
-                                                      decoration: BoxDecoration(
-                                                        color: Colors.white,
-                                                        border: Border.all(
-                                                          color: Colors.green,
-                                                          width: 1.0,
+                                                        objectName = e;
+                                                      });
+                                                      Navigator.push(
+                                                        context,
+                                                        MaterialPageRoute(
+                                                          builder: (context) => ObjectPage(objectName: objectName, creatorTuple: widget.creatorTuple),
                                                         ),
-                                                        borderRadius: BorderRadius.circular(20.0),
+                                                      );
+                                                    },
+                                                    child: Column (
+                                                      children: [
 
-                                                      ),
-                                                      duration: const Duration(milliseconds: 250),
-                                                      curve: Curves.easeInOut,
-                                                      child: Object(
-                                                        name: e,
-                                                        creatorTuple: widget.creatorTuple,
-                                                      ),
-                                                    ),
-                                                    // Text(e),
-                                                  ],
+                                                        AnimatedContainer(
+                                                          width: 176,
+                                                          height: 150,
+                                                          margin: const EdgeInsets.symmetric(horizontal: 2, vertical: 5),
+                                                          padding: const EdgeInsets.only(left: 10.0),
+                                                          decoration: BoxDecoration(
+                                                            color: Colors.white,
+                                                            border: Border.all(
+                                                              color: Colors.green,
+                                                              width: 1.0,
+                                                            ),
+                                                            borderRadius: BorderRadius.circular(20.0),
+
+                                                          ),
+                                                          duration: const Duration(milliseconds: 250),
+                                                          curve: Curves.easeInOut,
+                                                          child: Object(
+                                                            name: e,
+                                                            creatorTuple: widget.creatorTuple,
+                                                          ),
+                                                        ),
+                                                        // Text(e),
+                                                      ],
+                                                    )
+                                                );
+                                              }))
+                                                  :
+                                              [
+                                                Container(
+                                                  margin: const EdgeInsets.symmetric(horizontal: 30, vertical: 50),
+                                                  child: const Text(
+                                                    "Hey there! Add your first object in this community using the Add Object button above!",
+                                                    style: TextStyle(
+                                                      fontSize: 30,
+                                                      // fontWeight: FontWeight.bold,
+                                                    )
+                                                  ),
                                                 )
-                                            );
-                                          }))
-                                              :
-                                          [
-                                            Container(
-                                              margin: const EdgeInsets.symmetric(horizontal: 30, vertical: 50),
-                                              child: const Text(
-                                                "Hey there! Add your first object in this community using the Add Object button above!",
-                                                style: TextStyle(
-                                                  fontSize: 30,
-                                                  // fontWeight: FontWeight.bold,
-                                                )
-                                              ),
-                                            )
-                                          ]
-                                        // )
-                                        // ),
-                                        // ),
-                                      ),
+                                              ]
+                                            // )
+                                            // ),
+                                            // ),
+                                          ),
+                                        ),
                                     ),
                                     Column(
                                       children: [
@@ -386,11 +392,10 @@ class _CommunityPageState extends State<CommunityPage> {
                                           ),
                                         ),
                                         SizedBox(height: 10,),
-                                        SingleChildScrollView(
-                                          child: Column(
+                                        Column(
                                             children: List.of(miscExpenses(objectDataProvider, searchController)),
                                           ),
-                                        ),
+                                        // ),
                                         if(miscExpenses(objectDataProvider, searchController).isEmpty)
                                           Column(
                                             children: [
