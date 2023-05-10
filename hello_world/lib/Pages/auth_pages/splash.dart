@@ -5,6 +5,8 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../provider/data_provider.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
+
 
 class SplashPage extends StatefulWidget {
   const SplashPage({Key? key}) : super(key: key);
@@ -69,8 +71,12 @@ class _SplashPageState extends State<SplashPage> {
   void whereToGo() async {
     var sharedPref = await SharedPreferences.getInstance();
     var userPhone = sharedPref.getString("userPhone") ?? "";
-    print("userPhone: $userPhone");
+    // print("userPhone: $userPhone");
     Timer(Duration(seconds: 2), () async {
+      bool result = await InternetConnectionChecker().hasConnection;
+      if(!result) {
+        Navigator.pushReplacementNamed(context, '/no_internet');
+      }
       if (userPhone != "") {
         DataProvider dataProvider = Provider.of<DataProvider>(context, listen: false);
         await dataProvider.getAllDetails(userPhone);
