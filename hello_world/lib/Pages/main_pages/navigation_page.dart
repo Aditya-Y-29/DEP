@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:hello_world/Pages/main_pages/community_page.dart';
 import '../../provider/data_provider.dart';
@@ -13,7 +14,7 @@ class NavigationPage extends StatefulWidget {
 class NavigationPageState extends State<NavigationPage> {
   int clickedCommunity = 0;
   String communityName = "";
-
+  Random random = Random();
   @override
   Widget build(BuildContext context) {
     final providerCommunity = Provider.of<DataProvider>(context, listen: false);
@@ -115,11 +116,15 @@ class NavigationPageState extends State<NavigationPage> {
                                   child: Row(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
                                     Expanded(
                                       child: FloatingActionButton(
-                                        heroTag: "BTN-14",
+                                        heroTag: "${random.nextInt(1000000)}",
                                         elevation: 0,
                                         onPressed: () {
 
-                                          Navigator.of(context).push(_createRoute(e));
+                                          Navigator.of(context).pushAndRemoveUntil(
+                                            _createRoute(e),
+                                            ModalRoute.withName('/home'),
+                                          );
+
                                         },
                                         child:ListTile(
                                           leading: Image.asset('${providerCommunity.extractCommunityImagePathByName(e)}',
