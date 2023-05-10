@@ -200,7 +200,7 @@ class ExpenseData extends State<ExpenseScreen> {
                     child: FloatingActionButton(
                       heroTag: "BTN-20",
                       // added checks for valid amount and date
-                      onPressed: () {
+                      onPressed: () async {
                         if(RegExp(r'[,.-]|\s').hasMatch(amountInvolved.text) || amountInvolved.text.isEmpty){
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(content: Text('Amount should be valid'),duration: Duration(seconds: 3)),
@@ -229,7 +229,27 @@ class ExpenseData extends State<ExpenseScreen> {
                           return;
                         }
 
-                        providerCommunity.addExpense(objectDropDown, providerCommunity.user!.name, amount, dateController.text, description.text,communityDropDown);
+                        // CHANGED HERE
+
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(content: Text('Adding Expenses'),duration: Duration(seconds: 8))
+                        );
+
+                        bool res=await providerCommunity.addExpense(objectDropDown, providerCommunity.user!.name, int.parse(amountInvolved.text), dateController.text, description.text,communityDropDown);
+
+                        ScaffoldMessenger.of(context).removeCurrentSnackBar();
+
+                        if(!res){
+                          ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(content: Text('Error in Adding Expense'),duration: Duration(seconds: 1))
+                          );
+                        }
+                        else{
+                          ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(content: Text('Expense Added'),duration: Duration(seconds: 1))
+                          );
+                        }
+
                         Navigator.pop(context);
                       },
                       child: const Icon(Icons.check),

@@ -68,7 +68,29 @@ class CommunityData extends State<CommunityScreen> {
                       );
                       return;
                     }
-                    providerCommunity.addCommunity(communityName.text);
+
+                    // CHANGED HERE
+
+                    ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text('Adding Community'),duration: Duration(seconds: 8))
+                    );
+
+                    bool res=await providerCommunity.addCommunity(communityName.text);
+
+                    ScaffoldMessenger.of(context).removeCurrentSnackBar();
+
+                    if(!res){
+                      ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text('Error in Adding Community'),duration: Duration(seconds: 1))
+                      );
+                    }
+                    else{
+                      ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text('Community Added'),duration: Duration(seconds: 1))
+                      );
+                    }
+
+
                     Navigator.pop(context);
                   },
                   child: const Icon(Icons.check),

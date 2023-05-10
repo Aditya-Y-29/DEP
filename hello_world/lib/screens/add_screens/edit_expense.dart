@@ -124,7 +124,7 @@ class ExpenseData extends State<EditExpenseScreen> {
                       child: FloatingActionButton(
                         heroTag: "BTN-22",
                         // added checks for empty fields
-                        onPressed: () {
+                        onPressed: () async {
                           if(RegExp(r'[,.-]').hasMatch(amountInvolved.text)){
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(content: Text('Amount should be valid'),duration: Duration(seconds: 3)),
@@ -138,7 +138,26 @@ class ExpenseData extends State<EditExpenseScreen> {
                             );
                             return;
                           }
-                          providerCommunity.updateExpense(widget.expense,amountInvolved.text,dateController.text, description.text);
+
+                          // CHANGED HERE
+                          ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(content: Text('Editing Expenses'),duration: Duration(seconds: 8))
+                          );
+
+                          bool res=await providerCommunity.updateExpense(widget.expense,amountInvolved.text,dateController.text, description.text);
+                          ScaffoldMessenger.of(context).removeCurrentSnackBar();
+
+                          if(!res){
+                            ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(content: Text('Error in Editing Expense'),duration: Duration(seconds: 1))
+                            );
+                          }
+                          else{
+                            ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(content: Text('Expense Edited'),duration: Duration(seconds: 1))
+                            );
+                          }
+
                           Navigator.pop(context);
                         },
                         child: const Icon(Icons.check),

@@ -315,9 +315,10 @@ class _CommunityInfoState extends State<CommunityInfo> {
                 onPressed: () async {
                   DataProvider dataProvider =
                   Provider.of<DataProvider>(context, listen: false);
-                  const snackbar1 = SnackBar(content: Text("Refreshing..."), duration: Duration(seconds: 8),);
+                  const snackbar1 = SnackBar(content: Text("Refreshing..."), duration: Duration(seconds: 10),);
                   ScaffoldMessenger.of(context).showSnackBar(snackbar1);
                   await dataProvider.getAllDetails(dataProvider.user!.phoneNo);
+                  ScaffoldMessenger.of(context).removeCurrentSnackBar();
                 },
                 child: Icon(Icons.sync),
               ),

@@ -176,6 +176,7 @@ class _AddMemberState extends State<AddMembers> {
             Container(
               margin: const EdgeInsets.only(bottom: 50.0, top: 10),
               child:
+              selectedContacts.isEmpty ? null :
               FloatingActionButton.extended(
                   heroTag:"BTN-3",
                   onPressed: () async {

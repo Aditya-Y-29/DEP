@@ -113,13 +113,34 @@ class ObjectData extends State<ObjectScreen> {
                       child: FloatingActionButton(
                         heroTag: "BTN-21",
                         // added checks for empty fields
-                        onPressed: () {
+                        onPressed: () async {
                           if(objectName.text.isEmpty){
                             ScaffoldMessenger.of(context).showSnackBar(
                                 const SnackBar(content: Text('Please enter the object name!'), duration: Duration(seconds: 3)));
                             return;
                           }
-                          providerCommunity.addObject(communityDropDown, objectName.text);
+
+                          // CHANGED HERE
+
+                          ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(content: Text('Adding Object'),duration: Duration(seconds: 8))
+                          );
+
+                          bool res=await providerCommunity.addObject(communityDropDown, objectName.text);
+
+                          ScaffoldMessenger.of(context).removeCurrentSnackBar();
+
+                          if(!res){
+                            ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(content: Text('Error in Adding Object'),duration: Duration(seconds: 1))
+                            );
+                          }
+                          else{
+                            ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(content: Text('Object Added'),duration: Duration(seconds: 1))
+                            );
+                          }
+
                           Navigator.pop(context);
                         },
                         child: const Icon(Icons.check),
