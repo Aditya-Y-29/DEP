@@ -95,6 +95,10 @@ class _MyVerifyState extends State<MyVerify> {
                             // Create a PhoneAuthCredential with the code
                             PhoneAuthCredential credential = PhoneAuthProvider.credential(verificationId: MySignUp.verify, smsCode: code);
 
+                            ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(content: Text('Verifying OTP'),duration: Duration(seconds: 15))
+                            );
+
                             await auth.signInWithCredential(credential);
                             // ignore: use_build_context_synchronously
                             DataProvider dataProvider = Provider.of<DataProvider>(context, listen: false);
@@ -104,6 +108,8 @@ class _MyVerifyState extends State<MyVerify> {
                             await dataProvider.addUser(MySignUp.name, MySignUp.emailId, MySignUp.phoneNo) ;
 
                             await dataProvider.getAllDetails(MySignUp.phoneNo);
+
+                            ScaffoldMessenger.of(context).removeCurrentSnackBar();
 
                             // ignore: use_build_context_synchronously
                             Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);

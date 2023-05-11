@@ -238,6 +238,10 @@ class _MySignUpState extends State<MySignUp> {
                         return;
                       }
 
+                      ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text('Sending OTP'),duration: Duration(seconds: 15))
+                      );
+
                       await FirebaseAuth.instance.verifyPhoneNumber(
                         phoneNumber: countryController.text+phone,
                         verificationCompleted: (PhoneAuthCredential credential) {},
@@ -247,6 +251,9 @@ class _MySignUpState extends State<MySignUp> {
                           MySignUp.phoneNo=phone;
                           MySignUp.emailId=email;
                           MySignUp.name=nam;
+
+                          ScaffoldMessenger.of(context).removeCurrentSnackBar();
+
                           Navigator.push(
                             context,
                             MaterialPageRoute(builder: (context) => const MyVerify()),

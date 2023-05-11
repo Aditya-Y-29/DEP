@@ -125,6 +125,10 @@ class _MyPhoneState extends State<MyPhone> {
                               return;
                             }
 
+                            ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(content: Text('Sending OTP'),duration: Duration(seconds: 15))
+                            );
+
                             await FirebaseAuth.instance.verifyPhoneNumber(
                               phoneNumber: countryController.text+phone,
                               verificationCompleted: (PhoneAuthCredential credential) {},
@@ -132,6 +136,9 @@ class _MyPhoneState extends State<MyPhone> {
                               codeSent: (String verificationId, int? resendToken) {
                                 MyPhone.verify=verificationId;
                                 MyPhone.phoneNo=phone;
+
+                                ScaffoldMessenger.of(context).removeCurrentSnackBar();
+
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(builder: (context) => const MyVerifyL()),

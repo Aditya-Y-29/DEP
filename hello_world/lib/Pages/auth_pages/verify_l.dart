@@ -96,7 +96,11 @@ class _MyVerifyLState extends State<MyVerifyL> {
                               try{
                                 // Create a PhoneAuthCredential with the code
                                 PhoneAuthCredential credential = PhoneAuthProvider.credential(verificationId: MyPhone.verify, smsCode: code);
-                                print("Code: $code");
+                                // print("Code: $code");
+
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(content: Text('Verifying OTP'),duration: Duration(seconds: 15))
+                                );
 
                                 await auth.signInWithCredential(credential);
                                 // ignore: use_build_context_synchronously
@@ -110,6 +114,9 @@ class _MyVerifyLState extends State<MyVerifyL> {
                                 if(dataProvider.user==null){
                                   return;
                                 }
+
+                                ScaffoldMessenger.of(context).removeCurrentSnackBar();
+
                                 // ignore: use_build_context_synchronously
                                 Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);
                               }
