@@ -318,7 +318,6 @@ class _CommunityPageState extends State<CommunityPage> {
                                   ],
                                 ),
                               ),
-                            ),
                             Container(
                                 height: 300 + max<int>((objectDataProvider.objectUnresolvedExpenseMap[widget.creatorTuple]!["Misc"]!.length + 1), (objectDataProvider.communityObjectMap[widget.creatorTuple]!.length)) * 80.0,
                                 child:
@@ -401,6 +400,7 @@ class _CommunityPageState extends State<CommunityPage> {
                                             ),
                                           ),
                                       ),
+                                    ),
                                       Column(
                                         children: [
                                           Text(

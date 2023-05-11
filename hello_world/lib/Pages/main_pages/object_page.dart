@@ -182,7 +182,6 @@ class _ObjectPageState extends State<ObjectPage> {
                           child: Icon(Icons.add),
                         ),
                       ),
-                    ),
                     Padding(
                       padding: const EdgeInsets.only(right: 8.0,bottom: 8),
                       child: FloatingActionButton(
@@ -196,6 +195,7 @@ class _ObjectPageState extends State<ObjectPage> {
                           ScaffoldMessenger.of(context).removeCurrentSnackBar();
                         },
                         child: Icon(Icons.sync),
+                      ),
                       ),
                     ],
                   ),
