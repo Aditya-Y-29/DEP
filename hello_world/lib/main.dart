@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:hello_world/Pages/auth_pages/splash.dart';
 import 'package:hello_world/Pages/main_pages/home_page.dart';
 import 'Pages/auth_pages/phone.dart';
+import 'Pages/main_pages/no_internet_page.dart';
 import 'provider/data_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -37,6 +38,7 @@ class MyApp extends StatelessWidget {
         routes: {
         '/home': (context) => const MyHomePage(),
         '/login': (context) => const MyPhone(),
+        '/noInternet': (context) => const NoInternetPage(),
       },
       ),
     );

@@ -7,6 +7,8 @@ import '../../components/community.dart';
 import '../add_from_pages/add_home_page_floating_button.dart';
 import '../../provider/data_provider.dart';
 import 'package:hello_world/Pages/main_pages/navigation_page.dart';
+import 'package:connectivity/connectivity.dart';
+import 'no_internet_page.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
@@ -39,19 +41,36 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     final providerCommunity = Provider.of<DataProvider>(context, listen: false);
-    return Scaffold(
+    return StreamBuilder<bool>(
+      stream: connectivityStream,
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          if (snapshot.data!) {
+            return buildScaffold(providerCommunity);
+          } else {
+            return const NoInternetPage();
+          }
+        } else {
+          return buildScaffold(providerCommunity);
+        }
+      }
+    );
+  }
+  buildScaffold(providerCommunity) {
+    return
+    Scaffold(
 
       appBar: AppBar(
         leading: IconButton(
-          icon: const Icon(
-            Icons.menu,
-            size: 30,
-          ),
-          onPressed: () {
-            Navigator.push(context,
-              MaterialPageRoute(builder: (context) => NavigationPage()),
-            );
-          }
+            icon: const Icon(
+              Icons.menu,
+              size: 30,
+            ),
+            onPressed: () {
+              Navigator.push(context,
+                MaterialPageRoute(builder: (context) => NavigationPage()),
+              );
+            }
         ),
         title: const Text("Your Communities"),
         actions: [
@@ -77,7 +96,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: CircleAvatar(
                   radius: 15,
                   // radius: kSpacingUnit.w * 10,
-                  child: Text("${providerCommunity.user?.username[0]}",style: TextStyle(fontSize: 20),),
+                  child: Text("${providerCommunity.user?.username[0]}",
+                    style: TextStyle(fontSize: 20),),
                 ),
               )
           )
@@ -89,10 +109,11 @@ class _MyHomePageState extends State<MyHomePage> {
               child: SingleChildScrollView(
                   child: Column(
                     children: [
-                      Container (
+                      Container(
                         height: 100,
                         width: 300,
-                        margin: const EdgeInsets.only(left: 30, right: 30, top: 20, bottom: 20),
+                        margin: const EdgeInsets.only(
+                            left: 30, right: 30, top: 20, bottom: 20),
                         padding: const EdgeInsets.all(10),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
@@ -127,7 +148,8 @@ class _MyHomePageState extends State<MyHomePage> {
                                         Navigator.push(
                                           context,
                                           MaterialPageRoute(
-                                            builder: (context) => AddFromHomePage(selectedPage: 0),
+                                            builder: (context) =>
+                                                AddFromHomePage(selectedPage: 0),
                                           ),
                                         );
                                       },
@@ -157,14 +179,16 @@ class _MyHomePageState extends State<MyHomePage> {
                                           Navigator.push(
                                             context,
                                             MaterialPageRoute(
-                                              builder: (context) => AddFromHomePage(selectedPage: 1),
+                                              builder: (context) =>
+                                                  AddFromHomePage(
+                                                      selectedPage: 1),
                                             ),
                                           );
                                         },
                                         backgroundColor: Colors.green,
                                         child: Container(
                                           margin: const EdgeInsets.all(5),
-                                          child:  Row(
+                                          child: Row(
                                             children: const [
                                               Text("+"),
                                               Icon(Icons.grid_view),
@@ -195,14 +219,16 @@ class _MyHomePageState extends State<MyHomePage> {
                                           Navigator.push(
                                             context,
                                             MaterialPageRoute(
-                                              builder: (context) => AddFromHomePage(selectedPage: 2),
+                                              builder: (context) =>
+                                                  AddFromHomePage(
+                                                      selectedPage: 2),
                                             ),
                                           );
                                         },
                                         backgroundColor: Colors.green,
                                         child: Container(
                                           margin: const EdgeInsets.all(8),
-                                          child:  Row(
+                                          child: Row(
                                             children: const [
                                               Text("+"),
                                               Icon(Icons.currency_rupee_outlined),
@@ -225,88 +251,97 @@ class _MyHomePageState extends State<MyHomePage> {
                         ),
                       ),
                       Container(
-                        margin: const EdgeInsets.only(left: 30, right: 30, bottom: 20),
+                        margin: const EdgeInsets.only(
+                            left: 30, right: 30, bottom: 20),
                         child:
-                          TextField(
-                            decoration: InputDecoration(
-                              hintText: "Search",
-                              prefixIcon: Icon(Icons.search),
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(25),
-                              ),
+                        TextField(
+                          decoration: InputDecoration(
+                            hintText: "Search",
+                            prefixIcon: Icon(Icons.search),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(25),
                             ),
-                            controller: searchController,
-                            onChanged: (value) {
-                              setState(() {
-                                // clickedCommunity = 0;
-                                communityName = "";
-                              });
-                            },
                           ),
+                          controller: searchController,
+                          onChanged: (value) {
+                            setState(() {
+                              // clickedCommunity = 0;
+                              communityName = "";
+                            });
+                          },
+                        ),
                       ),
                       Column(
-                        children:
-                            communityDataProvider.communities.isEmpty ? [
-                              Container(
-                                  margin: const EdgeInsets.symmetric(horizontal: 30, vertical: 100),
-                                  child: Text("Hey there! Welcome to UtilMan! Add your first community using the Add Community button above!", style: TextStyle(fontSize: 30),)
-                              )
-                            ] :
+                          children:
+                          communityDataProvider.communities.isEmpty ? [
+                            Container(
+                                margin: const EdgeInsets.symmetric(
+                                    horizontal: 30, vertical: 100),
+                                child: Text(
+                                  "Hey there! Welcome to UtilMan! Add your first community using the Add Community button above!",
+                                  style: TextStyle(fontSize: 30),)
+                            )
+                          ] :
                           List.of(communityDataProvider.communities.map((e) {
-                                  if(!e.toLowerCase().contains(searchController.text.toLowerCase().trim())) {
-                                    return SizedBox(height: 0,);
-                                  }
-                                  // int k = communityDataProvider.communities.indexOf(e)+1;
-                                  return GestureDetector(
-                                      onTap: () {
-                                        setState(() {
-                                          // int temp = 1 << (k-1);
-                                          // if(clickedCommunity >> (k-1) & 1 == 1)
-                                          //   clickedCommunity = clickedCommunity ^ temp;
-                                          // else{
-                                          //   clickedCommunity = 0;
-                                          //   clickedCommunity = clickedCommunity | temp;
-                                          // }
-                                          communityName = e;
-                                        });
-                                        Navigator.of(context).push(_createRoute(communityName));
-
-                                      },
-                                      child: AnimatedContainer(
-                                        width: 340,
-                                        height: 100,
-                                        margin: const EdgeInsets.symmetric(horizontal: 4.0, vertical: 4.0),
-                                        padding: const EdgeInsets.only(top: 25.0, bottom: 5.0, left: 10.0, right: 5.0),
-                                        decoration: BoxDecoration(
-                                          color: Colors.white,
-                                          border: Border.all(
-                                            color: Colors.green,
-                                            width: 1.0,
-                                          ),
-                                          borderRadius: BorderRadius.circular(10.0),
-                                          // boxShadow: const [
-                                          //   BoxShadow(
-                                          //     color: Colors.grey,
-                                          //     blurRadius: 15.0, // soften the shadow
-                                          //     spreadRadius: 1.0, //extend the shadow
-                                          //     offset: Offset(
-                                          //       1.0, // Move to right 5  horizontally
-                                          //       1.0, // Move to bottom 5 Vertically
-                                          //     ),
-                                          //   )
-                                          // ],
-                                        ),
-                                        duration: const Duration(milliseconds: 250),
-                                        curve: Curves.easeInOut,
-                                        child: Community(
-                                          creatorTuple: e,
-                                        ),
-                                      )
-                                  );
-                                })
-                              )
+                            if (!e.toLowerCase().contains(
+                                searchController.text.toLowerCase().trim())) {
+                              return SizedBox(height: 0,);
+                            }
+                            // int k = communityDataProvider.communities.indexOf(e)+1;
+                            return GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    // int temp = 1 << (k-1);
+                                    // if(clickedCommunity >> (k-1) & 1 == 1)
+                                    //   clickedCommunity = clickedCommunity ^ temp;
+                                    // else{
+                                    //   clickedCommunity = 0;
+                                    //   clickedCommunity = clickedCommunity | temp;
+                                    // }
+                                    communityName = e;
+                                  });
+                                  Navigator.of(context).push(
+                                      _createRoute(communityName));
+                                },
+                                child: AnimatedContainer(
+                                  width: 340,
+                                  height: 100,
+                                  margin: const EdgeInsets.symmetric(
+                                      horizontal: 4.0, vertical: 4.0),
+                                  padding: const EdgeInsets.only(top: 25.0,
+                                      bottom: 5.0,
+                                      left: 10.0,
+                                      right: 5.0),
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    border: Border.all(
+                                      color: Colors.green,
+                                      width: 1.0,
+                                    ),
+                                    borderRadius: BorderRadius.circular(10.0),
+                                    // boxShadow: const [
+                                    //   BoxShadow(
+                                    //     color: Colors.grey,
+                                    //     blurRadius: 15.0, // soften the shadow
+                                    //     spreadRadius: 1.0, //extend the shadow
+                                    //     offset: Offset(
+                                    //       1.0, // Move to right 5  horizontally
+                                    //       1.0, // Move to bottom 5 Vertically
+                                    //     ),
+                                    //   )
+                                    // ],
+                                  ),
+                                  duration: const Duration(milliseconds: 250),
+                                  curve: Curves.easeInOut,
+                                  child: Community(
+                                    creatorTuple: e,
+                                  ),
+                                )
+                            );
+                          })
                           )
-                        // ),
+                      )
+                      // ),
                       // )
                     ],
                   )
@@ -321,9 +356,9 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[
-            SizedBox(width: 16.0,height: 10,),
+            SizedBox(width: 16.0, height: 10,),
             Padding(
-              padding: const EdgeInsets.only(right: 8.0,bottom: 8,top: 4),
+              padding: const EdgeInsets.only(right: 8.0, bottom: 8, top: 4),
               child: FloatingActionButton(
                 heroTag: "BTN-12",
                 onPressed: () async {
@@ -343,6 +378,12 @@ class _MyHomePageState extends State<MyHomePage> {
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
   }
+
+  Stream<bool> get connectivityStream =>
+      Connectivity().onConnectivityChanged.map((ConnectivityResult result) {
+        return result != ConnectivityResult.none;
+      });
+
 }
 
 Route _createRoute(String communityName) {
