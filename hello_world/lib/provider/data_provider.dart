@@ -376,7 +376,7 @@ class DataProvider extends ChangeNotifier {
   void deleteState() {
     user = null;
     allUserPhones = [];
-    communityMembersMap = {};
+    // communityMembersMap = {};
 
     communitiesdb = [];
     objectUnresolvedExpenseMapdb = {};

@@ -303,7 +303,7 @@ class _CommunityPageState extends State<CommunityPage> {
                               ),
                             ),
                             Container(
-                                height: 200 + max<int>((objectDataProvider.objectUnresolvedExpenseMap[widget.creatorTuple]!["Misc"]!.length + 1), (objectDataProvider.communityObjectMap[widget.creatorTuple]!.length)) * 80.0,
+                                height: 300 + max<int>((objectDataProvider.objectUnresolvedExpenseMap[widget.creatorTuple]!["Misc"]!.length + 1), (objectDataProvider.communityObjectMap[widget.creatorTuple]!.length)) * 80.0,
                                 child:
                                 TabBarView(
                                   children: [
