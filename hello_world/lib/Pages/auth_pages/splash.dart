@@ -90,10 +90,17 @@ class _SplashPageState extends State<SplashPage> {
     var sharedPref = await SharedPreferences.getInstance();
     var userPhone = sharedPref.getString("userPhone") ?? "";
     // print("userPhone: $userPhone");
-    Timer(Duration(seconds: 2), () async {
+    Timer(Duration(seconds: 4), () async {
       if (userPhone != "") {
         DataProvider dataProvider = Provider.of<DataProvider>(context, listen: false);
-        await dataProvider.getAllDetails(userPhone);
+        try{
+          await dataProvider.getAllDetails(userPhone).timeout(const Duration(seconds: 3));
+        } on TimeoutException catch (e) {
+          Navigator.pushReplacementNamed(context, '/noInternet');
+        } on Error catch (e) {
+          print(e);
+        }
+        // await dataProvider.getAllDetails(userPhone);
         Navigator.pushReplacementNamed(context, '/home');
       } else {
         Navigator.pushReplacementNamed(context, '/login');

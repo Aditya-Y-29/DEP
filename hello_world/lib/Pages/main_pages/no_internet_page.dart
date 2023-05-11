@@ -24,6 +24,7 @@ class _NoInternetPageState extends State<NoInternetPage> {
                   Icons.wifi_off,
                   size: 45,
                   color: Colors.green,),
+                SizedBox(width: 10,),
                 Text(
                   "No Internet",
                   style: TextStyle(
